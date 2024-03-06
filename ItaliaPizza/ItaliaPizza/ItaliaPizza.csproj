@@ -61,6 +61,9 @@
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
+      <DependentUpon>RegisterClientView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,6 +121,12 @@
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
     <Folder Include="UserInterfaceLayer\OrdersModule\" />
     <Folder Include="UserInterfaceLayer\ProductsModule\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\PizzaBanner.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
