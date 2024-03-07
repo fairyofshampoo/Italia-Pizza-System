@@ -55,8 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegister.xaml.cs">
-      <DependentUpon>SupplierRegister.xaml</DependentUpon>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
+      <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -76,7 +76,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegister.xaml">
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Images\PizzaBanner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\Supplier.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,9 +18,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// <summary>
     /// Interaction logic for SupplierRegister.xaml
     /// </summary>
-    public partial class SupplierRegister : Page
+    public partial class SupplierRegisterView : Page
     {
-        public SupplierRegister()
+        public SupplierRegisterView()
         {
             InitializeComponent();
         }
