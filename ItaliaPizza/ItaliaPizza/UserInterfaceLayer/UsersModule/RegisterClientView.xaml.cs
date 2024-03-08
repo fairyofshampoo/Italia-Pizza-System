@@ -15,14 +15,35 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Interaction logic for RegisterClientView.xaml
-    /// </summary>
     public partial class RegisterClientView : Page
     {
+
+        private String re
+
         public RegisterClientView()
         {
             InitializeComponent();
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (registerClient())
+            {
+                //Mostrar mensaje de éxito
+            }
+        }
+
+        private bool RegisterClient()
+        {
+
+        }
+
+        private bool AreDataValid()
+        {
+            bool emailValidation = IsEmailVerified();
+            bool clientDataValidation = ValidationClientData();
+            return emailValidation && clientDataValidation;
+        }
+
     }
 }

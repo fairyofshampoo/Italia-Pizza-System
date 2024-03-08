@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".5" Stretch="UniformToFill"/>
+            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
 
             <Grid
                 Grid.Row="0"
@@ -27,10 +27,8 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="27"/>
-
-
                 </Grid.RowDefinitions>
-                
+
                 <Label
                     Grid.Row="1"
                     Content="Registrar Cliente"
@@ -40,7 +38,10 @@
                     FontFamily="Times New Roman"
                     FontSize="30"
                     Margin="40,0,0,0" Height="44" Width="220"/>
-                
+
+                <Canvas HorizontalAlignment="Center" Grid.Row="2">
+                    <Line X1="-170" Y1="-10" X2="35" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-185" Canvas.Top="4"/>
+                </Canvas>
             </Grid>
 
 
@@ -107,6 +108,17 @@
                         </Border>
 
                         <Label
+                            x:Name="lblNameError"
+                            Grid.Row = "1"
+                            Grid.Column = "1"
+                            FontSize = "8"
+                            Foreground = "Red"
+                            VerticalAlignment = "Top"
+                            Margin="0,32,0,0"
+                            Content="El nombre es incorrecto"
+                            Visibility="Collapsed"/>
+
+                        <Label
                             Grid.Row = "0"
                             Grid.Column = "2"
                             FontSize = "14"
@@ -124,7 +136,7 @@
                                 Width="200" Height="35"
                                 Grid.Row="1" Grid.Column="2"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtFirstName"
+                            <TextBox x:Name="txtMiddleName"
                                          FontSize="10"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
@@ -132,6 +144,17 @@
                                          BorderThickness="0"
                                          TextChanged="TypingGamerTag" />
                         </Border>
+
+                        <Label
+                            x:Name="lblMiddleNameError"
+                            Grid.Row = "1"
+                            Grid.Column = "2"
+                            FontSize = "8"
+                            Foreground = "Red"
+                            VerticalAlignment = "Top"
+                            Margin="0,32,0,0"
+                            Content="El primer apellido es incorrecto"
+                            Visibility="Collapsed"/>
 
 
                         <Label
@@ -152,7 +175,7 @@
                                 Width="200" Height="35"
                                 Grid.Row="1" Grid.Column="3"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtSecondName"
+                            <TextBox x:Name="txtLastName"
                                          FontSize="10"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
@@ -161,6 +184,17 @@
                                          TextChanged="TypingGamerTag" />
                         </Border>
 
+                        <Label
+                            x:Name="lblLastNameError"
+                            Grid.Row = "1"
+                            Grid.Column = "3"
+                            FontSize = "8"
+                            Foreground = "Red"
+                            VerticalAlignment = "Top"
+                            Margin="0,32,0,0"
+                            Content="El segundo apellido es incorrecto"
+                            Visibility="Collapsed"/>
+                        
                         <Label
                             Grid.Row = "2"
                             Grid.Column = "1"
@@ -189,6 +223,17 @@
                         </Border>
 
                         <Label
+                            x:Name="lblCellPhoneError"
+                            Grid.Row = "3"
+                            Grid.Column = "1"
+                            FontSize = "8"
+                            Foreground = "Red"
+                            VerticalAlignment = "Top"
+                            Margin="0,32,0,0"
+                            Content="El número de teléfono es incorrecto"
+                            Visibility="Collapsed"/>
+
+                        <Label
                             Grid.Row = "2"
                             Grid.Column = "2"
                             FontSize = "16"
@@ -215,6 +260,17 @@
                                          TextChanged="TypingGamerTag" />
                         </Border>
 
+                        <Label
+                            x:Name="lblEmailError"
+                            Grid.Row = "3"
+                            Grid.Column = "2"
+                            FontSize = "8"
+                            Foreground = "Red"
+                            VerticalAlignment = "Top"
+                            Margin="0,32,0,0"
+                            Content="El correo electrónico es incorrecto"
+                            Visibility="Collapsed"/>
+
                     </Grid>
 
                 </Border>
@@ -227,7 +283,7 @@
                         FontWeight="Bold"
                         Cursor="Hand"
                         Margin="0,20,40,0" 
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right" Click="btnSave_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#FF7B00"/>
