@@ -80,6 +80,7 @@
     <Compile Include="DataLayer\Client.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\ClientDAO.cs" />
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
@@ -125,6 +126,7 @@
     <Compile Include="DataLayer\Supplier.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\SupplierDAO.cs" />
     <Compile Include="DataLayer\SupplierOrder.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
