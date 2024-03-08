@@ -1,0 +1,1233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ItaliaPizzaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="user" />
+          </Key>
+          <Property Name="user" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="isAdmin" Type="tinyint" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="addressId" />
+          </Key>
+          <Property Name="addressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="postalCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="colony" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="clientId" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cashin">
+          <Key>
+            <PropertyRef Name="cashinId" />
+          </Key>
+          <Property Name="cashinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cashout">
+          <Key>
+            <PropertyRef Name="cashoutId" />
+          </Key>
+          <Property Name="cashoutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cashoutType" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secondLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dealer">
+          <Key>
+            <PropertyRef Name="phone" />
+          </Key>
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secondLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeOrderProduct">
+          <Key>
+            <PropertyRef Name="OrderProductId" />
+          </Key>
+          <Property Name="OrderProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="homeOrderId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="addressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HouseOrder">
+          <Key>
+            <PropertyRef Name="houseOrderId" />
+          </Key>
+          <Property Name="houseOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="clientName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dealerId" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InternalOrder">
+          <Key>
+            <PropertyRef Name="internalOrderId" />
+          </Key>
+          <Property Name="internalOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="waiterName" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InternalOrderProduct">
+          <Key>
+            <PropertyRef Name="internalOrderProductId" />
+          </Key>
+          <Property Name="internalOrderProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="internalOrderId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productCode" />
+          </Key>
+          <Property Name="productCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="isExternal" Type="tinyint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="recipeCode" />
+          </Key>
+          <Property Name="recipeCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecipeSupply">
+          <Key>
+            <PropertyRef Name="recipeSupplyCode" />
+          </Key>
+          <Property Name="recipeSupplyCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplyAmount" Type="int" Nullable="false" />
+          <Property Name="recipeID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="supplyArea" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="companyName" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="manager" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplierOrder">
+          <Key>
+            <PropertyRef Name="orderCode" />
+          </Key>
+          <Property Name="orderCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="supplierId" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="expiryDate" Type="date" Nullable="false" />
+          <Property Name="measurementUnit" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplyOrder">
+          <Key>
+            <PropertyRef Name="supplyCode" />
+          </Key>
+          <Property Name="supplyCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantityOrdered" Type="int" Nullable="false" />
+          <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="supplierOrderId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__RecipeSup__recip__02084FDA">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="recipeCode" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="recipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecipeSup__suppl__02FC7413">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="supplyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressId">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="addressId" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="addressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientAddress">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientName">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="HouseOrder">
+              <PropertyRef Name="clientName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealerId">
+          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dealer">
+              <PropertyRef Name="phone" />
+            </Principal>
+            <Dependent Role="HouseOrder">
+              <PropertyRef Name="dealerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeOrderId">
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseOrder">
+              <PropertyRef Name="houseOrderId" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="homeOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InternalOrderId">
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1" />
+          <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InternalOrder">
+              <PropertyRef Name="internalOrderId" />
+            </Principal>
+            <Dependent Role="InternalOrderProduct">
+              <PropertyRef Name="internalOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="InternalOrderProduct">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductId_Recipe">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierOrder_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="SupplierOrder">
+              <PropertyRef Name="supplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierOrderId">
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+          <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierOrder">
+              <PropertyRef Name="orderCode" />
+            </Principal>
+            <Dependent Role="SupplyOrder">
+              <PropertyRef Name="supplierOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplyId">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="SupplyOrder">
+              <PropertyRef Name="supplyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_waiterName">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="waiterName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaiterNameForOrder">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="waiterName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ItaliaPizzaDBModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cashin" EntityType="Self.Cashin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cashout" EntityType="Self.Cashout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dealer" EntityType="Self.Dealer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeOrderProduct" EntityType="Self.HomeOrderProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseOrder" EntityType="Self.HouseOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InternalOrder" EntityType="Self.InternalOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InternalOrderProduct" EntityType="Self.InternalOrderProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecipeSupply" EntityType="Self.RecipeSupply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecipeSup__suppl__02FC7413" Association="Self.FK__RecipeSup__suppl__02FC7413">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressId" Association="Self.FK_AddressId">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientAddress" Association="Self.FK_ClientAddress">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealerId" Association="Self.FK_DealerId">
+            <End Role="Dealer" EntitySet="Dealer" />
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InternalOrderId" Association="Self.FK_InternalOrderId">
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductId" Association="Self.FK_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductId_Recipe" Association="Self.FK_ProductId_Recipe">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierOrder_Supplier" Association="Self.FK_SupplierOrder_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierOrderId" Association="Self.FK_SupplierOrderId">
+            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_waiterName" Association="Self.FK_waiterName">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaiterNameForOrder" Association="Self.FK_WaiterNameForOrder">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ItaliaPizzaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="user" />
+          </Key>
+          <Property Name="user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isAdmin" Type="Byte" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Account_Employee" FromRole="Account" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="addressId" />
+          </Key>
+          <Property Name="addressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="postalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="clientId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_AddressId" FromRole="Address" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientAddress" FromRole="Address" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Cashin">
+          <Key>
+            <PropertyRef Name="cashinId" />
+          </Key>
+          <Property Name="cashinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cashout">
+          <Key>
+            <PropertyRef Name="cashoutId" />
+          </Key>
+          <Property Name="cashoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cashoutType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secondLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
+          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HouseOrder" />
+        </EntityType>
+        <EntityType Name="Dealer">
+          <Key>
+            <PropertyRef Name="phone" />
+          </Key>
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_DealerId" FromRole="Dealer" ToRole="HouseOrder" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secondLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Employee" FromRole="Employee" ToRole="Account" />
+          <NavigationProperty Name="InternalOrder" Relationship="Self.FK_waiterName" FromRole="Employee" ToRole="InternalOrder" />
+          <NavigationProperty Name="InternalOrder1" Relationship="Self.FK_WaiterNameForOrder" FromRole="Employee" ToRole="InternalOrder" />
+        </EntityType>
+        <EntityType Name="HomeOrderProduct">
+          <Key>
+            <PropertyRef Name="OrderProductId" />
+          </Key>
+          <Property Name="OrderProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="homeOrderId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="addressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_AddressId" FromRole="HomeOrderProduct" ToRole="Address" />
+          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrderProduct" ToRole="HouseOrder" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_HomeProductId" FromRole="HomeOrderProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="HouseOrder">
+          <Key>
+            <PropertyRef Name="houseOrderId" />
+          </Key>
+          <Property Name="houseOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="clientName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dealerId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientName" FromRole="HouseOrder" ToRole="Client" />
+          <NavigationProperty Name="Dealer" Relationship="Self.FK_DealerId" FromRole="HouseOrder" ToRole="Dealer" />
+          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_HomeOrderId" FromRole="HouseOrder" ToRole="HomeOrderProduct" />
+        </EntityType>
+        <EntityType Name="InternalOrder">
+          <Key>
+            <PropertyRef Name="internalOrderId" />
+          </Key>
+          <Property Name="internalOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="waiterName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_waiterName" FromRole="InternalOrder" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_WaiterNameForOrder" FromRole="InternalOrder" ToRole="Employee" />
+          <NavigationProperty Name="InternalOrderProduct" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrder" ToRole="InternalOrderProduct" />
+        </EntityType>
+        <EntityType Name="InternalOrderProduct">
+          <Key>
+            <PropertyRef Name="internalOrderProductId" />
+          </Key>
+          <Property Name="internalOrderProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="internalOrderId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="InternalOrder" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrderProduct" ToRole="InternalOrder" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductId" FromRole="InternalOrderProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productCode" />
+          </Key>
+          <Property Name="productCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isExternal" Type="Byte" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_HomeProductId" FromRole="Product" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="InternalOrderProduct" Relationship="Self.FK_ProductId" FromRole="Product" ToRole="InternalOrderProduct" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_ProductId_Recipe" FromRole="Product" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="recipeCode" />
+          </Key>
+          <Property Name="recipeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductId_Recipe" FromRole="Recipe" ToRole="Product" />
+          <NavigationProperty Name="RecipeSupply" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="Recipe" ToRole="RecipeSupply" />
+        </EntityType>
+        <EntityType Name="RecipeSupply">
+          <Key>
+            <PropertyRef Name="recipeSupplyCode" />
+          </Key>
+          <Property Name="recipeSupplyCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplyAmount" Type="Int32" Nullable="false" />
+          <Property Name="recipeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="RecipeSupply" ToRole="Recipe" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="RecipeSupply" ToRole="Supply" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplyArea" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="companyName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="SupplierOrder" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="Supplier" ToRole="SupplierOrder" />
+        </EntityType>
+        <EntityType Name="SupplierOrder">
+          <Key>
+            <PropertyRef Name="orderCode" />
+          </Key>
+          <Property Name="orderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="supplierId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="SupplierOrder" ToRole="Supplier" />
+          <NavigationProperty Name="SupplyOrder" Relationship="Self.FK_SupplierOrderId" FromRole="SupplierOrder" ToRole="SupplyOrder" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="expiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="measurementUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RecipeSupply" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
+          <NavigationProperty Name="SupplyOrder" Relationship="Self.FK_SupplyId" FromRole="Supply" ToRole="SupplyOrder" />
+        </EntityType>
+        <EntityType Name="SupplyOrder">
+          <Key>
+            <PropertyRef Name="supplyCode" />
+          </Key>
+          <Property Name="supplyCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantityOrdered" Type="Int32" Nullable="false" />
+          <Property Name="supplyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplierOrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SupplierOrder" Relationship="Self.FK_SupplierOrderId" FromRole="SupplyOrder" ToRole="SupplierOrder" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_SupplyId" FromRole="SupplyOrder" ToRole="Supply" />
+        </EntityType>
+        <Association Name="FK_Account_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressId">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="addressId" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="addressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientAddress">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientName">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="HouseOrder">
+              <PropertyRef Name="clientName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealerId">
+          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dealer">
+              <PropertyRef Name="phone" />
+            </Principal>
+            <Dependent Role="HouseOrder">
+              <PropertyRef Name="dealerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_waiterName">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="waiterName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaiterNameForOrder">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="waiterName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeOrderId">
+          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseOrder">
+              <PropertyRef Name="houseOrderId" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="homeOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="HomeOrderProduct">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InternalOrderId">
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1" />
+          <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InternalOrder">
+              <PropertyRef Name="internalOrderId" />
+            </Principal>
+            <Dependent Role="InternalOrderProduct">
+              <PropertyRef Name="internalOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="InternalOrderProduct">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductId_Recipe">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productCode" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecipeSup__recip__02084FDA">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="recipeCode" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="recipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecipeSup__suppl__02FC7413">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="supplyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierOrder_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="SupplierOrder">
+              <PropertyRef Name="supplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierOrderId">
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+          <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierOrder">
+              <PropertyRef Name="orderCode" />
+            </Principal>
+            <Dependent Role="SupplyOrder">
+              <PropertyRef Name="supplierOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplyId">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="SupplyOrder">
+              <PropertyRef Name="supplyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ItaliaPizzaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="Cashin" EntityType="Self.Cashin" />
+          <EntitySet Name="Cashout" EntityType="Self.Cashout" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Dealer" EntityType="Self.Dealer" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="HomeOrderProduct" EntityType="Self.HomeOrderProduct" />
+          <EntitySet Name="HouseOrder" EntityType="Self.HouseOrder" />
+          <EntitySet Name="InternalOrder" EntityType="Self.InternalOrder" />
+          <EntitySet Name="InternalOrderProduct" EntityType="Self.InternalOrderProduct" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" />
+          <EntitySet Name="RecipeSupply" EntityType="Self.RecipeSupply" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" />
+          <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" />
+          <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressId" Association="Self.FK_AddressId">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientAddress" Association="Self.FK_ClientAddress">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealerId" Association="Self.FK_DealerId">
+            <End Role="Dealer" EntitySet="Dealer" />
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_waiterName" Association="Self.FK_waiterName">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaiterNameForOrder" Association="Self.FK_WaiterNameForOrder">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
+            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InternalOrderId" Association="Self.FK_InternalOrderId">
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductId" Association="Self.FK_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductId_Recipe" Association="Self.FK_ProductId_Recipe">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecipeSup__suppl__02FC7413" Association="Self.FK__RecipeSup__suppl__02FC7413">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierOrder_Supplier" Association="Self.FK_SupplierOrder_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierOrderId" Association="Self.FK_SupplierOrderId">
+            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ItaliaPizzaDBModelStoreContainer" CdmEntityContainer="ItaliaPizzaDBEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="addressId" ColumnName="addressId" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="colony" ColumnName="colony" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cashin">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Cashin">
+              <MappingFragment StoreEntitySet="Cashin">
+                <ScalarProperty Name="cashinId" ColumnName="cashinId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cashout">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Cashout">
+              <MappingFragment StoreEntitySet="Cashout">
+                <ScalarProperty Name="cashoutId" ColumnName="cashoutId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="cashoutType" ColumnName="cashoutType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
+                <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dealer">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Dealer">
+              <MappingFragment StoreEntitySet="Dealer">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
+                <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeOrderProduct">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrderProduct">
+              <MappingFragment StoreEntitySet="HomeOrderProduct">
+                <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="homeOrderId" ColumnName="homeOrderId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="addressId" ColumnName="addressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseOrder">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HouseOrder">
+              <MappingFragment StoreEntitySet="HouseOrder">
+                <ScalarProperty Name="houseOrderId" ColumnName="houseOrderId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="dealerId" ColumnName="dealerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InternalOrder">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.InternalOrder">
+              <MappingFragment StoreEntitySet="InternalOrder">
+                <ScalarProperty Name="internalOrderId" ColumnName="internalOrderId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="waiterName" ColumnName="waiterName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InternalOrderProduct">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.InternalOrderProduct">
+              <MappingFragment StoreEntitySet="InternalOrderProduct">
+                <ScalarProperty Name="internalOrderProductId" ColumnName="internalOrderProductId" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="internalOrderId" ColumnName="internalOrderId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="isExternal" ColumnName="isExternal" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipe">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipe">
+                <ScalarProperty Name="recipeCode" ColumnName="recipeCode" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecipeSupply">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.RecipeSupply">
+              <MappingFragment StoreEntitySet="RecipeSupply">
+                <ScalarProperty Name="recipeSupplyCode" ColumnName="recipeSupplyCode" />
+                <ScalarProperty Name="supplyAmount" ColumnName="supplyAmount" />
+                <ScalarProperty Name="recipeID" ColumnName="recipeID" />
+                <ScalarProperty Name="supplyId" ColumnName="supplyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="supplyArea" ColumnName="supplyArea" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierOrder">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplierOrder">
+              <MappingFragment StoreEntitySet="SupplierOrder">
+                <ScalarProperty Name="orderCode" ColumnName="orderCode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supply">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Supply">
+              <MappingFragment StoreEntitySet="Supply">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="expiryDate" ColumnName="expiryDate" />
+                <ScalarProperty Name="measurementUnit" ColumnName="measurementUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplyOrder">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplyOrder">
+              <MappingFragment StoreEntitySet="SupplyOrder">
+                <ScalarProperty Name="supplyCode" ColumnName="supplyCode" />
+                <ScalarProperty Name="quantityOrdered" ColumnName="quantityOrdered" />
+                <ScalarProperty Name="supplyId" ColumnName="supplyId" />
+                <ScalarProperty Name="supplierOrderId" ColumnName="supplierOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
