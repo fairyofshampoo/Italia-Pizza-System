@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class RegisterClientView : Page
     {
 
-        private String re
+        
 
         public RegisterClientView()
         {
@@ -40,10 +41,36 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private bool AreDataValid()
         {
-            bool emailValidation = IsEmailVerified();
+            bool emailValidation = IsEmailValid();
             bool clientDataValidation = ValidationClientData();
             return emailValidation && clientDataValidation;
         }
 
+        private bool IsEmailValid()
+        {
+            String email = txtEmail.Text;
+            bool isEmailValid = ApplicationLayer.Validation.IsEmailValid(email);
+            bool isEmailAlreadyExisting = 
+            return isEmailValid;
+        }
+
+        private bool ValidationClientData()
+        {
+            String name = txtName.Text;
+            String middleName = txtMiddleName.Text;
+            String lastName = txtLastName.Text;
+
+            bool isNameValid = ApplicationLayer.Validation.IsNameValid(name);
+            bool isMiddleNameValid = ApplicationLayer.Validation.IsNameValid(middleName);
+            bool isLastNameValid = ApplicationLayer.Validation.IsNameValid(lastName);
+
+            return isNameValid && isMiddleNameValid && isLastNameValid;
+        }
+
+        private bool WasEmailRegistered()
+        {
+            
+
+        }
     }
 }
