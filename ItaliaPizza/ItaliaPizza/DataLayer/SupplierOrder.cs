@@ -17,7 +17,7 @@ namespace ItaliaPizza.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SupplierOrder()
         {
-            this.SupplyOrder = new HashSet<SupplyOrder>();
+            this.SupplyOrders = new HashSet<SupplyOrder>();
         }
     
         public int orderCode { get; set; }
@@ -29,6 +29,6 @@ namespace ItaliaPizza.DataLayer
     
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplyOrder> SupplyOrder { get; set; }
+        public virtual ICollection<SupplyOrder> SupplyOrders { get; set; }
     }
 }

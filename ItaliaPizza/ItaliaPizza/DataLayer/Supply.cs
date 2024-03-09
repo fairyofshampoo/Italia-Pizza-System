@@ -17,8 +17,8 @@ namespace ItaliaPizza.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Supply()
         {
-            this.RecipeSupply = new HashSet<RecipeSupply>();
-            this.SupplyOrder = new HashSet<SupplyOrder>();
+            this.RecipeSupplies = new HashSet<RecipeSupply>();
+            this.SupplyOrders = new HashSet<SupplyOrder>();
         }
     
         public string name { get; set; }
@@ -28,8 +28,8 @@ namespace ItaliaPizza.DataLayer
         public string measurementUnit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecipeSupply> RecipeSupply { get; set; }
+        public virtual ICollection<RecipeSupply> RecipeSupplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplyOrder> SupplyOrder { get; set; }
+        public virtual ICollection<SupplyOrder> SupplyOrders { get; set; }
     }
 }

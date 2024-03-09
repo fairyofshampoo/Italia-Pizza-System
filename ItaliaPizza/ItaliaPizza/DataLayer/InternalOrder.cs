@@ -17,7 +17,7 @@ namespace ItaliaPizza.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InternalOrder()
         {
-            this.InternalOrderProduct = new HashSet<InternalOrderProduct>();
+            this.InternalOrderProducts = new HashSet<InternalOrderProduct>();
         }
     
         public int internalOrderId { get; set; }
@@ -30,6 +30,6 @@ namespace ItaliaPizza.DataLayer
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InternalOrderProduct> InternalOrderProduct { get; set; }
+        public virtual ICollection<InternalOrderProduct> InternalOrderProducts { get; set; }
     }
 }
