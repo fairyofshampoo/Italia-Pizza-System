@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 
-namespace ItaliaPizza.DataLayer
+namespace ItaliaPizza.DataLayer.DAO
 {
     internal class ClientDAO
     {

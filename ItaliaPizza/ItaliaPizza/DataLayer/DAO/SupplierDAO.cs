@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItaliaPizza.DataLayer
+namespace ItaliaPizza.DataLayer.DAO
 {
     internal class SupplierDAO
     {
