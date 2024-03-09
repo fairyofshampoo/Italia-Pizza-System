@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>

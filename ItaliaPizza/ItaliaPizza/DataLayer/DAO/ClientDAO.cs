@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.DataLayer.DAO.Interface;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -9,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.DataLayer.DAO
 {
-    internal class ClientDAO
+    internal class ClientDAO : IClient
     {
         public bool AddClient(Client client)
         {
@@ -36,8 +37,6 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
                 
             }
-
-
             return successfulRegistration;
         }
 
@@ -50,6 +49,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 if (existingEmail != null)
                 {
                     isEmailExisting = false;
+                    ApplicationLayer.DialogManager.ShowErrorMessageBox("El correo electrónico ya ha sido registrado");
                 }
             }
             return isEmailExisting;
