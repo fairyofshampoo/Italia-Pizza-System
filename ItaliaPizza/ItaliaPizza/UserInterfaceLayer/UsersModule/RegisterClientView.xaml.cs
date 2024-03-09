@@ -39,11 +39,12 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     email = txtEmail.Text,
                 };
                 ClientDAO clientDAO = new ClientDAO();
-                clientDAO.AddClient(client);
-            }else
-            {
-
-            }
+                if (clientDAO.AddClient(client))
+                {
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado el cliente");
+                    CleanTextFields();
+                }
+            } 
         }
 
         private bool AreDataValid()
@@ -144,6 +145,15 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             lblFirstNameError.Visibility = Visibility.Collapsed;
             lblCellPhoneError.Visibility = Visibility.Collapsed;
             lblEmailError.Visibility = Visibility.Collapsed;
+        }
+
+        private void CleanTextFields()
+        {
+            txtName.Text = string.Empty;
+            txtFirstName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtCellPhone.Text = string.Empty;
         }
 
     }
