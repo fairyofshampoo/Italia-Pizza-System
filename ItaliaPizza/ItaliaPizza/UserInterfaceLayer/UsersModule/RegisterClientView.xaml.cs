@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -28,7 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (registerClient())
+            if (RegisterClient())
             {
                 //Mostrar mensaje de éxito
             }
@@ -36,7 +37,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private bool RegisterClient()
         {
-
+            
         }
 
         private bool AreDataValid()
@@ -48,10 +49,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private bool IsEmailValid()
         {
+            ClientDAO clientDAO = new ClientDAO();
             String email = txtEmail.Text;
             bool isEmailValid = ApplicationLayer.Validation.IsEmailValid(email);
-            bool isEmailAlreadyExisting = 
-            return isEmailValid;
+            bool isEmailAlreadyExisting = clientDAO.IsEmailExisting(email);
+            return isEmailValid && isEmailAlreadyExisting;
         }
 
         private bool ValidationClientData()
@@ -67,10 +69,5 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             return isNameValid && isMiddleNameValid && isLastNameValid;
         }
 
-        private bool WasEmailRegistered()
-        {
-            
-
-        }
     }
 }
