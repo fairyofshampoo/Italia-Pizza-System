@@ -20,21 +20,20 @@ namespace ItaliaPizza.DataLayer.DAO
             {
                 using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var supplyArea in supplyAreas)
-                    {
-                        supplyAreas.Add(supplyArea);
-                    }
+                    supplyAreas = databaseContext.supplyAreas.ToList();
                 }
-            } catch (SqlException)
+            }
+            catch (SqlException)
             {
                 DialogManager.ShowDataBaseErrorMessageBox();
-
-            } catch (EntityException) {
-
+            }
+            catch (EntityException)
+            {
                 DialogManager.ShowDataBaseErrorMessageBox();
             }
-            
+
             return supplyAreas;
         }
+
     }
 }
