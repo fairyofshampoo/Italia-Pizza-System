@@ -18,6 +18,7 @@ namespace ItaliaPizza.DataLayer
         public Supplier()
         {
             this.SupplierOrders = new HashSet<SupplierOrder>();
+            this.supplyAreas = new HashSet<supplyArea>();
         }
     
         public string email { get; set; }
@@ -25,10 +26,10 @@ namespace ItaliaPizza.DataLayer
         public string companyName { get; set; }
         public string manager { get; set; }
         public byte status { get; set; }
-        public Nullable<int> supplyArea { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierOrder> SupplierOrders { get; set; }
-        public virtual supplyArea supplyArea1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<supplyArea> supplyAreas { get; set; }
     }
 }
