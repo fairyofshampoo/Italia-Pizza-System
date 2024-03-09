@@ -26,6 +26,23 @@ namespace ItaliaPizza.ApplicationLayer
             return isValid && ValidateWithTimeout(name, nameRegex);
         }
 
+        public static bool IsPhoneValid(string phone)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(phone))
+            {
+                isValid = false;
+            }
+
+            var nameRegex = new Regex("^\\d{1,10}$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(phone, nameRegex);
+        }
+
+
         public static bool IsEmailValid(string email)
         {
             bool emailValidation = true;
@@ -33,7 +50,6 @@ namespace ItaliaPizza.ApplicationLayer
             int limitTime = 500;
             var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
-
             if (string.IsNullOrEmpty(email) || email.Length > maximumEmailLength)
             {
                 emailValidation = false;
@@ -63,7 +79,6 @@ namespace ItaliaPizza.ApplicationLayer
             {
                 isValid = false;
             }
-
             return isValid;
         }
 
