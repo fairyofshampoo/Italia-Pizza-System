@@ -2,13 +2,15 @@
 using ItaliaPizza.DataLayer.DAO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
+using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
     public partial class SupplierRegisterView : Page
     {
-        public ObservableCollection<supplyArea> SupplyAreas { get; set; }
+        public ObservableCollection<SupplyAreaViewModel> SupplyAreas { get; set; }
 
         public SupplierRegisterView()
         {
@@ -18,12 +20,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void SetSupplyAreaItems()
         {
-            // Obtener todas las áreas de suministro desde la base de datos
-            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO(); // Suponiendo que tienes una clase llamada DataAccess con el método GetAllSupplyAreas
+            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
+
             List<supplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
 
-            // Crear una ObservableCollection y asignarla como el origen de datos del ListBox
-            SupplyAreas = new ObservableCollection<supplyArea>(supplyAreas);
+            SupplyAreas = new ObservableCollection<SupplyAreaViewModel>(
+                supplyAreas.Select(area => new SupplyAreaViewModel { AreaName = area.area_name })
+            );
             SupplyAreaCheckboxList.ItemsSource = SupplyAreas;
         }
     }

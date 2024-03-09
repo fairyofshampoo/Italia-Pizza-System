@@ -5,76 +5,91 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.FinanceModule"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
+      d:DesignHeight="720.0" d:DesignWidth="1280.0">
 
-    <WrapPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="600">
-                <Label Content="Proveedor nuevo" Foreground="White" FontSize="40" FontFamily="Times New Roman" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
-                <Canvas HorizontalAlignment="Center">
-                    <Line X1="-170" Y1="-10" X2="170" Y2="-10" Stroke="#ff7b00" StrokeThickness="3"/>
-                </Canvas>
-                <Label Content="Complete los siguientes campos para registrar un nuevo proveedor:" Foreground="White" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" FontSize="16"></Label>
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Grid.Column="0">
-                        <Label Content="Nombre de la empresa" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
-                        <Grid Margin="20,0,0,0">
-                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Border x:Name="bdrEnterpriseName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBox x:Name="txtEnterpriseName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                            </Border>
-                        </Grid>
-                        <Label Margin="20,0,0,0" Content="Por ejemplo: Coca-Cola" FontSize="10" Foreground="LightGray"> </Label>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Vertical" Grid.Column="1">
-                        <Label Content="Nombre del representante" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
-                        <Grid Margin="20,0,0,0">
-                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Border x:Name="bdrSupplierRepresentative" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBox x:Name="txtRepresentativeName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                            </Border>
-                        </Grid>
-                        <Label Margin="20,0,0,0" Content="Por ejemplo: Juan Raúl Nuñez Mejía" FontSize="10" Foreground="LightGray"></Label>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
-                        <ListBox x:Name="SupplyAreaCheckboxList"  Margin="20,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding SupplyAreaItems}" SelectionMode="Multiple">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <CheckBox Content="{Binding SupplyAreaItems}" IsChecked="{Binding SelectedSupplyArea}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                        <Label Content="Nombre del representante" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
-                        <Grid Margin="20,0,0,0">
-                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBox x:Name="txtEmail" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                            </Border>
-                        </Grid>
-                        <Label Margin="20,0,0,0" Content="Por ejemplo: juanrnmejia@coca-cola.com" FontSize="10" Foreground="LightGray"></Label>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-            <Image Source="../Resources/Images/Supplier.png" Stretch="Uniform" Opacity=".8" Grid.Column="1"/>
-        </Grid>
-    </WrapPanel>
+                <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="600">
+                    <Label Content="Proveedor nuevo" Foreground="White" FontSize="40" FontFamily="Times New Roman" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                    <Canvas HorizontalAlignment="Center">
+                        <Line X1="-170" Y1="-10" X2="170" Y2="-10" Stroke="#ff7b00" StrokeThickness="3"/>
+                    </Canvas>
+                    <Label Content="Complete los siguientes campos para registrar un nuevo proveedor:" Foreground="White" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" FontSize="16"></Label>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <Label Content="Nombre de la empresa" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Grid Margin="20,0,0,0">
+                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtCompanyName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblCompanyHint" Margin="20,0,0,0" Content="Por ejemplo: Coca-Cola" FontSize="10" Foreground="LightGray"></Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <Label Content="Nombre del representante" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Grid Margin="20,0,0,0">
+                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Border x:Name="bdrSupplierManager" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtManagerName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblManagerHint"  Margin="20,0,0,0" Content="Por ejemplo: Juan Raúl Nuñez Mejía" FontSize="10" Foreground="LightGray"></Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+                            <Label Content="Área de abastecimiento" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Label Margin="20,0,0,0" Content="Selecciona todas las áreas que le abastece este proveedor" FontSize="10" Foreground="LightGray"></Label>
+                            <ListBox x:Name="SupplyAreaCheckboxList" Margin="20,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding SupplyAreas}" SelectionMode="Multiple">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding AreaName}" IsChecked="{Binding IsSelected}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                            <Label Content="Correo eletrónico" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Grid Margin="20,0,0,0">
+                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtEmail" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblEmailHint" Margin="20,0,0,0" Content="Por ejemplo: juanrnmejia@coca-cola.com" FontSize="10" Foreground="LightGray"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2">
+                            <Label Content="Teléfono" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Grid Margin="20,0,0,0">
+                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtPhone" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblPhoneHint" Margin="20,0,0,0" Content="Por ejemplo: 2282142649" FontSize="10" Foreground="LightGray"></Label>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <Image Source="../Resources/Images/Supplier.png" Stretch="Uniform" Opacity=".8" Grid.Column="1"/>
+            </Grid>
+        </ScrollViewer>
+    </Viewbox>
 </Page>
