@@ -14,7 +14,7 @@
 
     <Viewbox Stretch="Fill">
     <Grid Height="720" Width="1280">
-        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Source ="User Interface Layer/Users Module/LoginView.xaml" />
+        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Source ="UserInterfaceLayer/UsersModule/RegisterClientView.xaml" />
     </Grid>
     </Viewbox>
 </Window>

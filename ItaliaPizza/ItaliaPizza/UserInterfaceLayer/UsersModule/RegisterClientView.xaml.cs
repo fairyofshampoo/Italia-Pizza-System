@@ -13,15 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.DataLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class RegisterClientView : Page
     {
-
-        
-
         public RegisterClientView()
         {
             InitializeComponent();
@@ -29,15 +27,23 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (RegisterClient())
-            {
-                //Mostrar mensaje de éxito
-            }
-        }
-
-        private bool RegisterClient()
-        {
-            
+            CleanErrorsLabels();
+          //  if (AreDataValid())
+            //{
+                var client = new Client
+                {
+                    name = txtName.Text,
+                    firstLastName = txtFirstName.Text,
+                    secondLastName = txtLastName.Text,
+                    phone = txtCellPhone.Text,
+                    email = txtEmail.Text,
+                };
+                ClientDAO clientDAO = new ClientDAO();
+                clientDAO.AddClient(client);
+           // }else
+            //{
+             //   ShowErrors();
+           // }
         }
 
         private bool AreDataValid()
@@ -59,14 +65,32 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private bool ValidationClientData()
         {
             String name = txtName.Text;
-            String middleName = txtMiddleName.Text;
+            String firstName = txtFirstName.Text;
             String lastName = txtLastName.Text;
 
             bool isNameValid = ApplicationLayer.Validation.IsNameValid(name);
-            bool isMiddleNameValid = ApplicationLayer.Validation.IsNameValid(middleName);
+            bool isMiddleNameValid = ApplicationLayer.Validation.IsNameValid(firstName);
             bool isLastNameValid = ApplicationLayer.Validation.IsNameValid(lastName);
 
             return isNameValid && isMiddleNameValid && isLastNameValid;
+        }
+
+        private void ShowErrors()
+        {
+            lblNameError.Visibility = Visibility.Visible;
+            lblLastNameError.Visibility = Visibility.Visible;
+            lblFirstNameError.Visibility = Visibility.Visible;
+            lblCellPhoneError.Visibility = Visibility.Visible;
+            lblEmailError.Visibility = Visibility.Visible;
+        }
+
+        private void CleanErrorsLabels()
+        {
+            lblNameError.Visibility = Visibility.Collapsed;
+            lblLastNameError.Visibility = Visibility.Collapsed;
+            lblFirstNameError.Visibility = Visibility.Collapsed;
+            lblCellPhoneError.Visibility = Visibility.Collapsed;
+            lblEmailError.Visibility = Visibility.Collapsed;
         }
 
     }
