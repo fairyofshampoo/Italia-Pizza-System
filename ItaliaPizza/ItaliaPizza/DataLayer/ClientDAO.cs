@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,25 @@ namespace ItaliaPizza.DataLayer
             bool successfulRegistration = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var newClient = new 
+                try
                 {
-
-                };
+                    var newClient = new Client
+                    {
+                        name = client.name,
+                        secondLastName = client.secondLastName,
+                        firstLastName = client.firstLastName,
+                        email = client.email,
+                        phone = client.phone,
+                        status = client.status,
+                    };
+                    databaseContext.Clients.Add(newClient);
+                    databaseContext.SaveChanges();
+                    successfulRegistration = true;
+                } catch (SqlException sQLException)
+                {
+                    throw sQLException;
+                }
+                
             }
 
 
@@ -30,7 +46,7 @@ namespace ItaliaPizza.DataLayer
             bool isEmailExisting = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var existingEmail = databaseContext.Client.FirstOrDefault(emailexist => emailexist.email == email);
+                var existingEmail = databaseContext.Clients.FirstOrDefault(emailexist => emailexist.email == email);
                 if (existingEmail != null)
                 {
                     isEmailExisting = true;

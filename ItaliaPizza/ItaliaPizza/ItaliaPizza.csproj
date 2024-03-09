@@ -133,6 +133,9 @@
     <Compile Include="DataLayer\Supply.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\supplyArea.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\SupplyOrder.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
@@ -219,19 +222,19 @@
     <Resource Include="UserInterfaceLayer\Resources\Images\Supplier.png" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ItaliaPizzaModel.Context.cs</LastGenOutput>
       <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="DataLayer\ItaliaPizzaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
