@@ -72,31 +72,31 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             List<int> errors = new List<int>();
             bool IsValid = true; 
 
-            if(!ApplicationLayer.Validation.IsNameValid(name))
+            if(!Validations.IsNameValid(name))
             {
                 int errorName = 1;
                 errors.Add(errorName);
             }
 
-            if (!ApplicationLayer.Validation.IsNameValid(lastName))
+            if (!Validations.IsNameValid(lastName))
             {
                 int errorLastName = 2;
                 errors.Add(errorLastName);
             }
 
-            if (!ApplicationLayer.Validation.IsNameValid(firstName))
+            if (!Validations.IsNameValid(firstName))
             {
                 int errorFirstName = 3;
                 errors.Add(errorFirstName);
             }
 
-            if(!ApplicationLayer.Validation.IsPhoneValid(phone))
+            if(!Validations.IsPhoneValid(phone))
             {
                 int errorPhone = 4;
                 errors.Add(errorPhone);
             }
 
-            if (!ApplicationLayer.Validation.IsEmailValid(email))
+            if (!Validations.IsEmailValid(email))
             {
                 int errorEmail = 5;
                 errors.Add(errorEmail);

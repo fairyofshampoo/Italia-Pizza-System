@@ -37,7 +37,7 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtCompanyName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtCompanyName" FontSize="15" TextChanged="TxtCompanyName_TextChanged" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblCompanyHint" Margin="20,0,0,0" Content="Por ejemplo: Coca-Cola" FontSize="10" Foreground="LightGray"></Label>
@@ -48,7 +48,7 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrSupplierManager" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtManagerName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtManagerName" TextChanged="TxtManagerName_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblManagerHint"  Margin="20,0,0,0" Content="Por ejemplo: Juan Raúl Nuñez Mejía" FontSize="10" Foreground="LightGray"></Label>
@@ -56,7 +56,7 @@
 
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
                             <Label Content="Área de abastecimiento" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
-                            <Label Margin="20,0,0,0" Content="Selecciona todas las áreas que le abastece este proveedor" FontSize="10" Foreground="LightGray"></Label>
+                            <Label x:Name="lblSupplyAreasHint" Margin="20,0,0,0" Content="Selecciona todas las áreas que le abastece este proveedor" FontSize="10" Foreground="LightGray"></Label>
                             <ListBox x:Name="SupplyAreaCheckboxList" Margin="20,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding SupplyAreas}" SelectionMode="Multiple">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -71,7 +71,7 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtEmail" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtEmail" TextChanged="TxtEmail_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblEmailHint" Margin="20,0,0,0" Content="Por ejemplo: juanrnmejia@coca-cola.com" FontSize="10" Foreground="LightGray"></Label>
@@ -81,11 +81,28 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtPhone" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtPhone" TextChanged="TxtPhone_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblPhoneHint" Margin="20,0,0,0" Content="Por ejemplo: 2282142649" FontSize="10" Foreground="LightGray"></Label>
                         </StackPanel>
+                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="2" BorderThickness="0" Content="Registrar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand"  Margin="0,20,10,0"  HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnSave_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#FF7B00"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="120" Height="30"
+                    CornerRadius="10"
+                    Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </StackPanel>
                 <Image Source="../Resources/Images/Supplier.png" Stretch="Uniform" Opacity=".8" Grid.Column="1"/>

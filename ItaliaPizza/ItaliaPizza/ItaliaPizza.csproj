@@ -64,9 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationLayer\Constants.cs" />
     <Compile Include="ApplicationLayer\DialogManager.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
-    <Compile Include="ApplicationLayer\Validation.cs" />
+    <Compile Include="ApplicationLayer\Validations.cs" />
     <Compile Include="DataLayer\Account.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
@@ -83,6 +84,7 @@
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
