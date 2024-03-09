@@ -49,14 +49,12 @@ namespace ItaliaPizza.ApplicationLayer
                     emailValidation = false;
                 }
             }
-
             return emailValidation && ValidateWithTimeout(email, emailRegex);
         }
 
         private static bool ValidateWithTimeout(string input, Regex regex)
         {
             bool isValid;
-
             try
             {
                 isValid = regex.IsMatch(input);
