@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,11 +64,96 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegister.xaml.cs">
-      <DependentUpon>SupplierRegister.xaml</DependentUpon>
+    <Compile Include="ApplicationLayer\Constants.cs" />
+    <Compile Include="ApplicationLayer\DialogManager.cs" />
+    <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
+    <Compile Include="ApplicationLayer\Validations.cs" />
+    <Compile Include="DataLayer\Account.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Address.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Cashin.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Cashout.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Client.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
+    <Compile Include="DataLayer\Dealer.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Employee.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\HomeOrderProduct.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\HouseOrder.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\InternalOrder.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\InternalOrderProduct.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Product.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Recipe.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\RecipeSupply.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Supplier.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
+    <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
+    <Compile Include="DataLayer\SupplierOrder.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Supply.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\supplyArea.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\SupplyOrder.cs">
+      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
+      <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
+      <DependentUpon>RegisterClientView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -73,11 +167,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegister.xaml">
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,6 +198,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DataLayer\ItaliaPizzaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ItaliaPizzaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataLayer\ItaliaPizzaModel.edmx.diagram">
+      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,11 +215,33 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ApplicationLayer\" />
-    <Folder Include="DataLayer\" />
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
     <Folder Include="UserInterfaceLayer\OrdersModule\" />
     <Folder Include="UserInterfaceLayer\ProductsModule\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\PizzaBanner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\Supplier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataLayer\ItaliaPizzaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataLayer\ItaliaPizzaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

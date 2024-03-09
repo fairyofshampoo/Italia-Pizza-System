@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliaPizza.User_Interface_Layer.Users_Module
+namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml
@@ -22,7 +22,7 @@ namespace ItaliaPizza.User_Interface_Layer.Users_Module
     {
         public LoginView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

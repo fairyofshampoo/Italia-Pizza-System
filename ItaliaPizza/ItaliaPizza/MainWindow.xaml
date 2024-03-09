@@ -12,9 +12,10 @@
         KeyDown="MainWindow_KeyDown"
         StateChanged="MainWindow_StateChanged">
 
-    <Viewbox Stretch="Fill">
-    <Grid Height="720" Width="1280">
-        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Source ="User Interface Layer/Users Module/LoginView.xaml" />
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Frame x:Name="NavigationFrame" Width="Auto" Height="Auto" Grid.Row="0" NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/FinanceModule/SupplierRegisterView.xaml" Margin="0"/>
     </Grid>
-    </Viewbox>
 </Window>
