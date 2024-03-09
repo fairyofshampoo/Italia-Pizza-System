@@ -25,23 +25,24 @@ namespace ItaliaPizza.DataLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Account { get; set; }
-        public virtual DbSet<Address> Address { get; set; }
-        public virtual DbSet<Cashin> Cashin { get; set; }
-        public virtual DbSet<Cashout> Cashout { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Dealer> Dealer { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<HomeOrderProduct> HomeOrderProduct { get; set; }
-        public virtual DbSet<HouseOrder> HouseOrder { get; set; }
-        public virtual DbSet<InternalOrder> InternalOrder { get; set; }
-        public virtual DbSet<InternalOrderProduct> InternalOrderProduct { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Recipe> Recipe { get; set; }
-        public virtual DbSet<RecipeSupply> RecipeSupply { get; set; }
-        public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<SupplierOrder> SupplierOrder { get; set; }
-        public virtual DbSet<Supply> Supply { get; set; }
-        public virtual DbSet<SupplyOrder> SupplyOrder { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Cashin> Cashins { get; set; }
+        public virtual DbSet<Cashout> Cashouts { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Dealer> Dealers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<HomeOrderProduct> HomeOrderProducts { get; set; }
+        public virtual DbSet<HouseOrder> HouseOrders { get; set; }
+        public virtual DbSet<InternalOrder> InternalOrders { get; set; }
+        public virtual DbSet<InternalOrderProduct> InternalOrderProducts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Recipe> Recipes { get; set; }
+        public virtual DbSet<RecipeSupply> RecipeSupplies { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<SupplierOrder> SupplierOrders { get; set; }
+        public virtual DbSet<Supply> Supplies { get; set; }
+        public virtual DbSet<supplyArea> supplyAreas { get; set; }
+        public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
     }
 }

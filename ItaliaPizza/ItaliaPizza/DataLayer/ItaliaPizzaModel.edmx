@@ -155,10 +155,10 @@
           </Key>
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="supplyArea" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="companyName" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="manager" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="supplyArea" Type="int" />
         </EntityType>
         <EntityType Name="SupplierOrder">
           <Key>
@@ -180,6 +180,13 @@
           <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="expiryDate" Type="date" Nullable="false" />
           <Property Name="measurementUnit" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supplyArea">
+          <Key>
+            <PropertyRef Name="area_id" />
+          </Key>
+          <Property Name="area_id" Type="int" Nullable="false" />
+          <Property Name="area_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SupplyOrder">
           <Key>
@@ -358,6 +365,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_supplyArea_id">
+          <End Role="supplyArea" Type="Self.supplyArea" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplyArea">
+              <PropertyRef Name="area_id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="supplyArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupplyId">
           <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
@@ -412,6 +431,7 @@
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplyArea" EntityType="Self.supplyArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
             <End Role="Recipe" EntitySet="Recipe" />
@@ -469,6 +489,10 @@
             <End Role="SupplierOrder" EntitySet="SupplierOrder" />
             <End Role="SupplyOrder" EntitySet="SupplyOrder" />
           </AssociationSet>
+          <AssociationSet Name="fk_supplyArea_id" Association="Self.fk_supplyArea_id">
+            <End Role="supplyArea" EntitySet="supplyArea" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
           <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
             <End Role="Supply" EntitySet="Supply" />
             <End Role="SupplyOrder" EntitySet="SupplyOrder" />
@@ -509,7 +533,7 @@
           <Property Name="colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="clientId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_AddressId" FromRole="Address" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_AddressId" FromRole="Address" ToRole="HomeOrderProduct" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientAddress" FromRole="Address" ToRole="Client" />
         </EntityType>
         <EntityType Name="Cashin">
@@ -517,8 +541,8 @@
             <PropertyRef Name="cashinId" />
           </Key>
           <Property Name="cashinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="time" Type="Time" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Cashout">
@@ -526,8 +550,8 @@
             <PropertyRef Name="cashoutId" />
           </Key>
           <Property Name="cashoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="time" Type="Time" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="cashoutType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
@@ -541,8 +565,8 @@
           <Property Name="secondLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
-          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HouseOrder" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
+          <NavigationProperty Name="HouseOrders" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HouseOrder" />
         </EntityType>
         <EntityType Name="Dealer">
           <Key>
@@ -550,7 +574,7 @@
           </Key>
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_DealerId" FromRole="Dealer" ToRole="HouseOrder" />
+          <NavigationProperty Name="HouseOrders" Relationship="Self.FK_DealerId" FromRole="Dealer" ToRole="HouseOrder" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -562,9 +586,9 @@
           <Property Name="secondLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Employee" FromRole="Employee" ToRole="Account" />
-          <NavigationProperty Name="InternalOrder" Relationship="Self.FK_waiterName" FromRole="Employee" ToRole="InternalOrder" />
-          <NavigationProperty Name="InternalOrder1" Relationship="Self.FK_WaiterNameForOrder" FromRole="Employee" ToRole="InternalOrder" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Employee" FromRole="Employee" ToRole="Account" />
+          <NavigationProperty Name="InternalOrders" Relationship="Self.FK_waiterName" FromRole="Employee" ToRole="InternalOrder" />
+          <NavigationProperty Name="InternalOrders1" Relationship="Self.FK_WaiterNameForOrder" FromRole="Employee" ToRole="InternalOrder" />
         </EntityType>
         <EntityType Name="HomeOrderProduct">
           <Key>
@@ -585,14 +609,14 @@
           </Key>
           <Property Name="houseOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="time" Type="Time" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="clientName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dealerId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientName" FromRole="HouseOrder" ToRole="Client" />
           <NavigationProperty Name="Dealer" Relationship="Self.FK_DealerId" FromRole="HouseOrder" ToRole="Dealer" />
-          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_HomeOrderId" FromRole="HouseOrder" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeOrderId" FromRole="HouseOrder" ToRole="HomeOrderProduct" />
         </EntityType>
         <EntityType Name="InternalOrder">
           <Key>
@@ -600,13 +624,13 @@
           </Key>
           <Property Name="internalOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="time" Type="Time" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="waiterName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_waiterName" FromRole="InternalOrder" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK_WaiterNameForOrder" FromRole="InternalOrder" ToRole="Employee" />
-          <NavigationProperty Name="InternalOrderProduct" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrder" ToRole="InternalOrderProduct" />
+          <NavigationProperty Name="InternalOrderProducts" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrder" ToRole="InternalOrderProduct" />
         </EntityType>
         <EntityType Name="InternalOrderProduct">
           <Key>
@@ -631,9 +655,9 @@
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HomeOrderProduct" Relationship="Self.FK_HomeProductId" FromRole="Product" ToRole="HomeOrderProduct" />
-          <NavigationProperty Name="InternalOrderProduct" Relationship="Self.FK_ProductId" FromRole="Product" ToRole="InternalOrderProduct" />
-          <NavigationProperty Name="Recipe" Relationship="Self.FK_ProductId_Recipe" FromRole="Product" ToRole="Recipe" />
+          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeProductId" FromRole="Product" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="InternalOrderProducts" Relationship="Self.FK_ProductId" FromRole="Product" ToRole="InternalOrderProduct" />
+          <NavigationProperty Name="Recipes" Relationship="Self.FK_ProductId_Recipe" FromRole="Product" ToRole="Recipe" />
         </EntityType>
         <EntityType Name="Recipe">
           <Key>
@@ -645,7 +669,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductId_Recipe" FromRole="Recipe" ToRole="Product" />
-          <NavigationProperty Name="RecipeSupply" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="Recipe" ToRole="RecipeSupply" />
+          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="Recipe" ToRole="RecipeSupply" />
         </EntityType>
         <EntityType Name="RecipeSupply">
           <Key>
@@ -664,11 +688,12 @@
           </Key>
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="supplyArea" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="companyName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="SupplierOrder" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="Supplier" ToRole="SupplierOrder" />
+          <Property Name="supplyArea" Type="Int32" />
+          <NavigationProperty Name="SupplierOrders" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="Supplier" ToRole="SupplierOrder" />
+          <NavigationProperty Name="supplyArea1" Relationship="Self.fk_supplyArea_id" FromRole="Supplier" ToRole="supplyArea" />
         </EntityType>
         <EntityType Name="SupplierOrder">
           <Key>
@@ -676,12 +701,12 @@
           </Key>
           <Property Name="orderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="Byte" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="time" Type="Time" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="supplierId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="SupplierOrder" ToRole="Supplier" />
-          <NavigationProperty Name="SupplyOrder" Relationship="Self.FK_SupplierOrderId" FromRole="SupplierOrder" ToRole="SupplyOrder" />
+          <NavigationProperty Name="SupplyOrders" Relationship="Self.FK_SupplierOrderId" FromRole="SupplierOrder" ToRole="SupplyOrder" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
@@ -690,10 +715,18 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="amount" Type="Int32" Nullable="false" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="expiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="expiryDate" Type="DateTime" Nullable="false" />
           <Property Name="measurementUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RecipeSupply" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
-          <NavigationProperty Name="SupplyOrder" Relationship="Self.FK_SupplyId" FromRole="Supply" ToRole="SupplyOrder" />
+          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
+          <NavigationProperty Name="SupplyOrders" Relationship="Self.FK_SupplyId" FromRole="Supply" ToRole="SupplyOrder" />
+        </EntityType>
+        <EntityType Name="supplyArea">
+          <Key>
+            <PropertyRef Name="area_id" />
+          </Key>
+          <Property Name="area_id" Type="Int32" Nullable="false" />
+          <Property Name="area_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.fk_supplyArea_id" FromRole="supplyArea" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="SupplyOrder">
           <Key>
@@ -886,6 +919,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_supplyArea_id">
+          <End Role="supplyArea" Type="Self.supplyArea" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="supplyArea">
+              <PropertyRef Name="area_id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="supplyArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupplierOrderId">
           <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
@@ -911,91 +956,96 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ItaliaPizzaDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Account" EntityType="Self.Account" />
-          <EntitySet Name="Address" EntityType="Self.Address" />
-          <EntitySet Name="Cashin" EntityType="Self.Cashin" />
-          <EntitySet Name="Cashout" EntityType="Self.Cashout" />
-          <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="Dealer" EntityType="Self.Dealer" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="HomeOrderProduct" EntityType="Self.HomeOrderProduct" />
-          <EntitySet Name="HouseOrder" EntityType="Self.HouseOrder" />
-          <EntitySet Name="InternalOrder" EntityType="Self.InternalOrder" />
-          <EntitySet Name="InternalOrderProduct" EntityType="Self.InternalOrderProduct" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="Recipe" EntityType="Self.Recipe" />
-          <EntitySet Name="RecipeSupply" EntityType="Self.RecipeSupply" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
-          <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" />
-          <EntitySet Name="Supply" EntityType="Self.Supply" />
-          <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" />
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Cashins" EntityType="Self.Cashin" />
+          <EntitySet Name="Cashouts" EntityType="Self.Cashout" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Dealers" EntityType="Self.Dealer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="HomeOrderProducts" EntityType="Self.HomeOrderProduct" />
+          <EntitySet Name="HouseOrders" EntityType="Self.HouseOrder" />
+          <EntitySet Name="InternalOrders" EntityType="Self.InternalOrder" />
+          <EntitySet Name="InternalOrderProducts" EntityType="Self.InternalOrderProduct" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Recipes" EntityType="Self.Recipe" />
+          <EntitySet Name="RecipeSupplies" EntityType="Self.RecipeSupply" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="SupplierOrders" EntityType="Self.SupplierOrder" />
+          <EntitySet Name="Supplies" EntityType="Self.Supply" />
+          <EntitySet Name="supplyAreas" EntityType="Self.supplyArea" />
+          <EntitySet Name="SupplyOrders" EntityType="Self.SupplyOrder" />
           <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Account" EntitySet="Account" />
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
           <AssociationSet Name="FK_AddressId" Association="Self.FK_AddressId">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientAddress" Association="Self.FK_ClientAddress">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Address" EntitySet="Address" />
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="HouseOrder" EntitySet="HouseOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_DealerId" Association="Self.FK_DealerId">
-            <End Role="Dealer" EntitySet="Dealer" />
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="Dealer" EntitySet="Dealers" />
+            <End Role="HouseOrder" EntitySet="HouseOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_waiterName" Association="Self.FK_waiterName">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="InternalOrder" EntitySet="InternalOrder" />
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="InternalOrder" EntitySet="InternalOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_WaiterNameForOrder" Association="Self.FK_WaiterNameForOrder">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="InternalOrder" EntitySet="InternalOrder" />
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="InternalOrder" EntitySet="InternalOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+            <End Role="HouseOrder" EntitySet="HouseOrders" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+            <End Role="Product" EntitySet="Products" />
+            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_InternalOrderId" Association="Self.FK_InternalOrderId">
-            <End Role="InternalOrder" EntitySet="InternalOrder" />
-            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+            <End Role="InternalOrder" EntitySet="InternalOrders" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductId" Association="Self.FK_ProductId">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="InternalOrderProduct" EntitySet="InternalOrderProduct" />
+            <End Role="Product" EntitySet="Products" />
+            <End Role="InternalOrderProduct" EntitySet="InternalOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductId_Recipe" Association="Self.FK_ProductId_Recipe">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Recipe" EntitySet="Recipes" />
           </AssociationSet>
           <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
-            <End Role="Recipe" EntitySet="Recipe" />
-            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+            <End Role="Recipe" EntitySet="Recipes" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupplies" />
           </AssociationSet>
           <AssociationSet Name="FK__RecipeSup__suppl__02FC7413" Association="Self.FK__RecipeSup__suppl__02FC7413">
-            <End Role="Supply" EntitySet="Supply" />
-            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+            <End Role="Supply" EntitySet="Supplies" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupplies" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierOrder_Supplier" Association="Self.FK_SupplierOrder_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="SupplierOrder" EntitySet="SupplierOrders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplyArea_id" Association="Self.fk_supplyArea_id">
+            <End Role="supplyArea" EntitySet="supplyAreas" />
+            <End Role="Supplier" EntitySet="Suppliers" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierOrderId" Association="Self.FK_SupplierOrderId">
-            <End Role="SupplierOrder" EntitySet="SupplierOrder" />
-            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+            <End Role="SupplierOrder" EntitySet="SupplierOrders" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
-            <End Role="Supply" EntitySet="Supply" />
-            <End Role="SupplyOrder" EntitySet="SupplyOrder" />
+            <End Role="Supply" EntitySet="Supplies" />
+            <End Role="SupplyOrder" EntitySet="SupplyOrders" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1004,7 +1054,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ItaliaPizzaDBModelStoreContainer" CdmEntityContainer="ItaliaPizzaDBEntities">
-          <EntitySetMapping Name="Account">
+          <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="user" ColumnName="user" />
@@ -1015,7 +1065,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Address">
+          <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Address">
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="addressId" ColumnName="addressId" />
@@ -1028,7 +1078,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cashin">
+          <EntitySetMapping Name="Cashins">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Cashin">
               <MappingFragment StoreEntitySet="Cashin">
                 <ScalarProperty Name="cashinId" ColumnName="cashinId" />
@@ -1038,7 +1088,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cashout">
+          <EntitySetMapping Name="Cashouts">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Cashout">
               <MappingFragment StoreEntitySet="Cashout">
                 <ScalarProperty Name="cashoutId" ColumnName="cashoutId" />
@@ -1049,7 +1099,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Client">
+          <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -1061,7 +1111,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Dealer">
+          <EntitySetMapping Name="Dealers">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Dealer">
               <MappingFragment StoreEntitySet="Dealer">
                 <ScalarProperty Name="phone" ColumnName="phone" />
@@ -1069,7 +1119,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Employee">
+          <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -1081,7 +1131,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HomeOrderProduct">
+          <EntitySetMapping Name="HomeOrderProducts">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrderProduct">
               <MappingFragment StoreEntitySet="HomeOrderProduct">
                 <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
@@ -1092,7 +1142,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HouseOrder">
+          <EntitySetMapping Name="HouseOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HouseOrder">
               <MappingFragment StoreEntitySet="HouseOrder">
                 <ScalarProperty Name="houseOrderId" ColumnName="houseOrderId" />
@@ -1105,7 +1155,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InternalOrder">
+          <EntitySetMapping Name="InternalOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.InternalOrder">
               <MappingFragment StoreEntitySet="InternalOrder">
                 <ScalarProperty Name="internalOrderId" ColumnName="internalOrderId" />
@@ -1117,7 +1167,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InternalOrderProduct">
+          <EntitySetMapping Name="InternalOrderProducts">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.InternalOrderProduct">
               <MappingFragment StoreEntitySet="InternalOrderProduct">
                 <ScalarProperty Name="internalOrderProductId" ColumnName="internalOrderProductId" />
@@ -1127,7 +1177,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product">
+          <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -1141,7 +1191,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Recipe">
+          <EntitySetMapping Name="Recipes">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Recipe">
               <MappingFragment StoreEntitySet="Recipe">
                 <ScalarProperty Name="recipeCode" ColumnName="recipeCode" />
@@ -1152,7 +1202,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RecipeSupply">
+          <EntitySetMapping Name="RecipeSupplies">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.RecipeSupply">
               <MappingFragment StoreEntitySet="RecipeSupply">
                 <ScalarProperty Name="recipeSupplyCode" ColumnName="recipeSupplyCode" />
@@ -1162,19 +1212,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Supplier">
+          <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="supplyArea" ColumnName="supplyArea" />
                 <ScalarProperty Name="companyName" ColumnName="companyName" />
                 <ScalarProperty Name="manager" ColumnName="manager" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="supplyArea" ColumnName="supplyArea" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupplierOrder">
+          <EntitySetMapping Name="SupplierOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplierOrder">
               <MappingFragment StoreEntitySet="SupplierOrder">
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
@@ -1186,7 +1236,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Supply">
+          <EntitySetMapping Name="Supplies">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Supply">
               <MappingFragment StoreEntitySet="Supply">
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1197,7 +1247,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupplyOrder">
+          <EntitySetMapping Name="supplyAreas">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.supplyArea">
+              <MappingFragment StoreEntitySet="supplyArea">
+                <ScalarProperty Name="area_id" ColumnName="area_id" />
+                <ScalarProperty Name="area_name" ColumnName="area_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplyOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplyOrder">
               <MappingFragment StoreEntitySet="SupplyOrder">
                 <ScalarProperty Name="supplyCode" ColumnName="supplyCode" />
@@ -1221,10 +1279,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

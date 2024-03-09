@@ -17,13 +17,13 @@ namespace ItaliaPizza.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Dealer()
         {
-            this.HouseOrder = new HashSet<HouseOrder>();
+            this.HouseOrders = new HashSet<HouseOrder>();
         }
     
         public string phone { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HouseOrder> HouseOrder { get; set; }
+        public virtual ICollection<HouseOrder> HouseOrders { get; set; }
     }
 }
