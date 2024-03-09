@@ -8,6 +8,6 @@ namespace ItaliaPizza.DataLayer
 {
     internal class SupplierDAO
     {
-
+        
     }
 }
