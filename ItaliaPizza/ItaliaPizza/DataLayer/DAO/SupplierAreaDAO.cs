@@ -12,7 +12,7 @@ using System.Data.Entity.Core;
 namespace ItaliaPizza.DataLayer.DAO
 {
     public class SupplierAreaDAO : ISupplierArea
-    {
+    { 
         public List<supplyArea> GetAllSupplyAreas()
         {
             List<supplyArea> supplyAreas = new List<supplyArea>();

@@ -28,8 +28,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             CleanErrorsLabels();
-          //  if (AreDataValid())
-            //{
+            if (AreDataValid())
+            {
                 var client = new Client
                 {
                     name = txtName.Text,
@@ -40,26 +40,25 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 };
                 ClientDAO clientDAO = new ClientDAO();
                 clientDAO.AddClient(client);
-           // }else
-            //{
-             //   ShowErrors();
-           // }
+            }else
+            {
+
+            }
         }
 
         private bool AreDataValid()
         {
-            bool emailValidation = IsEmailValid();
+            bool emailValidation = IsEmailExisting();
             bool clientDataValidation = ValidationClientData();
             return emailValidation && clientDataValidation;
         }
 
-        private bool IsEmailValid()
+        private bool IsEmailExisting()
         {
             ClientDAO clientDAO = new ClientDAO();
             String email = txtEmail.Text;
-            bool isEmailValid = ApplicationLayer.Validation.IsEmailValid(email);
             bool isEmailAlreadyExisting = clientDAO.IsEmailExisting(email);
-            return isEmailValid && isEmailAlreadyExisting;
+            return isEmailAlreadyExisting;
         }
 
         private bool ValidationClientData()
@@ -67,21 +66,75 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             String name = txtName.Text;
             String firstName = txtFirstName.Text;
             String lastName = txtLastName.Text;
+            String email = txtEmail.Text;
+            String phone = txtCellPhone.Text;
 
-            bool isNameValid = ApplicationLayer.Validation.IsNameValid(name);
-            bool isMiddleNameValid = ApplicationLayer.Validation.IsNameValid(firstName);
-            bool isLastNameValid = ApplicationLayer.Validation.IsNameValid(lastName);
+            List<int> errors = new List<int>();
+            bool IsValid = true; 
 
-            return isNameValid && isMiddleNameValid && isLastNameValid;
+            if(!Validations.IsNameValid(name))
+            {
+                int errorName = 1;
+                errors.Add(errorName);
+            }
+
+            if (!Validations.IsNameValid(lastName))
+            {
+                int errorLastName = 2;
+                errors.Add(errorLastName);
+            }
+
+            if (!Validations.IsNameValid(firstName))
+            {
+                int errorFirstName = 3;
+                errors.Add(errorFirstName);
+            }
+
+            if(!Validations.IsPhoneValid(phone))
+            {
+                int errorPhone = 4;
+                errors.Add(errorPhone);
+            }
+
+            if (!Validations.IsEmailValid(email))
+            {
+                int errorEmail = 5;
+                errors.Add(errorEmail);
+            }
+
+            if (errors.Any())
+            {
+                ShowErrors(errors);
+                IsValid = false;
+            }
+
+            return IsValid;
         }
 
-        private void ShowErrors()
+        private void ShowErrors(List<int> errors)
         {
-            lblNameError.Visibility = Visibility.Visible;
-            lblLastNameError.Visibility = Visibility.Visible;
-            lblFirstNameError.Visibility = Visibility.Visible;
-            lblCellPhoneError.Visibility = Visibility.Visible;
-            lblEmailError.Visibility = Visibility.Visible;
+            for (int index = 0; index < errors.Count; index++) 
+            {
+                int error = errors[index];
+                switch (error)
+                {
+                    case 1:
+                        lblNameError.Visibility = Visibility.Visible;
+                        break;
+                    case 2:
+                        lblLastNameError.Visibility = Visibility.Visible;
+                        break;
+                    case 3:
+                        lblFirstNameError.Visibility = Visibility.Visible;
+                        break;
+                    case 4:
+                        lblCellPhoneError.Visibility = Visibility.Visible;
+                        break;
+                    case 5:
+                        lblEmailError.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
         }
 
         private void CleanErrorsLabels()

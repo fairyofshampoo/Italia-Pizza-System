@@ -12,19 +12,19 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="200"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
+            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
 
             <Grid
                 Grid.Row="0"
-                Height="100"
+                Height="200"
                 Width="800">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="27"/>
                 </Grid.RowDefinitions>
@@ -36,11 +36,11 @@
                     HorizontalAlignment="Left"
                     Foreground="White"
                     FontFamily="Times New Roman"
-                    FontSize="30"
-                    Margin="40,0,0,0" Height="44" Width="220"/>
+                    FontSize="50"
+                    Margin="-110,0,0,0" Height="70" Width="350"/>
 
                 <Canvas HorizontalAlignment="Center" Grid.Row="2">
-                    <Line X1="-170" Y1="-10" X2="35" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-185" Canvas.Top="4"/>
+                    <Line X1="-310" Y1="-10" X2="25" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
                 </Canvas>
             </Grid>
 
@@ -53,23 +53,23 @@
 
                 <Label Content="Complete los siguientes campos para registrar un nuevo cliente"
                        Foreground="White"
-                       FontSize="10"
-                       Margin="50,20,0,0"
+                       FontSize="25"
+                       Margin="140,20,0,0"
                        FontFamily="inter"/>
 
                 <Border
                     Background="#393D42"
-                    Height="200"
-                    Width="700"
+                    Height="300"
+                    Width="1000"
                     CornerRadius="10"
                     Margin="0,20,0,0">
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="90"/>
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -83,23 +83,23 @@
                         <Label
                             Grid.Row = "0"
                             Grid.Column = "1"
-                            FontSize = "14"
+                            FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
                             Content="Nombre"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="1" Margin="2,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="1"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtName"
-                                         FontSize="10"
+                                         FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
@@ -110,33 +110,33 @@
                             x:Name="lblNameError"
                             Grid.Row = "1"
                             Grid.Column = "1"
-                            FontSize = "8"
+                            FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,32,0,0"
+                            Margin="0,45,0,0"
                             Content="El nombre es incorrecto"
                             Visibility="Collapsed"/>
 
                         <Label
                             Grid.Row = "0"
                             Grid.Column = "2"
-                            FontSize = "14"
+                            FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
                             Content="Primer Apellido"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="2" Margin="2,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="2"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtFirstName"
-                                         FontSize="10"
+                                         FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
@@ -147,10 +147,10 @@
                             x:Name="lblFirstNameError"
                             Grid.Row = "1"
                             Grid.Column = "2"
-                            FontSize = "8"
+                            FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,32,0,0"
+                            Margin="0,45,0,0"
                             Content="El primer apellido es incorrecto"
                             Visibility="Collapsed"/>
 
@@ -158,23 +158,23 @@
                         <Label
                             Grid.Row = "0"
                             Grid.Column = "3"
-                            FontSize = "16"
+                            FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
                             Content="Segundo Apellido"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="3" Margin="2,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="1" Grid.Column="3"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtLastName"
-                                         FontSize="10"
+                                         FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
@@ -185,33 +185,33 @@
                             x:Name="lblLastNameError"
                             Grid.Row = "1"
                             Grid.Column = "3"
-                            FontSize = "8"
+                            FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,32,0,0"
+                            Margin="0,45,0,0"
                             Content="El segundo apellido es incorrecto"
                             Visibility="Collapsed"/>
                         
                         <Label
                             Grid.Row = "2"
                             Grid.Column = "1"
-                            FontSize = "16"
+                            FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
                             Content="Teléfono"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="1" Margin="2,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="1"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtCellPhone"
-                                         FontSize="10"
+                                         FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
@@ -222,33 +222,33 @@
                             x:Name="lblCellPhoneError"
                             Grid.Row = "3"
                             Grid.Column = "1"
-                            FontSize = "8"
+                            FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,32,0,0"
+                            Margin="0,45,0,0"
                             Content="El número de teléfono es incorrecto"
                             Visibility="Collapsed"/>
 
                         <Label
                             Grid.Row = "2"
                             Grid.Column = "2"
-                            FontSize = "16"
+                            FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
                             Content="Correo electrónico"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="2" Margin="2,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="200" Height="35"
+                                Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="2"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtEmail"
-                                         FontSize="10"
+                                         FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
@@ -259,10 +259,10 @@
                             x:Name="lblEmailError"
                             Grid.Row = "3"
                             Grid.Column = "2"
-                            FontSize = "8"
+                            FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,32,0,0"
+                            Margin="0,45,0,0"
                             Content="El correo electrónico es incorrecto"
                             Visibility="Collapsed"/>
 
@@ -274,10 +274,10 @@
                         BorderThickness="0"
                         Content="Guardar"
                         Foreground="White"
-                        FontSize="12"
+                        FontSize="25"
                         FontWeight="Bold"
                         Cursor="Hand"
-                        Margin="0,20,40,0" 
+                        Margin="0,40,137,0" 
                         HorizontalAlignment="Right" Click="btnSave_Click">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -286,7 +286,7 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="120" Height="30"
+                            <Border Width="150" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
