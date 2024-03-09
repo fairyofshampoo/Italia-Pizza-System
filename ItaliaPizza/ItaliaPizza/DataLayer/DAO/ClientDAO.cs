@@ -43,13 +43,13 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public bool IsEmailExisting(string email)
         {
-            bool isEmailExisting = false;
+            bool isEmailExisting = true;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var existingEmail = databaseContext.Clients.FirstOrDefault(emailexist => emailexist.email == email);
                 if (existingEmail != null)
                 {
-                    isEmailExisting = true;
+                    isEmailExisting = false;
                 }
             }
             return isEmailExisting;
