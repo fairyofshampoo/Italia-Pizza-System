@@ -82,6 +82,36 @@ namespace ItaliaPizza.ApplicationLayer
             return isValid && ValidateWithTimeout(companyName, companyNameRegex);
         }
 
+        public static bool IsUserValid(string user)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(user))
+            {
+                isValid = false;
+            }
+            var userRegex = new Regex("^(?=.{2,20}$)(?!.*\\s)[a-zA-Z0-9!@#$%^&*()-_+=|\\\\{}[\\]:;\"'<>,.?/~]*$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(user, userRegex);
+        }
+
+        public static bool IsPasswordValid(string password)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                isValid = false;
+            }
+            var passwordRegex = new Regex("^(?=.*[!@#$%^&*()-_+=|\\\\{}[\\]:;\"'<>,.?/~])(?=.*\\d)[a-zA-Z0-9!@#$%^&*()-_+=|\\\\{}[\\]:;\"'<>,.?/~]{8,}$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(password, passwordRegex);
+        }
+
         private static bool ValidateWithTimeout(string input, Regex regex)
         {
             bool isValid;

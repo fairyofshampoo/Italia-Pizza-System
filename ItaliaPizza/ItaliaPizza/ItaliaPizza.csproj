@@ -66,6 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="ApplicationLayer\Constants.cs" />
     <Compile Include="ApplicationLayer\DialogManager.cs" />
+    <Compile Include="ApplicationLayer\Encription.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
     <Compile Include="ApplicationLayer\Validations.cs" />
     <Compile Include="DataLayer\Account.cs">
@@ -84,6 +85,8 @@
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IEmployee.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
@@ -149,6 +152,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml.cs">
+      <DependentUpon>EmployeeRegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -168,6 +174,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +252,7 @@
       <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Images\RegisterEmployeeBanner.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
