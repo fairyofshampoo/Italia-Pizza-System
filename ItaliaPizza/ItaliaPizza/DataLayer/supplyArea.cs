@@ -12,10 +12,10 @@ namespace ItaliaPizza.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class supplyArea
+    public partial class SupplyArea
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public supplyArea()
+        public SupplyArea()
         {
             this.Suppliers = new HashSet<Supplier>();
         }

@@ -42,7 +42,7 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<SupplierOrder> SupplierOrders { get; set; }
         public virtual DbSet<Supply> Supplies { get; set; }
-        public virtual DbSet<supplyArea> supplyAreas { get; set; }
+        public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
     }
 }

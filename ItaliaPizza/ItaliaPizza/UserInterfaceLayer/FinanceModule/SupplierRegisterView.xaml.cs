@@ -26,7 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
 
-            List<supplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
+            List<SupplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
 
             SupplyAreas = new ObservableCollection<SupplyAreaViewModel>(
                 supplyAreas.Select(area => new SupplyAreaViewModel { AreaName = area.area_name })
@@ -54,13 +54,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             supplier.companyName = txtCompanyName.Text;
             supplier.manager = txtManagerName.Text;
             supplier.status = Constants.ACTIVE_STATUS;
-            supplier.supplyAreas = GetSupplyAreas();
+            supplier.SupplyAreas = GetSupplyAreas();
             return supplierDAO.AddSupplier(supplier);
         }
 
-        private ICollection<supplyArea> GetSupplyAreas()
+        private ICollection<SupplyArea> GetSupplyAreas()
         {
-            var selectedAreas = SupplyAreas.Where(area => area.IsSelected).Select(area => new supplyArea { area_name = area.AreaName });
+            var selectedAreas = SupplyAreas.Where(area => area.IsSelected).Select(area => new SupplyArea { area_name = area.AreaName });
 
             return selectedAreas.ToList();
         }
