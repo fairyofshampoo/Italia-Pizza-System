@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ItaliaPizza.DataLayer.DAO
 {
@@ -28,6 +29,8 @@ namespace ItaliaPizza.DataLayer.DAO
                         email = employee.email,
                         role = employee.role,
                     };
+
+                    MessageBox.Show(newEmployee.name + newEmployee.firstLastName + newEmployee.secondLastName + newEmployee.phone + newEmployee.email + newEmployee.role);
                     databaseContext.Employees.Add(newEmployee);
                     databaseContext.SaveChanges();
 
@@ -54,13 +57,13 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public bool IsEmailExisting(string email)
         {
-            bool isEmailExisting = true;
+            bool isEmailExisting = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var existingEmail = databaseContext.Employees.FirstOrDefault(emailexist => emailexist.email == email);
                 if (existingEmail != null)
                 {
-                    isEmailExisting = false;
+                    isEmailExisting = true;
                 }
             }
             return isEmailExisting;
@@ -68,13 +71,13 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public bool IsUserExisting(String user)
         {
-            bool isUsernameExisting = true;
+            bool isUsernameExisting = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var existingUsername = databaseContext.Accounts.FirstOrDefault(userexist => userexist.user == user);
                 if (existingUsername != null)
                 {
-                    isUsernameExisting = false;
+                    isUsernameExisting = true;
                 }
             }
             return isUsernameExisting;

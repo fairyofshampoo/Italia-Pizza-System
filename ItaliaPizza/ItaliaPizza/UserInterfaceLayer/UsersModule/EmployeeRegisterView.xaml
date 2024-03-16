@@ -112,11 +112,7 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
                                 <Border x:Name="bdrEmployeeType" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <ComboBox x:Name="cmbEmployeeType">
-                                        <ComboBoxItem Content="Cocinero"/>
-                                        <ComboBoxItem Content="Cajero"/>
-                                        <ComboBoxItem Content="Mesero"/>
-                                    </ComboBox>
+                                    <ComboBox x:Name="cmbEmployeeType"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblEmployeeTypeError" Content ="Tipo de empleado inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>

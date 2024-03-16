@@ -26,6 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         public EmployeeRegisterView()
         {
             InitializeComponent();
+            SetComboBoxItems();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -49,31 +50,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     DialogManager.ShowWarningMessageBox(validationDuplicateData);
                 }
             }
-
         }
-
-        /*
-        private void AddModifyEmployee(string operation)
-        {
-            if (ValidateFields())
-            {
-                string validationDuplicateData = ValidateDuplicateData();
-
-                if (string.IsNullOrEmpty(validationDuplicateData))
-                {
-                    if (RegisterEmployee())
-                    {
-                        DialogManager.ShowSuccessMessageBox("Empleado registrado exitosamente");
-                    }
-                }
-                else
-                {
-                    DialogManager.ShowWarningMessageBox(validationDuplicateData);
-                }
-            }
-        
-        }
-        */
 
         private bool RegisterEmployee()
         {
@@ -189,7 +166,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             if (IsUserExisting())
             {
-                validationDuplicateData.AppendLine("El nommbre de usuario ingresado ya se encuentra registrado.");
+                validationDuplicateData.AppendLine("El nombre de usuario ingresado ya se encuentra registrado.");
             }
 
             return validationDuplicateData.ToString();
@@ -209,6 +186,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             String user = txtUsername.Text;
             bool isUserAlreadyExisting = employeeDAO.IsUserExisting(user);
             return isUserAlreadyExisting;
+        }
+
+        private void SetComboBoxItems()
+        {
+            cmbEmployeeType.ItemsSource = new String[]
+            {
+                "Cocinero", "Cajero", "Mesero"
+            };
         }
 
         private void ResetFields()
