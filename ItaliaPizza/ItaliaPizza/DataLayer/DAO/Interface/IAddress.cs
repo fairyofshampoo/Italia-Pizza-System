@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.DataLayer.DAO.Interface
 {
-    internal interface IClient
+    internal interface IAddress
     {
-        bool AddClient(Client client);
-
-        bool IsEmailExisting(string email);
-
-        List<Client> GetLastClientsRegistered();
+        Address GetClientAddress(string email);
     }
 }
