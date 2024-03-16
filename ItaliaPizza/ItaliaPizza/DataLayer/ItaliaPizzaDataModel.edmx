@@ -11,7 +11,7 @@
           </Key>
           <Property Name="user" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="isAdmin" Type="tinyint" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="64" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
@@ -188,7 +188,7 @@
           <Property Name="expiryDate" Type="date" Nullable="false" />
           <Property Name="measurementUnit" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="supplyArea">
+        <EntityType Name="SupplyArea">
           <Key>
             <PropertyRef Name="area_id" />
           </Key>
@@ -361,10 +361,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Supplier_SupplyArea_SupplyArea">
-          <End Role="supplyArea" Type="Self.supplyArea" Multiplicity="1" />
+          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="1" />
           <End Role="Supplier_SupplyArea" Type="Self.Supplier_SupplyArea" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="supplyArea">
+            <Principal Role="SupplyArea">
               <PropertyRef Name="area_id" />
             </Principal>
             <Dependent Role="Supplier_SupplyArea">
@@ -451,7 +451,7 @@
           <EntitySet Name="Supplier_SupplyArea" EntityType="Self.Supplier_SupplyArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="supplyArea" EntityType="Self.supplyArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplyArea" EntityType="Self.SupplyArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
             <End Role="Recipe" EntitySet="Recipe" />
@@ -506,7 +506,7 @@
             <End Role="Supplier_SupplyArea" EntitySet="Supplier_SupplyArea" />
           </AssociationSet>
           <AssociationSet Name="FK_Supplier_SupplyArea_SupplyArea" Association="Self.FK_Supplier_SupplyArea_SupplyArea">
-            <End Role="supplyArea" EntitySet="supplyArea" />
+            <End Role="SupplyArea" EntitySet="SupplyArea" />
             <End Role="Supplier_SupplyArea" EntitySet="Supplier_SupplyArea" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierOrder_Supplier" Association="Self.FK_SupplierOrder_Supplier">
@@ -541,7 +541,7 @@
           </Key>
           <Property Name="user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="isAdmin" Type="Byte" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Account_Employee" FromRole="Account" ToRole="Employee" />
@@ -716,7 +716,7 @@
           <Property Name="manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="SupplierOrders" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="Supplier" ToRole="SupplierOrder" />
-          <NavigationProperty Name="supplyAreas" Relationship="Self.Supplier_SupplyArea" FromRole="Supplier" ToRole="supplyArea" />
+          <NavigationProperty Name="SupplyAreas" Relationship="Self.Supplier_SupplyArea" FromRole="Supplier" ToRole="SupplyArea" />
         </EntityType>
         <EntityType Name="SupplierOrder">
           <Key>
@@ -743,13 +743,13 @@
           <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
           <NavigationProperty Name="SupplyOrders" Relationship="Self.FK_SupplyId" FromRole="Supply" ToRole="SupplyOrder" />
         </EntityType>
-        <EntityType Name="supplyArea">
+        <EntityType Name="SupplyArea">
           <Key>
             <PropertyRef Name="area_id" />
           </Key>
           <Property Name="area_id" Type="Int32" Nullable="false" />
           <Property Name="area_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Suppliers" Relationship="Self.Supplier_SupplyArea" FromRole="supplyArea" ToRole="Supplier" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.Supplier_SupplyArea" FromRole="SupplyArea" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="SupplyOrder">
           <Key>
@@ -968,7 +968,7 @@
         </Association>
         <Association Name="Supplier_SupplyArea">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
-          <End Role="supplyArea" Type="Self.supplyArea" Multiplicity="*" />
+          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ItaliaPizzaDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
@@ -988,7 +988,7 @@
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="SupplierOrders" EntityType="Self.SupplierOrder" />
           <EntitySet Name="Supplies" EntityType="Self.Supply" />
-          <EntitySet Name="supplyAreas" EntityType="Self.supplyArea" />
+          <EntitySet Name="SupplyAreas" EntityType="Self.SupplyArea" />
           <EntitySet Name="SupplyOrders" EntityType="Self.SupplyOrder" />
           <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
             <End Role="Employee" EntitySet="Employees" />
@@ -1060,7 +1060,7 @@
           </AssociationSet>
           <AssociationSet Name="Supplier_SupplyArea" Association="Self.Supplier_SupplyArea">
             <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="supplyArea" EntitySet="supplyAreas" />
+            <End Role="SupplyArea" EntitySet="SupplyAreas" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1261,9 +1261,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="supplyAreas">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.supplyArea">
-              <MappingFragment StoreEntitySet="supplyArea">
+          <EntitySetMapping Name="SupplyAreas">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplyArea">
+              <MappingFragment StoreEntitySet="SupplyArea">
                 <ScalarProperty Name="area_id" ColumnName="area_id" />
                 <ScalarProperty Name="area_name" ColumnName="area_name" />
               </MappingFragment>
@@ -1283,7 +1283,7 @@
             <EndProperty Name="Supplier">
               <ScalarProperty Name="email" ColumnName="supplier_email" />
             </EndProperty>
-            <EndProperty Name="supplyArea">
+            <EndProperty Name="SupplyArea">
               <ScalarProperty Name="area_id" ColumnName="area_id" />
             </EndProperty>
           </AssociationSetMapping>

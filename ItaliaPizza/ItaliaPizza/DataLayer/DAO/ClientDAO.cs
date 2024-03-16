@@ -40,6 +40,26 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
+        public List<Client> GetLastClientsRegistered()
+        {
+            List<Client> lastClients = new List<Client>(); 
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var lastClientsDB = databaseContext.Clients
+                                                   .OrderByDescending(client => client.name)
+                                                   .Take(10)
+                                                   .ToList();
+                if (lastClientsDB != null)
+                {
+                    foreach (var client in lastClientsDB)
+                    {
+                        lastClients.Add(client);
+                    }
+                }
+            }
+            return lastClients;
+        }
+
         public bool IsEmailExisting(string email)
         {
             bool isEmailExisting = true;

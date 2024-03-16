@@ -13,14 +13,14 @@ namespace ItaliaPizza.DataLayer.DAO
 {
     public class SupplierAreaDAO : ISupplierArea
     { 
-        public List<supplyArea> GetAllSupplyAreas()
+        public List<SupplyArea> GetAllSupplyAreas()
         {
-            List<supplyArea> supplyAreas = new List<supplyArea>();
+            List<SupplyArea> supplyAreas = new List<SupplyArea>();
             try
             {
                 using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    supplyAreas = databaseContext.supplyAreas.ToList();
+                    supplyAreas = databaseContext.SupplyAreas.ToList();
                 }
             }
             catch (SqlException)

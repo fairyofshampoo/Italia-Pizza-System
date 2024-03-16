@@ -12,9 +12,9 @@ namespace ItaliaPizza.DataLayer.DAO
             {
                 try
                 {
-                    var existingSupplyAreas = databaseContext.supplyAreas.ToList();
+                    var existingSupplyAreas = databaseContext.SupplyAreas.ToList();
                     var selectedSupplyAreas = existingSupplyAreas
-                        .Where(area => supplier.supplyAreas.Any(selected => selected.area_name == area.area_name))
+                        .Where(area => supplier.SupplyAreas.Any(selected => selected.area_name == area.area_name))
                         .ToList();
                     var newSupplier = new Supplier
                     {
@@ -22,7 +22,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         phone = supplier.phone,
                         companyName = supplier.companyName,
                         status = supplier.status,
-                        supplyAreas = selectedSupplyAreas,
+                        SupplyAreas = selectedSupplyAreas,
                         manager = supplier.manager
                     };
 

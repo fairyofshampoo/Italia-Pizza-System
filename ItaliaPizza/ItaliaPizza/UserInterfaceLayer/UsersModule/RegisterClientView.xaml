@@ -36,11 +36,11 @@
                     HorizontalAlignment="Left"
                     Foreground="White"
                     FontFamily="Times New Roman"
-                    FontSize="50"
-                    Margin="-110,0,0,0" Height="70" Width="350"/>
+                    FontSize="60"
+                    Margin="-110,0,0,0" Height="70" Width="450"/>
 
                 <Canvas HorizontalAlignment="Center" Grid.Row="2">
-                    <Line X1="-310" Y1="-10" X2="25" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
+                    <Line X1="-310" Y1="-10" X2="105" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
                 </Canvas>
             </Grid>
 
