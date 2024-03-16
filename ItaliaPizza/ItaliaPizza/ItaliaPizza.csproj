@@ -281,6 +281,10 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\InvisibleIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\VisibleIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\Logo.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\LoginBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
