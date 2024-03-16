@@ -83,7 +83,9 @@
     <Compile Include="DataLayer\Client.cs">
       <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\DAO\AddressDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IAddress.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
@@ -149,11 +151,17 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml.cs">
+      <DependentUpon>ClientsUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
       <DependentUpon>RegisterClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml.cs">
+      <DependentUpon>TellerScreenView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -171,11 +179,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\UsersModule\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +258,16 @@
       <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddressIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PencilIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PlusSignIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ShoppingCarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PlaceMarkerIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PhoneIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ClientIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ClientShadowIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddClientIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\LogExpenseIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
