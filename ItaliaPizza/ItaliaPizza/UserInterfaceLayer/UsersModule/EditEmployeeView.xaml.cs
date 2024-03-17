@@ -19,14 +19,51 @@ using System.Windows.Shapes;
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     /// <summary>
-    /// Lógica de interacción para EmployeeRegisterView.xaml
+    /// Lógica de interacción para EditEmployeeView.xaml
     /// </summary>
-    public partial class EmployeeRegisterView : Page
+    public partial class EditEmployeeView : Page
     {
-        public EmployeeRegisterView()
+        public EditEmployeeView()
         {
             InitializeComponent();
             SetComboBoxItems();
+            
+            // Sólo para comprobar que funciona
+            string email = "sujey542003@gmail.com";
+
+            SetModifyEmployee(email);
+        }
+
+        private void btnDesactive_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea eliminar al empleado?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                string user = txtUsername.Text;
+                EmployeeDAO employeeDAO = new EmployeeDAO();
+
+                if (employeeDAO.ChangeStatus(user, Constants.INACTIVE_STATUS))
+                {
+                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                }
+            }
+        }
+
+        private void btnActive_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea activar al empleado?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                string user = txtUsername.Text;
+                EmployeeDAO employeeDAO = new EmployeeDAO();
+
+                if (employeeDAO.ChangeStatus(user, Constants.ACTIVE_STATUS))
+                {
+                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                }
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -35,22 +72,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             if (ValidateFields())
             {
-                string validationDuplicateData = ValidateDuplicateData();
-                if (string.IsNullOrEmpty(validationDuplicateData))
+                if (ModifyEmployee())
                 {
-                    if (RegisterEmployee())
-                    {
-                        DialogManager.ShowSuccessMessageBox("Empleado registrado exitosamente");
-                    }
-                }
-                else
-                {
-                    DialogManager.ShowWarningMessageBox(validationDuplicateData);
-                }
+                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                }      
             }
         }
 
-        private bool RegisterEmployee()
+        private bool ModifyEmployee()
         {
             string name = txtName.Text;
             string firstLastName = txtFirstLastName.Text;
@@ -59,7 +88,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             string email = txtEmail.Text;
             string employeeType = cmbEmployeeType.SelectedItem.ToString();
             string user = txtUsername.Text;
-            string password = pswPassword.Password;
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
 
@@ -76,10 +104,56 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             Account account = new Account
             {
                 user = user,
-                password = password,
             };
 
-            return employeeDAO.AddEmployee(employee, account);
+            if (pswPassword.Password != "passex1*")
+            {
+                account.password = pswPassword.Password;
+            }
+
+            return employeeDAO.ModifyEmployee(employee, account);
+        }
+
+        public void SetModifyEmployee(string email)
+        {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            Employee employeeInfo = employeeDAO.GetEmployeeByEmail(email);
+            Account accountinfo = employeeDAO.GetEmployeeAccountByEmail(email);
+            int statusAccount = 0;
+
+            if (employeeInfo != null)
+            {
+                txtName.Text = employeeInfo.name;
+                txtFirstLastName.Text = employeeInfo.firstLastName;
+                txtSecondLastName.Text = employeeInfo.secondLastName;
+                txtPhone.Text = employeeInfo.phone;
+                txtEmail.Text = employeeInfo.email;
+                cmbEmployeeType.SelectedIndex = cmbEmployeeType.Items.IndexOf(employeeInfo.role);
+            }
+
+            if (accountinfo != null)
+            {
+                txtUsername.Text = accountinfo.user;
+                pswPassword.Password = "passex1*";
+                statusAccount = accountinfo.status;
+
+                if (statusAccount == Constants.INACTIVE_STATUS)
+                {
+                    btnDesactive.IsEnabled = false;
+                    btnDesactive.Visibility = Visibility.Hidden;
+
+                    btnActive.IsEnabled = true;
+                    btnActive.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void SetComboBoxItems()
+        {
+            cmbEmployeeType.ItemsSource = new String[]
+            {
+                "Cocinero", "Cajero", "Mesero"
+            };
         }
 
         private bool ValidateFields()
@@ -118,27 +192,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 validateFields = false;
             }
 
-            if (txtEmail.Text.Equals(string.Empty) || !Validations.IsEmailValid(txtEmail.Text))
-            {
-                txtEmail.BorderBrush = Brushes.Red;
-                txtEmail.BorderThickness = new Thickness(2);
-                lblEmailError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
             if (cmbEmployeeType.SelectedItem == null)
             {
                 cmbEmployeeType.BorderBrush = Brushes.Red;
                 cmbEmployeeType.BorderThickness = new Thickness(2);
                 lblEmployeeTypeError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
-            if (txtUsername.Text.Equals(string.Empty) || !Validations.IsUserValid(txtUsername.Text))
-            {
-                txtUsername.BorderBrush = Brushes.Red;
-                txtUsername.BorderThickness = new Thickness(2);
-                lblUsernameError.Visibility = Visibility.Visible;
                 validateFields = false;
             }
 
@@ -151,47 +209,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             }
 
             return validateFields;
-        }
-
-        private String ValidateDuplicateData()
-        {
-            StringBuilder validationDuplicateData = new StringBuilder();
-
-            if (IsEmailExisting())
-            {
-                validationDuplicateData.AppendLine("El correo ingresado ya se encuentra registrado.");
-            }
-
-            if (IsUserExisting())
-            {
-                validationDuplicateData.AppendLine("El nombre de usuario ingresado ya se encuentra registrado.");
-            }
-
-            return validationDuplicateData.ToString();
-        }
-
-        private bool IsEmailExisting()
-        {
-            EmployeeDAO employeeDAO = new EmployeeDAO();
-            String email = txtEmail.Text;
-            bool isEmailAlreadyExisting = employeeDAO.IsEmailExisting(email);
-            return isEmailAlreadyExisting;
-        }
-
-        private bool IsUserExisting()
-        {
-            EmployeeDAO employeeDAO = new EmployeeDAO();
-            String user = txtUsername.Text;
-            bool isUserAlreadyExisting = employeeDAO.IsUserExisting(user);
-            return isUserAlreadyExisting;
-        }
-
-        private void SetComboBoxItems()
-        {
-            cmbEmployeeType.ItemsSource = new String[]
-            {
-                "Cocinero", "Cajero", "Mesero"
-            };
         }
 
         private void ResetFields()
@@ -212,17 +229,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             txtPhone.BorderThickness = new Thickness(0);
             lblPhoneError.Visibility = Visibility.Collapsed;
 
-            txtEmail.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtEmail.BorderThickness = new Thickness(0);
-            lblEmailError.Visibility = Visibility.Collapsed;
-
             cmbEmployeeType.BorderBrush = System.Windows.Media.Brushes.Transparent;
             cmbEmployeeType.BorderThickness = new Thickness(0);
             lblEmployeeTypeError.Visibility = Visibility.Collapsed;
-
-            txtUsername.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtUsername.BorderThickness = new Thickness(0);
-            lblUsernameError.Visibility = Visibility.Collapsed;
 
             pswPassword.BorderBrush = System.Windows.Media.Brushes.Transparent;
             pswPassword.BorderThickness = new Thickness(0);
