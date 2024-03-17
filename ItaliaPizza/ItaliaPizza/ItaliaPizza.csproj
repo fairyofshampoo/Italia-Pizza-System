@@ -68,6 +68,7 @@
     <Compile Include="ApplicationLayer\DialogManager.cs" />
     <Compile Include="ApplicationLayer\Encription.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
+    <Compile Include="ApplicationLayer\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Validations.cs" />
     <Compile Include="DataLayer\Account.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
