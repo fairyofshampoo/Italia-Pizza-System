@@ -139,11 +139,21 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
                 if (statusAccount == Constants.INACTIVE_STATUS)
                 {
+                    txtName.IsEnabled = false;
+                    txtFirstLastName.IsEnabled = false;
+                    txtSecondLastName.IsEnabled = false;
+                    txtPhone.IsEnabled = false;
+                    cmbEmployeeType.IsEnabled = false;
+                    pswPassword.IsEnabled = false;
+
                     btnDesactive.IsEnabled = false;
                     btnDesactive.Visibility = Visibility.Hidden;
 
                     btnActive.IsEnabled = true;
                     btnActive.Visibility = Visibility.Visible;
+
+                    btnSave.IsEnabled = false;
+                    btnSave.Background = Brushes.Gray;
                 }
             }
         }
