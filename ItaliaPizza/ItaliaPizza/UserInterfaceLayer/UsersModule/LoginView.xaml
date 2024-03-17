@@ -56,7 +56,7 @@
                                         Height="35" Width="250" HorizontalAlignment="Left" 
                                         VerticalAlignment="Top">
                                     <TextBox x:Name="txtUsername" FontSize="15"
-                                         FontWeight="Medium" FontFamily = "Segoe UI Variable Display"
+                                         FontWeight="Medium" FontFamily = "Microsoft YaHei UI"
                                          Background="LightGray" Foreground="Black"
                                          BorderThickness="0"/>
                                 </Border>
@@ -72,46 +72,53 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Left" Grid.Column="0">
+                                <Grid x:Name="gridPassword" HorizontalAlignment="Left" Grid.Column="0">
                                     <Border CornerRadius="5" BorderBrush="#ff7b00" 
                                             BorderThickness="4" Margin="2,2,0,0" Height="35"
                                             Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Border x:Name="bdrPassword" CornerRadius="5" 
+                                    <Border CornerRadius="5" 
                                             BorderBrush="LightGray" BorderThickness="4" 
                                             Height="35" Width="250" HorizontalAlignment="Left" 
                                             VerticalAlignment="Top">
                                         <PasswordBox x:Name="pwbPassword" FontSize="15"
-                                                     FontWeight="Medium" FontFamily = "Segoe UI Variable Display"
+                                                     FontWeight="Medium" FontFamily = "Microsoft YaHei UI"
                                                      Background="LightGray" Foreground="Black"
                                                      BorderThickness="0">
                                         </PasswordBox>
                                     </Border>
                                 </Grid>
                                 <ToggleButton x:Name = "tgbtnPasswordVisibility" Grid.Column = "1" Cursor = "Hand"
-                            Checked = "TgbtnPasswordVisibility_Checked" Margin="5,0,0,0" Unchecked = "TgbtnPasswordVisibility_Unchecked">
+                                              Checked = "TgbtnPasswordVisibility_Checked" Margin="5,0,0,0" 
+                                              Unchecked = "TgbtnPasswordVisibility_Unchecked">
                                     <ToggleButton.Template>
                                         <ControlTemplate>
                                             <Image x:Name="imgPasswordIcon" Source="../Resources/Icons/VisibleIcon.png" Width = "30" Height = "30"/>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton>
-                                <Border x:Name="brPasswordDisplay" CornerRadius="5" BorderBrush="LightGray" BorderThickness="3" Grid.Row="4" Grid.Column="0" Margin="100,0,0,0" Height="35" Visibility="Collapsed">
-                                    <TextBox x:Name="txtPasswordDisplay"
-                                FontSize="15"
-                                FontWeight="Medium"
-                                FontFamily="Montserrat"
-                                Background="LightGray"
-                                Foreground="Black"
-                                BorderThickness="0">
-                                    </TextBox>
-                                </Border>
+                                <Grid x:Name="gridPasswordDisplay" HorizontalAlignment="Left" 
+                                      Grid.Column="0" Visibility="Collapsed">
+                                    <Border CornerRadius="5" BorderBrush="#ff7b00" 
+                                            BorderThickness="4" Margin="2,2,0,0" Height="35"
+                                            Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Border CornerRadius="5" 
+                                            BorderBrush="LightGray" BorderThickness="4" 
+                                            Height="35" Width="250" HorizontalAlignment="Left" 
+                                            VerticalAlignment="Top">
+                                        <TextBox x:Name="txtPasswordDisplay" FontSize="15" FontWeight="Medium"
+                                                 FontFamily="Microsoft YaHei UI" Background="LightGray"
+                                                 Foreground="Black" BorderThickness="0">
+                                        </TextBox>
+                                    </Border>
+                                </Grid>
                             </Grid>
-
-                            <Button x:Name="btnLogin" Grid.Row="5" BorderThickness="0" Content="Iniciar sesión" Foreground="White"
-FontSize="20"
-FontFamily = "Segoe UI Variable Display Bold"
-Cursor="Hand" HorizontalAlignment="Center"
-Click="BtnLogin_Click">
+                            <Button x:Name="btnLogin" Grid.Row="5" 
+                                    BorderThickness="0" Content="Iniciar sesión" 
+                                    Foreground="White" FontSize="15"
+                                    FontFamily = "Microsoft YaHei UI"
+                                    Cursor="Hand" HorizontalAlignment="Center" 
+                                    Margin="0,20,0,10" FontWeight="ExtraBold"
+                                    Click="BtnLogin_Click">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="#FA8A00" />
