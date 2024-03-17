@@ -160,9 +160,6 @@
     <Compile Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml.cs">
       <DependentUpon>ClientsUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
       <DependentUpon>RegisterClientView.xaml</DependentUpon>
     </Compile>
@@ -190,10 +187,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserInterfaceLayer\UsersModule\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
