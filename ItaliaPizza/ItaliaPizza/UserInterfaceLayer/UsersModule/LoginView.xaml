@@ -4,11 +4,143 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.UsersModule"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="LoginView">
+      mc:Ignorable="d" Background="#2C2C2C"
+      d:DesignHeight="720" d:DesignWidth="1280">
 
-    <Grid>
-        
-    </Grid>
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Border>
+                    <Border.Background>
+                        <ImageBrush ImageSource="../Resources/Images/LoginBackground.png" Stretch="UniformToFill" />
+                    </Border.Background>
+                </Border>
+                <Border Opacity="0.40">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                            <GradientStop Color="#2C2C2C" Offset="0.40" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <StackPanel Width="1280" Height="720" Orientation="Vertical" 
+                            Margin="0,0,0,0" VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Image Source="../Resources/Images/Logo.png" Height="180" Stretch="Uniform" Margin="0,20,0,0" />
+                    <Border Background="#393D42" Height="Auto" Width="Auto"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            CornerRadius="10" Margin="10,20,10,30">
+                        <Grid HorizontalAlignment="Center" Margin="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Ingresa tus datos de acceso:" Foreground="White"
+                                   FontFamily="Microsoft YaHei UI" HorizontalAlignment="Left"
+                                   Margin="50,0,0,10" FontSize="16" FontWeight="Bold">
+                            </Label>
+                            <Label Content="Nombre de usuario" Foreground="White"
+                                   FontSize="15" FontWeight="Bold" FontFamily = "Microsoft YaHei UI" 
+                                   Grid.Row="1" HorizontalAlignment="Left"
+                                   Margin="50,0,0,0"/>
+                            <Grid HorizontalAlignment="Left"
+                                    Margin="50,0,0,0" Grid.Row="2">
+                                <Border CornerRadius="5" BorderBrush="#ff7b00" 
+                                        BorderThickness="4" Margin="2,2,0,0" Height="35" 
+                                        Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Border x:Name="bdrUsername" CornerRadius="5" 
+                                        BorderBrush="LightGray" BorderThickness="4" 
+                                        Height="35" Width="250" HorizontalAlignment="Left" 
+                                        VerticalAlignment="Top">
+                                    <TextBox x:Name="txtUsername" FontSize="15"
+                                         FontWeight="Medium" FontFamily = "Microsoft YaHei UI"
+                                         Background="LightGray" Foreground="Black"
+                                         BorderThickness="0"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblPassword" Content="Contraseña"
+                                   Foreground="White" FontSize="15" 
+                                   FontWeight="Bold" FontFamily = "Microsoft YaHei UI" 
+                                   Grid.Row="3" HorizontalAlignment="Left"
+                                   Margin="50,0,0,0" />
+                            <Grid Grid.Row="4" HorizontalAlignment="Left"
+                                   Margin="50,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid x:Name="gridPassword" HorizontalAlignment="Left" Grid.Column="0">
+                                    <Border CornerRadius="5" BorderBrush="#ff7b00" 
+                                            BorderThickness="4" Margin="2,2,0,0" Height="35"
+                                            Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Border CornerRadius="5" 
+                                            BorderBrush="LightGray" BorderThickness="4" 
+                                            Height="35" Width="250" HorizontalAlignment="Left" 
+                                            VerticalAlignment="Top">
+                                        <PasswordBox x:Name="pwbPassword" FontSize="15"
+                                                     FontWeight="Medium" FontFamily = "Microsoft YaHei UI"
+                                                     Background="LightGray" Foreground="Black"
+                                                     BorderThickness="0">
+                                        </PasswordBox>
+                                    </Border>
+                                </Grid>
+                                <ToggleButton x:Name = "tgbtnPasswordVisibility" Grid.Column = "1" Cursor = "Hand"
+                                              Checked = "TgbtnPasswordVisibility_Checked" Margin="5,0,0,0" 
+                                              Unchecked = "TgbtnPasswordVisibility_Unchecked">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate>
+                                            <Image x:Name="imgPasswordIcon" Source="../Resources/Icons/VisibleIcon.png" Width = "30" Height = "30"/>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Grid x:Name="gridPasswordDisplay" HorizontalAlignment="Left" 
+                                      Grid.Column="0" Visibility="Collapsed" IsEnabled="False">
+                                    <Border CornerRadius="5" BorderBrush="#ff7b00" 
+                                            BorderThickness="4" Margin="2,2,0,0" Height="35"
+                                            Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Border CornerRadius="5" 
+                                            BorderBrush="LightGray" BorderThickness="4" 
+                                            Height="35" Width="250" HorizontalAlignment="Left" 
+                                            VerticalAlignment="Top">
+                                        <TextBox x:Name="txtPasswordDisplay" FontSize="15" FontWeight="Medium"
+                                                 FontFamily="Microsoft YaHei UI" Background="LightGray"
+                                                 Foreground="Black" BorderThickness="0">
+                                        </TextBox>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            <Button x:Name="btnLogin" Grid.Row="5" 
+                                    BorderThickness="0" Content="Iniciar sesión" 
+                                    Foreground="White" FontSize="15"
+                                    FontFamily = "Microsoft YaHei UI"
+                                    Cursor="Hand" HorizontalAlignment="Center" 
+                                    Margin="0,20,0,10" FontWeight="ExtraBold"
+                                    Click="BtnLogin_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#FA8A00" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#000000" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="140" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Viewbox>
 </Page>

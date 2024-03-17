@@ -24,5 +24,20 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             InitializeComponent();
         }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TgbtnPasswordVisibility_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TgbtnPasswordVisibility_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
