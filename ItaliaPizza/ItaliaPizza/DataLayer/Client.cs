@@ -23,8 +23,6 @@ namespace ItaliaPizza.DataLayer
     
         public string email { get; set; }
         public string name { get; set; }
-        public string firstLastName { get; set; }
-        public string secondLastName { get; set; }
         public string phone { get; set; }
         public byte status { get; set; }
     

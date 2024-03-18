@@ -21,7 +21,6 @@
           </Key>
           <Property Name="addressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="street" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="number" Type="int" Nullable="false" />
           <Property Name="postalCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="colony" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
@@ -52,8 +51,6 @@
           </Key>
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="firstLastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="secondLastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -552,7 +549,6 @@
           </Key>
           <Property Name="addressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="street" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="number" Type="Int32" Nullable="false" />
           <Property Name="postalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
@@ -585,8 +581,6 @@
           </Key>
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="secondLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
@@ -1085,7 +1079,6 @@
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="addressId" ColumnName="addressId" />
                 <ScalarProperty Name="street" ColumnName="street" />
-                <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="postalCode" ColumnName="postalCode" />
                 <ScalarProperty Name="colony" ColumnName="colony" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -1119,8 +1112,6 @@
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
-                <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
