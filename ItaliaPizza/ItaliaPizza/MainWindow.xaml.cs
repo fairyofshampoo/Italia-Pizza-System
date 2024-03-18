@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.ApplicationLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace ItaliaPizza
             }
             else
             {
-                //UserSingleton.Instance.Clear();
+                UserSingleton.Instance.Clear();
             }
         }
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)

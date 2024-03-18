@@ -2,8 +2,10 @@
 using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -100,7 +102,7 @@ namespace ItaliaPizza.DataLayer.DAO
         public bool ChangeStatus(string user, int newStatus)
         {
             bool succesfullChange = false;
-
+            // successful, te sobró una l, by mich
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 try
@@ -205,6 +207,43 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return isUsernameExisting;
+        }
+
+        public Account GetAccountByUsername(string username)
+        {
+            Account account = new Account();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    account = databaseContext.Accounts
+                                         .Include(acc => acc.Employee)
+                                         .FirstOrDefault(acc => acc.user == username);
+                }
+                catch (SqlException sQLException)
+                {
+                    throw sQLException;
+                }
+            }
+
+            return account;
+        }
+
+        public bool AuthenticateAccount(string username, string password)
+        {
+            bool isAuthenticated = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+
+                var account = databaseContext.Accounts.FirstOrDefault(acc => acc.user == username && acc.password == password);
+
+
+                if (account != null)
+                    isAuthenticated = true;
+            }
+
+            return isAuthenticated;
         }
     }
 }
