@@ -48,7 +48,7 @@
             <StackPanel
                 Grid.Row="1"
                 Height="650"
-                Width="1280"
+                Width="1370"
                 Background="#2c2c2c">
 
                 <Label Content="Complete los siguientes campos para registrar un nuevo cliente"
