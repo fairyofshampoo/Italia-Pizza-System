@@ -158,6 +158,9 @@
     <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditClientView.xaml.cs">
+      <DependentUpon>EditClientView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml.cs">
       <DependentUpon>EmployeeRegisterView.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
