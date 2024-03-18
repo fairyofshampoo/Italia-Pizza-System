@@ -59,7 +59,7 @@
                                 Width="320" Height="60"
                                 Grid.Column="3" Margin="22,34,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center">
-                    
+
                     <TextBox x:Name="txtSearchBar"
                              TextChanged="txtSearchBarChanged"
                              FontSize="30"
@@ -68,16 +68,13 @@
                              Background="LightGray"
                              BorderThickness="0" />
                 </Border>
-
-
             </Grid>
 
             <ScrollViewer
                   Grid.Row="1">
                 <Grid Name="ClientsGrid"
-                  Width="1100"
-                  Height="400"
-                  Margin="0"/>
+                  Width = "1100"
+                  Height = "Auto"/>
             </ScrollViewer>
         </Grid>
     </WrapPanel>

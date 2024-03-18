@@ -29,11 +29,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (HandleLoginAttempt())
+           /* if (HandleLoginAttempt())
             {
                 SaveSession();
                 DisplayMainMenuView();
-            }
+            }*/
         }
 
         private void SaveSession()

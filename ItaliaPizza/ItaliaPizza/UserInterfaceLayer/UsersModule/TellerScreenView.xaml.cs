@@ -22,26 +22,38 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     {
 
         private int rowsAdded = 0;
+        private int searchFlag = 0;
 
         public TellerScreenView()
         {
             InitializeComponent();
-            ShowLastClientsRegistered();
+
+            List<Client> clients = GetLasCients();
+            if (clients.Any())
+            {
+                ShowClients(clients);
+            } else
+            {
+                // Desahabilitar la barra de busqueda 
+                // Mostrar ventana emergente de que no hay clientes
+            }
         }
 
-        private void ShowLastClientsRegistered()
+        private void ShowClients(List<Client> clients)
         {
             rowsAdded = 0;
             ClientsGrid.Children.Clear();
             ClientsGrid.RowDefinitions.Clear();
 
-            List<Client> lastClients = GetLasCients();  
-            if (lastClients.Any())
+            if (clients.Any())
             {
-                foreach (Client client in lastClients)
+                foreach (Client client in clients)
                 {
                     AddClients(client);
                 }
+            } else
+            {
+                //mostrar label de que no hay resultados
             }
         }
 
@@ -68,16 +80,21 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void txtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = ((TextBox)sender).Text;
-            if (searchText.Length > 4) 
+            if (searchText.Length > 3) 
             { 
                 if(IsANumber(searchText))
                 {
-                    //Búsqueda en los números que coincidan 
+                    SearchByPhoneNumber(searchText);
                 }
                 else
                 {
-                    //Búsqueda primero en los nombres de persona
-                    //Si no buscar por dirección
+                    if(searchFlag == 0)
+                    {
+                        SearchByAddress(searchText);
+                    } else
+                    {
+                        //busca por nombre
+                    }
                 }
             }
         }
@@ -91,6 +108,35 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 isANumber = true;
             }
             return isANumber;
+        }
+
+        private void SearchByPhoneNumber(string phoneNumber)
+        {
+            ClientDAO clientDAO = new ClientDAO();
+            List<Client> clients = clientDAO.GetClientsByPhone(phoneNumber);
+            ShowClients(clients);
+        }
+
+        private void SearchByAddress(string address)
+        {
+            ClientDAO clientDAO = new ClientDAO();
+            List<Client> clients = clientDAO.GetClientsByAddress(address);
+            if (!clients.Any())
+            {
+                searchFlag = 1;
+            }
+            ShowClients(clients);
+        }
+
+        private void SearchByName(string name)
+        {
+            ClientDAO clientDAO = new ClientDAO();
+            List<Client> clients = clientDAO.GetClientsByName(name);
+            if(!clients.Any())
+            {
+                searchFlag = 0;
+            }
+            ShowClients(clients);
         }
     }
 }
