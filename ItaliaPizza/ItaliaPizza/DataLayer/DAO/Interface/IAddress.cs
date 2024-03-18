@@ -9,5 +9,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     internal interface IAddress
     {
         Address GetClientAddress(string email);
+
     }
 }

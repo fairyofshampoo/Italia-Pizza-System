@@ -26,7 +26,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         firstLastName = client.firstLastName,
                         email = client.email,
                         phone = client.phone,
-                        status = client.status,
+                        status = 1
                     };
                     databaseContext.Clients.Add(newClient);
                     databaseContext.SaveChanges();
@@ -38,6 +38,103 @@ namespace ItaliaPizza.DataLayer.DAO
                 
             }
             return successfulRegistration;
+        }
+
+        public List<Client> GetClientsByAddress(string address)
+        {
+            List<Client> clients = new List<Client>();
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var clientsByAddress = databaseContext.Addresses
+                                                      .Where(fullAddress => fullAddress.street.StartsWith(address))
+                                                      .Take(5)
+                                                      .ToList();
+            }
+            return clients;
+        }
+
+        public List<Client> GetClientsByName(string fullName)
+        {
+            String[]  nameDivided= fullName.Split(' ');
+            int numberOfWords = nameDivided.Length;
+            List<Client> clients = new List<Client>();
+
+            switch(numberOfWords)
+            {
+                case 1: clients = SearchClietJustName(fullName);
+                        break;
+
+                case 2: clients = SearchClientByNameAndFirstLastName(nameDivided);
+                        break;
+
+                case 3: clients = SearchClientByFullName(nameDivided);
+                        break;
+            }
+
+            
+            return clients;
+        }
+
+        private List<Client> SearchClietJustName(string fullName)
+        {
+            List<Client> clients = new List<Client>();
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var clientsJustName = databaseContext.Clients
+                                                     .Where(client => client.name.StartsWith(fullName))
+                                                     .Take(5)
+                                                     .ToList();
+            }
+            return clients;
+        }
+
+        private List<Client> SearchClientByNameAndFirstLastName (String[] nameDivided)
+        {
+            List<Client> clients = new List<Client> ();
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var clientByNameAndFirstLastName = databaseContext.Clients
+                                                                  .Where(client => client.name.StartsWith(nameDivided[0]) 
+                                                                         && client.firstLastName.StartsWith(nameDivided[1]))
+                                                                  .Take(5)
+                                                                  .ToList();
+            }
+            return clients;
+        }
+
+        private List<Client> SearchClientByFullName(String[] nameDivided)
+        {
+            List<Client> clients = new List<Client>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var clientByNameAndFirstLastName = databaseContext.Clients
+                                                                  .Where(client => client.name.StartsWith(nameDivided[0])
+                                                                         && client.firstLastName.StartsWith(nameDivided[1])
+                                                                         && client.secondLastName.StartsWith(nameDivided[2]))
+                                                                  .Take(5)
+                                                                  .ToList();
+            }
+            return clients;
+        }
+
+        public List<Client> GetClientsByPhone(string phone)
+        {
+            List<Client> clientsDB = new List<Client>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var clientsByPhone = databaseContext.Clients
+                                                    .Where(client => client.phone.StartsWith(phone))
+                                                    .Take(5)
+                                                    .ToList();
+                if(clientsByPhone != null)
+                {
+                    foreach (var client in clientsByPhone)
+                    {
+                        clientsDB.Add(client);
+                    }
+                }
+            }
+            return clientsDB;
         }
 
         public List<Client> GetLastClientsRegistered()
