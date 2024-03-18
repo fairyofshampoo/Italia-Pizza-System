@@ -10,6 +10,8 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     {
         bool AddEmployee(Employee employee, Account acount);
         bool IsEmailExisting(string  email);
-        bool IsUserExisting(String user);
+        bool IsUserExisting(string user);
+        Account GetAccountByUsername(string username);
+        bool AuthenticateAccount(string username, string password);
     }
 }
