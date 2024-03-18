@@ -155,6 +155,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
+      <DependentUpon>EditEmployeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml.cs">
       <DependentUpon>EmployeeRegisterView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
