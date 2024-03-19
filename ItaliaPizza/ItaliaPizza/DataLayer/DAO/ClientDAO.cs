@@ -55,65 +55,8 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public List<Client> GetClientsByName(string fullName)
         {
-            String[]  nameDivided= fullName.Split(' ');
-            int numberOfWords = nameDivided.Length;
             List<Client> clients = new List<Client>();
 
-            switch(numberOfWords)
-            {
-                case 1: clients = SearchClietJustName(fullName);
-                        break;
-
-                case 2: clients = SearchClientByNameAndFirstLastName(nameDivided);
-                        break;
-
-                case 3: clients = SearchClientByFullName(nameDivided);
-                        break;
-            }
-
-            
-            return clients;
-        }
-
-        private List<Client> SearchClietJustName(string fullName)
-        {
-            List<Client> clients = new List<Client>();
-            using(var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                var clientsJustName = databaseContext.Clients
-                                                     .Where(client => client.name.StartsWith(fullName))
-                                                     .Take(5)
-                                                     .ToList();
-            }
-            return clients;
-        }
-
-        private List<Client> SearchClientByNameAndFirstLastName (String[] nameDivided)
-        {
-            List<Client> clients = new List<Client> ();
-            using(var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                var clientByNameAndFirstLastName = databaseContext.Clients
-                                                                  .Where(client => client.name.StartsWith(nameDivided[0]) 
-                                                                         && client.firstLastName.StartsWith(nameDivided[1]))
-                                                                  .Take(5)
-                                                                  .ToList();
-            }
-            return clients;
-        }
-
-        private List<Client> SearchClientByFullName(String[] nameDivided)
-        {
-            List<Client> clients = new List<Client>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                var clientByNameAndFirstLastName = databaseContext.Clients
-                                                                  .Where(client => client.name.StartsWith(nameDivided[0])
-                                                                         && client.firstLastName.StartsWith(nameDivided[1])
-                                                                         && client.secondLastName.StartsWith(nameDivided[2]))
-                                                                  .Take(5)
-                                                                  .ToList();
-            }
             return clients;
         }
 
