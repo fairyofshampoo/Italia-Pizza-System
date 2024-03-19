@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.DataLayer.DAO.Interface
 {
-    internal interface IEmployee
+    internal interface IProduct
     {
-        bool AddEmployee(Employee employee, Account acount);
-        bool IsEmailExisting(string email);
-        bool IsUserExisting(string user);
+        bool IsCodeExisting(string code);
     }
 }

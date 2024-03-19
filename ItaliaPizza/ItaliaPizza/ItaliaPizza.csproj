@@ -87,6 +87,8 @@
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
+    <Compile Include="DataLayer\DAO\ProductDAO.cs" />
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -155,6 +157,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml.cs">
+      <DependentUpon>ProductRegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +194,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,7 +267,6 @@
   <ItemGroup>
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
     <Folder Include="UserInterfaceLayer\OrdersModule\" />
-    <Folder Include="UserInterfaceLayer\ProductsModule\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -296,6 +304,9 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\InvisibleIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\VisibleIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Images\Logo.png" />
