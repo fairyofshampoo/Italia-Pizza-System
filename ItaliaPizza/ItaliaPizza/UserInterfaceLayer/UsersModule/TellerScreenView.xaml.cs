@@ -93,7 +93,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                         SearchByAddress(searchText);
                     } else
                     {
-                        //busca por nombre
+                        SearchByName(searchText);
                     }
                 }
             }

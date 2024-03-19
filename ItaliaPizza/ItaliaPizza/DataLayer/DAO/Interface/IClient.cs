@@ -12,6 +12,10 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 
         bool IsEmailExisting(string email);
 
+        bool EditDataClient(Client client);
+
+        bool DisableClient(string email);
+
         List<Client> GetLastClientsRegistered();
 
         List<Client> GetClientsByPhone(string phone);
