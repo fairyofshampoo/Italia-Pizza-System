@@ -22,7 +22,6 @@ namespace ItaliaPizza.DataLayer
     
         public int addressId { get; set; }
         public string street { get; set; }
-        public int number { get; set; }
         public string postalCode { get; set; }
         public string colony { get; set; }
         public byte status { get; set; }
