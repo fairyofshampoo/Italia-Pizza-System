@@ -10,6 +10,12 @@ namespace ItaliaPizza.ApplicationLayer
 {
     internal class Validations
     {
+        private static int NAME_ERROR = 1;
+        private static int FIRST_LAST_NAME_ERROR = 2;
+        private static int SECOND_LAST_NAME_ERROR = 3;
+        private static int PHONE_ERROR = 4;
+        private static int EMAIL_ERROR = 5;    
+
         public static bool IsNameValid(string name)
         {
             int limitTime = 500;
@@ -139,6 +145,37 @@ namespace ItaliaPizza.ApplicationLayer
                 isValid = false;
             }
             return isValid;
+        }
+
+        public static List<int> ValidationClientData(List<String> data)
+        {
+            List<int> errors = new List<int>();
+
+            if (!IsNameValid(data[0]))
+            {
+                errors.Add(NAME_ERROR);
+            }
+
+            if (!IsNameValid(data[1]))
+            {
+                errors.Add(FIRST_LAST_NAME_ERROR);
+            }
+
+            if (!IsNameValid(data[2]))
+            {
+                errors.Add(SECOND_LAST_NAME_ERROR);
+            }
+
+            if (!IsPhoneValid(data[3]))
+            {
+                errors.Add(PHONE_ERROR);
+            }
+
+            if (!IsEmailValid(data[4]))
+            {
+                errors.Add(EMAIL_ERROR);
+            }
+            return errors;
         }
 
     }

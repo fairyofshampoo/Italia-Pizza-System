@@ -19,6 +19,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class ClientsUC : UserControl
     {
+        private string userEmail;
+
         public ClientsUC()
         {
             InitializeComponent();
@@ -27,11 +29,16 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         public void setDataCards(Client client)
         {
-            lblFullName.Content = client.name + client.firstLastName + client.secondLastName;
+            lblFullName.Content = client.name;
             lblPhoneNumber.Content = client.phone;
             AddressDAO addressDAO = new AddressDAO();
-           // Address fullAddress = addressDAO.GetClientAddress(client.email);
+            // Address fullAddress = addressDAO.GetClientAddress(client.email);
+            userEmail = client.email;
         }
 
+        private void BtnEditClient_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

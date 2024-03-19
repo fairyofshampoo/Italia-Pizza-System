@@ -252,7 +252,8 @@
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
-                                         BorderThickness="0" />
+                                         BorderThickness="0" 
+                                         IsReadOnly="True"/>
                         </Border>
 
                         <Label
@@ -278,7 +279,7 @@
                         FontWeight="Bold"
                         Cursor="Hand"
                         Margin="0,40,137,0" 
-                        HorizontalAlignment="Right" Click="btnSave_Click">
+                        HorizontalAlignment="Right" Click="BtnSave_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#FF7B00"/>
@@ -304,7 +305,7 @@
                         FontWeight="Bold"
                         Cursor="Hand"
                         Margin="-0,-50,340,-0"
-                        HorizontalAlignment="Right" Click="btnDisable_Click">
+                        HorizontalAlignment="Right" Click="BtnDisable_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#FF0422"/>

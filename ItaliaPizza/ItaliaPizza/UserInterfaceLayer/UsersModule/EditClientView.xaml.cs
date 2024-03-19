@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.DataLayer.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +18,26 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class EditClientView : Page
     {
-        public EditClientView()
+        private string emailClient;
+
+        public EditClientView(string email)
         {
             InitializeComponent();
+            this.emailClient = email;
+            ShowData();
         }
 
-        private void btnDisable_Click(object sender, RoutedEventArgs e)
+        private void ShowData() 
         {
-
+            txtEmail.Text = emailClient;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnDisable_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
 
         }
