@@ -41,7 +41,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         isExternal = product.isExternal,
                         name = product.name,
                         price = product.price,
-                        photo = product.photo,
+                        picture = product.picture,
                     };
 
                     databaseContext.Products.Add(newProduct);
