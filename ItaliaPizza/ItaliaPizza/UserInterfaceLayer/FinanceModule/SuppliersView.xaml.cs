@@ -24,5 +24,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             InitializeComponent();
         }
+
+        private void txtSearchBarChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

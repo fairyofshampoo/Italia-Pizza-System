@@ -12,8 +12,6 @@ namespace ItaliaPizza.ApplicationLayer
         private static readonly UserSingleton instance = new UserSingleton();
         public string Username { get; set; }
         public string Name { get; set; }
-        public string FirstLastName { get; set; }
-        public string SecondLastName { get; set; }
         public string Email { get; set; }
         public byte IsAdmin { get; set; }
         public string Role { get; set; }
@@ -24,8 +22,6 @@ namespace ItaliaPizza.ApplicationLayer
         {
             Username = account.user;
             Name = account.Employee.name;
-            FirstLastName = account.Employee.firstLastName;
-            SecondLastName = account.Employee.secondLastName;
             Email = account.email;
             IsAdmin = account.isAdmin;
             Role = account.Employee.role;
@@ -36,8 +32,6 @@ namespace ItaliaPizza.ApplicationLayer
         {
             Username = null;
             Name = null;
-            FirstLastName = null;
-            SecondLastName = null;
             Email = null;
             IsAdmin = 0;
             Role = null;

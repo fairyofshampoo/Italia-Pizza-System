@@ -87,6 +87,9 @@
     <Compile Include="DataLayer\Client.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\ColonyCatalog.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\DAO\AddressDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
@@ -99,6 +102,9 @@
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
+    <Compile Include="DataLayer\database_firewall_rules.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -316,6 +322,14 @@
     <Resource Include="UserInterfaceLayer\Resources\Images\LoginBackground.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmailIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EditIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SupplierOrderIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
@@ -326,12 +340,6 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\EmailIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\EditIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\SupplierOrderIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
-    <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

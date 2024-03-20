@@ -25,8 +25,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     var newEmployee = new Employee
                     {
                         name = employee.name,
-                        firstLastName = employee.firstLastName,
-                        secondLastName = employee.secondLastName,
                         phone = employee.phone,
                         email = employee.email,
                         role = employee.role,
@@ -69,8 +67,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (modifyEmployee != null)
                     {
                         modifyEmployee.name = updateEmployee.name;
-                        modifyEmployee.firstLastName = updateEmployee.firstLastName;
-                        modifyEmployee.secondLastName = updateEmployee.secondLastName;
                         modifyEmployee.phone = updateEmployee.phone;
                         modifyEmployee.role = updateEmployee.role;
                     }
@@ -138,8 +134,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (employee != null)
                     {
                         employeeFound.name = employee.name;
-                        employeeFound.firstLastName = employee.firstLastName;
-                        employeeFound.secondLastName = employee.secondLastName;
                         employeeFound.phone = employee.phone;
                         employeeFound.email = employee.email;
                         employeeFound.role = employee.role;

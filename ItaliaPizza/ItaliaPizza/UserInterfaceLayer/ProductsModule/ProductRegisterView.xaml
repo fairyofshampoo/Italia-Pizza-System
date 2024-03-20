@@ -194,7 +194,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,-72,137,20" HorizontalAlignment="Right" Width="165" Height="52" Visibility="Hidden" IsEnabled="False" Click="btnSave_Click">
+                    <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,-72,137,20" HorizontalAlignment="Right" Width="165" Height="52" Visibility="Hidden" IsEnabled="False" Click="BtnSave_Click">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#FF7B00"/>

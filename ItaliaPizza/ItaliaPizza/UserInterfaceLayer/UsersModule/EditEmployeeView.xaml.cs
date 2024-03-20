@@ -94,8 +94,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             Employee employee = new Employee
             {
                 name = name,
-                firstLastName = firstLastName,
-                secondLastName = secondLastName,
                 phone = phone,
                 email = email,
                 role = employeeType,
@@ -124,8 +122,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             if (employeeInfo != null)
             {
                 txtName.Text = employeeInfo.name;
-                txtFirstLastName.Text = employeeInfo.firstLastName;
-                txtSecondLastName.Text = employeeInfo.secondLastName;
                 txtPhone.Text = employeeInfo.phone;
                 txtEmail.Text = employeeInfo.email;
                 cmbEmployeeType.SelectedIndex = cmbEmployeeType.Items.IndexOf(employeeInfo.role);
