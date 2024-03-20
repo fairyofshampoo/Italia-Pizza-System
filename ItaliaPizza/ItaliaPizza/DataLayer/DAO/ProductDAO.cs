@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,38 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return isCodeExisting;
+        }
+
+        public bool AddProduct(Product product)
+        {
+            bool successfulRegistration = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var newProduct = new Product
+                    {
+                        productCode = product.productCode,
+                        status = product.status,
+                        amount = product.amount,
+                        description = product.description,
+                        isExternal = product.isExternal,
+                        name = product.name,
+                        price = product.price,
+                        photo = product.photo,
+                    };
+
+                    databaseContext.Products.Add(newProduct);
+                    databaseContext.SaveChanges();
+
+                    successfulRegistration = true;
+                } catch (SqlException sQLException)
+                {
+                    throw sQLException;
+                }
+            }
+            return successfulRegistration;
         }
     }
 }

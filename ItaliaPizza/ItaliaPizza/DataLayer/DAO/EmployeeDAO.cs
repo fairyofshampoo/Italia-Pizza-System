@@ -16,7 +16,7 @@ namespace ItaliaPizza.DataLayer.DAO
     {
         public bool AddEmployee(Employee employee, Account account)
         {
-            bool succesfulRegistration = false;
+            bool successfulRegistration = false;
 
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -46,19 +46,19 @@ namespace ItaliaPizza.DataLayer.DAO
                     databaseContext.Accounts.Add(newAccount);
                     databaseContext.SaveChanges();
 
-                    succesfulRegistration = true;
+                    successfulRegistration = true;
 
                 } catch (SqlException sQLException)
                 {
                     throw sQLException;
                 }
             }
-            return succesfulRegistration;
+            return successfulRegistration;
         }
 
         public bool ModifyEmployee(Employee updateEmployee, Account updateAccount)
         {
-            bool succesfulUpdate = false;
+            bool successfulUpdate = false;
 
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -88,7 +88,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         databaseContext.SaveChanges();
                     }
 
-                    succesfulUpdate = true;
+                    successfulUpdate = true;
 
                 } catch (SqlException sQLException)
                 {
@@ -96,12 +96,12 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
 
-            return succesfulUpdate;
+            return successfulUpdate;
         }
 
         public bool ChangeStatus(string user, int newStatus)
         {
-            bool succesfullChange = false;
+            bool successfulChange = false;
             // successful, te sobró una l, by mich
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -114,7 +114,7 @@ namespace ItaliaPizza.DataLayer.DAO
                     }
 
                     databaseContext.SaveChanges();
-                    succesfullChange = true;
+                    successfulChange = true;
 
                 } catch (ArgumentException argumentException)
                 {
@@ -122,7 +122,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
 
-            return succesfullChange;
+            return successfulChange;
         }
 
         public Employee GetEmployeeByEmail(string email)
