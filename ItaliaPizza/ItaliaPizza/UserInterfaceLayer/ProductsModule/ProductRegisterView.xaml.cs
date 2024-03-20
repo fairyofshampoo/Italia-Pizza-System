@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using Microsoft.Win32;
 using System;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -37,37 +39,65 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-
+                if (RegisterProduct())
+                {
+                    DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al agregar el producto");
+                }
             }
         }
-
-        /*
+     
         private bool RegisterProduct()
         {
             string name = txtName.Text;
             string code = txtCode.Text;
+            Decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
+            byte[] picture = GenerateImageBytes();
 
-        }
-        */
-        
-        private void cmbIsExternal_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmbIsExternal.SelectedItem != null)
+            string isExternalItem = cmbIsExternal.SelectedItem.ToString();
+            string statusItem = cmbStatus.SelectedItem.ToString();
+            byte isExternal;
+            byte status;
+            Int32 amount = Int32.Parse(txtAmount.Text);
+
+            if (isExternalItem == "System.Windows.Controls.ComboBoxItem: Sí")
             {
-                if (cmbIsExternal.SelectedItem.ToString() == "No")
-                {
-                    txtAmount.IsEnabled = false;
-                    txtAmount.Clear();
-                }
-
-                if (cmbIsExternal.SelectedItem.ToString() == "Sí")
-                {
-                    txtAmount.IsEnabled = true;
-                }
+                isExternal = Constants.EXTERNAL_PRODUCT;
             }
-        }
+            else
+            {
+                isExternal = Constants.INTERNAL_PRODUCT;
+            }
 
+            if (statusItem == "System.Windows.Controls.ComboBoxItem: Activo")
+            {
+                status = Constants.ACTIVE_STATUS;
+            }
+            else
+            {
+                status = Constants.INACTIVE_STATUS;
+            }
+
+            ProductDAO productDAO = new ProductDAO();
+            Product product = new Product
+            {
+                productCode = code,
+                status = status,
+                amount = amount,
+                description = description,
+                isExternal = isExternal,
+                name = name,
+                price = price,
+                //photo = picture
+            };
+
+            return productDAO.AddProduct(product);
+        }
+              
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -81,6 +111,22 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 string imagePath = openFileDialog.FileName;
                 BitmapImage productImage = new BitmapImage(new Uri(imagePath));
                 ProductImage.Source = productImage;
+            }
+        }
+
+        private void cmbIsExternal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbIsExternal.SelectedItem != null)
+            {
+                if (cmbIsExternal.SelectedItem.ToString() == "No")
+                {
+                    btnContinue.Content = "Continuar";
+                }
+
+                if (cmbIsExternal.SelectedItem.ToString() == "Sí")
+                {
+                    btnContinue.Content = "Guardar";
+                }
             }
         }
 
