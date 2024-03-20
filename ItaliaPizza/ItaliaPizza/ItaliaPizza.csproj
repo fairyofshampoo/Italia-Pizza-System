@@ -44,8 +44,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -157,6 +159,12 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml.cs">
+      <DependentUpon>SuppliersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
+      <DependentUpon>SupplierUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml.cs">
       <DependentUpon>ProductRegisterView.xaml</DependentUpon>
     </Compile>
@@ -194,6 +202,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,6 +326,9 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmailIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EditIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SupplierOrderIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
     <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />

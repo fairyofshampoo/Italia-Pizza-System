@@ -81,9 +81,9 @@
                                     <StackPanel Orientation="Vertical">
                                         <Label Content="Cantidad:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
                                         <Grid Margin="20,0,0,0">
-                                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="20,0,10,0" Height="35" VerticalAlignment="Center"/>
+                                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="3,0,10,0" Height="35" VerticalAlignment="Center"/>
                                             <Border x:Name="bdrAmount" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="132" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0">
-                                                <TextBox x:Name="txtAmount" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="125" />
+                                                <TextBox x:Name="txtAmount" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Right" Width="124" />
                                             </Border>
                                             <Label x:Name="lblAmountError" Content ="Cantidad inválida" Margin="0,36,20,-27" FontSize="10" Foreground="Red" Visibility="Hidden"/>
 
