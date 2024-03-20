@@ -3,6 +3,7 @@ using ItaliaPizza.DataLayer.DAO;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtCode.Text = GenerateProductCode();
         }
 
-
-
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             ResetFields();
@@ -42,9 +41,31 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
+        /*
+        private bool RegisterProduct()
+        {
+            string name = txtName.Text;
+            string code = txtCode.Text;
+            string description = txtDescription.Text;
+
+        }
+        */
+        
         private void cmbIsExternal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cmbIsExternal.SelectedItem != null)
+            {
+                if (cmbIsExternal.SelectedItem.ToString() == "No")
+                {
+                    txtAmount.IsEnabled = false;
+                    txtAmount.Clear();
+                }
 
+                if (cmbIsExternal.SelectedItem.ToString() == "Sí")
+                {
+                    txtAmount.IsEnabled = true;
+                }
+            }
         }
 
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
@@ -91,6 +112,26 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             } while (productDAO.IsCodeExisting(code));
 
             return code;
+        }
+
+        private byte[] GenerateImageBytes()
+        {
+            byte[] imageBytes = null;
+
+            if (ProductImage.Source != null)
+            {
+                BitmapSource bitmapSource = (BitmapSource)ProductImage.Source;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+
+                using(MemoryStream stream = new MemoryStream())
+                {
+                    encoder.Save(stream);
+                    imageBytes = stream.ToArray();
+                }
+            }
+
+            return imageBytes;
         }
 
         private bool ValidateFields()
