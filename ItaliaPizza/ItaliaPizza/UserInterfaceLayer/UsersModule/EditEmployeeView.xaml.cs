@@ -29,7 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             SetComboBoxItems();
             
             // Sólo para comprobar que funciona
-            string email = "sujey542003@gmail.com";
+            string email = "feliza@gmail.com";
 
             SetModifyEmployee(email);
         }
@@ -82,8 +82,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private bool ModifyEmployee()
         {
             string name = txtName.Text;
-            string firstLastName = txtFirstLastName.Text;
-            string secondLastName = txtSecondLastName.Text;
             string phone = txtPhone.Text;
             string email = txtEmail.Text;
             string employeeType = cmbEmployeeType.SelectedItem.ToString();
@@ -135,9 +133,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
                 if (statusAccount == Constants.INACTIVE_STATUS)
                 {
-                    txtName.IsEnabled = false;
-                    txtFirstLastName.IsEnabled = false;
-                    txtSecondLastName.IsEnabled = false;
+                    txtName.IsEnabled = false;                    
                     txtPhone.IsEnabled = false;
                     cmbEmployeeType.IsEnabled = false;
                     pswPassword.IsEnabled = false;
@@ -172,23 +168,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 txtName.BorderThickness = new Thickness(2);
                 lblNameError.Visibility = Visibility.Visible;
                 validateFields = false;
-            }
-
-            if (txtFirstLastName.Text.Equals(string.Empty) || !Validations.IsNameValid(txtFirstLastName.Text))
-            {
-                txtFirstLastName.BorderBrush = Brushes.Red;
-                txtFirstLastName.BorderThickness = new Thickness(2);
-                lblFirstLastNameError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
-            if (txtSecondLastName.Text.Equals(string.Empty) || !Validations.IsNameValid(txtSecondLastName.Text))
-            {
-                txtSecondLastName.BorderBrush = Brushes.Red;
-                txtSecondLastName.BorderThickness = new Thickness(2);
-                lblSecondLastNameError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
+            }           
 
             if (txtPhone.Text.Equals(string.Empty) || !Validations.IsPhoneValid(txtPhone.Text))
             {
@@ -221,15 +201,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             txtName.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtName.BorderThickness = new Thickness(0);
-            lblNameError.Visibility = Visibility.Collapsed;
-
-            txtFirstLastName.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtFirstLastName.BorderThickness = new Thickness(0);
-            lblFirstLastNameError.Visibility = Visibility.Collapsed;
-
-            txtSecondLastName.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtSecondLastName.BorderThickness = new Thickness(0);
-            lblSecondLastNameError.Visibility = Visibility.Collapsed;
+            lblNameError.Visibility = Visibility.Collapsed;            
 
             txtPhone.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtPhone.BorderThickness = new Thickness(0);
