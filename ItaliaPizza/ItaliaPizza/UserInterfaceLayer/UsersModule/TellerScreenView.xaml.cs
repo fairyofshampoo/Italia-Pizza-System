@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             if (clients.Any())
             {
                 ShowClients(clients);
+                txtSearchBar.IsReadOnly = false;
             } else
             {
-                // Desahabilitar la barra de busqueda 
-                // Mostrar ventana emergente de que no hay clientes
+                txtSearchBar.IsReadOnly = true;
+                DialogManager.ShowErrorMessageBox("No hay clientes registrados");
             }
         }
 
@@ -47,13 +49,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             if (clients.Any())
             {
+                lblClientNotFound.Visibility = Visibility.Collapsed;
                 foreach (Client client in clients)
                 {
                     AddClients(client);
                 }
             } else
             {
-                //mostrar label de que no hay resultados
+                lblClientNotFound.Visibility = Visibility.Visible;
             }
         }
 
