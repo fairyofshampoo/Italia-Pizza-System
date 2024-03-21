@@ -44,8 +44,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,6 +87,9 @@
     <Compile Include="DataLayer\Client.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\ColonyCatalog.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\DAO\AddressDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
@@ -95,6 +100,11 @@
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
     <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
+    <Compile Include="DataLayer\DAO\ProductDAO.cs" />
+    <Compile Include="DataLayer\database_firewall_rules.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\Dealer.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -155,6 +165,15 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml.cs">
+      <DependentUpon>SuppliersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
+      <DependentUpon>SupplierUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml.cs">
+      <DependentUpon>ProductRegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +208,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,7 +289,6 @@
   <ItemGroup>
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
     <Folder Include="UserInterfaceLayer\OrdersModule\" />
-    <Folder Include="UserInterfaceLayer\ProductsModule\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -290,6 +320,14 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\VisibleIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Images\Logo.png" />
     <Resource Include="UserInterfaceLayer\Resources\Images\LoginBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmailIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EditIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SupplierOrderIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">

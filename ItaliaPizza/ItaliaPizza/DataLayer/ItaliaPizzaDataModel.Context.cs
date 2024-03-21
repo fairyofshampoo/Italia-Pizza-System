@@ -30,6 +30,7 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Cashin> Cashins { get; set; }
         public virtual DbSet<Cashout> Cashouts { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<ColonyCatalog> ColonyCatalogs { get; set; }
         public virtual DbSet<Dealer> Dealers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<HomeOrderProduct> HomeOrderProducts { get; set; }
@@ -44,5 +45,6 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

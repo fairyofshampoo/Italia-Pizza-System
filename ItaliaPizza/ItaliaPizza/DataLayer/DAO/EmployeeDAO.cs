@@ -16,7 +16,7 @@ namespace ItaliaPizza.DataLayer.DAO
     {
         public bool AddEmployee(Employee employee, Account account)
         {
-            bool succesfulRegistration = false;
+            bool successfulRegistration = false;
 
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -25,8 +25,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     var newEmployee = new Employee
                     {
                         name = employee.name,
-                        firstLastName = employee.firstLastName,
-                        secondLastName = employee.secondLastName,
                         phone = employee.phone,
                         email = employee.email,
                         role = employee.role,
@@ -46,19 +44,19 @@ namespace ItaliaPizza.DataLayer.DAO
                     databaseContext.Accounts.Add(newAccount);
                     databaseContext.SaveChanges();
 
-                    succesfulRegistration = true;
+                    successfulRegistration = true;
 
                 } catch (SqlException sQLException)
                 {
                     throw sQLException;
                 }
             }
-            return succesfulRegistration;
+            return successfulRegistration;
         }
 
         public bool ModifyEmployee(Employee updateEmployee, Account updateAccount)
         {
-            bool succesfulUpdate = false;
+            bool successfulUpdate = false;
 
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -69,8 +67,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (modifyEmployee != null)
                     {
                         modifyEmployee.name = updateEmployee.name;
-                        modifyEmployee.firstLastName = updateEmployee.firstLastName;
-                        modifyEmployee.secondLastName = updateEmployee.secondLastName;
                         modifyEmployee.phone = updateEmployee.phone;
                         modifyEmployee.role = updateEmployee.role;
                     }
@@ -88,7 +84,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         databaseContext.SaveChanges();
                     }
 
-                    succesfulUpdate = true;
+                    successfulUpdate = true;
 
                 } catch (SqlException sQLException)
                 {
@@ -96,12 +92,12 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
 
-            return succesfulUpdate;
+            return successfulUpdate;
         }
 
         public bool ChangeStatus(string user, int newStatus)
         {
-            bool succesfullChange = false;
+            bool successfulChange = false;
             // successful, te sobró una l, by mich
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
@@ -114,7 +110,7 @@ namespace ItaliaPizza.DataLayer.DAO
                     }
 
                     databaseContext.SaveChanges();
-                    succesfullChange = true;
+                    successfulChange = true;
 
                 } catch (ArgumentException argumentException)
                 {
@@ -122,7 +118,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
 
-            return succesfullChange;
+            return successfulChange;
         }
 
         public Employee GetEmployeeByEmail(string email)
@@ -138,8 +134,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (employee != null)
                     {
                         employeeFound.name = employee.name;
-                        employeeFound.firstLastName = employee.firstLastName;
-                        employeeFound.secondLastName = employee.secondLastName;
                         employeeFound.phone = employee.phone;
                         employeeFound.email = employee.email;
                         employeeFound.role = employee.role;

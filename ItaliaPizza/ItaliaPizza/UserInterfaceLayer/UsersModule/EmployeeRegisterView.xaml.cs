@@ -66,8 +66,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             Employee employee = new Employee
             {
                 name = name,
-                firstLastName = firstLastName,
-                secondLastName = secondLastName,
                 phone = phone,
                 email = email,
                 role = employeeType,
