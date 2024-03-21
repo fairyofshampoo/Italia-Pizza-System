@@ -47,6 +47,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 {
                     DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
                 }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                }
             }
         }
 
@@ -63,6 +67,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 {
                     DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
                 }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                }
             }
         }
 
@@ -75,7 +83,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 if (ModifyEmployee())
                 {
                     DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
-                }      
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                }
             }
         }
 

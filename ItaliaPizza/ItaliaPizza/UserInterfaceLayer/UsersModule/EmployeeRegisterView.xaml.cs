@@ -42,6 +42,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     {
                         DialogManager.ShowSuccessMessageBox("Empleado registrado exitosamente");
                     }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al registrar un nuevo empleado");
+                    }
                 }
                 else
                 {
