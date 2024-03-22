@@ -171,7 +171,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private bool IsEmailExisting()
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            String email = txtEmail.Text;
+            string email = txtEmail.Text;
             bool isEmailAlreadyExisting = employeeDAO.IsEmailExisting(email);
             return isEmailAlreadyExisting;
         }
