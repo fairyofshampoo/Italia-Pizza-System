@@ -8,7 +8,7 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="ProductsView">
 
-    <WrapPanel Background="#2C2C2C">
+    <WrapPanel Background="#2C2C2C" HorizontalAlignment="Stretch">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="200"/>
@@ -39,8 +39,8 @@
                     <Label x:Name="lblInstruction" Content ="Ingrese el nombre del producto" Margin="0,0,0,0" FontSize="18" Foreground="White" Visibility="Visible"/>
                 </StackPanel>
 
-                <Button x:Name="btnAddProduct" Background="Transparent" Grid.Column="2" Width="100" BorderBrush="Transparent" HorizontalAlignment="Center" Margin="0,40,0,30" Click="btnAddProduct_Click">
-                    <Image Source="../Resources/Icons/AddProductIcon.png" Width="100" Height="105"/>
+                <Button x:Name="btnAddProduct" Background="Transparent" Grid.Column="2" Width="76" BorderBrush="Transparent" HorizontalAlignment="Center" Margin="0,60,0,60" Click="btnAddProduct_Click">
+                    <Image Source="../Resources/Icons/AddProductIcon.png" Width="72" Height="67"/>
                 </Button>
 
                 <Button x:Name="btnInventario" BorderThickness="0" Content="Inventario" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="21,79,0,69" HorizontalAlignment="Left" Width="164" Grid.Column="3" Click="btnInventario_Click">
@@ -58,8 +58,7 @@
                     </Button.Template>
                 </Button>
             </Grid>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel x:Name="stpFiltersProducts" Orientation="Horizontal" Grid.Row="1">
                 <Label x:Name="lblFilters" Content ="Tipo de producto" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
 
                 <Button x:Name="btnAllFilter" BorderThickness="0" Content="Todos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="30,7,0,9" Width="162" Click="btnAllFilter_Click">
@@ -111,6 +110,8 @@
             <ScrollViewer Grid.Row="2">
                 <Grid Name="ProductsGrid" Width = "1100" Height = "Auto"/>
             </ScrollViewer>
+
+            <Label Name="lblProductNotFound" Grid.Row="2" Content="No se encontró ningún producto" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
         </Grid>
     </WrapPanel>
 </Page>
