@@ -30,7 +30,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetComboBoxItems();
-            txtCode.Text = GenerateProductCode();
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
@@ -44,14 +43,22 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-                if (RegisterProduct())
+                if (!IsProductCodeExisting())
                 {
-                    DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
+                    if (RegisterProduct())
+                    {
+                        DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al agregar el producto");
+                    }
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al agregar el producto");
+                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
                 }
+
             }
         }
 
@@ -130,6 +137,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     btnSave.Visibility = Visibility.Hidden;
                     btnSave.IsEnabled = false;
+
+                    txtCode.IsEnabled = false;
+                    txtCode.Text = GenerateProductCode();
                 }
 
                 if (cmbIsExternal.SelectedItem.ToString() == "Sí")
@@ -139,6 +149,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     btnSave.Visibility = Visibility.Visible;
                     btnSave.IsEnabled = true;
+
+                    txtCode.Clear();
+                    txtCode.IsEnabled = true;
                 }
             }
         }
@@ -165,7 +178,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code;
             do
             {
-                code = new string(Enumerable.Repeat(chars, 5)
+                code = new string(Enumerable.Repeat(chars, 10)
                 .Select(s => s[random.Next(s.Length)])
                 .ToArray());
             } while (productDAO.IsCodeExisting(code));
@@ -193,6 +206,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             return imageBytes;
         }
 
+        private bool IsProductCodeExisting()
+        {
+            ProductDAO productDAO = new ProductDAO();
+            string code = txtCode.Text;
+            bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            return isCodeAlreadyExisting;
+        }
+
         private bool ValidateFields()
         {
             bool validateFields = true;
@@ -205,6 +226,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 txtName.BorderThickness = new Thickness(2);
                 lblNameError.Visibility = Visibility.Visible;
                 validateFields = false;
+            }
+
+            if (txtCode.Text.Equals(string.Empty) || !Validations.IsProductCodeValid(txtCode.Text))
+            {
+                txtCode.BorderBrush = Brushes.Red;
+                txtCode.BorderThickness = new Thickness(2);
+                lblCodeError.Visibility = Visibility.Visible;
+                validateFields = false;               
             }
 
             if (txtDescription.Text.Equals(string.Empty))
@@ -271,6 +300,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtDescription.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtDescription.BorderThickness = new Thickness(0);
             lblDescriptionError.Visibility = Visibility.Collapsed;
+
+            txtCode.BorderBrush = System.Windows.Media.Brushes.Transparent;
+            txtCode.BorderThickness = new Thickness(0);
+            lblCodeError.Visibility = Visibility.Collapsed;           
         }        
     }
 }
