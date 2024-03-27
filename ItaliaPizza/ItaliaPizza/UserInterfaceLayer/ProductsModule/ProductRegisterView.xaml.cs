@@ -35,6 +35,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
             ResetFields();
 
             if (ValidateFields())
@@ -49,7 +54,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 }
             }
         }
-     
+
         private bool RegisterProduct()
         {
             string name = txtName.Text;
@@ -64,7 +69,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             byte status;
             Int32 amount = Int32.Parse(txtAmount.Text);
 
-            if (isExternalItem == "System.Windows.Controls.ComboBoxItem: Sí")
+            if (isExternalItem == "Sí")
             {
                 isExternal = Constants.EXTERNAL_PRODUCT;
             }
@@ -73,7 +78,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = Constants.INTERNAL_PRODUCT;
             }
 
-            if (statusItem == "System.Windows.Controls.ComboBoxItem: Activo")
+            if (statusItem == "Activo")
             {
                 status = Constants.ACTIVE_STATUS;
             }
@@ -92,7 +97,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = isExternal,
                 name = name,
                 price = price,
-                //photo = picture
+                picture = picture
             };
 
             return productDAO.AddProduct(product);
@@ -120,12 +125,20 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (cmbIsExternal.SelectedItem.ToString() == "No")
                 {
-                    btnContinue.Content = "Continuar";
+                    btnContinue.IsEnabled = true;
+                    btnContinue.Visibility = Visibility.Visible;
+
+                    btnSave.Visibility = Visibility.Hidden;
+                    btnSave.IsEnabled = false;
                 }
 
                 if (cmbIsExternal.SelectedItem.ToString() == "Sí")
                 {
-                    btnContinue.Content = "Guardar";
+                    btnContinue.IsEnabled = false;
+                    btnContinue.Visibility = Visibility.Hidden;
+
+                    btnSave.Visibility = Visibility.Visible;
+                    btnSave.IsEnabled = true;
                 }
             }
         }
@@ -258,11 +271,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtDescription.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtDescription.BorderThickness = new Thickness(0);
             lblDescriptionError.Visibility = Visibility.Collapsed;
-        }
-
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }        
     }
 }

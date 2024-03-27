@@ -98,7 +98,6 @@ namespace ItaliaPizza.DataLayer.DAO
         public bool ChangeStatus(string user, int newStatus)
         {
             bool successfulChange = false;
-            // successful, te sobró una l, by mich
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 try

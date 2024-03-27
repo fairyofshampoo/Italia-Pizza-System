@@ -94,11 +94,9 @@
                             </Button.Style>
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Width="120" Height="30"
-                    CornerRadius="10"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
+                                    <Border Width="120" Height="30" 
+                                            CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
                             </Button.Template>

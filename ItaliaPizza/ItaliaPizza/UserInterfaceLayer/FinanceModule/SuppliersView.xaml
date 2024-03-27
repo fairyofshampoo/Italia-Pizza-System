@@ -37,38 +37,55 @@
                     <Line X1="-170" Y1="150" X2="220" Y2="150" Stroke="#ff7b00" StrokeThickness="3"/>
                 </Canvas>
 
-                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Grid>
+                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="334" Height="60" Background="#FF7B00"
                                 Grid.Column="1" Margin="60,40,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center">
-                </Border>
-
-                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                        </Border>
+                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="330" Height="60"
                                 Grid.Column="1" Margin="60,34,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                    <TextBox x:Name="txtSearchBar"
-                             TextChanged="txtSearchBarChanged"
-                             FontSize="30"
-                             FontWeight="Medium"
-                             FontFamily = "Segoe UI Variable Display"
-                             Background="LightGray"
-                             BorderThickness="0" />
+                            <TextBox x:Name="txtSearchBar"
+                                     TextChanged="txtSearchBarChanged"
+                                     FontSize="30" FontWeight="Medium"
+                                     FontFamily = "Segoe UI Variable Display"
+                                     Background="LightGray" BorderThickness="0" />
+                        </Border>
+                    </Grid>
+                    <Label Content="Ingrese el nombre del representante" Margin="60,0,0,0" 
+                           Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Border CornerRadius="5" BorderBrush="#8D3A02" BorderThickness="4" 
+                        Width="334" Height="60" Background="#8D3A02"
+                        Grid.Column="2" Margin="60,40,0,29"
+                        HorizontalAlignment="Left" VerticalAlignment="Center">
                 </Border>
 
-                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                Width="334" Height="60" Background="#FF7B00"
-                Grid.Column="2" Margin="60,40,0,0"
-                HorizontalAlignment="Left" VerticalAlignment="Center">
-                </Border>
+                <Button Width="330" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="Btn_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Background="#FF7B00">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    <TextBlock Text="Añadir proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                </Button>
 
-                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                Width="330" Height="60" Background="LightGray"
-                Grid.Column="2" Margin="60,34,0,0"
-                HorizontalAlignment="Left" VerticalAlignment="Center">
-                </Border>
             </Grid>
+            <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal">
+            </StackPanel>
 
             <ScrollViewer 
                   Grid.Row="1">
