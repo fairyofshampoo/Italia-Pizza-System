@@ -20,6 +20,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     public partial class ClientsUC : UserControl
     {
         private string userEmail;
+        public TellerScreenView TellerScreenView {get; set;}
 
         public ClientsUC()
         {
@@ -38,7 +39,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)
         {
-
+            EditClientView editClientView = new EditClientView(userEmail);
+            TellerScreenView.NavigationService.Navigate(editClientView);
         }
     }
 }

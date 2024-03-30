@@ -253,7 +253,8 @@
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
                                          BorderThickness="0" 
-                                         IsReadOnly="True"/>
+                                         IsReadOnly="True"
+                                         IsEnabled = "False"/>
                         </Border>
 
                         <Label
