@@ -29,5 +29,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
 
         }
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

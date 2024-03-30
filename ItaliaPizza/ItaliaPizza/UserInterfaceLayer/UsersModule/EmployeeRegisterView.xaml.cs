@@ -42,6 +42,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     {
                         DialogManager.ShowSuccessMessageBox("Empleado registrado exitosamente");
                     }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al registrar un nuevo empleado");
+                    }
                 }
                 else
                 {
@@ -65,7 +69,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             Employee employee = new Employee
             {
-                name = name,
+                name = name + " " + firstLastName + " " + secondLastName,
                 phone = phone,
                 email = email,
                 role = employeeType,
@@ -171,7 +175,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private bool IsEmailExisting()
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            String email = txtEmail.Text;
+            string email = txtEmail.Text;
             bool isEmailAlreadyExisting = employeeDAO.IsEmailExisting(email);
             return isEmailAlreadyExisting;
         }

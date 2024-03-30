@@ -52,41 +52,19 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Vertical">
-                            <Label Content="Nombre:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
+                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                            <Label Content="Nombre: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
-                                <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="620" HorizontalAlignment="Left" VerticalAlignment="Center">
                                     <TextBox x:Name="txtName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,0,0,0" FontSize="10" Foreground="red" Visibility="Hidden"/>
                         </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Column="1">
-                            <Label Content="Primer apellido:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
-                                <Border x:Name="bdrFirstLastName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtFirstLastName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblFirstLastNameError" Content ="Primer apellido inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Column="2">
-                            <Label Content="Segundo apellido:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
-                                <Border x:Name="bdrSecondLastName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtSecondLastName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblSecondLastNameError" Content ="Segundo apellido inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
-                        </StackPanel>
-
+                       
                         <StackPanel Orientation="Vertical" Grid.Row="1">
-                            <Label Content="Teléfono:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
+                            <Label Content="Teléfono: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
                                 <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -107,7 +85,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
-                            <Label Content="Tipo de empleado:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
+                            <Label Content="Tipo de empleado: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
                                 <Border x:Name="bdrEmployeeType" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -128,7 +106,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
-                            <Label Content="Contraseña:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
+                            <Label Content="Contraseña: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,0,23,0" Height="35" VerticalAlignment="Center"/>
                                 <Border x:Name="bdrPassword" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">

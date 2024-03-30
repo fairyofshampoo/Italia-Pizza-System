@@ -30,26 +30,38 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetComboBoxItems();
-            txtCode.Text = GenerateProductCode();
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             ResetFields();
 
             if (ValidateFields())
             {
-                if (RegisterProduct())
+                if (!IsProductCodeExisting())
                 {
-                    DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
+                    if (RegisterProduct())
+                    {
+                        DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al agregar el producto");
+                    }
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al agregar el producto");
+                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
                 }
+
             }
         }
-     
+
         private bool RegisterProduct()
         {
             string name = txtName.Text;
@@ -64,7 +76,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             byte status;
             Int32 amount = Int32.Parse(txtAmount.Text);
 
-            if (isExternalItem == "System.Windows.Controls.ComboBoxItem: Sí")
+            if (isExternalItem == "Sí")
             {
                 isExternal = Constants.EXTERNAL_PRODUCT;
             }
@@ -73,7 +85,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = Constants.INTERNAL_PRODUCT;
             }
 
-            if (statusItem == "System.Windows.Controls.ComboBoxItem: Activo")
+            if (statusItem == "Activo")
             {
                 status = Constants.ACTIVE_STATUS;
             }
@@ -92,7 +104,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = isExternal,
                 name = name,
                 price = price,
-                //photo = picture
+                picture = picture
             };
 
             return productDAO.AddProduct(product);
@@ -120,12 +132,26 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (cmbIsExternal.SelectedItem.ToString() == "No")
                 {
-                    btnContinue.Content = "Continuar";
+                    btnContinue.IsEnabled = true;
+                    btnContinue.Visibility = Visibility.Visible;
+
+                    btnSave.Visibility = Visibility.Hidden;
+                    btnSave.IsEnabled = false;
+
+                    txtCode.IsEnabled = false;
+                    txtCode.Text = GenerateProductCode();
                 }
 
                 if (cmbIsExternal.SelectedItem.ToString() == "Sí")
                 {
-                    btnContinue.Content = "Guardar";
+                    btnContinue.IsEnabled = false;
+                    btnContinue.Visibility = Visibility.Hidden;
+
+                    btnSave.Visibility = Visibility.Visible;
+                    btnSave.IsEnabled = true;
+
+                    txtCode.Clear();
+                    txtCode.IsEnabled = true;
                 }
             }
         }
@@ -152,7 +178,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code;
             do
             {
-                code = new string(Enumerable.Repeat(chars, 5)
+                code = new string(Enumerable.Repeat(chars, 10)
                 .Select(s => s[random.Next(s.Length)])
                 .ToArray());
             } while (productDAO.IsCodeExisting(code));
@@ -180,6 +206,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             return imageBytes;
         }
 
+        private bool IsProductCodeExisting()
+        {
+            ProductDAO productDAO = new ProductDAO();
+            string code = txtCode.Text;
+            bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            return isCodeAlreadyExisting;
+        }
+
         private bool ValidateFields()
         {
             bool validateFields = true;
@@ -192,6 +226,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 txtName.BorderThickness = new Thickness(2);
                 lblNameError.Visibility = Visibility.Visible;
                 validateFields = false;
+            }
+
+            if (txtCode.Text.Equals(string.Empty) || !Validations.IsProductCodeValid(txtCode.Text))
+            {
+                txtCode.BorderBrush = Brushes.Red;
+                txtCode.BorderThickness = new Thickness(2);
+                lblCodeError.Visibility = Visibility.Visible;
+                validateFields = false;               
             }
 
             if (txtDescription.Text.Equals(string.Empty))
@@ -258,11 +300,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtDescription.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtDescription.BorderThickness = new Thickness(0);
             lblDescriptionError.Visibility = Visibility.Collapsed;
-        }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+            txtCode.BorderBrush = System.Windows.Media.Brushes.Transparent;
+            txtCode.BorderThickness = new Thickness(0);
+            lblCodeError.Visibility = Visibility.Collapsed;           
+        }        
     }
 }
