@@ -14,17 +14,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class ClientsUC : UserControl
     {
-        private string userEmail;
+        private Client ClientData;
+
         public TellerScreenView TellerScreenView {get; set;}
 
         public ClientsUC()
         {
             InitializeComponent();
+
         }
 
 
@@ -33,13 +36,18 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             lblFullName.Content = client.name;
             lblPhoneNumber.Content = client.phone;
             AddressDAO addressDAO = new AddressDAO();
+            if (client.status == 0)
+            {
+                btnNewOrder.Visibility = Visibility.Collapsed;
+                lblFullName.Foreground = Brushes.Red;
+            }
             // Address fullAddress = addressDAO.GetClientAddress(client.email);
-            userEmail = client.email;
+            ClientData = client;
         }
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)
         {
-            EditClientView editClientView = new EditClientView(userEmail);
+            EditClientView editClientView = new EditClientView(ClientData);
             TellerScreenView.NavigationService.Navigate(editClientView);
         }
     }

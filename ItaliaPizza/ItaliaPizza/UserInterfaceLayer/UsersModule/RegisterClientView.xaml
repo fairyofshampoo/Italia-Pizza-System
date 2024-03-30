@@ -73,11 +73,10 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
 
                         <Label
@@ -86,18 +85,21 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Nombre"/>
+                            Content="Nombre"
+                            Margin="53,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="1" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Width="680" Height="40"
+                                Grid.Row="1" Grid.Column="1" Margin="60,2,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="1"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Width="680" 
+                                Height="40"
+                                Grid.Row="1" 
+                                Grid.Column="1" Margin="57,0,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
                             <TextBox x:Name="txtName"
                                          FontSize="20"
                                          FontWeight="Medium"
@@ -113,83 +115,8 @@
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="60,45,0,0"
                             Content="El nombre es incorrecto"
-                            Visibility="Collapsed"/>
-
-                        <Label
-                            Grid.Row = "0"
-                            Grid.Column = "2"
-                            FontSize = "35"
-                            Foreground = "White"
-                            VerticalAlignment = "Bottom"
-                            Content="Primer Apellido"/>
-
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="2" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
-
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="2"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtFirstLastName"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
-
-                        <Label
-                            x:Name="lblFirstLastNameError"
-                            Grid.Row = "1"
-                            Grid.Column = "2"
-                            FontSize = "15"
-                            Foreground = "Red"
-                            VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
-                            Content="El primer apellido es incorrecto"
-                            Visibility="Collapsed"/>
-
-
-                        <Label
-                            Grid.Row = "0"
-                            Grid.Column = "3"
-                            FontSize = "35"
-                            Foreground = "White"
-                            VerticalAlignment = "Bottom"
-                            Content="Segundo Apellido"/>
-
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="3" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
-
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="3"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtSecondLastName"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
-
-                        <Label
-                            x:Name="lblSecondLastNameError"
-                            Grid.Row = "1"
-                            Grid.Column = "3"
-                            FontSize = "15"
-                            Foreground = "Red"
-                            VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
-                            Content="El segundo apellido es incorrecto"
                             Visibility="Collapsed"/>
                         
                         <Label
@@ -198,17 +125,18 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Teléfono"/>
+                            Content="Teléfono"
+                            Margin="53,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="1" Margin="2,2,0,0"
+                                Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="1"
+                                Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtCellPhone"
                                          FontSize="20"
@@ -225,7 +153,7 @@
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="60,45,0,0"
                             Content="El número de teléfono es incorrecto"
                             Visibility="Collapsed"/>
 
@@ -235,17 +163,18 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Correo electrónico"/>
+                            Content="Correo electrónico"
+                            Margin="10,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="2" Margin="2,2,0,0"
+                                Grid.Row="3" Grid.Column="2" Margin="19,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="2"
+                                Grid.Row="3" Grid.Column="2" Margin="15,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtEmail"
                                          FontSize="20"
@@ -262,7 +191,7 @@
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="15,45,0,0"
                             Content="El correo electrónico es incorrecto"
                             Visibility="Collapsed"/>
 

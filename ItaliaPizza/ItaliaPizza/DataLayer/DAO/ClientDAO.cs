@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.DataLayer.DAO.Interface;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,7 +36,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
-        public bool DisableClient(string email)
+        public bool ChangeStatusClient(string email, int status)
         {
             bool successfulOperation = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -44,8 +45,9 @@ namespace ItaliaPizza.DataLayer.DAO
                                                    .FirstOrDefault(clientDB => clientDB.email == email);
                 if(clientDisable != null)
                 {
-                    clientDisable.status = 0;
+                    clientDisable.status = (byte)status;
                     successfulOperation = true;
+                    databaseContext.SaveChanges();
                 }
             }
             return successfulOperation;
@@ -63,10 +65,13 @@ namespace ItaliaPizza.DataLayer.DAO
                     clientEdited.name = client.name;
                     clientEdited.phone = client.phone;
                     successfulOperation = true;
+                    databaseContext .SaveChanges();
                 }
             }
             return successfulOperation;
         }
+
+
 
         public List<Client> GetClientsByAddress(string address)
         {
