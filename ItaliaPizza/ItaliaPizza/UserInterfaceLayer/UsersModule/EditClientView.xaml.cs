@@ -3,17 +3,8 @@ using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -96,15 +87,13 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void BtnModify_Click(object sender, RoutedEventArgs e)
         {
             CleanErrorsLabels();
-            Console.WriteLine("Se ha apretado el botón");
-            bool validation = AreFieldsValidForEdit();
-            Console.WriteLine("El valor de la variable validation es:" + validation);
-            if (validation)
+            if (AreFieldsValidForEdit())
             {
                 var client = new Client
                 {
                     name = txtName.Text,
-                    phone = txtCellPhone.Text
+                    phone = txtCellPhone.Text,
+                    email = txtEmail.Text,
                 };
                 ClientDAO clientDAO = new ClientDAO();
                 if (clientDAO.EditDataClient(client))
@@ -121,29 +110,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             data.Add(txtName.Text);
             data.Add(txtCellPhone.Text);
-            data.Add(txtEmail.Text);
-
-            Console.WriteLine(data[0]);
-            Console.WriteLine(data[1]);
 
             List<int> errors = ApplicationLayer.Validations.ValidationClientData(data);
            
             if(errors.Any())
             {
-                Console.WriteLine("Sí hay errores, bobo");
-                foreach(var error in errors)
-                {
-                    Console.WriteLine(error);
-                }
-
                 areFieldsValid = false;
-               // ShowErrors(errors);
-            } else
-            {
-                Console.WriteLine("No hay errores, no eres bobo");
-            }
-
-            Console.WriteLine("El valor de areFieldsValid es:" + areFieldsValid);
+                ShowErrors(errors);
+            } 
             return areFieldsValid;
         }
 
@@ -161,17 +135,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     case 2:
                         lblCellPhoneEditedError.Visibility = Visibility.Visible;
                         break;
-                    case 3:
-                        lblEmailEditedError.Visibility = Visibility.Visible;
-                        break;
                 }
             }
         }
 
         private void CleanErrorsLabels()
         {
-            lblNameEditedError.Visibility = Visibility.Visible;
-            lblCellPhoneEditedError.Visibility = Visibility.Visible;
+            lblNameEditedError.Visibility = Visibility.Collapsed;
+            lblCellPhoneEditedError.Visibility = Visibility.Collapsed;
         }
     }
 }

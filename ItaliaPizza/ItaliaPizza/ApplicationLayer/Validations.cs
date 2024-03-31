@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
+using System.Xml.Linq;
 
 namespace ItaliaPizza.ApplicationLayer
 {
@@ -30,6 +31,22 @@ namespace ItaliaPizza.ApplicationLayer
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(name, nameRegex);
+        }
+
+        public static bool IsAddressValid(string address) 
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                isValid = false;
+            }
+
+            var addressRegex = new Regex("^[\\p{L}\\p{M}\\s]{1,60}",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(address, addressRegex);
         }
 
         public static bool IsPhoneValid(string phone)
@@ -165,29 +182,23 @@ namespace ItaliaPizza.ApplicationLayer
         public static List<int> ValidationClientData(List<String> data)
         {
             List<int> errors = new List<int>();
-            Console.WriteLine("Errores");
-
-            Console.WriteLine(data[0]);
-            Console.WriteLine(data[1]);
 
             if (!IsNameValid(data[0]))
             {
-                //No los está imprimiendo
-                Console.WriteLine(data[0]);
-                Console.WriteLine("Pasé por el error de nombre");
                 errors.Add(NAME_ERROR);
             }
 
             if (!IsPhoneValid(data[1]))
             {
-                Console.WriteLine(data[1]);
-                Console.WriteLine("Pasé por el error de teléfono");
                 errors.Add(PHONE_ERROR);
             }
 
-            if (!IsEmailValid(data[2]))
+            if (data.Count > 2)
             {
-                errors.Add(EMAIL_ERROR);
+                if (!IsEmailValid(data[2]))
+                {
+                    errors.Add(EMAIL_ERROR);
+                }
             }
 
             return errors;
