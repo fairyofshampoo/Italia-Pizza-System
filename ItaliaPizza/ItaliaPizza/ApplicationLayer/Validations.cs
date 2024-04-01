@@ -59,7 +59,7 @@ namespace ItaliaPizza.ApplicationLayer
                 isValid = false;
             }
 
-            var nameRegex = new Regex("^\\d{1,10}$",
+            var nameRegex = new Regex("^\\d{8,10}$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(phone, nameRegex);
@@ -118,6 +118,13 @@ namespace ItaliaPizza.ApplicationLayer
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(user, userRegex);
+        }
+
+        public static bool IsNumber(string text)
+        {
+            int limitTime = 500;
+            var numberRegex = new Regex("[0-9]", RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+            return ValidateWithTimeout(text, numberRegex);
         }
 
         public static bool IsPasswordValid(string password)

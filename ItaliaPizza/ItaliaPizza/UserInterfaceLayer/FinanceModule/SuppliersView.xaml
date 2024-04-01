@@ -6,93 +6,115 @@
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.FinanceModule"
       mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
 
-    <WrapPanel Background="#2C2C2C">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid
-                Grid.Row="0"
-                Height="200"
-                Width="1280">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="450"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="433"/>
-                </Grid.ColumnDefinitions>
-
-                <Label
-                    Grid.Column="0"
-                    Content="Proveedores"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Foreground="White"
-                    FontFamily="Times New Roman"
-                    FontSize="70"
-                    Margin="70,0,0,0" Height="80" Width="Auto"/>
-
-                <Canvas HorizontalAlignment="Center">
-                    <Line X1="-170" Y1="150" X2="220" Y2="150" Stroke="#ff7b00" StrokeThickness="3"/>
-                </Canvas>
-
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Grid>
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="334" Height="60" Background="#FF7B00"
-                                Grid.Column="1" Margin="60,40,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Center">
+    <Page.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E9E1FF"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="100" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="330" Height="60"
-                                Grid.Column="1" Margin="60,34,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Center">
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
-                            <TextBox x:Name="txtSearchBar"
-                                     TextChanged="txtSearchBarChanged"
-                                     FontSize="30" FontWeight="Medium"
-                                     FontFamily = "Segoe UI Variable Display"
-                                     Background="LightGray" BorderThickness="0" />
-                        </Border>
-                    </Grid>
-                    <Label Content="Ingrese el nombre del representante" Margin="60,0,0,0" 
-                           Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="1280" Height="720">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+    Grid.Column="0"
+    Content="Proveedores"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Left"
+    Foreground="White"
+    FontFamily="Times New Roman"
+    FontSize="70"
+    Margin="70,0,0,0" Height="80" Width="Auto"/>
+
+                    <Canvas HorizontalAlignment="Center">
+                        <Line X1="-170" Y1="110" X2="220" Y2="110" Stroke="#ff7b00" StrokeThickness="3"/>
+                    </Canvas>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid>
+                            <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                Width="334" Height="60" Background="#FF7B00"
+                Grid.Column="1" Margin="60,40,0,0"
+                HorizontalAlignment="Left" VerticalAlignment="Center">
+                            </Border>
+                            <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                Width="330" Height="60"
+                Grid.Column="1" Margin="60,34,0,0"
+                HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                                <TextBox x:Name="txtSearchBar"
+                     TextChanged="TxtSearchBarChanged"
+                     FontSize="30" FontWeight="Medium"
+                     FontFamily = "Segoe UI Variable Display"
+                     Background="LightGray" BorderThickness="0" />
+                            </Border>
+                        </Grid>
+                        <Label Content="Ingrese el nombre del representante" Margin="60,0,0,0" 
+           Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <Border CornerRadius="5" BorderBrush="#8D3A02" BorderThickness="4" 
+        Width="334" Height="60" Background="#8D3A02"
+        Grid.Column="2" Margin="60,40,0,29"
+        HorizontalAlignment="Left" VerticalAlignment="Center">
+                    </Border>
+
+                    <Button Width="330" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="Btn_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Background="#FF7B00">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <TextBlock Text="Añadir proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                    </Button>
+
+                </Grid>
+                <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+                    <Label Content ="Área de abastecimiento" Margin="60,0,20,0" Foreground="LightGray" FontSize="20" FontWeight="Regular"></Label>
                 </StackPanel>
 
-                <Border CornerRadius="5" BorderBrush="#8D3A02" BorderThickness="4" 
-                        Width="334" Height="60" Background="#8D3A02"
-                        Grid.Column="2" Margin="60,40,0,29"
-                        HorizontalAlignment="Left" VerticalAlignment="Center">
-                </Border>
-
-                <Button Width="330" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="Btn_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Background="#FF7B00">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                    <TextBlock Text="Añadir proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White"/>
-                </Button>
-
-            </Grid>
-            <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal">
+                <ScrollViewer 
+                    Grid.Row="1">
+                    <Grid Name="SuppliersGrid" Width = "Auto" Height = "Auto"/>
+                </ScrollViewer>
+                <Label
+        Name="lblSupplierNotFound"
+        Grid.Row="1"
+        Content="No se encontró ningún proveedor"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        Foreground="White"
+        FontFamily="Microsoft YaHei UI"
+        FontSize="60"
+        Margin="40,0,0,0" Height="Auto" Width="Auto"
+        Visibility="Collapsed"/>
             </StackPanel>
-
-            <ScrollViewer 
-                  Grid.Row="1">
-                <Grid Name="SuppliersGrid"
-                  Width = "Auto"
-                  Height = "Auto"/>
-            </ScrollViewer>
-        </Grid>
-    </WrapPanel>
+        </ScrollViewer>
+    </Viewbox>
 </Page>

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliaPizza.UserInterfaceLayer.UsersModule;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -22,7 +23,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplierUC : UserControl
     {
-        public string supplierId;
+        private string supplierId;
+
+        public SuppliersView SuppliersView { get; set; }
         public SupplierUC()
         {
             InitializeComponent();
