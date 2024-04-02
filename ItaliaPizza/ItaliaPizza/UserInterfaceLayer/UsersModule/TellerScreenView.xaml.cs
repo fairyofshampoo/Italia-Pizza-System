@@ -73,7 +73,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             ClientsUC clientCard = new ClientsUC();
             clientCard.TellerScreenView = this;
             Grid.SetRow(clientCard, rowsAdded);
-            clientCard.setDataCards(client);
+            clientCard.SetDataCards(client);
             ClientsGrid.Children.Add(clientCard);
             rowsAdded++;
 

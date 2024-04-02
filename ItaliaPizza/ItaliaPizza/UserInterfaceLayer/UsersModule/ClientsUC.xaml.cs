@@ -31,7 +31,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         }
 
 
-        public void setDataCards(Client client)
+        public void SetDataCards(Client client)
         {
             lblFullName.Content = client.name;
             lblPhoneNumber.Content = client.phone;

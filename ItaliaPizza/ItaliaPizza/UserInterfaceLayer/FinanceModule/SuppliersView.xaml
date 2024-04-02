@@ -77,7 +77,8 @@
         HorizontalAlignment="Left" VerticalAlignment="Center">
                     </Border>
 
-                    <Button Width="330" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="Btn_Click">
+                    <Button Width="330" Height="60" HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="BtnAddSupplier_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
@@ -99,9 +100,9 @@
                     <Label Content ="Área de abastecimiento" Margin="60,0,20,0" Foreground="LightGray" FontSize="20" FontWeight="Regular"></Label>
                 </StackPanel>
 
-                <ScrollViewer 
+                <ScrollViewer Height="500"
                     Grid.Row="1">
-                    <Grid Name="SuppliersGrid" Width = "Auto" Height = "Auto"/>
+                    <Grid Name="SuppliersGrid" Width = "1100" Height = "Auto"/>
                 </ScrollViewer>
                 <Label
         Name="lblSupplierNotFound"

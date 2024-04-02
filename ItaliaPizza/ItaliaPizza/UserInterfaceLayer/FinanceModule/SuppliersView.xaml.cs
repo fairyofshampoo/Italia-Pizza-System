@@ -131,9 +131,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         }
 
-        private void Btn_Click(object sender, RoutedEventArgs e)
+        private void BtnAddSupplier_Click(object sender, RoutedEventArgs e)
         {
-
+            SupplierRegisterView supplierRegisterView = new SupplierRegisterView();
+            this.NavigationService.Navigate(supplierRegisterView);
         }
     }
 }
