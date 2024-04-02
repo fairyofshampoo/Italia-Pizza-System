@@ -10,5 +10,11 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     {
         Address GetClientAddress(string email);
 
+        List<string> GetPostalCodes();
+
+        List<string> GetColonias(string postalCode);
+
+        bool AddNewAddress(Address newAddress);
+
     }
 }

@@ -29,7 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             InitializeComponent();
 
-            List<Client> clients = GetLasCients();
+            List<Client> clients = GetCients();
             if (clients.Any())
             {
                 ShowClients(clients);
@@ -60,7 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             }
         }
 
-        private List<Client> GetLasCients()
+        private List<Client> GetCients()
         {
             List<Client> lastClients = new List<Client>();
             ClientDAO clientDAO = new ClientDAO();
@@ -71,8 +71,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void AddClients(Client client) 
         {
             ClientsUC clientCard = new ClientsUC();
+            clientCard.TellerScreenView = this;
             Grid.SetRow(clientCard, rowsAdded);
-            clientCard.setDataCards(client);
+            clientCard.SetDataCards(client);
             ClientsGrid.Children.Add(clientCard);
             rowsAdded++;
 

@@ -8,7 +8,7 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="EditClientView">
 
-    <WrapPanel>
+<WrapPanel>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Source="../Resources/Images/PizzaBanner.jpg" Stretch="UniformToFill"/>
+            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
 
             <Grid
                 Grid.Row="0"
@@ -37,7 +37,7 @@
                     Foreground="White"
                     FontFamily="Times New Roman"
                     FontSize="60"
-                    Margin="-70,0,0,0" Height="70" Width="450"/>
+                    Margin="-110,0,0,0" Height="70" Width="450"/>
 
                 <Canvas HorizontalAlignment="Center" Grid.Row="2">
                     <Line X1="-310" Y1="-10" X2="105" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
@@ -51,7 +51,7 @@
                 Width="1370"
                 Background="#2c2c2c">
 
-                <Label Content="Actualice los siguientes campos para registrar un nuevo cliente"
+                <Label Content="Modifique la información necesaria."
                        Foreground="White"
                        FontSize="25"
                        Margin="140,20,0,0"
@@ -73,11 +73,10 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
 
                         <Label
@@ -86,18 +85,21 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Nombre"/>
+                            Content="Nombre"
+                            Margin="53,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="1" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Width="680" Height="40"
+                                Grid.Row="1" Grid.Column="1" Margin="60,2,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="1"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
+                                Width="680" 
+                                Height="40"
+                                Grid.Row="1" 
+                                Grid.Column="1" Margin="57,0,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
                             <TextBox x:Name="txtName"
                                          FontSize="20"
                                          FontWeight="Medium"
@@ -107,89 +109,14 @@
                         </Border>
 
                         <Label
-                            x:Name="lblNameError"
+                            x:Name="lblNameEditedError"
                             Grid.Row = "1"
                             Grid.Column = "1"
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="60,45,0,0"
                             Content="El nombre es incorrecto"
-                            Visibility="Collapsed"/>
-
-                        <Label
-                            Grid.Row = "0"
-                            Grid.Column = "2"
-                            FontSize = "35"
-                            Foreground = "White"
-                            VerticalAlignment = "Bottom"
-                            Content="Primer Apellido"/>
-
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="2" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
-
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="2"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtFirstLastName"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
-
-                        <Label
-                            x:Name="lblFirstLastNameError"
-                            Grid.Row = "1"
-                            Grid.Column = "2"
-                            FontSize = "15"
-                            Foreground = "Red"
-                            VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
-                            Content="El primer apellido es incorrecto"
-                            Visibility="Collapsed"/>
-
-
-                        <Label
-                            Grid.Row = "0"
-                            Grid.Column = "3"
-                            FontSize = "35"
-                            Foreground = "White"
-                            VerticalAlignment = "Bottom"
-                            Content="Segundo Apellido"/>
-
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="3" Margin="2,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
-
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="280" Height="40"
-                                Grid.Row="1" Grid.Column="3"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtSecondLastName"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
-
-                        <Label
-                            x:Name="lblSecondLastNameError"
-                            Grid.Row = "1"
-                            Grid.Column = "3"
-                            FontSize = "15"
-                            Foreground = "Red"
-                            VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
-                            Content="El segundo apellido es incorrecto"
                             Visibility="Collapsed"/>
 
                         <Label
@@ -198,17 +125,18 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Teléfono"/>
+                            Content="Teléfono"
+                            Margin="53,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="1" Margin="2,2,0,0"
+                                Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="1"
+                                Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtCellPhone"
                                          FontSize="20"
@@ -219,13 +147,13 @@
                         </Border>
 
                         <Label
-                            x:Name="lblCellPhoneError"
+                            x:Name="lblCellPhoneEditedError"
                             Grid.Row = "3"
                             Grid.Column = "1"
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="60,45,0,0"
                             Content="El número de teléfono es incorrecto"
                             Visibility="Collapsed"/>
 
@@ -235,35 +163,37 @@
                             FontSize = "35"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Correo electrónico"/>
+                            Content="Correo electrónico"
+                            Margin="10,0,0,0"/>
 
                         <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="2" Margin="2,2,0,0"
+                                Grid.Row="3" Grid.Column="2" Margin="19,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                         </Border>
 
                         <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
-                                Grid.Row="3" Grid.Column="2"
+                                Grid.Row="3" Grid.Column="2" Margin="15,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBox x:Name="txtEmail"
                                          FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
-                                         BorderThickness="0" 
-                                         IsReadOnly="True"/>
+                                         BorderThickness="0"
+                                         IsReadOnly="True"
+                                         IsEnabled="False"/>
                         </Border>
 
                         <Label
-                            x:Name="lblEmailError"
+                            x:Name="lblEmailEditedError"
                             Grid.Row = "3"
                             Grid.Column = "2"
                             FontSize = "15"
                             Foreground = "Red"
                             VerticalAlignment = "Top"
-                            Margin="0,45,0,0"
+                            Margin="15,45,0,0"
                             Content="El correo electrónico es incorrecto"
                             Visibility="Collapsed"/>
 
@@ -271,40 +201,14 @@
 
                 </Border>
 
-                <Button x:Name="btnSave"
-                        BorderThickness="0"
-                        Content="Guardar"
-                        Foreground="White"
-                        FontSize="25"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Margin="0,40,137,0" 
-                        HorizontalAlignment="Right" Click="BtnSave_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#FF7B00"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="50"
-                                    CornerRadius="10"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
                 <Button x:Name="btnDisable"
                         BorderThickness="0"
-                        Content="Desactivar"
+                        Content="Deshabilitar"
                         Foreground="White"
                         FontSize="25"
                         FontWeight="Bold"
                         Cursor="Hand"
-                        Margin="-0,-50,340,-0"
+                        Margin="0,40,413,0" 
                         HorizontalAlignment="Right" Click="BtnDisable_Click">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -323,8 +227,63 @@
                     </Button.Template>
                 </Button>
 
+                <Button x:Name="btnEnable"
+                        BorderThickness="0"
+                        Content="Habilitar"
+                        Foreground="White"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Cursor="Hand"
+                        Margin="0,-50,190,0" 
+                        HorizontalAlignment="Right" Click="BtnEnable_Click"
+                        Visibility = "Visible">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Green"/>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="50"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <Button x:Name="btnModify"
+                        BorderThickness="0"
+                        Content="Modificar"
+                        Foreground="White"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Cursor="Hand"
+                        Margin="0,-50,187,0" 
+                        HorizontalAlignment="Right" Click="BtnModify_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#FF7B00"/>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="50"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
             </StackPanel>
+
+
         </Grid>
     </WrapPanel>
 </Page>

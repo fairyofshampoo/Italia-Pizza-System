@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.DataLayer.DAO.Interface;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -36,6 +37,30 @@ namespace ItaliaPizza.DataLayer.DAO
                     return false;
                 }
             }
+        }
+
+        public List<Supplier> GetLastSuppliersRegistered()
+        {
+            List<Supplier> lastSuppliers = new List<Supplier>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var lastSuppliersDB = databaseContext.Suppliers
+                                                   .OrderByDescending(supplier => supplier.manager)
+                                                   .Take(10)
+                                                   .ToList();
+                if (lastSuppliersDB != null)
+                {
+                    foreach (var supplier in lastSuppliersDB)
+                    {
+                        databaseContext.Entry(supplier)
+                            .Collection(s => s.SupplyAreas)
+                            .Load();
+
+                        lastSuppliers.Add(supplier);
+                    }
+                }
+            }
+            return lastSuppliers;
         }
 
 

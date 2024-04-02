@@ -3,17 +3,8 @@ using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -21,67 +12,112 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     {
         private string emailClient;
 
-        public EditClientView(string email)
+        public EditClientView(Client client)
         {
             InitializeComponent();
-            this.emailClient = email;
-            ShowData();
+            emailClient = client.email;
+            ShowData(client);
+            if(client.status == 1)
+            {
+                ShowEnableClient();
+            }else
+            {
+                ShowDisableClient();
+            }
         }
 
-        private void ShowData() 
+        private void ShowData(Client client) 
         {
-            txtEmail.Text = emailClient;
+            txtName.Text = client.name;
+            txtEmail.Text = client.email;
+            txtCellPhone.Text = client.phone;
+        }
+
+        private void ShowEnableClient()
+        {
+            txtName.IsEnabled = true;
+            txtCellPhone.IsEnabled = true;
+            btnDisable.Visibility = Visibility.Visible;
+            btnEnable.Visibility = Visibility.Collapsed;
+            btnModify.Visibility = Visibility.Visible;
+        }
+
+        private void ShowDisableClient()
+        {
+            txtName.IsEnabled = false;
+            txtCellPhone.IsEnabled = false;
+            btnEnable.Visibility = Visibility.Visible;
+            btnDisable.Visibility = Visibility.Hidden;
+            btnModify.Visibility = Visibility.Collapsed;
         }
 
         private void BtnDisable_Click(object sender, RoutedEventArgs e)
         {
+            int status = 0;
+            ChangeStatus(status);
+        }
+
+        private void BtnEnable_Click(object sender, RoutedEventArgs e)
+        {
+            int status = 1;
+            ChangeStatus(status);
+        }
+
+        private void ChangeStatus(int status)
+        {
             ClientDAO clientDAO = new ClientDAO();
-            if (clientDAO.DisableClient(emailClient))
+            if (clientDAO.ChangeStatusClient(emailClient, status))
             {
-                ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha deshabilitado el usuario");
+                if(status == 0)
+                {
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha deshabilitado al usuario");
+                    ShowDisableClient();
+                } else
+                {
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha habilitado al usuario");
+                    ShowEnableClient();
+                }
             }
             else
             {
-                //Mensaje de error
+                ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido realizar el cambios, inténtelo más tarde");
             }
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnModify_Click(object sender, RoutedEventArgs e)
         {
             CleanErrorsLabels();
-            if (AreFieldsValid())
+            if (AreFieldsValidForEdit())
             {
                 var client = new Client
                 {
-                    name = txtName.Text + " " + txtFirstLastName.Text + " " + txtSecondLastName.Text,
-                    phone = txtCellPhone.Text
+                    name = txtName.Text,
+                    phone = txtCellPhone.Text,
+                    email = txtEmail.Text,
                 };
                 ClientDAO clientDAO = new ClientDAO();
-                if(clientDAO.EditDataClient(client))
+                if (clientDAO.EditDataClient(client))
                 {
                     ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la información del cliente");
-                    CleanTextFields();
                 }
             }
         }
 
-        private bool AreFieldsValid()
+        private bool AreFieldsValidForEdit()
         {
             bool areFieldsValid = true;
             List<string> data = new List<string>();
+
             data.Add(txtName.Text);
-            data.Add(txtFirstLastName.Text);
-            data.Add(txtSecondLastName.Text);
             data.Add(txtCellPhone.Text);
-            data.Add(txtEmail.Text);
 
             List<int> errors = ApplicationLayer.Validations.ValidationClientData(data);
+           
             if(errors.Any())
             {
                 areFieldsValid = false;
                 ShowErrors(errors);
-            }
-
+            } 
             return areFieldsValid;
         }
 
@@ -94,19 +130,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 {
 
                     case 1:
-                        lblNameError.Visibility = Visibility.Visible;
+                        lblNameEditedError.Visibility = Visibility.Visible;
                         break;
                     case 2:
-                        lblFirstLastNameError.Visibility = Visibility.Visible;
-                        break;
-                    case 3:
-                        lblSecondLastNameError.Visibility = Visibility.Visible;
-                        break;
-                    case 4:
-                        lblCellPhoneError.Visibility = Visibility.Visible;
-                        break;
-                    case 5:
-                        lblEmailError.Visibility = Visibility.Visible;
+                        lblCellPhoneEditedError.Visibility = Visibility.Visible;
                         break;
                 }
             }
@@ -114,19 +141,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void CleanErrorsLabels()
         {
-            lblNameError.Visibility = Visibility.Visible;
-            lblFirstLastNameError.Visibility = Visibility.Visible;
-            lblSecondLastNameError.Visibility = Visibility.Visible;
-            lblCellPhoneError.Visibility = Visibility.Visible;
+            lblNameEditedError.Visibility = Visibility.Collapsed;
+            lblCellPhoneEditedError.Visibility = Visibility.Collapsed;
         }
-
-        private void CleanTextFields()
-        {
-            txtName.Text = string.Empty;
-            txtFirstLastName.Text = string.Empty;
-            txtSecondLastName.Text = string.Empty;
-            txtCellPhone.Text = string.Empty;
-        }
-
     }
 }

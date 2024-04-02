@@ -28,11 +28,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             CleanErrorsLabels();
-            if (AreDataValid())
+            if (AreFieldsValid() && IsEmailExisting())
             {
                 var client = new Client
                 {
-                    name = txtName.Text + " " + txtFirstLastName.Text + " " + txtSecondLastName.Text,
+                    name = txtName.Text,
                     phone = txtCellPhone.Text,
                     email = txtEmail.Text,
                 };
@@ -45,18 +45,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             } 
         }
 
-        private bool AreDataValid()
-        {
-            return IsEmailExisting() && AreFieldsValid();
-        }
-
         private bool AreFieldsValid()
         {
             bool areFieldsValid = true;
             List<string> data = new List<string>();
             data.Add(txtName.Text);
-            data.Add(txtFirstLastName.Text);
-            data.Add(txtSecondLastName.Text);
             data.Add(txtCellPhone.Text);
             data.Add(txtEmail.Text);
 
@@ -80,6 +73,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void ShowErrors(List<int> errors)
         {
+            Console.WriteLine("Pasé por acá");
             for (int index = 0; index < errors.Count; index++) 
             {
                 int error = errors[index];
@@ -89,15 +83,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                         lblNameError.Visibility = Visibility.Visible;
                         break;
                     case 2:
-                        lblFirstLastNameError.Visibility = Visibility.Visible;
-                        break;
-                    case 3:
-                        lblSecondLastNameError.Visibility = Visibility.Visible;
-                        break;
-                    case 4:
                         lblCellPhoneError.Visibility = Visibility.Visible;
                         break;
-                    case 5:
+                    case 3:
                         lblEmailError.Visibility = Visibility.Visible;
                         break;
                 }
@@ -107,8 +95,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void CleanErrorsLabels()
         {
             lblNameError.Visibility = Visibility.Collapsed;
-            lblFirstLastNameError.Visibility = Visibility.Collapsed;
-            lblSecondLastNameError.Visibility = Visibility.Collapsed;
             lblCellPhoneError.Visibility = Visibility.Collapsed;
             lblEmailError.Visibility = Visibility.Collapsed;
         }
@@ -116,8 +102,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void CleanTextFields()
         {
             txtName.Text = string.Empty;
-            txtFirstLastName.Text = string.Empty;
-            txtSecondLastName.Text = string.Empty;
             txtEmail.Text = string.Empty;
             txtCellPhone.Text = string.Empty;
         }

@@ -14,7 +14,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 
         bool EditDataClient(Client client);
 
-        bool DisableClient(string email);
+        bool ChangeStatusClient(string email, int status);
 
         List<Client> GetLastClientsRegistered();
 

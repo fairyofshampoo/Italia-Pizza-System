@@ -37,10 +37,6 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 SaveSession();
                 DisplayMainMenuView();
             }
-            else
-            {
-                DialogManager.ShowWarningMessageBox("Los datos ingresados son erroneos");
-            }
         }
 
         private void DisplayMainMenuView()
@@ -55,7 +51,14 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             if (continueLogin)
             {
                 continueLogin = ValidateCredentials();
+                if(continueLogin == false)
+                {
+                    DialogManager.ShowWarningMessageBox("Credenciales inválidas");
+                }
 
+            } else
+            {
+                DialogManager.ShowWarningMessageBox("Los datos ingresados son erroneos");
             }
 
             return continueLogin;

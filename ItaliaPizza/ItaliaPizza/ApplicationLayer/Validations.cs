@@ -5,16 +5,17 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media.Media3D;
+using System.Xml.Linq;
 
 namespace ItaliaPizza.ApplicationLayer
 {
     internal class Validations
     {
         private static int NAME_ERROR = 1;
-        private static int FIRST_LAST_NAME_ERROR = 2;
-        private static int SECOND_LAST_NAME_ERROR = 3;
-        private static int PHONE_ERROR = 4;
-        private static int EMAIL_ERROR = 5;    
+        private static int PHONE_ERROR = 2;
+        private static int EMAIL_ERROR = 3;    
 
         public static bool IsNameValid(string name)
         {
@@ -32,6 +33,22 @@ namespace ItaliaPizza.ApplicationLayer
             return isValid && ValidateWithTimeout(name, nameRegex);
         }
 
+        public static bool IsAddressValid(string address) 
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                isValid = false;
+            }
+
+            var addressRegex = new Regex("^[\\p{L}\\p{M}\\s]{1,60}",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(address, addressRegex);
+        }
+
         public static bool IsPhoneValid(string phone)
         {
             int limitTime = 500;
@@ -42,7 +59,7 @@ namespace ItaliaPizza.ApplicationLayer
                 isValid = false;
             }
 
-            var nameRegex = new Regex("^\\d{1,10}$",
+            var nameRegex = new Regex("^\\d{8,10}$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(phone, nameRegex);
@@ -101,6 +118,13 @@ namespace ItaliaPizza.ApplicationLayer
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(user, userRegex);
+        }
+
+        public static bool IsNumber(string text)
+        {
+            int limitTime = 500;
+            var numberRegex = new Regex("[0-9]", RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+            return ValidateWithTimeout(text, numberRegex);
         }
 
         public static bool IsPasswordValid(string password)
@@ -171,25 +195,19 @@ namespace ItaliaPizza.ApplicationLayer
                 errors.Add(NAME_ERROR);
             }
 
-            if (!IsNameValid(data[1]))
-            {
-                errors.Add(FIRST_LAST_NAME_ERROR);
-            }
-
-            if (!IsNameValid(data[2]))
-            {
-                errors.Add(SECOND_LAST_NAME_ERROR);
-            }
-
-            if (!IsPhoneValid(data[3]))
+            if (!IsPhoneValid(data[1]))
             {
                 errors.Add(PHONE_ERROR);
             }
 
-            if (!IsEmailValid(data[4]))
+            if (data.Count > 2)
             {
-                errors.Add(EMAIL_ERROR);
+                if (!IsEmailValid(data[2]))
+                {
+                    errors.Add(EMAIL_ERROR);
+                }
             }
+
             return errors;
         }
 

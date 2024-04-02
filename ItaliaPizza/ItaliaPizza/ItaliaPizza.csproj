@@ -198,6 +198,9 @@
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
       <DependentUpon>RegisterClientView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml.cs">
+      <DependentUpon>RegisterNewClientAddressView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml.cs">
       <DependentUpon>TellerScreenView.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

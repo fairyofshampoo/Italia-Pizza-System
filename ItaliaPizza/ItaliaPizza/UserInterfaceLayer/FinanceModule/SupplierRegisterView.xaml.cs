@@ -20,6 +20,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             InitializeComponent();
             SetSupplyAreaItems();
+            txtPhone.PreviewTextInput += TxtPhone_PreviewTextInput;
         }
 
         private void SetSupplyAreaItems()
@@ -169,6 +170,22 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void TxtPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
             lblPhoneHint.Foreground = Brushes.LightGray;
+        }
+
+        private void TxtPhone_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if(!Validations.IsNumber(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length >= 10)
+            {
+                e.Handled = true;
+            }
+
         }
     }
 }
