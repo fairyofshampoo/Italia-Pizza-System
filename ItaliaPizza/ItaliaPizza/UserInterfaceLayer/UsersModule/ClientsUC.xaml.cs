@@ -41,7 +41,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 btnNewOrder.Visibility = Visibility.Collapsed;
                 lblFullName.Foreground = Brushes.Red;
             }
-            // Address fullAddress = addressDAO.GetClientAddress(client.email);
+            Address fullAddress = addressDAO.GetClientAddress(client.email);
             ClientData = client;
         }
 
