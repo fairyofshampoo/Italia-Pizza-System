@@ -55,7 +55,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" 
+                <Button x:Name="btnNewOrder" Background="Transparent" Height="Auto" BorderBrush="Transparent" 
                         VerticalAlignment="Top" Grid.Row="0" Click="BtnSupplyOrder_Click"
                         Grid.Column="1" Margin="0,10,30,0" HorizontalAlignment="Right">
                     <Image Source="../Resources/Icons/SupplierOrderIcon.png" Width="70" Height="70"/>

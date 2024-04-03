@@ -1,4 +1,7 @@
-﻿using ItaliaPizza.DataLayer.DAO.Interface;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer.DAO.Interface;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -109,7 +112,85 @@ namespace ItaliaPizza.DataLayer.DAO
             return suppliers;
         }
 
+        public bool ChangeStatus(string email, int newStatus)
+        {
+            bool succesfulChange = false;
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var modifySupplier = databaseContext.Suppliers.First(a => a.email == email);
+                    if(modifySupplier != null)
+                    {
+                        modifySupplier.status = Convert.ToByte(newStatus);
+                    }
 
+                    databaseContext.SaveChanges();
+                    succesfulChange = true;
+                } catch (ArgumentException argumentException)
+                {
+                    throw argumentException;
+                }
+            }
+            return succesfulChange;
+        }
+
+        public bool ModifySupplier(Supplier supplierUpdated, string email)
+        {
+            bool successfulUpdate = false;
+
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var modifySupplier = databaseContext.Suppliers.First(s => s.email == email);
+                    if( modifySupplier != null)
+                    {
+                        modifySupplier.email = supplierUpdated.email;
+                        modifySupplier.phone = supplierUpdated.phone;
+                        modifySupplier.companyName = supplierUpdated.companyName;
+                        modifySupplier.manager = supplierUpdated.manager;
+                        modifySupplier.SupplyAreas = supplierUpdated.SupplyAreas;
+                    }
+
+                    if(databaseContext.SaveChanges() == Constants.SUCCESSFUL_RESULT)
+                    {
+                        successfulUpdate = true;
+                    }
+
+                } catch (SqlException sqlException)
+                {
+                    throw sqlException;
+                }
+            }
+
+            return successfulUpdate;
+        }
+
+        public Supplier GetSupplierByEmail (string email)
+        {
+            Supplier supplierFound = new Supplier();
+            try
+            {
+                using(var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    Supplier supplier = databaseContext.Suppliers.Find(email);
+                    if ( supplier != null)
+                    {
+                        databaseContext.Entry(supplier)
+                            .Collection(s => s.SupplyAreas)
+                            .Load();
+                        supplierFound = supplier;
+                    }
+                }
+            }
+            catch (ArgumentException argumentException)
+            {
+                throw argumentException;
+            }
+
+            return supplierFound;
+        }
 
         public bool IsEmailSupplierExisting(string email)
         {
