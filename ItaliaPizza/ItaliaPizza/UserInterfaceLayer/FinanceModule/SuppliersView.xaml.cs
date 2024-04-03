@@ -26,6 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SuppliersView : Page
     {
         private int rowsAdded = 0;
+        private List<Button> dynamicFilterButtons = new List<Button>();
         public SuppliersView()
         {
             InitializeComponent();
@@ -98,6 +99,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             btnAll.Style = (Style)FindResource("CustomButtonStyle");
             btnAll.Click += BtnAll_Click;
             filtersStackPanel.Children.Add(btnAll);
+            dynamicFilterButtons.Add(btnAll);
 
             foreach (SupplyArea area in supplyAreas)
             {
@@ -106,6 +108,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 btnArea.Style = (Style)FindResource("CustomButtonStyle");
                 btnArea.Click += (sender, e) => BtnArea_Click(sender, e, area);
                 filtersStackPanel.Children.Add(btnArea);
+                dynamicFilterButtons.Add(btnArea);
             }
         }
 
@@ -118,17 +121,59 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnArea_Click(object sender, RoutedEventArgs e, SupplyArea area)
         {
+            Button clickedButton = (Button)sender;
 
+            clickedButton.Background = new SolidColorBrush(Color.FromArgb(255, 255, 123, 0));
+
+            foreach (Button button in dynamicFilterButtons)
+            {
+                if (button != clickedButton)
+                {
+                    button.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
+                }
+            }
+
+            SearchSupplierByArea(area);
+        }
+
+        private void SearchSupplierByArea(SupplyArea area)
+        {
+            SupplierDAO supplierDAO = new SupplierDAO();
+            List<Supplier> suppliers = supplierDAO.SearchProductByArea(area.area_name);
+            ShowSuppliers(suppliers);
         }
 
         private void BtnAll_Click(object sender, RoutedEventArgs e)
         {
+            Button clickedButton = (Button)sender;
 
+            clickedButton.Background = new SolidColorBrush(Color.FromArgb(255, 255, 123, 0));
+
+            foreach (Button button in dynamicFilterButtons)
+            {
+                if (button != clickedButton)
+                {
+                    button.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
+                }
+            }
+
+            SetSuppliers();
         }
 
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
+            string searchText = txtSearchBar.Text;
+            if(searchText.Length > 3)
+            {
+                SearchSupplierByName(searchText);
+            }
+        }
 
+        private void SearchSupplierByName(string searchText)
+        {
+            SupplierDAO supplierDAO = new SupplierDAO();
+            List<Supplier> suppliers = supplierDAO.SearchProductByName(searchText);
+            ShowSuppliers(suppliers);
         }
 
         private void BtnAddSupplier_Click(object sender, RoutedEventArgs e)

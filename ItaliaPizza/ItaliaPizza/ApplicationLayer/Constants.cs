@@ -15,5 +15,7 @@ namespace ItaliaPizza.ApplicationLayer
         public const int EXTERNAL_PRODUCT = 1;
 
         public const int INTERNAL_PRODUCT = 0;
+
+        public const int SUCCESSFUL_RESULT = 1;
     }
 }
