@@ -63,6 +63,53 @@ namespace ItaliaPizza.DataLayer.DAO
             return lastSuppliers;
         }
 
+        public List<Supplier> SearchProductByName(string name)
+        {
+            List<Supplier> suppliers = new List<Supplier> ();
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var suppliersDB = databaseContext.Suppliers
+                    .Where(s => s.manager.StartsWith(name))
+                    .Take(10)
+                    .ToList();
+
+                if(suppliersDB != null)
+                {
+                    foreach(var supplier in suppliersDB)
+                    {
+                        databaseContext.Entry(supplier)
+                            .Collection(s => s.SupplyAreas)
+                            .Load();
+                        suppliers.Add(supplier);
+                    }
+                }
+            }
+            return suppliers;
+        }
+
+        public List<Supplier> SearchProductByArea(string area)
+        {
+            List<Supplier> suppliers = new List<Supplier>();
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var suppliersDB = databaseContext.Suppliers
+                    .Where(s => s.SupplyAreas.Any(sa => sa.area_name == area))
+                    .ToList();
+
+                foreach (var supplier in suppliersDB)
+                {
+                    databaseContext.Entry(supplier)
+                        .Collection(s => s.SupplyAreas)
+                        .Load();
+                    suppliers.Add(supplier);
+                }
+            }
+
+            return suppliers;
+        }
+
+
 
         public bool IsEmailSupplierExisting(string email)
         {

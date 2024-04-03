@@ -23,7 +23,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplierUC : UserControl
     {
-        private string supplierId;
+        private Supplier SupplierData;
 
         public SuppliersView SuppliersView { get; set; }
         public SupplierUC()
@@ -38,6 +38,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnEditSupplier_Click(object sender, RoutedEventArgs e)
         {
+            EditSupplierView editSupplierView = new EditSupplierView();
+            SuppliersView.NavigationService.Navigate(editSupplierView);
 
         }
 
@@ -51,11 +53,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             foreach (var supplyArea in supplier.SupplyAreas)
             {
                 supplyAreasText.Append(supplyArea.area_name);
-                supplyAreasText.Append(", ");
+                supplyAreasText.Append("  ");
             }
 
             lblSupplyArea.Content = supplyAreasText.ToString();
-            supplierId = supplier.email;
+            SupplierData = supplier;
         }
     }
 }
