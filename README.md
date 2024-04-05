@@ -44,7 +44,12 @@ git clone https://github.com/fairyofshampoo/ItaliaPizzaManagementSystem.git
     <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <Frame x:Name="NavigationFrame" Width="Auto" Height="Auto" Grid.Row="0" NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/UsersModule/LoginView.xaml" Margin="0"/>
+    <Frame x:Name="NavigationFrame" 
+    Width="Auto" 
+    Height="Auto" 
+    Grid.Row="0" 
+    NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/UsersModule/LoginView.xaml" 
+    Margin="0"/>
 </Grid>
 ```
 
