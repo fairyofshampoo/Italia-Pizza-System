@@ -37,7 +37,7 @@ git clone https://github.com/fairyofshampoo/ItaliaPizzaManagementSystem.git
 
 ## Notas Adicionales
 
-- Para la primera entrega que corresponde al 40%, se requiere modificar el archivo MainWindow.xaml que por defecto viene de la siguiente manera:
+- Para la primera entrega que corresponde al 40%, se requiere modificar el archivo MainWindow.xaml que por defecto viene de la siguiente manera y permite revisar los casos de uso correspondientes a clientes con la pantalla principal del cajero:
 
 ```bash
 <Grid Margin="0">
