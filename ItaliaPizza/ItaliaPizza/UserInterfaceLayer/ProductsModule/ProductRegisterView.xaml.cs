@@ -303,7 +303,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             txtCode.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtCode.BorderThickness = new Thickness(0);
-            lblCodeError.Visibility = Visibility.Collapsed;           
+            lblCodeError.Visibility = Visibility.Collapsed;
+
+            txtPrice.BorderBrush = System.Windows.Media.Brushes.Transparent;
+            txtPrice.BorderThickness = new Thickness(0);
+            lblPriceError.Visibility = Visibility.Collapsed;
         }        
     }
 }

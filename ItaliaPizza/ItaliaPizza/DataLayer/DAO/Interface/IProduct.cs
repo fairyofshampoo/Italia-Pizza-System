@@ -9,5 +9,9 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     internal interface IProduct
     {
         bool IsCodeExisting(string code);
+        bool AddProduct(Product product);
+        List<Product> GetLastProductsRegisteres();
+        List<Product> SearchProductByName(string name);
+        List<Product> SearchProductByType(int type);
     }
 }
