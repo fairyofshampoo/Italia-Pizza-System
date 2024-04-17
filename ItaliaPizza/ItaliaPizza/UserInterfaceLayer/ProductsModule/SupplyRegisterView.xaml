@@ -56,7 +56,7 @@
                                     <Label Content="Cantidad: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,0,0,0"/>
                                     <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="29,0,20,0" Height="38"/>
                                     <Border x:Name="bdrAmount" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="157" HorizontalAlignment="Left" Margin="29,-41,0,0">
-                                        <TextBox x:Name="txtAmount" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="154" Margin="0,0,0,-1" />
+                                        <TextBox x:Name="txtAmount" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="150" Margin="0,0,0,-1" />
                                     </Border>
                                     <Label x:Name="lblAmountError" Margin="25,-3,0,0" Content="Cantidad inválida" FontSize="10" Foreground="Red" Height="21" Visibility="Hidden">
                                         <Label.Effect>
@@ -101,30 +101,7 @@
                                         </Label>
                                     </Grid>
                                 </StackPanel>
-
-                                <StackPanel Orientation="Vertical" Grid.Column="1">
-                                    <Label Content="Fecha de caducidad: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="10,-4,0,0"/>
-                                    <Grid Margin="9,-2,0,0">
-                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="3,3,27,0" Height="38" VerticalAlignment="Top"/>
-                                        <Border x:Name="bdrExpiryDate" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0">
-                                            <DatePicker x:Name="cmbExpiryDate" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0">
-                                                <DatePicker.Resources>
-                                                    <Style TargetType="DatePickerTextBox">
-                                                        <Setter Property="IsReadOnly" Value="True"/>
-                                                        <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
-                                                        <Setter Property="FontSize" Value="15"/>
-                                                        <Setter Property="Background" Value="LightGray"/>
-                                                    </Style>
-                                                </DatePicker.Resources>
-                                            </DatePicker>
-                                        </Border>
-                                        <Label x:Name="lblExpiryDateError" Margin="-1,31,1,-21" Content="Fecha de caducidad inválida" FontSize="10" Foreground="Red" Height="21" Visibility="Hidden">
-                                            <Label.Effect>
-                                                <DropShadowEffect Color="LightGray" ShadowDepth="0" BlurRadius="2"/>
-                                            </Label.Effect>
-                                        </Label>
-                                    </Grid>
-                                </StackPanel>
+                                
                             </Grid>
                         </Grid>
                     </Border>

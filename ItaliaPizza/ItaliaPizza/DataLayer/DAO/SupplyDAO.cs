@@ -24,7 +24,6 @@ namespace ItaliaPizza.DataLayer.DAO
                         amount = supply.amount,
                         measurementUnit = supply.measurementUnit,
                         category = supply.category,
-                        expiryDate = supply.expiryDate,
                     };
 
                     databaseContext.Supplies.Add(newSupply);

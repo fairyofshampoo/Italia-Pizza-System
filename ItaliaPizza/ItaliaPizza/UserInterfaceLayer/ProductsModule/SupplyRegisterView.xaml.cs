@@ -59,17 +59,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string name = txtName.Text;
             decimal amount = Decimal.Parse(txtAmount.Text);
             string categoty = cmbCategory.SelectedItem.ToString();
-            DateTime expiryDate = DateTime.ParseExact(cmbExpiryDate.SelectedDate.ToString(), "dd/MM/yyyy",
-                                    CultureInfo.InvariantCulture);
             string measurementUnit = cmbMeasurementUnit.SelectedItem.ToString();
 
             SupplyDAO supplyDAO = new SupplyDAO();
             Supply supply = new Supply
             {
                 name = name,
-                amount = amount,
+                //amount = amount,
                 category = categoty,
-                expiryDate = expiryDate
             };
 
             return supplyDAO.AddSupply(supply);
@@ -135,14 +132,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 validateFields = false;                
             }
 
-            if (cmbExpiryDate.SelectedDate == null || (DateTime)cmbExpiryDate.SelectedDate <= DateTime.Now) 
-            {
-                cmbExpiryDate.BorderBrush = Brushes.Red;
-                cmbExpiryDate.BorderThickness = new Thickness(2);
-                lblExpiryDateError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
             return validateFields;
         }
 
@@ -163,10 +152,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             cmbMeasurementUnit.BorderBrush = System.Windows.Media.Brushes.Transparent;
             cmbMeasurementUnit.BorderThickness = new Thickness(0);
             lblMeasurementUnitError.Visibility = Visibility.Collapsed;
-
-            cmbExpiryDate.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            cmbExpiryDate.BorderThickness = new Thickness(0);
-            lblExpiryDateError.Visibility = Visibility.Collapsed;
         }
     }
 }

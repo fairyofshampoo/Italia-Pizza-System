@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.ProductsModule"
              mc:Ignorable="d" 
-             d:DesignHeight="230" d:DesignWidth="950" Background="Transparent">
+             d:DesignHeight="220" d:DesignWidth="950" Background="Transparent">
     <Grid>
-        <Rectangle RadiusX="23.333" RadiusY="23.333" Fill="#393D42" Stroke="Transparent" Margin="0,10,0,10"/>
-        <Border Margin="30,30,30,30" Background="#D9D9D9" CornerRadius="20" Height="Auto">
+        <Rectangle RadiusX="23.333" RadiusY="23.333" Fill="#393D42" Stroke="Transparent" Margin="0,8,0,8" Height="205"/>
+        <Border Margin="30,30,30,30" Background="#D9D9D9" CornerRadius="20" Height="150">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

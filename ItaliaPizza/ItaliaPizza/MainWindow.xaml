@@ -16,6 +16,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="NavigationFrame" Width="Auto" Height="Auto" Grid.Row="0" NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/ProductsModule/SupplyRegisterView.xaml" Margin="0"/>
+        <Frame x:Name="NavigationFrame" Width="Auto" Height="Auto" Grid.Row="0" NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/ProductsModule/ProductsView.xaml" Margin="0"/>
     </Grid>
 </Window>

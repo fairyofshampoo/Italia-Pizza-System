@@ -109,9 +109,11 @@
                         </Button>
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="2" Margin="0,0,0,-395">
+                    <ScrollViewer Height="390" Grid.Row="2">
                         <Grid Name="ProductsGrid" Width = "1100" Height = "Auto"/>
                     </ScrollViewer>
+                    
+                    
 
                     <Label Name="lblProductNotFound" Grid.Row="2" Content="No se encontró ningún producto" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
                 </Grid>
