@@ -13,5 +13,8 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         List<Product> GetLastProductsRegisteres();
         List<Product> SearchProductByName(string name);
         List<Product> SearchProductByType(int type);
+        bool ModifyProduct(Product product, string code);
+        bool ChangeStatus(string code, int newStatus);
+        Product GetProductByCode(string code);
     }
 }
