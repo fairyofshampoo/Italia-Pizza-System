@@ -59,7 +59,7 @@
                                             <TextBox x:Name="txtName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                         </Border>
                                     </Grid>
-                                    <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                    <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,-5,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Vertical" Grid.Row="1">
@@ -70,7 +70,7 @@
                                             <TextBox x:Name="txtCode" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
                                         </Border>
                                     </Grid>
-                                    <Label x:Name="lblCodeError" Content ="Código inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                    <Label x:Name="lblCodeError" Content ="Código inválido" Margin="20,-4,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                 </StackPanel>
 
                                 <Grid Grid.Row="2">
@@ -151,7 +151,7 @@
                                                 </ScrollViewer>
                                             </Border>
                                         </Grid>
-                                        <Label x:Name="lblDescriptionError" Content ="Nombre inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                        <Label x:Name="lblDescriptionError" Content ="Nombre inválido" Margin="20,-5,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>

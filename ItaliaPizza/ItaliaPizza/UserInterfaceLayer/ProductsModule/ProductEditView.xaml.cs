@@ -27,12 +27,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class ProductEditView : Page
     {
-        public ProductEditView()
+
+        public ProductEditView(Product product)
         {
             InitializeComponent();
-
-            string code = "51H4Z";
-            SetModifyProduct(code);
+            SetModifyProduct(product);
         }
 
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
@@ -59,11 +58,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (ModifyProduct())
                 {
-                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                    DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el producto");
                 }
             }
         }
@@ -132,11 +131,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        public void SetModifyProduct(string code)
+        public void SetModifyProduct(Product productInfo)
         {
-            ProductDAO productDAO = new ProductDAO();
-            Product productInfo = productDAO.GetProductByCode(code);
-
             if (productInfo != null)
             {
                 txtCode.Text = productInfo.productCode;

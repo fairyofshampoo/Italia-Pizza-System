@@ -44,7 +44,7 @@
                     </Grid>
                 </Grid>
 
-                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Margin="0,37,40,20" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Margin="0,27,30,10" HorizontalAlignment="Right" VerticalAlignment="Top" Click="BtnEditProduct_Click">
                     <Image Source="../Resources/Icons/EditIcon.png" Width="115" Height="95"/>
                 </Button>
             </Grid>

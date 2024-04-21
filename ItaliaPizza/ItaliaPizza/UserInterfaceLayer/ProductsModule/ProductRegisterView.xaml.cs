@@ -34,7 +34,20 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            
+            ResetFields();
+
+            if (ValidateFields())
+            {
+                if (!IsProductCodeExisting())
+                {
+                    //Dirige a pantalla para registrar receta
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
+                }
+
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
