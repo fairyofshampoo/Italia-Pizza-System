@@ -10,7 +10,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     {
         bool IsCodeExisting(string code);
         bool AddProduct(Product product);
-        List<Product> GetLastProductsRegisteres();
+        List<Product> GetLastProductsRegistered();
         List<Product> SearchProductByName(string name);
         List<Product> SearchProductByType(int type);
         bool ModifyProduct(Product product, string code);

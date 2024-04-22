@@ -1,0 +1,107 @@
+﻿<Page x:Class="ItaliaPizza.UserInterfaceLayer.UsersModule.EmployeesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.UsersModule"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="EmployeesView">
+
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="1280" Height="720">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Height="200" Width="1280">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="450"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="405"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Empleados" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="70,0,0,0" Height="100" Width="325"/>
+                        <Canvas HorizontalAlignment="Center" Width="0">
+                            <Line X1="-230" Y1="-10" X2="80" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="83" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
+                        </Canvas>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="0,0,-115,0">
+                            <Grid Margin="0,10,0,0" Width="490">
+                                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="453" Height="62" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,60,0,0"/>
+                                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="451" Height="60" Margin="0,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtSearchBar" FontSize="30" FontWeight="Medium" FontFamily = "Segoe UI Variable Display" Background="LightGray" BorderThickness="0" TextChanged="txtSearchBar_TextChanged"/>
+                                </Border>
+                            </Grid>
+                            <Label x:Name="lblInstruction" Content ="Ingrese el nombre del empleado" FontSize="18" Foreground="White" Visibility="Visible" Width="453" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <Button x:Name="btnAddEmployee" Background="Transparent" Grid.Column="1" Width="76" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="90,70,0,60" Click="btnAddEmployee_Click">
+                            <Image Source="../Resources/Icons/AddProductIcon.png" Width="72" Height="67"/>
+                        </Button>
+                    </Grid>
+                    <StackPanel x:Name="stpFiltersEmployees" Orientation="Horizontal" Grid.Row="1">
+                        <Label x:Name="lblFilters" Content ="Estatus" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
+
+                        <Button x:Name="btnAllFilter" BorderThickness="0" Content="Todos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="30,7,0,9" Width="162" Click="btnAllFilter_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#E9E1FF"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="100" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button x:Name="btnActivesFilter" BorderThickness="0" Content="Activos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnActivesFilter_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#E9E1FF"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button x:Name="btnInactivesFilter" BorderThickness="0" Content="Inactivos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnInactivesFilter_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#E9E1FF"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <ScrollViewer Height="390" Grid.Row="2">
+                        <Grid Name="EmployeesGrid" Width = "1100" Height = "Auto"/>
+                    </ScrollViewer>
+
+
+
+                    <Label Name="lblEmployeeNotFound" Grid.Row="2" Content="No se encontró ningún empleado" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Viewbox>
+</Page>

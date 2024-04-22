@@ -24,7 +24,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class ProductsView : Page
     {
-
         private int rowsAdded = 0;
 
         public ProductsView()
@@ -118,7 +117,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             List<Product> lastProducts = new List<Product>();
             ProductDAO productDAO = new ProductDAO();
-            lastProducts = productDAO.GetLastProductsRegisteres();
+            lastProducts = productDAO.GetLastProductsRegistered();
             return lastProducts;
         }    
         

@@ -58,7 +58,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
-        public List<Product> GetLastProductsRegisteres()
+        public List<Product> GetLastProductsRegistered()
         {
             List<Product> lastProducts = new List<Product>();
             using (var databseContext = new ItaliaPizzaDBEntities())
