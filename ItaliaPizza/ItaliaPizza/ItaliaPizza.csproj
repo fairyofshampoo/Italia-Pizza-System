@@ -162,6 +162,9 @@
     <Compile Include="DataLayer\SupplyOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml.cs">
+      <DependentUpon>EditSupplierView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
@@ -216,6 +219,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

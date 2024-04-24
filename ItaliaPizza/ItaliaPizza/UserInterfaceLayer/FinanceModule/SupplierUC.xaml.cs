@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliaPizza.UserInterfaceLayer.UsersModule;
+using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -23,7 +24,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplierUC : UserControl
     {
-        private string supplierId;
+        private Supplier SupplierData;
 
         public SuppliersView SuppliersView { get; set; }
         public SupplierUC()
@@ -38,6 +39,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnEditSupplier_Click(object sender, RoutedEventArgs e)
         {
+            EditSupplierView editSupplierView = new EditSupplierView();
+            editSupplierView.SetSupplierData(SupplierData.email);
+            SuppliersView.NavigationService.Navigate(editSupplierView);
 
         }
 
@@ -46,16 +50,20 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             lblSupplierName.Content = supplier.manager + ": " + supplier.companyName;
             lblPhoneNumber.Content = supplier.phone;
             lblEmail.Content = supplier.email;
-
+            if(supplier.status == Constants.INACTIVE_STATUS)
+            {
+                btnNewOrder.Visibility = Visibility.Collapsed;
+                lblSupplierName.Foreground = Brushes.Red;
+            }
             StringBuilder supplyAreasText = new StringBuilder();
             foreach (var supplyArea in supplier.SupplyAreas)
             {
                 supplyAreasText.Append(supplyArea.area_name);
-                supplyAreasText.Append(", ");
+                supplyAreasText.Append("  ");
             }
 
             lblSupplyArea.Content = supplyAreasText.ToString();
-            supplierId = supplier.email;
+            SupplierData = supplier;
         }
     }
 }
