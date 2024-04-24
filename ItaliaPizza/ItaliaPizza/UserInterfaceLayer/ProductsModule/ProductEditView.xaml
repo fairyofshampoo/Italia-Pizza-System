@@ -34,7 +34,7 @@
 
                 <StackPanel Grid.Row="1" Width="1280" Background="#2c2c2c">
 
-                    <Label Content="Complete los siguientes campos para registrar un nuevo producto:" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="16" Width="978" Margin="0,10,10,0"/>
+                    <Label Content="Actualice los siguientes campos del producto:" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="16" Width="978" Margin="0,10,10,0"/>
 
                     <Border Background="#393D42" Height="270" Width="1000" CornerRadius="10" Margin="0,10,0,0">
 

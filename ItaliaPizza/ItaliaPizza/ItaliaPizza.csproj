@@ -188,6 +188,9 @@
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml.cs">
+      <DependentUpon>SupplyEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\SupplyRegisterView.xaml.cs">
       <DependentUpon>SupplyRegisterView.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
