@@ -238,5 +238,23 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return isAuthenticated;
         }
+
+        public string GetEmployeeNameByEmail(string email)
+        {
+            string employeeName = null;
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var employeeNameDB = databaseContext.Employees
+                                                    .Where(employee => employee.email == email)
+                                                    .Select(employee => employee.name)
+                                                    .FirstOrDefault();
+
+                if(employeeNameDB != null)
+                {
+                    employeeName = employeeNameDB;
+                }
+            }
+            return employeeName;
+        }
     }
 }

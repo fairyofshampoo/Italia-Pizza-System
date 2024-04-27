@@ -13,5 +13,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool IsUserExisting(string user);
         Account GetAccountByUsername(string username);
         bool AuthenticateAccount(string username, string password);
+        string GetEmployeeNameByEmail(string email);
     }
 }
