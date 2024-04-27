@@ -239,6 +239,70 @@ namespace ItaliaPizza.DataLayer.DAO
             return isAuthenticated;
         }
 
+        public List<Employee> GetLastEmployeesRegistered()
+        {
+            List<Employee> lastEmployees = new List<Employee>();
+            using (var databseContext = new ItaliaPizzaDBEntities())
+            {
+                var lastEmployeesRegistered = databseContext.Employees
+                                                           .OrderByDescending(e => e.name)
+                                                           .Take(10)
+                                                           .ToList();
+                if (lastEmployeesRegistered != null)
+                {
+                    foreach (var employee in lastEmployeesRegistered)
+                    {
+                        lastEmployees.Add(employee);
+                    }
+                }
+            }
+            return lastEmployees;
+        }
+
+        public List<Employee> GetEmployeesByStatus(int status)
+        {
+            List<Employee> employeesDB = new List<Employee>();
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var employees = (from employee in databaseContext.Employees
+                                 join account in databaseContext.Accounts
+                                 on employee.email equals account.email
+                                 where account.status == status
+                                 select employee)
+                                .ToList();
+
+                if (employees != null)
+                {
+                    foreach (var product in employees)
+                    {
+                        employeesDB.Add(product);
+                    }
+                }
+            }
+            return employeesDB;
+        }
+
+        public List<Employee> GetEmployeesByName(string name)
+        {
+            List<Employee> employeesDB = new List<Employee>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var employees = databaseContext.Employees
+                                              .Where(e => e.name.StartsWith(name))
+                                              .Take(5)
+                                              .ToList();
+                if (employees != null)
+                {
+                    foreach (var employee in employees)
+                    {
+                        employeesDB.Add(employee);
+                    }
+                }
+            }
+            return employeesDB;
+        }
+        
         public string GetEmployeeNameByEmail(string email)
         {
             string employeeName = null;

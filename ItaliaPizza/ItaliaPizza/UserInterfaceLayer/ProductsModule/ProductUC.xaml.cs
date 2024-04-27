@@ -1,5 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
+using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.UsersModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class ProductUC : UserControl
     {
-        private string productId;
+        private Product productData;
+
+        public ProductsView ProductsView { get; set; }
 
         public ProductUC()
         {
@@ -44,7 +48,13 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 lblStatus.Content = "Inactivo";
             }
 
-            productId = product.productCode;
+            productData = product;
+        }
+
+        private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
+        {
+            ProductEditView productEditView = new ProductEditView(productData);
+            ProductsView.NavigationService.Navigate(productEditView);
         }
     }
 }

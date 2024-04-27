@@ -74,7 +74,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            ProductRegisterView productRegisterView = new ProductRegisterView();
+            NavigationService.Navigate(productRegisterView);
         }
 
         private void SetLastProducts()
@@ -116,13 +117,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             List<Product> lastProducts = new List<Product>();
             ProductDAO productDAO = new ProductDAO();
-            lastProducts = productDAO.GetLastProductsRegisteres();
+            lastProducts = productDAO.GetLastProductsRegistered();
             return lastProducts;
         }    
         
         private void AddProducts(Product product)
         {
             ProductUC productCard = new ProductUC();
+            productCard.ProductsView = this;
             Grid.SetRow(productCard, rowsAdded);
             productCard.SetDataCards(product);
             ProductsGrid.Children.Add(productCard);
