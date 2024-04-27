@@ -16,5 +16,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         List<Employee> GetLastEmployeesRegistered();
         List<Employee> GetEmployeesByStatus(int status);
         List<Employee> GetEmployeesByName(string name);      
+        string GetEmployeeNameByEmail(string email);
     }
 }
