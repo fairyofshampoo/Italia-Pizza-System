@@ -205,5 +205,24 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return productFound;
         }
+
+        public List<Product> GetAllProducts()
+        {
+            List<Product> products = new List<Product>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var productsDB = databaseContext.Products
+                                                .ToList();
+
+                if(productsDB != null)
+                {
+                    foreach (var product in productsDB)
+                    {
+                        products.Add(product);
+                    }
+                }
+            }
+            return products;
+        }
     }
 }
