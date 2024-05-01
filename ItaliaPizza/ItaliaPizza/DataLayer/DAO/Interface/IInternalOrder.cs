@@ -11,5 +11,15 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         List<InternalOrder> GetInternalOrdersByStatus(string status, string waiterEmail);
 
         InternalOrder GetInternalOrdersByNumber(int numberOrder, string waiterEmail);
+
+        List<RecipeSupply> GetSupplyForProduct(string productId);
+
+        List<Supply> GetInventoryQuantitiesForIngredients (List<string> recipeSupplyList);
+
+        bool AddInternalOrderProduct(InternalOrderProduct internalOrderProduct);
+
+        bool AddInternalOrder(InternalOrder order);
+
+        bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode);
     }
 }

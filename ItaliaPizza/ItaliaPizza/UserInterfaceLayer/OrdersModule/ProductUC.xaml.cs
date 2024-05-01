@@ -19,7 +19,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
     public partial class ProductUC : UserControl
     {
-        private string name;
+        private Product productData;
+        public RegisterInternalOrderView RegisterInternalOrderView { get; set; }
+
+        public string InternalOrderCode;
+
         public ProductUC()
         {
             InitializeComponent();
@@ -28,12 +32,13 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void SetProductData(Product product)
         {
             lblProductName.Content = product.name;
-            name = product.name;
+            productData = product;
         }
 
         private void BtnProductSelected_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Seleccionaste el producto: " +  name);   
+            RegisterInternalOrderView.OpenDialogForAddProduct(productData.);
         }
+
     }
 }
