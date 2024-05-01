@@ -129,6 +129,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     cmbCategory.SelectedItem = supplyInfo.category;
                 }
 
+                /*
                 if (supplyInfo.status == Constants.ACTIVE_STATUS)
                 {
                     txtName.IsEnabled = false;
@@ -144,7 +145,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     btnSave.IsEnabled = false;
                     btnSave.Background = Brushes.Gray;
-                }                             
+                } 
+                */
             }
         }
 
