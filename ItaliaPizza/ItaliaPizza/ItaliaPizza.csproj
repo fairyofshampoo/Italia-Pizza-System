@@ -108,9 +108,6 @@
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplyDAO.cs" />
-    <Compile Include="DataLayer\Dealer.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -431,16 +428,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeTypeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Images\EditProductBanner.jpg" />
@@ -451,6 +438,18 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
