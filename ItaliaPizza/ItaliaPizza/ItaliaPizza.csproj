@@ -189,6 +189,8 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\RegisterProductToOrderView.xaml.cs">
       <DependentUpon>RegisterProductToOrderView.xaml</DependentUpon>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
+      <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml.cs">
       <DependentUpon>ProductEditView.xaml</DependentUpon>
@@ -288,6 +290,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\RegisterProductToOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -404,6 +410,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserInterfaceLayer\OrdersModule\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
