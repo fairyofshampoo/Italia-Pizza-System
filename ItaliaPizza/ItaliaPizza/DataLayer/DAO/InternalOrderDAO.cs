@@ -34,13 +34,13 @@ namespace ItaliaPizza.DataLayer.DAO
             return operationStatus;
         }
 
-        public InternalOrder GetInternalOrdersByNumber(int numberOrder, string waiterEmail)
+        public InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail)
         {
             InternalOrder internalOrder = new InternalOrder();
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var ordersDB = databaseContext.InternalOrders
-                                              .Where(order => order.internalOrderId == numberOrder && order.waiterName == waiterEmail)
+                                              .Where(order => order.internalOrderId == numberOrder && order.waiterEmail == waiterEmail)
                                               .FirstOrDefault();
                 if(ordersDB != null)
                 {
@@ -51,13 +51,13 @@ namespace ItaliaPizza.DataLayer.DAO
             return internalOrder;
         }
 
-        public List<InternalOrder> GetInternalOrdersByStatus(string status, string waiterEmail)
+        public List<InternalOrder> GetInternalOrdersByStatus(int status, string waiterEmail)
         {
            List<InternalOrder> internalOrders = new List<InternalOrder>();
             using(var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var ordersDB = databaseContext.InternalOrders
-                                              .Where(order => order.status == status && order.waiterName == waiterEmail)
+                                              .Where(order => order.status == status && order.waiterEmail == waiterEmail)
                                               .ToList();
                 if(ordersDB != null)
                 {
