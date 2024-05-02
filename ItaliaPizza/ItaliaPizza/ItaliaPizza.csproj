@@ -78,7 +78,7 @@
     <Compile Include="DataLayer\Address.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\Cashin.cs">
+    <Compile Include="DataLayer\CashierLog.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Cashout.cs">
@@ -102,19 +102,13 @@
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
-    <Compile Include="DataLayer\database_firewall_rules.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Dealer.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\HomeOrderProduct.cs">
+    <Compile Include="DataLayer\HomeOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\HouseOrder.cs">
+    <Compile Include="DataLayer\HomeOrderProduct.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\InternalOrder.cs">
@@ -145,6 +139,9 @@
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\RecipeSupply.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\StatusOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Supplier.cs">
@@ -358,6 +355,11 @@
     <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
@@ -368,9 +370,6 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

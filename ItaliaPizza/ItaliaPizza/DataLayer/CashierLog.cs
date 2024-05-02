@@ -12,11 +12,14 @@ namespace ItaliaPizza.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Cashin
+    public partial class CashierLog
     {
-        public int cashinId { get; set; }
-        public System.DateTime date { get; set; }
-        public System.TimeSpan time { get; set; }
-        public decimal total { get; set; }
+        public int logId { get; set; }
+        public System.DateTime creationDate { get; set; }
+        public System.TimeSpan creationTime { get; set; }
+        public string employeeId { get; set; }
+        public byte[] report { get; set; }
+    
+        public virtual Employee Employee { get; set; }
     }
 }
