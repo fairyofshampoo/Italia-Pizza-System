@@ -20,7 +20,7 @@ namespace ItaliaPizza.DataLayer
             this.RecipeSupplies = new HashSet<RecipeSupply>();
         }
     
-        public string recipeCode { get; set; }
+        public int recipeCode { get; set; }
         public string description { get; set; }
         public byte status { get; set; }
         public string name { get; set; }

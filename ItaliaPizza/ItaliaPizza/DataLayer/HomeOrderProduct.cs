@@ -16,12 +16,13 @@ namespace ItaliaPizza.DataLayer
     {
         public int OrderProductId { get; set; }
         public int amount { get; set; }
-        public int homeOrderId { get; set; }
+        public string homeOrderId { get; set; }
+        public byte isConfirmed { get; set; }
         public string productId { get; set; }
         public int addressId { get; set; }
     
         public virtual Address Address { get; set; }
-        public virtual HouseOrder HouseOrder { get; set; }
+        public virtual HomeOrder HomeOrder { get; set; }
         public virtual Product Product { get; set; }
     }
 }

@@ -15,8 +15,8 @@ namespace ItaliaPizza.DataLayer
     public partial class RecipeSupply
     {
         public int recipeSupplyCode { get; set; }
-        public int supplyAmount { get; set; }
-        public string recipeID { get; set; }
+        public Nullable<decimal> supplyAmount { get; set; }
+        public int recipeID { get; set; }
         public string supplyId { get; set; }
     
         public virtual Recipe Recipe { get; set; }

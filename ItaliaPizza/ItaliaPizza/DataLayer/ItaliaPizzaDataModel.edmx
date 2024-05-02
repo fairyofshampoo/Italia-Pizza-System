@@ -26,21 +26,22 @@
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="clientId" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <EntityType Name="Cashin">
+        <EntityType Name="CashierLog">
           <Key>
-            <PropertyRef Name="cashinId" />
+            <PropertyRef Name="logId" />
           </Key>
-          <Property Name="cashinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
-          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="logId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="creationDate" Type="date" Nullable="false" />
+          <Property Name="creationTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="employeeId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="report" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Cashout">
           <Key>
             <PropertyRef Name="cashoutId" />
           </Key>
           <Property Name="cashoutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="cashoutType" Type="varchar" MaxLength="30" Nullable="false" />
@@ -66,13 +67,6 @@
           <Property Name="state" Type="varchar" MaxLength="250" />
           <Property Name="city" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="Dealer">
-          <Key>
-            <PropertyRef Name="phone" />
-          </Key>
-          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="email" />
@@ -82,38 +76,38 @@
           <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="HomeOrder">
+          <Key>
+            <PropertyRef Name="homeOrderId" />
+          </Key>
+          <Property Name="homeOrderId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="clientName" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="HomeOrderProduct">
           <Key>
             <PropertyRef Name="OrderProductId" />
           </Key>
           <Property Name="OrderProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="amount" Type="int" Nullable="false" />
-          <Property Name="homeOrderId" Type="int" Nullable="false" />
+          <Property Name="homeOrderId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="isConfirmed" Type="tinyint" Nullable="false" />
           <Property Name="productId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="addressId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HouseOrder">
-          <Key>
-            <PropertyRef Name="houseOrderId" />
-          </Key>
-          <Property Name="houseOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
-          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="clientName" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="dealerId" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="InternalOrder">
           <Key>
             <PropertyRef Name="internalOrderId" />
           </Key>
-          <Property Name="internalOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="internalOrderId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="waiterName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="waiterEmail" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="InternalOrderProduct">
           <Key>
@@ -121,7 +115,8 @@
           </Key>
           <Property Name="internalOrderProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="amount" Type="int" Nullable="false" />
-          <Property Name="internalOrderId" Type="int" Nullable="false" />
+          <Property Name="isConfirmed" Type="tinyint" Nullable="false" />
+          <Property Name="internalOrderId" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="productId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
@@ -131,7 +126,7 @@
           <Property Name="productCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="amount" Type="int" />
-          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="isExternal" Type="tinyint" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="5" Scale="2" Nullable="false" />
@@ -141,8 +136,8 @@
           <Key>
             <PropertyRef Name="recipeCode" />
           </Key>
-          <Property Name="recipeCode" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="recipeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProductId" Type="varchar" MaxLength="50" Nullable="false" />
@@ -152,9 +147,16 @@
             <PropertyRef Name="recipeSupplyCode" />
           </Key>
           <Property Name="recipeSupplyCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="supplyAmount" Type="int" Nullable="false" />
-          <Property Name="recipeID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="supplyAmount" Type="decimal" Precision="6" Scale="3" />
+          <Property Name="recipeID" Type="int" Nullable="false" />
           <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusOrder">
+          <Key>
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="statusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -168,11 +170,11 @@
         </EntityType>
         <EntityType Name="Supplier_SupplyArea">
           <Key>
-            <PropertyRef Name="supplier_email" />
-            <PropertyRef Name="area_id" />
+            <PropertyRef Name="Supplier_email" />
+            <PropertyRef Name="SupplyArea_area_id" />
           </Key>
-          <Property Name="supplier_email" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="area_id" Type="int" Nullable="false" />
+          <Property Name="Supplier_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SupplyArea_area_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SupplierOrder">
           <Key>
@@ -180,8 +182,9 @@
           </Key>
           <Property Name="orderCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="modificationDate" Type="datetime" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="supplierId" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
@@ -191,15 +194,15 @@
           </Key>
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="amount" Type="int" Nullable="false" />
-          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="expiryDate" Type="date" Nullable="false" />
+          <Property Name="category" Type="int" Nullable="false" />
           <Property Name="measurementUnit" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="bit" />
         </EntityType>
         <EntityType Name="SupplyArea">
           <Key>
             <PropertyRef Name="area_id" />
           </Key>
-          <Property Name="area_id" Type="int" Nullable="false" />
+          <Property Name="area_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="area_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SupplyOrder">
@@ -211,50 +214,10 @@
           <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="supplierOrderId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__RecipeSup__recip__02084FDA">
-          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
-          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Recipe">
-              <PropertyRef Name="recipeCode" />
-            </Principal>
-            <Dependent Role="RecipeSupply">
-              <PropertyRef Name="recipeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__RecipeSup__suppl__02FC7413">
-          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
-          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supply">
-              <PropertyRef Name="name" />
-            </Principal>
-            <Dependent Role="RecipeSupply">
-              <PropertyRef Name="supplyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Account_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -266,7 +229,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AddressId">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
@@ -278,7 +243,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ClientAddress">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -290,35 +257,37 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ClientName">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="email" />
             </Principal>
-            <Dependent Role="HouseOrder">
+            <Dependent Role="HomeOrder">
               <PropertyRef Name="clientName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DealerId">
-          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+        <Association Name="FK_EmployeeForCashier">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="CashierLog" Type="Self.CashierLog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Dealer">
-              <PropertyRef Name="phone" />
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
             </Principal>
-            <Dependent Role="HouseOrder">
-              <PropertyRef Name="dealerId" />
+            <Dependent Role="CashierLog">
+              <PropertyRef Name="employeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeOrderId">
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="1" />
+          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="1" />
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HouseOrder">
-              <PropertyRef Name="houseOrderId" />
+            <Principal Role="HomeOrder">
+              <PropertyRef Name="homeOrderId" />
             </Principal>
             <Dependent Role="HomeOrderProduct">
               <PropertyRef Name="homeOrderId" />
@@ -326,7 +295,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -338,7 +309,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InternalOrderId">
-          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InternalOrder">
@@ -350,7 +323,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -362,7 +337,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductId_Recipe">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -373,32 +350,66 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Recipeuprecip_02084FDA">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="recipeCode" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="recipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recipeupsuppl_02FC7413">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="RecipeSupply">
+              <PropertyRef Name="supplyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Supplier_SupplyArea_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Supplier_SupplyArea" Type="Self.Supplier_SupplyArea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
               <PropertyRef Name="email" />
             </Principal>
             <Dependent Role="Supplier_SupplyArea">
-              <PropertyRef Name="supplier_email" />
+              <PropertyRef Name="Supplier_email" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Supplier_SupplyArea_SupplyArea">
-          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="1" />
+          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Supplier_SupplyArea" Type="Self.Supplier_SupplyArea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SupplyArea">
               <PropertyRef Name="area_id" />
             </Principal>
             <Dependent Role="Supplier_SupplyArea">
-              <PropertyRef Name="area_id" />
+              <PropertyRef Name="SupplyArea_area_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SupplierOrder_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
@@ -410,7 +421,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SupplierOrderId">
-          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SupplierOrder">
@@ -421,8 +434,24 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Supply_SupplyArea">
+          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplyArea">
+              <PropertyRef Name="area_id" />
+            </Principal>
+            <Dependent Role="Supply">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupplyId">
-          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supply">
@@ -433,70 +462,42 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_waiterName">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+        <Association Name="FK_waiterEmail">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="email" />
             </Principal>
             <Dependent Role="InternalOrder">
-              <PropertyRef Name="waiterName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WaiterNameForOrder">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="InternalOrder">
-              <PropertyRef Name="waiterName" />
+              <PropertyRef Name="waiterEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ItaliaPizzaDBModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Cashin" EntityType="Self.Cashin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashierLog" EntityType="Self.CashierLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cashout" EntityType="Self.Cashout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColonyCatalog" EntityType="Self.ColonyCatalog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Dealer" EntityType="Self.Dealer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeOrder" EntityType="Self.HomeOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HomeOrderProduct" EntityType="Self.HomeOrderProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HouseOrder" EntityType="Self.HouseOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InternalOrder" EntityType="Self.InternalOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InternalOrderProduct" EntityType="Self.InternalOrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipeSupply" EntityType="Self.RecipeSupply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier_SupplyArea" EntityType="Self.Supplier_SupplyArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyArea" EntityType="Self.SupplyArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyOrder" EntityType="Self.SupplyOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
-            <End Role="Recipe" EntitySet="Recipe" />
-            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
-          </AssociationSet>
-          <AssociationSet Name="FK__RecipeSup__suppl__02FC7413" Association="Self.FK__RecipeSup__suppl__02FC7413">
-            <End Role="Supply" EntitySet="Supply" />
-            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
-          </AssociationSet>
           <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Account" EntitySet="Account" />
@@ -511,14 +512,14 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </AssociationSet>
           <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
             <End Role="Client" EntitySet="Client" />
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="HomeOrder" EntitySet="HomeOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_DealerId" Association="Self.FK_DealerId">
-            <End Role="Dealer" EntitySet="Dealer" />
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
+          <AssociationSet Name="FK_EmployeeForCashier" Association="Self.FK_EmployeeForCashier">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CashierLog" EntitySet="CashierLog" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
-            <End Role="HouseOrder" EntitySet="HouseOrder" />
+            <End Role="HomeOrder" EntitySet="HomeOrder" />
             <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
@@ -537,6 +538,14 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             <End Role="Product" EntitySet="Product" />
             <End Role="Recipe" EntitySet="Recipe" />
           </AssociationSet>
+          <AssociationSet Name="FK_Recipeuprecip_02084FDA" Association="Self.FK_Recipeuprecip_02084FDA">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recipeupsuppl_02FC7413" Association="Self.FK_Recipeupsuppl_02FC7413">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="RecipeSupply" EntitySet="RecipeSupply" />
+          </AssociationSet>
           <AssociationSet Name="FK_Supplier_SupplyArea_Supplier" Association="Self.FK_Supplier_SupplyArea_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Supplier_SupplyArea" EntitySet="Supplier_SupplyArea" />
@@ -553,15 +562,15 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             <End Role="SupplierOrder" EntitySet="SupplierOrder" />
             <End Role="SupplyOrder" EntitySet="SupplyOrder" />
           </AssociationSet>
+          <AssociationSet Name="FK_Supply_SupplyArea" Association="Self.FK_Supply_SupplyArea">
+            <End Role="SupplyArea" EntitySet="SupplyArea" />
+            <End Role="Supply" EntitySet="Supply" />
+          </AssociationSet>
           <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
             <End Role="Supply" EntitySet="Supply" />
             <End Role="SupplyOrder" EntitySet="SupplyOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_waiterName" Association="Self.FK_waiterName">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="InternalOrder" EntitySet="InternalOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WaiterNameForOrder" Association="Self.FK_WaiterNameForOrder">
+          <AssociationSet Name="FK_waiterEmail" Association="Self.FK_waiterEmail">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="InternalOrder" EntitySet="InternalOrder" />
           </AssociationSet>
@@ -595,21 +604,23 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_AddressId" FromRole="Address" ToRole="HomeOrderProduct" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientAddress" FromRole="Address" ToRole="Client" />
         </EntityType>
-        <EntityType Name="Cashin">
+        <EntityType Name="CashierLog">
           <Key>
-            <PropertyRef Name="cashinId" />
+            <PropertyRef Name="logId" />
           </Key>
-          <Property Name="cashinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="logId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="creationTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="employeeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="report" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeForCashier" FromRole="CashierLog" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Cashout">
           <Key>
             <PropertyRef Name="cashoutId" />
           </Key>
           <Property Name="cashoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="cashoutType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -623,7 +634,7 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
-          <NavigationProperty Name="HouseOrders" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HouseOrder" />
+          <NavigationProperty Name="HomeOrders" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HomeOrder" />
         </EntityType>
         <EntityType Name="ColonyCatalog">
           <Key>
@@ -637,14 +648,6 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <Property Name="state" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="city" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Dealer">
-          <Key>
-            <PropertyRef Name="phone" />
-          </Key>
-          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HouseOrders" Relationship="Self.FK_DealerId" FromRole="Dealer" ToRole="HouseOrder" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="email" />
@@ -654,8 +657,21 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Employee" FromRole="Employee" ToRole="Account" />
-          <NavigationProperty Name="InternalOrders" Relationship="Self.FK_waiterName" FromRole="Employee" ToRole="InternalOrder" />
-          <NavigationProperty Name="InternalOrders1" Relationship="Self.FK_WaiterNameForOrder" FromRole="Employee" ToRole="InternalOrder" />
+          <NavigationProperty Name="CashierLogs" Relationship="Self.FK_EmployeeForCashier" FromRole="Employee" ToRole="CashierLog" />
+          <NavigationProperty Name="InternalOrders" Relationship="Self.FK_waiterEmail" FromRole="Employee" ToRole="InternalOrder" />
+        </EntityType>
+        <EntityType Name="HomeOrder">
+          <Key>
+            <PropertyRef Name="homeOrderId" />
+          </Key>
+          <Property Name="homeOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="clientName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientName" FromRole="HomeOrder" ToRole="Client" />
+          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrder" ToRole="HomeOrderProduct" />
         </EntityType>
         <EntityType Name="HomeOrderProduct">
           <Key>
@@ -663,40 +679,25 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </Key>
           <Property Name="OrderProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="amount" Type="Int32" Nullable="false" />
-          <Property Name="homeOrderId" Type="Int32" Nullable="false" />
+          <Property Name="homeOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isConfirmed" Type="Byte" Nullable="false" />
           <Property Name="productId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="addressId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.FK_AddressId" FromRole="HomeOrderProduct" ToRole="Address" />
-          <NavigationProperty Name="HouseOrder" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrderProduct" ToRole="HouseOrder" />
+          <NavigationProperty Name="HomeOrder" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrderProduct" ToRole="HomeOrder" />
           <NavigationProperty Name="Product" Relationship="Self.FK_HomeProductId" FromRole="HomeOrderProduct" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="HouseOrder">
-          <Key>
-            <PropertyRef Name="houseOrderId" />
-          </Key>
-          <Property Name="houseOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="clientName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dealerId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientName" FromRole="HouseOrder" ToRole="Client" />
-          <NavigationProperty Name="Dealer" Relationship="Self.FK_DealerId" FromRole="HouseOrder" ToRole="Dealer" />
-          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeOrderId" FromRole="HouseOrder" ToRole="HomeOrderProduct" />
         </EntityType>
         <EntityType Name="InternalOrder">
           <Key>
             <PropertyRef Name="internalOrderId" />
           </Key>
-          <Property Name="internalOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="internalOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="waiterName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_waiterName" FromRole="InternalOrder" ToRole="Employee" />
-          <NavigationProperty Name="Employee1" Relationship="Self.FK_WaiterNameForOrder" FromRole="InternalOrder" ToRole="Employee" />
+          <Property Name="waiterEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_waiterEmail" FromRole="InternalOrder" ToRole="Employee" />
           <NavigationProperty Name="InternalOrderProducts" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrder" ToRole="InternalOrderProduct" />
         </EntityType>
         <EntityType Name="InternalOrderProduct">
@@ -705,7 +706,8 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </Key>
           <Property Name="internalOrderProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="amount" Type="Int32" Nullable="false" />
-          <Property Name="internalOrderId" Type="Int32" Nullable="false" />
+          <Property Name="isConfirmed" Type="Byte" Nullable="false" />
+          <Property Name="internalOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="productId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="InternalOrder" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrderProduct" ToRole="InternalOrder" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductId" FromRole="InternalOrderProduct" ToRole="Product" />
@@ -730,24 +732,31 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <Key>
             <PropertyRef Name="recipeCode" />
           </Key>
-          <Property Name="recipeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recipeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductId_Recipe" FromRole="Recipe" ToRole="Product" />
-          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="Recipe" ToRole="RecipeSupply" />
+          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK_Recipeuprecip_02084FDA" FromRole="Recipe" ToRole="RecipeSupply" />
         </EntityType>
         <EntityType Name="RecipeSupply">
           <Key>
             <PropertyRef Name="recipeSupplyCode" />
           </Key>
           <Property Name="recipeSupplyCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="supplyAmount" Type="Int32" Nullable="false" />
-          <Property Name="recipeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supplyAmount" Type="Decimal" Precision="6" Scale="3" />
+          <Property Name="recipeID" Type="Int32" Nullable="false" />
           <Property Name="supplyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Recipe" Relationship="Self.FK__RecipeSup__recip__02084FDA" FromRole="RecipeSupply" ToRole="Recipe" />
-          <NavigationProperty Name="Supply" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="RecipeSupply" ToRole="Supply" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Recipeuprecip_02084FDA" FromRole="RecipeSupply" ToRole="Recipe" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_Recipeupsuppl_02FC7413" FromRole="RecipeSupply" ToRole="Supply" />
+        </EntityType>
+        <EntityType Name="StatusOrder">
+          <Key>
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="statusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -767,8 +776,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </Key>
           <Property Name="orderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="Byte" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="modificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="supplierId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_SupplierOrder_Supplier" FromRole="SupplierOrder" ToRole="Supplier" />
@@ -780,18 +790,20 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </Key>
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="amount" Type="Int32" Nullable="false" />
-          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="expiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="category" Type="Int32" Nullable="false" />
           <Property Name="measurementUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK__RecipeSup__suppl__02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="RecipeSupplies" Relationship="Self.FK_Recipeupsuppl_02FC7413" FromRole="Supply" ToRole="RecipeSupply" />
+          <NavigationProperty Name="SupplyArea" Relationship="Self.FK_Supply_SupplyArea" FromRole="Supply" ToRole="SupplyArea" />
           <NavigationProperty Name="SupplyOrders" Relationship="Self.FK_SupplyId" FromRole="Supply" ToRole="SupplyOrder" />
         </EntityType>
         <EntityType Name="SupplyArea">
           <Key>
             <PropertyRef Name="area_id" />
           </Key>
-          <Property Name="area_id" Type="Int32" Nullable="false" />
+          <Property Name="area_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="area_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Supplies" Relationship="Self.FK_Supply_SupplyArea" FromRole="SupplyArea" ToRole="Supply" />
           <NavigationProperty Name="Suppliers" Relationship="Self.Supplier_SupplyArea" FromRole="SupplyArea" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="SupplyOrder">
@@ -805,24 +817,10 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <NavigationProperty Name="SupplierOrder" Relationship="Self.FK_SupplierOrderId" FromRole="SupplyOrder" ToRole="SupplierOrder" />
           <NavigationProperty Name="Supply" Relationship="Self.FK_SupplyId" FromRole="SupplyOrder" ToRole="Supply" />
         </EntityType>
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <Association Name="FK_Account_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -834,7 +832,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AddressId">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
@@ -846,7 +846,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ClientAddress">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -857,60 +859,52 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmployeeForCashier">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="CashierLog" Type="Self.CashierLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="email" />
+            </Principal>
+            <Dependent Role="CashierLog">
+              <PropertyRef Name="employeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientName">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="email" />
             </Principal>
-            <Dependent Role="HouseOrder">
+            <Dependent Role="HomeOrder">
               <PropertyRef Name="clientName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DealerId">
-          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dealer">
-              <PropertyRef Name="phone" />
-            </Principal>
-            <Dependent Role="HouseOrder">
-              <PropertyRef Name="dealerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_waiterName">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+        <Association Name="FK_waiterEmail">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="email" />
             </Principal>
             <Dependent Role="InternalOrder">
-              <PropertyRef Name="waiterName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WaiterNameForOrder">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="email" />
-            </Principal>
-            <Dependent Role="InternalOrder">
-              <PropertyRef Name="waiterName" />
+              <PropertyRef Name="waiterEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeOrderId">
-          <End Role="HouseOrder" Type="Self.HouseOrder" Multiplicity="1" />
+          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="1" />
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HouseOrder">
-              <PropertyRef Name="houseOrderId" />
+            <Principal Role="HomeOrder">
+              <PropertyRef Name="homeOrderId" />
             </Principal>
             <Dependent Role="HomeOrderProduct">
               <PropertyRef Name="homeOrderId" />
@@ -918,7 +912,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -930,7 +926,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InternalOrderId">
-          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InternalOrder">
@@ -942,7 +940,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InternalOrderProduct" Type="Self.InternalOrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -954,7 +954,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductId_Recipe">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -965,8 +967,10 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RecipeSup__recip__02084FDA">
-          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+        <Association Name="FK_Recipeuprecip_02084FDA">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Recipe">
@@ -977,8 +981,10 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RecipeSup__suppl__02FC7413">
-          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+        <Association Name="FK_Recipeupsuppl_02FC7413">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RecipeSupply" Type="Self.RecipeSupply" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supply">
@@ -990,7 +996,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SupplierOrder_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
@@ -1002,7 +1010,9 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SupplierOrderId">
-          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+          <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SupplierOrder">
@@ -1013,8 +1023,24 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Supply_SupplyArea">
+          <End Role="SupplyArea" Type="Self.SupplyArea" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplyArea">
+              <PropertyRef Name="area_id" />
+            </Principal>
+            <Dependent Role="Supply">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupplyId">
-          <End Role="Supply" Type="Self.Supply" Multiplicity="1" />
+          <End Role="Supply" Type="Self.Supply" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SupplyOrder" Type="Self.SupplyOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supply">
@@ -1032,25 +1058,24 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
         <EntityContainer Name="ItaliaPizzaDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
-          <EntitySet Name="Cashins" EntityType="Self.Cashin" />
+          <EntitySet Name="CashierLogs" EntityType="Self.CashierLog" />
           <EntitySet Name="Cashouts" EntityType="Self.Cashout" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="ColonyCatalogs" EntityType="Self.ColonyCatalog" />
-          <EntitySet Name="Dealers" EntityType="Self.Dealer" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="HomeOrders" EntityType="Self.HomeOrder" />
           <EntitySet Name="HomeOrderProducts" EntityType="Self.HomeOrderProduct" />
-          <EntitySet Name="HouseOrders" EntityType="Self.HouseOrder" />
           <EntitySet Name="InternalOrders" EntityType="Self.InternalOrder" />
           <EntitySet Name="InternalOrderProducts" EntityType="Self.InternalOrderProduct" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Recipes" EntityType="Self.Recipe" />
           <EntitySet Name="RecipeSupplies" EntityType="Self.RecipeSupply" />
+          <EntitySet Name="StatusOrders" EntityType="Self.StatusOrder" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="SupplierOrders" EntityType="Self.SupplierOrder" />
           <EntitySet Name="Supplies" EntityType="Self.Supply" />
           <EntitySet Name="SupplyAreas" EntityType="Self.SupplyArea" />
           <EntitySet Name="SupplyOrders" EntityType="Self.SupplyOrder" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Account" EntitySet="Accounts" />
@@ -1063,24 +1088,20 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             <End Role="Client" EntitySet="Clients" />
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
+          <AssociationSet Name="FK_EmployeeForCashier" Association="Self.FK_EmployeeForCashier">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="CashierLog" EntitySet="CashierLogs" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
             <End Role="Client" EntitySet="Clients" />
-            <End Role="HouseOrder" EntitySet="HouseOrders" />
+            <End Role="HomeOrder" EntitySet="HomeOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK_DealerId" Association="Self.FK_DealerId">
-            <End Role="Dealer" EntitySet="Dealers" />
-            <End Role="HouseOrder" EntitySet="HouseOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_waiterName" Association="Self.FK_waiterName">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="InternalOrder" EntitySet="InternalOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WaiterNameForOrder" Association="Self.FK_WaiterNameForOrder">
+          <AssociationSet Name="FK_waiterEmail" Association="Self.FK_waiterEmail">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="InternalOrder" EntitySet="InternalOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
-            <End Role="HouseOrder" EntitySet="HouseOrders" />
+            <End Role="HomeOrder" EntitySet="HomeOrders" />
             <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
@@ -1099,11 +1120,11 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
             <End Role="Product" EntitySet="Products" />
             <End Role="Recipe" EntitySet="Recipes" />
           </AssociationSet>
-          <AssociationSet Name="FK__RecipeSup__recip__02084FDA" Association="Self.FK__RecipeSup__recip__02084FDA">
+          <AssociationSet Name="FK_Recipeuprecip_02084FDA" Association="Self.FK_Recipeuprecip_02084FDA">
             <End Role="Recipe" EntitySet="Recipes" />
             <End Role="RecipeSupply" EntitySet="RecipeSupplies" />
           </AssociationSet>
-          <AssociationSet Name="FK__RecipeSup__suppl__02FC7413" Association="Self.FK__RecipeSup__suppl__02FC7413">
+          <AssociationSet Name="FK_Recipeupsuppl_02FC7413" Association="Self.FK_Recipeupsuppl_02FC7413">
             <End Role="Supply" EntitySet="Supplies" />
             <End Role="RecipeSupply" EntitySet="RecipeSupplies" />
           </AssociationSet>
@@ -1114,6 +1135,10 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
           <AssociationSet Name="FK_SupplierOrderId" Association="Self.FK_SupplierOrderId">
             <End Role="SupplierOrder" EntitySet="SupplierOrders" />
             <End Role="SupplyOrder" EntitySet="SupplyOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_SupplyArea" Association="Self.FK_Supply_SupplyArea">
+            <End Role="SupplyArea" EntitySet="SupplyAreas" />
+            <End Role="Supply" EntitySet="Supplies" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplyId" Association="Self.FK_SupplyId">
             <End Role="Supply" EntitySet="Supplies" />
@@ -1153,13 +1178,14 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cashins">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Cashin">
-              <MappingFragment StoreEntitySet="Cashin">
-                <ScalarProperty Name="cashinId" ColumnName="cashinId" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="total" ColumnName="total" />
+          <EntitySetMapping Name="CashierLogs">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.CashierLog">
+              <MappingFragment StoreEntitySet="CashierLog">
+                <ScalarProperty Name="logId" ColumnName="logId" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="creationTime" ColumnName="creationTime" />
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="report" ColumnName="report" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1197,14 +1223,6 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Dealers">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Dealer">
-              <MappingFragment StoreEntitySet="Dealer">
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -1215,27 +1233,27 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HomeOrders">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrder">
+              <MappingFragment StoreEntitySet="HomeOrder">
+                <ScalarProperty Name="homeOrderId" ColumnName="homeOrderId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HomeOrderProducts">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrderProduct">
               <MappingFragment StoreEntitySet="HomeOrderProduct">
                 <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="homeOrderId" ColumnName="homeOrderId" />
+                <ScalarProperty Name="isConfirmed" ColumnName="isConfirmed" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
                 <ScalarProperty Name="addressId" ColumnName="addressId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HouseOrders">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HouseOrder">
-              <MappingFragment StoreEntitySet="HouseOrder">
-                <ScalarProperty Name="houseOrderId" ColumnName="houseOrderId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="clientName" ColumnName="clientName" />
-                <ScalarProperty Name="dealerId" ColumnName="dealerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1247,7 +1265,7 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="waiterName" ColumnName="waiterName" />
+                <ScalarProperty Name="waiterEmail" ColumnName="waiterEmail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1256,6 +1274,7 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               <MappingFragment StoreEntitySet="InternalOrderProduct">
                 <ScalarProperty Name="internalOrderProductId" ColumnName="internalOrderProductId" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="isConfirmed" ColumnName="isConfirmed" />
                 <ScalarProperty Name="internalOrderId" ColumnName="internalOrderId" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
               </MappingFragment>
@@ -1296,6 +1315,14 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StatusOrders">
+            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.StatusOrder">
+              <MappingFragment StoreEntitySet="StatusOrder">
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
@@ -1314,6 +1341,7 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="modificationDate" ColumnName="modificationDate" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="supplierId" ColumnName="supplierId" />
               </MappingFragment>
@@ -1325,8 +1353,8 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="expiryDate" ColumnName="expiryDate" />
                 <ScalarProperty Name="measurementUnit" ColumnName="measurementUnit" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1348,24 +1376,12 @@ warning 6002: The table/view 'ItaliaPizzaDB.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="Supplier_SupplyArea" TypeName="ItaliaPizzaDBModel.Supplier_SupplyArea" StoreEntitySet="Supplier_SupplyArea">
             <EndProperty Name="Supplier">
-              <ScalarProperty Name="email" ColumnName="supplier_email" />
+              <ScalarProperty Name="email" ColumnName="Supplier_email" />
             </EndProperty>
             <EndProperty Name="SupplyArea">
-              <ScalarProperty Name="area_id" ColumnName="area_id" />
+              <ScalarProperty Name="area_id" ColumnName="SupplyArea_area_id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

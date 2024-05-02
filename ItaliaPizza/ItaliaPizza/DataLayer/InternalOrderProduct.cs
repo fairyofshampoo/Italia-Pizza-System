@@ -16,7 +16,8 @@ namespace ItaliaPizza.DataLayer
     {
         public int internalOrderProductId { get; set; }
         public int amount { get; set; }
-        public int internalOrderId { get; set; }
+        public byte isConfirmed { get; set; }
+        public string internalOrderId { get; set; }
         public string productId { get; set; }
     
         public virtual InternalOrder InternalOrder { get; set; }
