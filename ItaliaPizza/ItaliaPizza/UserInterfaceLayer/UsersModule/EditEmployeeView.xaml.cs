@@ -23,7 +23,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     /// </summary>
     public partial class EditEmployeeView : Page
     {
-        public EditEmployeeView()
+        public EditEmployeeView(Employee employeeData)
         {
             InitializeComponent();
             SetComboBoxItems();

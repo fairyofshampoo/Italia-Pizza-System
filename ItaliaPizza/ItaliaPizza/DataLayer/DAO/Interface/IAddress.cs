@@ -16,5 +16,12 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 
         bool AddNewAddress(Address newAddress);
 
+        Address GetAddressById(int id);
+
+        bool EditAddress(Address address);
+
+        bool DisableAddress(int id);
+
+        bool EnableAddress(int id);
     }
 }

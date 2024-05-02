@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.ProductsModule"
              mc:Ignorable="d" 
-             d:DesignHeight="230" d:DesignWidth="950" Background="Transparent">
+             d:DesignHeight="220" d:DesignWidth="950" Background="Transparent">
     <Grid>
-        <Rectangle RadiusX="23.333" RadiusY="23.333" Fill="#393D42" Stroke="Transparent" Height="260"/>
-        <Border Margin="30" Background="#D9D9D9" CornerRadius="20" Height="Auto">
+        <Rectangle RadiusX="23.333" RadiusY="23.333" Fill="#393D42" Stroke="Transparent" Margin="0,8,0,8" Height="205"/>
+        <Border Margin="30,30,30,30" Background="#D9D9D9" CornerRadius="20" Height="150">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -44,7 +44,7 @@
                     </Grid>
                 </Grid>
 
-                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Margin="0,37,40,20" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Margin="0,27,30,10" HorizontalAlignment="Right" VerticalAlignment="Top" Click="BtnEditProduct_Click">
                     <Image Source="../Resources/Icons/EditIcon.png" Width="115" Height="95"/>
                 </Button>
             </Grid>

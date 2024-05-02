@@ -34,7 +34,20 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            
+            ResetFields();
+
+            if (ValidateFields())
+            {
+                if (!IsProductCodeExisting())
+                {
+                    //Dirige a pantalla para registrar receta
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
+                }
+
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -303,7 +316,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             txtCode.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtCode.BorderThickness = new Thickness(0);
-            lblCodeError.Visibility = Visibility.Collapsed;           
+            lblCodeError.Visibility = Visibility.Collapsed;
+
+            txtPrice.BorderBrush = System.Windows.Media.Brushes.Transparent;
+            txtPrice.BorderThickness = new Thickness(0);
+            lblPriceError.Visibility = Visibility.Collapsed;
         }        
     }
 }

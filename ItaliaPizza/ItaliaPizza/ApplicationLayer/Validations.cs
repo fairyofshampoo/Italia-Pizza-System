@@ -172,6 +172,21 @@ namespace ItaliaPizza.ApplicationLayer
             return isValid && ValidateWithTimeout(code, codeProductRegex);
         }
 
+        public static bool IsSupplyNameValid(string code)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                isValid = false;
+            }
+            var supplyNameRegex = new Regex("^(?=.{1,50}$)(?![ .])[a-zA-Z0-9áéíóúÁÉÍÓÚ]+(?: [a-zA-Z0-9áéíóúÁÉÍÓÚ]+)*$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(code, supplyNameRegex);
+        }
+
         private static bool ValidateWithTimeout(string input, Regex regex)
         {
             bool isValid;

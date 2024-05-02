@@ -91,17 +91,26 @@
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\AddressDAO.cs" />
+    <Compile Include="DataLayer\DAO\CashoutDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ICashOut.cs" />
     <Compile Include="DataLayer\DAO\Interface\IEmployee.cs" />
     <Compile Include="DataLayer\DAO\Interface\IAddress.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IInternalOrder.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupply.cs" />
+    <Compile Include="DataLayer\DAO\InternalOrderDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
+    <Compile Include="DataLayer\DAO\SupplyDAO.cs" />
+    <Compile Include="DataLayer\Dealer.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -162,6 +171,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml.cs">
       <DependentUpon>EditSupplierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml.cs">
+      <DependentUpon>RegisterCashoutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +183,15 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
       <DependentUpon>SupplierUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml.cs">
+      <DependentUpon>ProductEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\InternalOrdersUC.xaml.cs">
+      <DependentUpon>InternalOrdersUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\SearchInternalOrderView.xaml.cs">
+      <DependentUpon>SearchInternalOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml.cs">
       <DependentUpon>ProductRegisterView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +200,15 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml.cs">
+      <DependentUpon>SupplyEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyRegisterView.xaml.cs">
+      <DependentUpon>SupplyRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditClientAddress.xaml.cs">
+      <DependentUpon>EditClientAddress.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
@@ -191,6 +221,12 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml.cs">
       <DependentUpon>ClientsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeesView.xaml.cs">
+      <DependentUpon>EmployeesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeeUC.xaml.cs">
+      <DependentUpon>EmployeeUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -220,6 +256,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,6 +272,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\InternalOrdersUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\SearchInternalOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +293,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditClientAddress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,6 +321,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeeUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,7 +385,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UserInterfaceLayer\KitchenModule\" />
-    <Folder Include="UserInterfaceLayer\OrdersModule\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -370,6 +441,16 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeTypeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditProductBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\Supply.jpeg" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SearchIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\DollarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

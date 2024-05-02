@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace ItaliaPizza.DataLayer.DAO
 {
@@ -19,6 +20,72 @@ namespace ItaliaPizza.DataLayer.DAO
                 successfullOperation = true;                                                
             }
             return successfullOperation;
+        }
+
+        public bool DisableAddress(int id)
+        {
+            bool operationStatus = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId ==  id);
+
+                if(addressDisabled != null)
+                {
+                    addressDisabled.status = 0;
+                    operationStatus = true;
+                    databaseContext.SaveChanges();
+                }
+            }
+                return operationStatus;
+        }
+
+        public bool EditAddress(Address newAddress)
+        {
+            bool operationStatus = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var addressEdited = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == newAddress.addressId);
+                if (addressEdited != null)
+                {
+                    addressEdited.street = newAddress.street;
+                    addressEdited.postalCode = newAddress.postalCode;
+                    addressEdited.colony = newAddress.colony;
+                    operationStatus = true;
+                    databaseContext.SaveChanges();
+                }
+            }
+            return operationStatus;
+        }
+
+        public bool EnableAddress(int id)
+        {
+            bool operationStatus = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
+
+                if (addressDisabled != null)
+                {
+                    addressDisabled.status = 1;
+                    operationStatus = true;
+                    databaseContext.SaveChanges();
+                }
+            }
+            return operationStatus;
+        }
+
+        public Address GetAddressById(int id)
+        {
+            Address addressFounded = null;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var address = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
+                if (address != null)
+                {
+                    addressFounded = address;
+                }
+            }
+                return addressFounded;
         }
 
         public Address GetClientAddress(string email)

@@ -1,12 +1,12 @@
-﻿<Page x:Class="ItaliaPizza.UserInterfaceLayer.ProductsModule.ProductsView"
+﻿<Page x:Class="ItaliaPizza.UserInterfaceLayer.UsersModule.EmployeesView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.ProductsModule"
+      xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.UsersModule"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="ProductsView">
+      Title="EmployeesView">
 
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -21,47 +21,31 @@
                     <Grid Height="200" Width="1280">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="450"/>
-                            <ColumnDefinition Width="420"/>
-                            <ColumnDefinition Width="145"/>
-                            <ColumnDefinition Width="185"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="405"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Content="Productos" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="70,0,0,0" Height="80" Width="300"/>
+                        <Label Content="Empleados" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="70,0,0,0" Height="100" Width="325"/>
                         <Canvas HorizontalAlignment="Center" Width="0">
-                            <Line X1="-200" Y1="-10" X2="80" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="50" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
+                            <Line X1="-230" Y1="-10" X2="80" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="83" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
                         </Canvas>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="1">
-                            <Grid Margin="0,10,0,0">
-                                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="380" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,60,00,0"/>
-                                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="378" Height="60" Margin="0,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="0,0,-115,0">
+                            <Grid Margin="0,10,0,0" Width="490">
+                                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="453" Height="62" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,60,0,0"/>
+                                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="451" Height="60" Margin="0,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <TextBox x:Name="txtSearchBar" FontSize="30" FontWeight="Medium" FontFamily = "Segoe UI Variable Display" Background="LightGray" BorderThickness="0" TextChanged="txtSearchBar_TextChanged"/>
                                 </Border>
                             </Grid>
-                            <Label x:Name="lblInstruction" Content ="Ingrese el nombre del producto" Margin="0,0,0,0" FontSize="18" Foreground="White" Visibility="Visible"/>
+                            <Label x:Name="lblInstruction" Content ="Ingrese el nombre del empleado" FontSize="18" Foreground="White" Visibility="Visible" Width="453" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                         </StackPanel>
 
-                        <Button x:Name="btnAddProduct" Background="Transparent" Grid.Column="2" Width="76" BorderBrush="Transparent" HorizontalAlignment="Center" Margin="0,60,0,60" Click="btnAddProduct_Click">
+                        <Button x:Name="btnAddEmployee" Background="Transparent" Grid.Column="1" Width="76" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="90,70,0,60" Click="btnAddEmployee_Click">
                             <Image Source="../Resources/Icons/AddProductIcon.png" Width="72" Height="67"/>
                         </Button>
-
-                        <Button x:Name="btnInventario" BorderThickness="0" Content="Inventario" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="21,79,0,69" HorizontalAlignment="Left" Width="164" Grid.Column="3" Click="btnInventario_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#FF7B00"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
                     </Grid>
-                    <StackPanel x:Name="stpFiltersProducts" Orientation="Horizontal" Grid.Row="1">
-                        <Label x:Name="lblFilters" Content ="Tipo de producto" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
+                    <StackPanel x:Name="stpFiltersEmployees" Orientation="Horizontal" Grid.Row="1">
+                        <Label x:Name="lblFilters" Content ="Estatus" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
 
                         <Button x:Name="btnAllFilter" BorderThickness="0" Content="Todos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="30,7,0,9" Width="162" Click="btnAllFilter_Click">
                             <Button.Style>
@@ -78,7 +62,7 @@
                             </Button.Template>
                         </Button>
 
-                        <Button x:Name="btnInternalFilter" BorderThickness="0" Content="Internos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnInternalFilter_Click">
+                        <Button x:Name="btnActivesFilter" BorderThickness="0" Content="Activos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnActivesFilter_Click">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="#E9E1FF"/>
@@ -93,7 +77,7 @@
                             </Button.Template>
                         </Button>
 
-                        <Button x:Name="btnExternalFilter" BorderThickness="0" Content="Externos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnExternalFilter_Click">
+                        <Button x:Name="btnInactivesFilter" BorderThickness="0" Content="Inactivos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnInactivesFilter_Click">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="#E9E1FF"/>
@@ -110,12 +94,12 @@
                     </StackPanel>
 
                     <ScrollViewer Height="390" Grid.Row="2">
-                        <Grid Name="ProductsGrid" Width = "1100" Height = "Auto"/>
+                        <Grid Name="EmployeesGrid" Width = "1100" Height = "Auto"/>
                     </ScrollViewer>
-                    
-                    
 
-                    <Label Name="lblProductNotFound" Grid.Row="2" Content="No se encontró ningún producto" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
+
+
+                    <Label Name="lblEmployeeNotFound" Grid.Row="2" Content="No se encontró ningún empleado" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
