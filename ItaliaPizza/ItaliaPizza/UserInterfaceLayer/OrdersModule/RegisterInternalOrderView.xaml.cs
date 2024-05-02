@@ -20,7 +20,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
     public partial class RegisterInternalOrderView : Page
     {
-
+        /*
         private int rowAdded = 0;
         private int columnsAdded = 0;
         public List<Product> productsSelected;
@@ -177,5 +177,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             registerProduct.RegisterInternalOrderView = this;
             registerProduct.ShowDialog();
         }
+        */
     }
+    
 }

@@ -8,6 +8,7 @@
       d:DesignHeight="720.0" d:DesignWidth="1280.0"
       Title="SearchInternalOrderView">
 
+    <!--
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid Background="#2c2c2c"
@@ -216,4 +217,5 @@
             </Grid>
         </ScrollViewer>
     </Viewbox>
+    -->
 </Page>

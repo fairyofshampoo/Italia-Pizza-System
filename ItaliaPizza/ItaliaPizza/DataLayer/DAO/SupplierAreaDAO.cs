@@ -35,5 +35,32 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplyAreas;
         }
 
+        public int GetSupplyAreaIdByName(string name)
+        {
+            int supplyAreaId = -1;
+
+            try
+            {
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    SupplyArea supplyArea = databaseContext.SupplyAreas.FirstOrDefault(s => s.area_name == name);
+
+                    if (supplyArea != null)
+                    {
+                        supplyAreaId = supplyArea.area_id;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (EntityException)
+            {
+                DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            return supplyAreaId;
+        }
+
     }
 }
