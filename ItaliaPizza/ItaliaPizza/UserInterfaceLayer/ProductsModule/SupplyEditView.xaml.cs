@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
+using System.Collections.ObjectModel;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -28,6 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetComboBoxItems();
+            //SetModifySupply(supplyData);
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
@@ -97,19 +99,22 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool EditSupply()
         {
             string name = txtName.Text;
-            decimal amount = Decimal.Parse(txtAmount.Text);
-            string categoty = cmbCategory.SelectedItem.ToString();
+            int amount = int.Parse(txtAmount.Text);
             string measurementUnit = cmbMeasurementUnit.SelectedItem.ToString();
+            string category = cmbCategory.SelectedItem.ToString();
 
             SupplyDAO supplyDAO = new SupplyDAO();
+            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
+
             Supply supply = new Supply
             {
                 name = name,
-                //amount = amount,
-                category = categoty,
+                amount = amount,
+                measurementUnit = measurementUnit,
+                category = supplierAreaDAO.GetSupplyAreaIdByName(category),
             };
 
-            return supplyDAO.AddSupply(supply); //Método de editar
+            return supplyDAO.ModifySupply(supply, name); //Método de editar
         }
 
         public void SetModifySupply(Supply supplyInfo)
@@ -124,13 +129,13 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     cmbMeasurementUnit.SelectedItem = supplyInfo.measurementUnit;
                 }
 
-                if (!string.IsNullOrEmpty(supplyInfo.category) && cmbCategory.Items.Contains(supplyInfo.category))
+                if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.category))
                 {
                     cmbCategory.SelectedItem = supplyInfo.category;
                 }
 
-                /*
-                if (supplyInfo.status == Constants.ACTIVE_STATUS)
+                
+                if (supplyInfo.status == true)
                 {
                     txtName.IsEnabled = false;
                     txtAmount.IsEnabled = false;
@@ -146,7 +151,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     btnSave.IsEnabled = false;
                     btnSave.Background = Brushes.Gray;
                 } 
-                */
+                
             }
         }
 

@@ -3,6 +3,7 @@ using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -57,17 +58,20 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool RegisterSupply()
         {
             string name = txtName.Text;
-            decimal amount = Decimal.Parse(txtAmount.Text);
-            string categoty = cmbCategory.SelectedItem.ToString();
+            int amount = int.Parse(txtAmount.Text);         
             string measurementUnit = cmbMeasurementUnit.SelectedItem.ToString();
-
+            string category = cmbCategory.SelectedItem.ToString();
+            
             SupplyDAO supplyDAO = new SupplyDAO();
+            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
+
             Supply supply = new Supply
             {
                 name = name,
-                //amount = amount,
-                //status = Constants.ACTIVE_STATUS,
-                category = categoty,
+                amount = amount,
+                status = true,
+                measurementUnit = measurementUnit,
+                category = supplierAreaDAO.GetSupplyAreaIdByName(category),
             };
 
             return supplyDAO.AddSupply(supply);
@@ -90,9 +94,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
             List<SupplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
-
             List<string> areaNames = supplyAreas.Select(area => area.area_name).ToList();
-
             cmbCategory.ItemsSource = areaNames;
         }
 

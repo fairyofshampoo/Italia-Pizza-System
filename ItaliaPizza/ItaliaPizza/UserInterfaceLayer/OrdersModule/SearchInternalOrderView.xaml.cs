@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-
+    /*
     public partial class SearchInternalOrderView : Page
     {
         private string waiterEmail = "lalo@gmail.com"; //Esto debe ser cambiado por el singleton
@@ -150,4 +150,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
     }
+    */
 }

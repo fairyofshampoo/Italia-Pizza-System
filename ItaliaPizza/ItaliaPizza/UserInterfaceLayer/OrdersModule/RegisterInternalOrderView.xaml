@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="RegisterInternalOrderView">
-
+<!--
     <Grid
         Background="#2C2C2C">
 
@@ -125,4 +125,5 @@
         </Button>
 
     </Grid>
+    -->
 </Page>
