@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,30 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
     /// </summary>
     public partial class RecipeRegisterView : Page
     {
-        public RecipeRegisterView()
+        public RecipeRegisterView(Product product)
         {
             InitializeComponent();
+            SetProductInfo(product.name);
+        }
+
+        private void btnAddSupply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteSelectedSupply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetProductInfo(String productName)
+        {
+            txtProductName.Text = productName;
         }
     }
 }

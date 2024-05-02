@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO.Interface;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -25,7 +26,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         amount = supply.amount,
                         measurementUnit = supply.measurementUnit,
                         category = supply.category,
-                        //status = supply.status
+                        status = supply.status
                     };
 
                     databaseContext.Supplies.Add(newSupply);
@@ -50,7 +51,14 @@ namespace ItaliaPizza.DataLayer.DAO
                     var modifySupply = databaseContext.Supplies.First(a => a.name == name);
                     if (modifySupply != null)
                     {
-                        //modifySupply.status = Convert.ToByte(status);
+                        if (status == Constants.INACTIVE_STATUS)
+                        {
+                            modifySupply.status = false;
+                        }
+                        else
+                        {
+                            modifySupply.status = true;
+                        }
                     }
 
                     databaseContext.SaveChanges();
@@ -124,7 +132,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         supplyFound.amount = supply.amount;
                         supply.measurementUnit = supply.measurementUnit;
                         supplyFound.category = supply.category;
-                        //supplyFound.status = supply.status;
+                        supplyFound.status = supply.status;
                     }
 
                     databaseContext.SaveChanges();
@@ -135,6 +143,6 @@ namespace ItaliaPizza.DataLayer.DAO
                 throw argumentException;
             }
             return supplyFound;
-        }
+        }        
     }
 }

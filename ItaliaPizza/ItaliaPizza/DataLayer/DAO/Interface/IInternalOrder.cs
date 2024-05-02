@@ -8,9 +8,9 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 {
     internal interface IInternalOrder
     {
-        List<InternalOrder> GetInternalOrdersByStatus(string status, string waiterEmail);
+        List<InternalOrder> GetInternalOrdersByStatus(int status, string waiterEmail);
 
-        InternalOrder GetInternalOrdersByNumber(int numberOrder, string waiterEmail);
+        InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail);
 
         List<RecipeSupply> GetSupplyForProduct(string productId);
 
