@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (!IsProductCodeExisting())
                 {
-                    //Dirige a pantalla para registrar receta
+                    Product productData = GetProductData();
+                    RecipeRegisterView recipeRegisterView = new RecipeRegisterView(productData);
+                    NavigationService.Navigate(recipeRegisterView);
                 }
                 else
                 {
@@ -77,6 +80,13 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private bool RegisterProduct()
         {
+            Product product = GetProductData();
+            ProductDAO productDAO = new ProductDAO();           
+            return productDAO.AddProduct(product);
+        }
+
+        private Product GetProductData()
+        {
             string name = txtName.Text;
             string code = txtCode.Text;
             Decimal price = Decimal.Parse(txtPrice.Text);
@@ -107,7 +117,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 status = Constants.INACTIVE_STATUS;
             }
 
-            ProductDAO productDAO = new ProductDAO();
             Product product = new Product
             {
                 productCode = code,
@@ -120,7 +129,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 picture = picture
             };
 
-            return productDAO.AddProduct(product);
+            return product;
         }
               
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)

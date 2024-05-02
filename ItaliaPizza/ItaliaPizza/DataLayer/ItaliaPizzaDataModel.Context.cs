@@ -45,5 +45,6 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

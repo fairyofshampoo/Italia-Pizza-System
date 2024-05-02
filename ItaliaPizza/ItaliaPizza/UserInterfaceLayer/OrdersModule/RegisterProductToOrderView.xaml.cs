@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-
+    /*
     public partial class RegisterProductToOrderView : Window
     {
         public string productId;
@@ -124,4 +124,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             return isValid;
         }
     }
+    */
 }

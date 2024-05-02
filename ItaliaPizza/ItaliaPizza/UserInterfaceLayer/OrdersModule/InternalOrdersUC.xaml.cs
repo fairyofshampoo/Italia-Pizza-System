@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
+    /*
     public partial class InternalOrdersUC : UserControl
     {
         private InternalOrder internalOrderData;
@@ -49,5 +50,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             //Se debe hacer referencia a la pantalla de editar
         }
-    }
+    }*/
 }
