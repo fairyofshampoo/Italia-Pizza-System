@@ -12,18 +12,23 @@ namespace ItaliaPizza.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Dealer
+    public partial class HomeOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Dealer()
+        public HomeOrder()
         {
-            this.HouseOrders = new HashSet<HouseOrder>();
+            this.HomeOrderProducts = new HashSet<HomeOrderProduct>();
         }
     
-        public string phone { get; set; }
-        public string name { get; set; }
+        public string homeOrderId { get; set; }
+        public int status { get; set; }
+        public System.DateTime date { get; set; }
+        public System.TimeSpan time { get; set; }
+        public decimal total { get; set; }
+        public string clientName { get; set; }
     
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HouseOrder> HouseOrders { get; set; }
+        public virtual ICollection<HomeOrderProduct> HomeOrderProducts { get; set; }
     }
 }

@@ -23,12 +23,13 @@ namespace ItaliaPizza.DataLayer
     
         public string name { get; set; }
         public int amount { get; set; }
-        public string category { get; set; }
-        public System.DateTime expiryDate { get; set; }
+        public int category { get; set; }
         public string measurementUnit { get; set; }
+        public Nullable<bool> status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecipeSupply> RecipeSupplies { get; set; }
+        public virtual SupplyArea SupplyArea { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplyOrder> SupplyOrders { get; set; }
     }
