@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.DataLayer.DAO
 {
-    /*
+    
     internal class InternalOrderDAO : IInternalOrder
     {
         public bool AddInternalOrder(InternalOrder order)
@@ -126,5 +126,5 @@ namespace ItaliaPizza.DataLayer.DAO
             return isExisting;
         }
     }
-    */
+ 
 }
