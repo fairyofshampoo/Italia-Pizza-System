@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\RegisterProductToOrderView.xaml.cs">
       <DependentUpon>RegisterProductToOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
