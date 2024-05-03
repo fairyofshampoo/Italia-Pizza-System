@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,28 @@ namespace ItaliaPizza.ApplicationLayer
     {
         public static void ShowErrorMessageBox(string errorMessage)
         {
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Error", errorMessage, DialogWindow.DialogType.OK, DialogWindow.IconType.Error);
+            dialogWindow.ShowDialog();
         }
 
         public static void ShowDataBaseErrorMessageBox()
         {
-            MessageBox.Show("Error de conexión a la base de datos. Por favor, inténtalo nuevamente más tarde.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowErrorMessageBox("Error de conexión a la base de datos. Por favor, inténtalo nuevamente más tarde.");
         }
 
         public static void ShowWarningMessageBox(string warningMessage)
         {
-            MessageBox.Show(warningMessage, "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Advertencia", warningMessage, DialogWindow.DialogType.OK, DialogWindow.IconType.Warning);
+            dialogWindow.ShowDialog();
         }
 
         public static void ShowSuccessMessageBox(string successMessage)
         {
-            MessageBox.Show(successMessage, "Operación exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Operación exitosa", successMessage, DialogWindow.DialogType.OK, DialogWindow.IconType.Information);
+            dialogWindow.ShowDialog();
         }
     }
 }

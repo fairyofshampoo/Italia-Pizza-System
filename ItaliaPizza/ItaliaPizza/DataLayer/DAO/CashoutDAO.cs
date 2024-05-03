@@ -19,7 +19,7 @@ namespace ItaliaPizza.DataLayer.DAO
                     databaseContext.Cashouts.Add(cashout);
                     databaseContext.SaveChanges();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     successfulRegistration = false;
                 }
