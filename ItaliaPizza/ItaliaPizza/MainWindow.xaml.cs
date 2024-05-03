@@ -31,7 +31,7 @@ namespace ItaliaPizza
         {
             DialogWindow dialogWindow = new DialogWindow();
             dialogWindow.SetDialogWindowData("Confirmación", "¿Desea cerrar la app?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
-            if(dialogWindow.ShowDialog() == true)
+            if(dialogWindow.ShowDialog() == false)
             {
                 e.Cancel = true;
             }

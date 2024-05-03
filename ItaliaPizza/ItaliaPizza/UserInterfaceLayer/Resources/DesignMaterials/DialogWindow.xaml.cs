@@ -44,7 +44,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials
         public void SetDialogWindowData(string title, string content, DialogType dialogType, IconType iconType)
         {
             this.txtTitle.Text = title;
-            this.txtTitle.Text = content;
+            this.txtContent.Text = content;
             SetDialogType(dialogType);
             SetDialogIcon(iconType);
         }

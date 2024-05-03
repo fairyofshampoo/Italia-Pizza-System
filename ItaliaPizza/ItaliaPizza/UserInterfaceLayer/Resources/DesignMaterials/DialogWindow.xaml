@@ -10,7 +10,7 @@
         SizeToContent="WidthAndHeight"
         WindowStyle="None">
     <Grid>
-        <Border Background="#FBF5F5" Margin="0,0,0,-30"
+        <Border Background="#FBF5F5"
                 CornerRadius="20" />
         <Grid>
             <Grid.RowDefinitions>
@@ -18,7 +18,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txtTitle" Text="Title" FontSize="28" FontWeight="DemiBold" Grid.Row="0" TextAlignment="Center"
+            <TextBlock x:Name="txtTitle" Text="Title" FontSize="28" FontWeight="SemiBold" Grid.Row="0" TextAlignment="Center"
                    FontFamily="{StaticResource InterFont}" Foreground="Black" VerticalAlignment="Center"
                    HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,20,0,0" Width="316" Height="67" />
 
@@ -26,8 +26,8 @@
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" BorderThickness="0" Background="#FF7B00" CornerRadius="20">
-                            <TextBlock HorizontalAlignment="Center"
-                                   Text="×" FontSize="30" FontWeight="Bold" Foreground="White" Height="48" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,5"
+                                   Text="×" FontSize="30" FontWeight="Bold" Foreground="White"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -43,16 +43,16 @@
 
             <StackPanel Orientation="Vertical" Margin="0,20,0,0" Grid.Row="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image x:Name="warningIcon" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/warningIcon.png" Stretch="UniformToFill" Margin="10,10,0,10" />
-                    <Image x:Name="errorIcon" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/errorIcon.png" Stretch="UniformToFill" Margin="10,10,0,10" />
-                    <Image x:Name="infoIcon" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/infoIcon.png" Stretch="UniformToFill" Margin="10,10,0,10" />
-                    <Image x:Name="questionIcon" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/questionIcon.png" Stretch="UniformToFill" Margin="10,10,0,10" />
-                    <TextBlock x:Name="txtContent" Text="Content" Foreground="#4C4C4C"
-                   FontSize="20" Margin="10,10,10,10" TextAlignment="Center" TextWrapping="Wrap"
+                    <Image x:Name="warningIcon" VerticalAlignment="Center" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/warningIcon.png" Stretch="UniformToFill" Margin="50,10,0,10" />
+                    <Image x:Name="errorIcon" VerticalAlignment="Center" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/errorIcon.png" Stretch="UniformToFill" Margin="50,10,0,10" />
+                    <Image x:Name="infoIcon" VerticalAlignment="Center" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/infoIcon.png" Stretch="UniformToFill" Margin="50,10,0,10" />
+                    <Image x:Name="questionIcon" VerticalAlignment="Center" Visibility="Collapsed" Height="80" Width="80" Source="../Icons/questionIcon.png" Stretch="UniformToFill" Margin="50,10,0,10" />
+                    <TextBlock x:Name="txtContent" VerticalAlignment="Center"  Text="Content" Foreground="#4C4C4C"
+                   FontSize="20" Margin="10,0,10,0" TextAlignment="Left" TextWrapping="Wrap"
                    FontWeight="Medium" FontFamily="{StaticResource InterFont}" Width="269"/>
                     
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30,0,30">
 
                     <Button x:Name="btnCancel" Click="BtnCancel_Click" BorderThickness="0" Content="Cancelar" Margin="0,0,80,0"
                             FontFamily="{StaticResource InterFont}" Foreground="White" FontSize="15"
