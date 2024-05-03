@@ -340,6 +340,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\Resources\Fonts\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\UsersModule\EditClientAddress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -415,6 +419,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="UserInterfaceLayer\Resources\Fonts\Inter.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -430,6 +435,11 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\questionIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\infoIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\errorIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\warningIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -471,7 +481,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
@@ -483,9 +492,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\SearchIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\DollarIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,5 +21,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool AddInternalOrder(InternalOrder order);
 
         bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode);
+
+        int GetMaximumProductsPosible(int recipeId);
     }
 }

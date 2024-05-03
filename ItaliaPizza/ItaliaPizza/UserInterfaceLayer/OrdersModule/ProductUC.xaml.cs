@@ -35,10 +35,9 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             productData = product;
         }
 
-        private void BtnProductSelected_Click(object sender, RoutedEventArgs e)
+        private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
- //           RegisterInternalOrderView.OpenDialogForAddProduct(productData.);
-        }
 
+        }
     }
 }
