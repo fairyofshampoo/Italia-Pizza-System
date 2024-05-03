@@ -21,13 +21,13 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
     public partial class RegisterNewClientAddressView : Page
     {
-        private string emailClient = "eduarcaco@hotmail.com";
+        private string emailClient = "eduarcaco@hotmail.com"; //Cambiar esto por el singleton
 
         public RegisterNewClientAddressView()
         {
             InitializeComponent();
             FillPostalCodeComboBox();
-            lblClientEmail.Content = "Correo del cliente: correoPrueba@gmail.com";
+            lblClientEmail.Content = "Correo del cliente: correoPrueba@gmail.com"; //Esto debe cambiar
         }
 
         private void FillPostalCodeComboBox()

@@ -90,6 +90,18 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplies;
         }
 
+        public int GetMaximumProductsPosible(int recipeId)
+        {
+            int maximumProductsPosible;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                string query = string.Format("SELECT dbo.VALIDATEINGREDIENTSAMOUNT({0}) AS disp;", recipeId);
+                maximumProductsPosible = databaseContext.Database.SqlQuery<int>(query).FirstOrDefault();
+            }
+
+            return maximumProductsPosible;
+        }
+
         public List<RecipeSupply> GetSupplyForProduct(string productId)
         {
             List<RecipeSupply> supplyForProduct = new List<RecipeSupply>();
