@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea eliminar al empleado?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar al empleado?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 string user = txtUsername.Text;
                 EmployeeDAO employeeDAO = new EmployeeDAO();
