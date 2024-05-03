@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="RegisterProductToOrderView" Height="400" Width="800" Background="Transparent">
     
-    <!--
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Background="#2C2C2C">
             <Grid.ColumnDefinitions>
@@ -134,5 +133,4 @@
 
         </Grid>
     </ScrollViewer>
-    -->
 </Window>

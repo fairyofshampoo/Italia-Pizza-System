@@ -483,9 +483,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\SearchIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\DollarIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

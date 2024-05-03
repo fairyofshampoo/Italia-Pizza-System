@@ -7,11 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="340">
     <Grid>
-        <Button Background="Transparent"
-                BorderBrush="Transparent"
-                Cursor="Hand"
-                Click="BtnProductSelected_Click">
-            <Border
+        <Border
             Background="#393D42"
             CornerRadius="20"
             Width="335"
@@ -23,6 +19,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="140"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -40,9 +37,34 @@
                             Content="Nombre del producto"
                             Margin="20,0,0,0"/>
 
+                    <Button x:Name="btnAddProduct"
+                                Content="+"
+                                Foreground="White"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Grid.Row="2"
+                                Margin="0,0,30,6"
+                                HorizontalAlignment="Right" 
+                                Click="BtnAddProduct_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#228B22"/>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="30" Height="30"
+                                    CornerRadius="30"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Top"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </Border>
         </Border>
-        </Button>
     </Grid>
 </UserControl>
