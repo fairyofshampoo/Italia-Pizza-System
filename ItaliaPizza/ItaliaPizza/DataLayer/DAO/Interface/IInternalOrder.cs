@@ -22,6 +22,8 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 
         bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode);
 
-        int GetMaximumProductsPosible(int recipeId);
+        int GetMaximumProductsPosible(int recipeId); //Deberá estar en una interface llamada solo order
+
+        int GetRecipeIdByProduct(string productId); //Deberá ir en la interface de Recipe
     }
 }

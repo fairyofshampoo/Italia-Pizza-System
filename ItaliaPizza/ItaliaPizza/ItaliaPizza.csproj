@@ -190,9 +190,6 @@
     <Compile Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml.cs">
       <DependentUpon>RegisterInternalOrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterProductToOrderView.xaml.cs">
-      <DependentUpon>RegisterProductToOrderView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
@@ -293,10 +290,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserInterfaceLayer\OrdersModule\RegisterProductToOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

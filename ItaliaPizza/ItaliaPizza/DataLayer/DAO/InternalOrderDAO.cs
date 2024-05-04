@@ -102,6 +102,22 @@ namespace ItaliaPizza.DataLayer.DAO
             return maximumProductsPosible;
         }
 
+        public int GetRecipeIdByProduct(string productId)
+        {
+            int recipeId = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var recipeDB = databaseContext.Recipes
+                                        .Where(recipe => recipe.ProductId == productId)
+                                        .FirstOrDefault();
+                if (recipeDB != null)
+                {
+                    recipeId = recipeDB.recipeCode;
+                }
+                return recipeId;
+            }
+        }
+
         public List<RecipeSupply> GetSupplyForProduct(string productId)
         {
             List<RecipeSupply> supplyForProduct = new List<RecipeSupply>();

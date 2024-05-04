@@ -97,7 +97,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
-                status = 1,
+                status = 0, //Estatus de pendiente de confirmar
                 date = date,
                 time = time,
                 total = 0,

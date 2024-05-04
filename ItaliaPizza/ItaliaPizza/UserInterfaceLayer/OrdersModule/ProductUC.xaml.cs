@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.DataLayer;
+using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,20 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
 
     public partial class ProductUC : UserControl
     {
-        private Product productData;
+        private Product ProductData;
+
+        private int ProductCount;
+
         public RegisterInternalOrderView RegisterInternalOrderView { get; set; }
 
         public string InternalOrderCode;
@@ -32,12 +29,27 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void SetProductData(Product product)
         {
             lblProductName.Content = product.name;
-            productData = product;
+            ProductData = product;
         }
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
+            int availableProducts = GetNumberOfProducts(GetRecipeByProduct());
+            Console.WriteLine("SE pueden crear:" + availableProducts);
+        }
 
+        private int GetRecipeByProduct()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
+            return recipeId;
+        }
+
+        private int GetNumberOfProducts(int recipeId)
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
+            return numberOfProducts;
         }
     }
 }
