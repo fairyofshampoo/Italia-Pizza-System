@@ -3,6 +3,7 @@ using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class RegisterInternalOrderView : Page
     {
 
-        private string orderCode = "codigoPrueba";
+        private string orderCode;
         private int rowAdded = 0;
         private int columnsAdded = 0;
         private string waiterEmailClass = "lalocel09@gmail.com"; //Cambiar por singleton
@@ -49,7 +50,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void RegisterInternalOrder(List<Product> products)
         {
-            //CreateOrderCode();
+            CreateOrderCode();
             InternalOrder internalOrder = CreateInternalOrder();
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             if (internalOrderDAO.AddInternalOrder(internalOrder))
@@ -64,15 +65,15 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void CreateOrderCode()
         {
-            DateTime date = DateTime.Now;
+            DateTime date = DateTime.Today;
             Random random = new Random();
             string randomChar = RandomString(random, 4);
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             string code = string.Empty;
             do
             {
-                code = $"{date:yyyyMMddHHmmss}-{randomChar}";
-            } while (internalOrderDAO.IsInternalOrderCodeAlreadyExisting(code));
+              code = $"{date:ddMMyy}-{randomChar}";
+            } while (!internalOrderDAO.IsInternalOrderCodeAlreadyExisting(code));
             orderCode = code;
         }
 
@@ -90,12 +91,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private InternalOrder CreateInternalOrder()
         {
             DateTime dateTime = DateTime.Now;
-            TimeSpan time = dateTime.TimeOfDay;
+            TimeSpan time = new TimeSpan(dateTime.Hour, dateTime.Minute, dateTime.Second);
+            var date = dateTime.Date;
+
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
                 status = 1,
-                date = dateTime,
+                date = date,
                 time = time,
                 total = 0,
                 waiterEmail = waiterEmailClass
@@ -115,7 +118,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             {
                 foreach (Product product in products)
                 {
-                    for (int index = 0; index < 2; index++)
+                    for (int index = 0; index < 3; index++)
                     {
                         ColumnDefinition column = new ColumnDefinition();
                         ProductsGrid.ColumnDefinitions.Add(column);
