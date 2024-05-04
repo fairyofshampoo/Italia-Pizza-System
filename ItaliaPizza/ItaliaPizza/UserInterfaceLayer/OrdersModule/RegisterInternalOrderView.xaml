@@ -38,13 +38,11 @@
             </Canvas>
 
             <ScrollViewer
-                  Grid.Row="1"
-                  Height="530"
-                  Margin="20,0,20,0">
+                  Grid.Row="1">
                 <Grid Name="ProductsGrid"
-                  Width = "Auto"
+                  Width = "10400"
                   Margin="0,0,0,0"
-                  Height = "Auto"/>
+                  Height = "1100"/>
             </ScrollViewer>
         </Grid>
 
