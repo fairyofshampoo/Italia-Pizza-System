@@ -22,7 +22,7 @@ namespace ItaliaPizza.DataLayer
         }
     
         public string name { get; set; }
-        public int amount { get; set; }
+        public Nullable<decimal> amount { get; set; }
         public int category { get; set; }
         public string measurementUnit { get; set; }
         public Nullable<bool> status { get; set; }

@@ -2,6 +2,7 @@
 using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
-        public bool ChangeStatus(string name, int status)
+        public bool ChangeSupplyStatus(string name, int status)
         {
             bool successfulChange = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -143,6 +144,26 @@ namespace ItaliaPizza.DataLayer.DAO
                 throw argumentException;
             }
             return supplyFound;
-        }        
+        }
+        
+        public List<Supply> GetSuppliesByStatus(bool status)
+        {
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var supplies = databaseContext.Supplies
+                                              .Where(s => s.status == status)
+                                              .Include(s => s.SupplyArea)
+                                              .ToList();
+                if (supplies != null)
+                {
+                    foreach (var supply in supplies)
+                    {
+                        suppliesDB.Add(supply);
+                    }
+                }
+            }
+            return suppliesDB;            
+        }
     }
 }

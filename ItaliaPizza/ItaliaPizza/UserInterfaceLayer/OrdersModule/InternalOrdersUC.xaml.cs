@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-    /*
+    
     public partial class InternalOrdersUC : UserControl
     {
         private InternalOrder internalOrderData;
@@ -33,7 +33,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void ShowInternalOrderData(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            string waiterName = GetWaiterName(order.waiterName);
+            string waiterName = GetWaiterName(order.waiterEmail);
             lblWaiter.Content = waiterName;
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
@@ -50,5 +50,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             //Se debe hacer referencia a la pantalla de editar
         }
-    }*/
+    }
 }

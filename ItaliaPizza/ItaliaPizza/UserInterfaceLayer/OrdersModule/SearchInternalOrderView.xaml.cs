@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-    /*
+    
     public partial class SearchInternalOrderView : Page
     {
         private string waiterEmail = "lalo@gmail.com"; //Esto debe ser cambiado por el singleton
@@ -74,7 +74,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-            internalOrders = internalOrderDAO.GetInternalOrdersByStatus("open", waiterEmail);
+            internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1, waiterEmail);
             return internalOrders;
         }
 
@@ -84,7 +84,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         }
 
-        private void SearchInternalOrderByCode(int  orderCode)
+        private void SearchInternalOrderByCode(string  orderCode)
         {
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             InternalOrder internalOrder = internalOrderDAO.GetInternalOrdersByNumber(orderCode, waiterEmail);
@@ -101,20 +101,20 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnOpenOrder_Click(object sender, RoutedEventArgs e)
         {
-            SearchInternalOrderByStatus("Open");
+            SearchInternalOrderByStatus(1);
         }
 
         private void BtnPreparingOrder_Click(object sender, RoutedEventArgs e)
         {
-            SearchInternalOrderByStatus("Preparing");
+            SearchInternalOrderByStatus(2);
         }
 
         private void BtnFinishedOrder_Click(object sender, RoutedEventArgs e)
         {
-            SearchInternalOrderByStatus("Finished");
+            SearchInternalOrderByStatus(3);
         }
 
-        private void SearchInternalOrderByStatus(string status)
+        private void SearchInternalOrderByStatus(int status)
         {
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(status, waiterEmail);
@@ -139,7 +139,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             if(band)
             {
-                int orderCode = int.Parse(search);
+                String orderCode = search;
                 InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
                 InternalOrder internalOrder = internalOrderDAO.GetInternalOrdersByNumber(orderCode, waiterEmail);
                 if (internalOrder != null)
@@ -150,5 +150,4 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
     }
-    */
 }
