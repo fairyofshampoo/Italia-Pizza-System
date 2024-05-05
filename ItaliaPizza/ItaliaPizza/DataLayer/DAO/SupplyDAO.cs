@@ -181,7 +181,7 @@ namespace ItaliaPizza.DataLayer.DAO
                             name = recipeSupply.supplyId,
                             category = recipeSupply.Supply.category,
                             status = recipeSupply.Supply.status,
-                            amount = (int)recipeSupply.supplyAmount, //cambiar a decimal en db
+                            //amount = (int)recipeSupply.supplyAmount, //cambiar a decimal en db
                             measurementUnit = recipeSupply.Supply.measurementUnit,
                         };
                         suppliesDB.Add(supply);

@@ -34,6 +34,9 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            Recipe recipeSelected = cmbRecipeName.SelectedItem as Recipe;
+            RecipeEditView recipeEditView = new RecipeEditView(recipeSelected, recipeSupplies);
+            NavigationService.Navigate(recipeEditView);
         }
 
         private void cmbRecipeName_SelectionChanged(object sender, SelectionChangedEventArgs e)
