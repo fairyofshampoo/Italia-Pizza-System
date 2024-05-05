@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItaliaPizza.DataLayer;
+using ItaliaPizza.DataLayer.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,19 +22,55 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplyOrderView : Page
     {
+        public Supplier supplier;
         public SupplyOrderView()
         {
             InitializeComponent();
-            SetSuppliesInPage();
+            GetSupplies();
         }
 
-        private void SetSuppliesInPage()
+        private void GetSupplies()
         {
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> availableSupplies = supplyDAO.GetSuppliesByStatus(true);
+
+            if(availableSupplies.Count > 0 )
+            {
+                SetSuppliesInPage(availableSupplies);
+            } else
+            {
+                ShowNoSuppliesMessage();
+            }
             //Consultar supplies activos con método GetSuppliesAvailable();
+            // si no hay supplies ShowNoSuppliesMessage()
+            //si hay supplies
+        }
+
+        private void ShowNoSuppliesMessage()
+        {
+
+        }
+
+        private void SetSuppliesInPage(List<Supply> suppliesList)
+        {
             SupplyOrderAddUC supplyUC = new SupplyOrderAddUC();
+            supplyUC.SupplyOrderView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
-            //Por cada supply activo hay que mandar a crear un SupplyOrderAddUC
+
+
+            foreach (Supply supply in suppliesList)
+            {
+                AddSupplyToList(supply);
+            }
+        }
+
+        private void AddSupplyToList(Supply supply)
+        {
+            SupplyOrderAddUC supplyCard = new SupplyOrderAddUC();
+            supplyCard.SupplyOrderView = this;
+            supplyCard.SetSupplyData(supply);
+            suppliesListView.Items.Add(supplyCard);
         }
 
         private void BtnSaveOrder_Click(object sender, RoutedEventArgs e)
@@ -41,6 +79,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
 
         }

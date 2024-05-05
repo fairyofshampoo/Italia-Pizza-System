@@ -41,7 +41,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 string name = txtName.Text;
                 SupplyDAO supplyDAO = new SupplyDAO();
 
-                if (supplyDAO.ChangeStatus(name, Constants.INACTIVE_STATUS))
+                if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
                 }
@@ -61,7 +61,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 string name = txtName.Text;
                 SupplyDAO supplyDAO = new SupplyDAO();
 
-                if (supplyDAO.ChangeStatus(name, Constants.ACTIVE_STATUS))
+                if (supplyDAO.ChangeSupplyStatus(name, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
                 }

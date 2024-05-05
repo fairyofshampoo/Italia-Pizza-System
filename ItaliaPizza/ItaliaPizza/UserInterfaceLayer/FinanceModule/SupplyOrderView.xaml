@@ -55,10 +55,9 @@
                                 </Grid>
                                 <Label Content="Ingrese el nombre del insumo" Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
                             </StackPanel>
-
-                            <Border Background="#D9D9D9" CornerRadius="20" Width="730" Height="400" Grid.Row="1">
+                            <Border Grid.Row="1" Width="740" Height="400" Background="#D9D9D9">
                                 <ScrollViewer>
-                                    <ListView Background="Transparent" Name="suppliesListView" Width="Auto" Margin="0" Height="Auto"/>
+                                    <ListView Background="#D9D9D9" Name="suppliesListView" Width="740" Margin="10" Height="Auto"/>
                                 </ScrollViewer>
                             </Border>
                         </Grid>

@@ -111,9 +111,6 @@
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplyDAO.cs" />
-    <Compile Include="DataLayer\database_firewall_rules.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -441,16 +438,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="UserInterfaceLayer\Resources\Icons\questionIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\infoIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\errorIcon.png" />
@@ -508,6 +495,18 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\SearchIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\DollarIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

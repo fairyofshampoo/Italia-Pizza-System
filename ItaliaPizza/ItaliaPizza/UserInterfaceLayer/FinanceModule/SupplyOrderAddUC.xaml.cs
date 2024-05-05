@@ -22,26 +22,37 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplyOrderAddUC : UserControl
     {
-        private Supply SupplyData;
+        public SupplyOrderView SupplyOrderView { get; set; }
+        private Supply supplyData;
         public SupplyOrderAddUC()
         {
             InitializeComponent();
         }
         public void SetTitleData()
         {
+            int fontSize = 25;
             txtAmount.FontWeight = FontWeights.Bold;
             txtName.FontWeight = FontWeights.Bold;
             txtSupplyArea.FontWeight = FontWeights.Bold;
             txtUnit.FontWeight = FontWeights.Bold;
+            txtAmount.FontSize = fontSize;
+            txtName.FontSize = fontSize;
+            txtSupplyArea.FontSize = fontSize;
+            txtUnit.FontSize = fontSize;
             btnAddSupply.Visibility = Visibility.Hidden;
         }
-        public void SetProductData(Supply supply)
+        public void SetSupplyData(Supply supply)
         {
-            SupplyData = supply;
+            supplyData = supply;
             txtName.Text = supply.name;
             txtAmount.Text = supply.amount.ToString();
             txtSupplyArea.Text = supply.SupplyArea.area_name;
             txtUnit.Text = supply.measurementUnit;
+        }
+
+        private void BtnAddSupply_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
