@@ -34,17 +34,25 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            int productCounter = GetCountOfProduct();
-
             int productLimit = GetNumberOfProducts(GetRecipeByProduct());
-            int productsOnHold = GetNumberOfProductsOnHold();
-            int productsAvailable = productLimit - productsOnHold;
-            if(productsAvailable > 0)
+            int productsAvailable = 0;
+            if (GetCountOfProduct())
             {
-                RegisterProductToOrder();
+                int productsOnHold = GetNumberOfProductsOnHold();
+                productsAvailable = productLimit - productsOnHold;
             } else
             {
-                Console.WriteLine("Ya no se pueden meter más productos"); 
+                productsAvailable = productLimit;
+            }
+
+
+            if (productsAvailable > 0)
+            {
+                AddProduct();
+            }
+            else
+            {
+                Console.WriteLine("Ya no se pueden meter más productos");
                 //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
             }
         }
@@ -70,32 +78,57 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             return productsOnHold;
         }
 
-        private int GetCountOfProduct()
+        private bool GetCountOfProduct()
         {
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-            int countProduct = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
-            return countProduct;
+            bool areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+            return areThereAnyRegister;
         }
 
-        private void RegisterProductToOrder()
+        private void AddProduct()
+        {
+            if (!IsRegisterInDB())
+            {
+                RegisterInternalOrderProduct();
+            } 
+            else
+            {
+                IncreaseAmount();
+            }
+        }
+
+        private void RegisterInternalOrderProduct()
         {
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
             if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
             {
                 //Meterlo a la tabla
-            } 
+            }
             else
             {
                 //Mostrar mensaje de erro
             }
         }
 
+        private void IncreaseAmount()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            internalOrderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
+        }
+
+        private bool IsRegisterInDB ()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            bool isRegister = internalOrderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            return isRegister;
+        }
+
         private InternalOrderProduct CreateInternalOrderProduct()
         {
             InternalOrderProduct newInternalOrderProuct = new InternalOrderProduct
             {
-                amount = 1, //esto se va a quitar después
+                amount = 1,
                 isConfirmed = 0, 
                 internalOrderId = InternalOrderCode, 
                 productId = ProductData.productCode,

@@ -97,7 +97,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
-                status = 0, //Estatus de pendiente de confirmar
+                status = 0, 
                 date = date,
                 time = time,
                 total = 0,
@@ -152,7 +152,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            //Eliminar todo de la base de datos con el internalordercode
         }
 
         private void BtnSaveInternalOrder_Click(object sender, RoutedEventArgs e)

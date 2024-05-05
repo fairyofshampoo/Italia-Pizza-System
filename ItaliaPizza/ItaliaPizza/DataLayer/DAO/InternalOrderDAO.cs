@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,16 +42,20 @@ namespace ItaliaPizza.DataLayer.DAO
             return operationStatus;
         }
 
-        public int GetCounterOfProduct(string productId)
+        public bool GetCounterOfProduct(string productId)
         {
-            int counter = 0;
+            bool  areThereAnyRegister = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                counter = databaseContext.InternalOrderProducts
+                int counter = databaseContext.InternalOrderProducts
                                          .Where(product => product.productId == productId && product.isConfirmed == 0)
                                          .Count();
+                if (counter > 0)
+                {
+                    areThereAnyRegister = true;
+                }
             }
-            return counter;
+            return areThereAnyRegister;
         }
 
         public InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail)
@@ -168,6 +173,29 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplyForProduct;
         }
 
+        public bool IncreaseAmount(string productId, string internalOrderCode)
+        {
+            bool operationStatus = false;
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var productDB = databaseContext.InternalOrderProducts
+                                              .Where(product => product.internalOrderId == internalOrderCode && product.productId == productId)
+                                              .FirstOrDefault();
+                if(productDB != null)
+                {
+                    productDB.amount += 1;
+                    databaseContext.SaveChanges();
+                    operationStatus = true;
+                }
+            }
+            return operationStatus;
+        }
+
+        public bool InternalOrderTransaction(string internalOrderCode)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode)
         {
            bool isExisting = false;
@@ -182,6 +210,22 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return isExisting;
+        }
+
+        public bool IsRegisterInDatabase(string productId, string internalOrderCode)
+        {
+            bool isRegisterInDatabase = false;
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var register = databaseContext.InternalOrderProducts
+                                              .Where(product => product.internalOrderId == internalOrderCode && product.productId == productId)
+                                              .FirstOrDefault(); 
+                if (register != null)
+                {
+                    isRegisterInDatabase = true;
+                }
+            }
+            return isRegisterInDatabase;
         }
     }
  
