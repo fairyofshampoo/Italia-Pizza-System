@@ -157,26 +157,34 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
         private void RegisterRecipe(Recipe recipe)
         {
             RecipeDAO recipeDAO = new RecipeDAO();
+
             if (!recipeDAO.AlreadyExistRecipe(recipe.name))
             {
                 List<Supply> suppliesSelected = GetSuppliesFromListBox();
 
-                if (suppliesSelected != null)
+                if (AreSuppliesActive(suppliesSelected))
                 {
                     List<RecipeSupply> recipeSupplies = GenerateRecipeSupplies(suppliesSelected);
                     recipe.RecipeSupplies = recipeSupplies;
-                }
 
-                if (recipeDAO.RegisterRecipeWithSupplies(recipe, product))
+                    if (recipeDAO.RegisterRecipeWithSupplies(recipe, product))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Registro exitoso");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
+                    }
+                }
+                else
                 {
-                    DialogManager.ShowSuccessMessageBox("Registro exitoso");
+                    DialogManager.ShowErrorMessageBox("Al menos un suministro está inactivo");
                 }
             }
             else
             {
                 DialogManager.ShowErrorMessageBox("La receta ya está registrada");
             }
-
         }
 
         private List<Supply> GetSuppliesFromListBox()
@@ -207,6 +215,20 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 recipeSupplies.Add(recipeSupply);
             }
             return recipeSupplies;
+        }
+
+        private bool AreSuppliesActive(List<Supply> supplies)
+        {
+            bool isActive = true;
+
+            foreach (var supply in supplies)
+            {
+                if (supply.status != true)
+                {
+                    isActive = false;
+                }
+            }
+            return isActive;
         }
 
         private void SetProductInfo(String productName)
