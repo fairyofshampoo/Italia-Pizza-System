@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -22,13 +23,27 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplyOrderView : Page
     {
-        public Supplier supplier;
+        private Supplier supplierData;
         public SupplyOrderView()
         {
             InitializeComponent();
             GetSupplies();
         }
 
+        public void SetSupplier(Supplier supplier)
+        {
+            lblSupplierName.Text = supplier.manager + ": " + supplier.companyName;
+            StringBuilder supplyAreasText = new StringBuilder();
+
+            foreach (var supplyArea in supplier.SupplyAreas)
+            {
+                supplyAreasText.Append(supplyArea.area_name);
+                supplyAreasText.Append("  ");
+            }
+
+            lblSupplyArea.Content = supplyAreasText.ToString();
+            this.supplierData = supplier;
+        }
         private void GetSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
@@ -41,14 +56,15 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 ShowNoSuppliesMessage();
             }
-            //Consultar supplies activos con método GetSuppliesAvailable();
-            // si no hay supplies ShowNoSuppliesMessage()
-            //si hay supplies
         }
 
         private void ShowNoSuppliesMessage()
         {
-
+            Label lblNoSupplies = new Label();
+            lblNoSupplies.Style = (Style)FindResource("NoSuppliesLabelStyle");
+            lblNoSupplies.HorizontalAlignment = HorizontalAlignment.Center;
+            lblNoSupplies.VerticalAlignment = VerticalAlignment.Center;
+            suppliesListView.Items.Add(lblNoSupplies);
         }
 
         private void SetSuppliesInPage(List<Supply> suppliesList)
@@ -57,8 +73,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             supplyUC.SupplyOrderView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
-
-
             foreach (Supply supply in suppliesList)
             {
                 AddSupplyToList(supply);
@@ -80,7 +94,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
 
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -94,10 +95,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (ModifySupplier())
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
-                }
-                else
-                {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar al proveedor");
+                    NavigationService.GoBack();
                 }
             }
         }
@@ -253,15 +251,17 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnActivate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("¿Desea activar al proveedor?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea activar al proveedor?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (messageBoxResult == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 SupplierDAO supplierDAO = new SupplierDAO();
 
                 if (supplierDAO.ChangeStatus(supplierEmail, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -272,15 +272,17 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnDesactivate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("¿Desea eliminar al proveedor?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea desactivar al proveedor?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if(messageBoxResult == MessageBoxResult.Yes)
+            if(dialogWindow.ShowDialog() == true)
             {
                 SupplierDAO supplierDAO = new SupplierDAO();
 
                 if(supplierDAO.ChangeStatus(supplierEmail, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {

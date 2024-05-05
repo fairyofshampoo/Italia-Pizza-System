@@ -21,7 +21,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     
     public partial class InternalOrdersUC : UserControl
     {
-        private InternalOrder internalOrderData;
+        //private InternalOrder internalOrderData;
 
         public SearchInternalOrderView searchInternalOrderView { get; set;}
 

@@ -15,8 +15,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     {
         private Product ProductData;
 
-        private int ProductCount;
-
         public RegisterInternalOrderView RegisterInternalOrderView { get; set; }
 
         public string InternalOrderCode;

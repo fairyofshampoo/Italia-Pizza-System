@@ -45,7 +45,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             else
             {
                 txtSearchBar.IsReadOnly = true;
-                DialogManager.ShowErrorMessageBox("No hay proveedores registrados");
+                scrollViewer.Visibility = Visibility.Collapsed;
+                lblSupplierNotFound.Visibility = Visibility.Visible;
+                lblSupplierNotFound.Content = "No hay proveedores registrados";
             }
         }
 
@@ -57,6 +59,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             if (suppliers.Any())
             {
+                scrollViewer.Visibility = Visibility.Visible;
                 lblSupplierNotFound.Visibility = Visibility.Collapsed;
                 foreach (Supplier supplier in suppliers)
                 {
@@ -65,6 +68,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             }
             else
             {
+                scrollViewer.Visibility = Visibility.Collapsed;
                 lblSupplierNotFound.Visibility = Visibility.Visible;
             }
         }

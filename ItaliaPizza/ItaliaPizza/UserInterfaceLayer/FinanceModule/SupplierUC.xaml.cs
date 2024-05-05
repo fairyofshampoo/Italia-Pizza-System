@@ -34,7 +34,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnSupplyOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            SupplyOrderView supplyOrderView = new SupplyOrderView();
+            supplyOrderView.SetSupplier(SupplierData);
+            SuppliersView.NavigationService.Navigate(supplyOrderView);
         }
 
         private void BtnEditSupplier_Click(object sender, RoutedEventArgs e)
@@ -55,6 +57,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 btnNewOrder.Visibility = Visibility.Collapsed;
                 lblSupplierName.Foreground = Brushes.Red;
             }
+
             StringBuilder supplyAreasText = new StringBuilder();
             foreach (var supplyArea in supplier.SupplyAreas)
             {
