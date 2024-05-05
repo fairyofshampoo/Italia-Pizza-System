@@ -34,8 +34,19 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            int availableProducts = GetNumberOfProducts(GetRecipeByProduct());
-            Console.WriteLine("SE pueden crear:" + availableProducts);
+            int productCounter = GetCountOfProduct();
+
+            int productLimit = GetNumberOfProducts(GetRecipeByProduct());
+            int productsOnHold = GetNumberOfProductsOnHold();
+            int productsAvailable = productLimit - productsOnHold;
+            if(productsAvailable > 0)
+            {
+                RegisterProductToOrder();
+            } else
+            {
+                Console.WriteLine("Ya no se pueden meter más productos"); 
+                //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
+            }
         }
 
         private int GetRecipeByProduct()
@@ -51,5 +62,48 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
             return numberOfProducts;
         }
+
+        private int GetNumberOfProductsOnHold()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
+            return productsOnHold;
+        }
+
+        private int GetCountOfProduct()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int countProduct = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+            return countProduct;
+        }
+
+        private void RegisterProductToOrder()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
+            if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
+            {
+                //Meterlo a la tabla
+            } 
+            else
+            {
+                //Mostrar mensaje de erro
+            }
+        }
+
+        private InternalOrderProduct CreateInternalOrderProduct()
+        {
+            InternalOrderProduct newInternalOrderProuct = new InternalOrderProduct
+            {
+                amount = 1, //esto se va a quitar después
+                isConfirmed = 0, 
+                internalOrderId = InternalOrderCode, 
+                productId = ProductData.productCode,
+            };
+
+            return newInternalOrderProuct;
+        }
+
+
     }
 }

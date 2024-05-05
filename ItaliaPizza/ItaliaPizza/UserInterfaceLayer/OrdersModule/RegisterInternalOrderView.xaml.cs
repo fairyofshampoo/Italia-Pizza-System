@@ -157,7 +157,9 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnSaveInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            //Cambiar el estado de la orden 
+            //Cambiar el estado de los productos 
+            //Reducir la cantidad de ingredientes
         }
 
         private void BtnDeleteProduct_Click(object sender, RoutedEventArgs e)

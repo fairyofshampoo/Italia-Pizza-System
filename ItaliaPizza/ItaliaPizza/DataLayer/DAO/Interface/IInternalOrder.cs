@@ -25,5 +25,9 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         int GetMaximumProductsPosible(int recipeId); //Deberá estar en una interface llamada solo order
 
         int GetRecipeIdByProduct(string productId); //Deberá ir en la interface de Recipe
+
+        int GetNumberOfProductsOnHold(string productId);
+
+        bool GetCounterOfProduct(string productId);
     }
 }
