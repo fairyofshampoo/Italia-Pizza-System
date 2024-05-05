@@ -189,6 +189,12 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
       <DependentUpon>SupplyOrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml.cs">
+      <DependentUpon>RecipeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipesView.xaml.cs">
+      <DependentUpon>RecipesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
       <DependentUpon>SupplyUC.xaml</DependentUpon>
     </Compile>
@@ -298,6 +304,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
