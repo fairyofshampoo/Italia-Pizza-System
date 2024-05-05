@@ -13,5 +13,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool ChangeStatus(string name, int status);
         bool ModifySupply(Supply supply, string name);
         Supply GetSupplyByName(string name);
+
+
     }
 }

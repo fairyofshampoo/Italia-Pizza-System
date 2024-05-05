@@ -99,11 +99,13 @@
     <Compile Include="DataLayer\DAO\Interface\IEmployee.cs" />
     <Compile Include="DataLayer\DAO\Interface\IAddress.cs" />
     <Compile Include="DataLayer\DAO\Interface\IInternalOrder.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IRecipe.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupply.cs" />
     <Compile Include="DataLayer\DAO\InternalOrderDAO.cs" />
+    <Compile Include="DataLayer\DAO\RecipeDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
@@ -183,6 +185,9 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
       <DependentUpon>SupplierUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
+      <DependentUpon>SupplyUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
@@ -282,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
