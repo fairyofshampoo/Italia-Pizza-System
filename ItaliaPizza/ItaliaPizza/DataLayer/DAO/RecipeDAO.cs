@@ -41,6 +41,25 @@ namespace ItaliaPizza.DataLayer.DAO
             return idRecipe;
         }
 
+        public List<Recipe> GetRecipes()
+        {
+            List<Recipe> recipes = new List<Recipe>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var recipesDB = databaseContext.Recipes
+                                                .ToList();
+
+                if (recipesDB != null)
+                {
+                    foreach (var product in recipesDB)
+                    {
+                        recipes.Add(product);
+                    }
+                }
+            }
+            return recipes;
+        }
+
         public bool RegisterRecipe(Recipe recipe, string productId)
         {
             bool successfulRegistration = false;
