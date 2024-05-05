@@ -163,5 +163,32 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return suppliesDB;            
         }
+
+        public List<Supply> GetRecipeSupplies(int idRecipe)
+        {
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var recipeSupplies = databaseContext.RecipeSupplies
+                                              .Where(r => r.recipeID == idRecipe)
+                                              .ToList();
+                if (recipeSupplies != null)
+                {
+                    foreach (var recipeSupply in recipeSupplies)
+                    {
+                        Supply supply = new Supply
+                        {
+                            name = recipeSupply.supplyId,
+                            category = recipeSupply.Supply.category,
+                            status = recipeSupply.Supply.status,
+                            amount = (int)recipeSupply.supplyAmount, //cambiar a decimal en db
+                            measurementUnit = recipeSupply.Supply.measurementUnit,
+                        };
+                        suppliesDB.Add(supply);
+                    }
+                }
+            }
+            return suppliesDB;
+        }
     }
 }

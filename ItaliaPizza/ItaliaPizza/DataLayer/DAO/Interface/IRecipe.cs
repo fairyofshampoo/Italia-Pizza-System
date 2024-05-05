@@ -12,5 +12,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool RegisterRecipe(Recipe recipe, string productId);
         int GetIdRecipe(string name);
         bool RegisterRecipeSupplies(Recipe recipe);
+        List<Recipe> GetRecipes();
     }
 }
