@@ -27,12 +27,30 @@ namespace ItaliaPizza.DataLayer.DAO
             bool operationStatus = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                databaseContext.InternalOrderProducts
-                               .Add(internalOrderProduct);
-                databaseContext.SaveChanges();
-                operationStatus = true;
+                try
+                {
+                    databaseContext.InternalOrderProducts
+                                   .Add(internalOrderProduct);
+                    databaseContext.SaveChanges();
+                    operationStatus = true;
+                } catch (Exception ex)
+                {
+                    operationStatus = false;
+                }
             }
             return operationStatus;
+        }
+
+        public int GetCounterOfProduct(string productId)
+        {
+            int counter = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                counter = databaseContext.InternalOrderProducts
+                                         .Where(product => product.productId == productId && product.isConfirmed == 0)
+                                         .Count();
+            }
+            return counter;
         }
 
         public InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail)
@@ -100,6 +118,34 @@ namespace ItaliaPizza.DataLayer.DAO
             }
 
             return maximumProductsPosible;
+        }
+
+        public int GetNumberOfProductsOnHold(string productId)
+        {
+            int numberOfProductsOnHold = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                numberOfProductsOnHold = databaseContext.InternalOrderProducts
+                                                   .Where(product => product.productId == productId && product.isConfirmed == 0)
+                                                   .Sum(product => product.amount);
+            }
+            return numberOfProductsOnHold;
+        }
+
+        public int GetRecipeIdByProduct(string productId)
+        {
+            int recipeId = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var recipeDB = databaseContext.Recipes
+                                        .Where(recipe => recipe.ProductId == productId)
+                                        .FirstOrDefault();
+                if (recipeDB != null)
+                {
+                    recipeId = recipeDB.recipeCode;
+                }
+                return recipeId;
+            }
         }
 
         public List<RecipeSupply> GetSupplyForProduct(string productId)
