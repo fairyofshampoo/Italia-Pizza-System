@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.OrdersModule"
              mc:Ignorable="d" 
              d:DesignHeight="210" d:DesignWidth="950" Background= "Transparent">
-<!--
     <Border
         Background="#4C4C4C"
         CornerRadius="20">
@@ -105,5 +104,4 @@
             </Grid> 
         </Border>
     </Border>
-    -->
 </UserControl>

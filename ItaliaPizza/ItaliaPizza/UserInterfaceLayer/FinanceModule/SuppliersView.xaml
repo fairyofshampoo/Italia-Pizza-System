@@ -26,7 +26,7 @@
 
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="1280" Height="720">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -35,23 +35,23 @@
                     </Grid.ColumnDefinitions>
 
                     <Label
-    Grid.Column="0"
-    Content="Proveedores"
-    VerticalAlignment="Center"
-    HorizontalAlignment="Left"
-    Foreground="White"
-    FontFamily="Times New Roman"
-    FontSize="70"
-    Margin="70,0,0,0" Height="80" Width="Auto"/>
+                        Grid.Column="0"
+                        Content="Proveedores"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Foreground="White" FontWeight="DemiBold"
+                        FontFamily="{StaticResource InterFont}"
+                        FontSize="70"
+                        Margin="50,0,0,0" Height="80" Width="Auto"/>
 
                     <Canvas HorizontalAlignment="Center">
-                        <Line X1="-170" Y1="110" X2="220" Y2="110" Stroke="#ff7b00" StrokeThickness="3"/>
+                        <Line X1="-190" Y1="110" X2="250" Y2="110" Stroke="#ff7b00" StrokeThickness="3"/>
                     </Canvas>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid>
                             <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                Width="334" Height="60" Background="#FF7B00"
+                                    Width="334" Height="60" Background="#FF7B00"
                 Grid.Column="1" Margin="60,40,0,0"
                 HorizontalAlignment="Left" VerticalAlignment="Center">
                             </Border>
@@ -62,8 +62,8 @@
 
                                 <TextBox x:Name="txtSearchBar"
                      TextChanged="TxtSearchBarChanged"
-                     FontSize="30" FontWeight="Medium"
-                     FontFamily = "Segoe UI Variable Display"
+                     FontSize="30" FontWeight="Regular"
+                     FontFamily="{StaticResource InterFont}"
                      Background="LightGray" BorderThickness="0" />
                             </Border>
                         </Grid>
@@ -73,12 +73,12 @@
 
                     <Border CornerRadius="5" BorderBrush="#8D3A02" BorderThickness="4" 
         Width="334" Height="60" Background="#8D3A02"
-        Grid.Column="2" Margin="60,40,0,29"
+        Grid.Column="2" Margin="40,40,0,29"
         HorizontalAlignment="Left" VerticalAlignment="Center">
                     </Border>
 
                     <Button Width="330" Height="60" HorizontalAlignment="Left" 
-                            VerticalAlignment="Center" Grid.Column="2" Margin="60,34,0,35" Click="BtnAddSupplier_Click">
+                            VerticalAlignment="Center" Grid.Column="2" Margin="40,34,0,35" Click="BtnAddSupplier_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
@@ -92,29 +92,28 @@
                                 </Setter>
                             </Style>
                         </Button.Style>
-                        <TextBlock Text="Añadir proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                        <TextBlock Text="Añadir proveedor" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource InterFont}" FontWeight="Bold" FontSize="24" Foreground="White"/>
                     </Button>
 
                 </Grid>
                 <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                    <Label Content ="Área de abastecimiento" Margin="60,0,20,0" Foreground="LightGray" FontSize="20" FontWeight="Regular"></Label>
+                    <Label Content ="Área de abastecimiento" Margin="60,0,20,0" Foreground="LightGray"  FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Medium"/>
                 </StackPanel>
 
                 <ScrollViewer Height="500"
                     Grid.Row="1">
                     <Grid Name="SuppliersGrid" Width = "1100" Height = "Auto"/>
                 </ScrollViewer>
-                <Label
-        Name="lblSupplierNotFound"
-        Grid.Row="1"
-        Content="No se encontró ningún proveedor"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Foreground="White"
-        FontFamily="Microsoft YaHei UI"
-        FontSize="60"
-        Margin="40,0,0,0" Height="Auto" Width="Auto"
-        Visibility="Collapsed"/>
+                <Label Name="lblSupplierNotFound"
+                       Grid.Row="1"
+                       Content="No se encontró ningún proveedor"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       FontFamily="{StaticResource InterFont}"
+                       FontSize="60"
+                       Margin="40,0,0,0" Height="Auto" Width="Auto"
+                       Visibility="Collapsed"/>
             </StackPanel>
         </ScrollViewer>
     </Viewbox>

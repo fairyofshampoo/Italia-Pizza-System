@@ -186,6 +186,12 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
       <DependentUpon>SupplierUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml.cs">
+      <DependentUpon>SupplyOrderAddUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
+      <DependentUpon>SupplyOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
       <DependentUpon>SupplyUC.xaml</DependentUpon>
     </Compile>
@@ -287,6 +293,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
