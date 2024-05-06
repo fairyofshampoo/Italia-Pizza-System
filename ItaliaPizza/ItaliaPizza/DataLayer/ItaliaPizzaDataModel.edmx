@@ -183,7 +183,6 @@
           <Property Name="orderCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="modificationDate" Type="datetime" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="supplierId" Type="varchar" MaxLength="30" Nullable="false" />
@@ -819,7 +818,6 @@
           <Property Name="orderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="modificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="supplierId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1417,7 +1415,6 @@
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="modificationDate" ColumnName="modificationDate" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="supplierId" ColumnName="supplierId" />

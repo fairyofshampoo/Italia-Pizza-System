@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d96d8e0582104bf4b9549fa6d6ac144f" Name="Diagram1">
+      <Diagram DiagramId="675b7d0858444f5bb022331a783d639e" Name="Diagram1">
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.Account" Width="1.5" PointX="12" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Address" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Address" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.CashierLog" Width="1.5" PointX="12" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.Cashout" Width="1.5" PointX="10.75" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Client" Width="1.5" PointX="3.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Client" Width="1.5" PointX="3.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.ColonyCatalog" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.Employee" Width="1.5" PointX="9.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.HomeOrder" Width="1.5" PointX="6" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.HomeOrderProduct" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.HomeOrder" Width="1.5" PointX="6" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.HomeOrderProduct" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.InternalOrder" Width="1.5" PointX="15" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.InternalOrderProduct" Width="1.5" PointX="17.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Product" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Recipe" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.RecipeSupply" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.InternalOrderProduct" Width="1.5" PointX="17.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Product" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Recipe" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.RecipeSupply" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.StatusOrder" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Supplier" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Supplier" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaDBModel.SupplierOrder" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Supply" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.SupplyArea" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItaliaPizzaDBModel.SupplyOrder" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.Supply" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.SupplyArea" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItaliaPizzaDBModel.SupplyOrder" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="ItaliaPizzaDBModel.FK_Account_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaDBModel.FK_AddressId" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaDBModel.FK_ClientAddress" ManuallyRouted="false" />

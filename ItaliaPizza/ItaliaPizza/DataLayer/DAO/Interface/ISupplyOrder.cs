@@ -15,5 +15,9 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool IsSupplyAlreadyInOrder(string supplyName, int orderId);
         List<Supply> GetSuppliesByOrderId(int supplierOrderId);
         decimal GetOrderedQuantityBySupplierOrderId(int supplierOrderId, string supplyId);
+        bool UpdateStatusOrderAndPayment(int supplierOrderId,byte status, decimal totalPayment);
+        bool AreAnySuppliesInOrder(int supplierOrderId);
+        bool DeleteSupplyFromOrder(string supplyName, int orderId);
+        bool UpdateSupplyAmountInOrder(decimal  amount, int orderCode, string supplyName);
     }
 }
