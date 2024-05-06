@@ -21,6 +21,8 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool GetCounterOfProduct(string productId);
         bool IsRegisterInDatabase(string productId, string internalOrderCode);
         bool IncreaseAmount(string productId, string internalOrderCode);
-        bool InternalOrderTransaction(string internalOrderCode);
+        bool CancelInternalOrder(string internalOrderCode);
+        int SaveInternalOrder(string internalOrderCode);
+        int GetTotalExternalProduct (string productId); 
     }
 }
