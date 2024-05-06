@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private string orderCode;
         private int rowAdded = 0;
         private int columnsAdded = 0;
-        private string waiterEmailClass = "lalocel09@gmail.com"; //Cambiar por singleton
+        private string waiterEmail = UserSingleton.Instance.Email;
 
         public RegisterInternalOrderView()
         {
@@ -37,7 +38,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                //Mostrar mensaje de que no hay prodcutos registrados en la base
+                DialogManager.ShowErrorMessageBox("No hay productos registrados");
             }
         }
 
@@ -59,7 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                //Mostrar mensaje avisando que ha ocurrido un problema sql
+                DialogManager.ShowDataBaseErrorMessageBox();
             }
         }
 
@@ -101,7 +102,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                 date = date,
                 time = time,
                 total = 0,
-                waiterEmail = waiterEmailClass
+                waiterEmail = this.waiterEmail
             };
             return newInternalOrder;
         }

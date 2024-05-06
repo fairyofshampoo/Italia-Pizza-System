@@ -210,7 +210,7 @@
             <PropertyRef Name="supplyOrderCode" />
           </Key>
           <Property Name="supplyOrderCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="quantityOrdered" Type="int" Nullable="false" />
+          <Property Name="quantityOrdered" Type="decimal" Precision="6" Scale="3" />
           <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="supplierOrderId" Type="int" Nullable="false" />
         </EntityType>
@@ -853,7 +853,7 @@
             <PropertyRef Name="supplyOrderCode" />
           </Key>
           <Property Name="supplyOrderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="quantityOrdered" Type="Int32" Nullable="false" />
+          <Property Name="quantityOrdered" Type="Decimal" Precision="6" Scale="3" />
           <Property Name="supplyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="supplierOrderId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SupplierOrder" Relationship="Self.FK_SupplierOrderId" FromRole="SupplyOrder" ToRole="SupplierOrder" />
