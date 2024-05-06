@@ -70,6 +70,7 @@
     <Compile Include="ApplicationLayer\Constants.cs" />
     <Compile Include="ApplicationLayer\DialogManager.cs" />
     <Compile Include="ApplicationLayer\Encription.cs" />
+    <Compile Include="ApplicationLayer\DiacriticsUtilities.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
     <Compile Include="ApplicationLayer\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Validations.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupply.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupplyOrder.cs" />
     <Compile Include="DataLayer\DAO\InternalOrderDAO.cs" />
     <Compile Include="DataLayer\DAO\RecipeDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
     <Compile Include="DataLayer\DAO\ProductDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplyDAO.cs" />
+    <Compile Include="DataLayer\DAO\SupplyOrderDAO.cs" />
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -185,6 +188,9 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml.cs">
       <DependentUpon>SupplyOrderAddUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderRemoveUC.xaml.cs">
+      <DependentUpon>SupplyOrderRemoveUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
       <DependentUpon>SupplyOrderView.xaml</DependentUpon>
@@ -300,6 +306,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderRemoveUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -511,6 +521,9 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\goBackIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
@@ -521,7 +534,6 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\goBackIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

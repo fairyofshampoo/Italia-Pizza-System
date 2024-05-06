@@ -143,7 +143,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void SearchSupplierByArea(SupplyArea area)
         {
             SupplierDAO supplierDAO = new SupplierDAO();
-            List<Supplier> suppliers = supplierDAO.SearchProductByArea(area.area_name);
+            List<Supplier> suppliers = supplierDAO.SearchSupplierByArea(area.area_name);
             ShowSuppliers(suppliers);
         }
 
@@ -169,6 +169,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             string searchText = txtSearchBar.Text;
             if(searchText.Length > 3)
             {
+
                 SearchSupplierByName(searchText);
             }
         }
@@ -176,7 +177,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void SearchSupplierByName(string searchText)
         {
             SupplierDAO supplierDAO = new SupplierDAO();
-            List<Supplier> suppliers = supplierDAO.SearchProductByName(searchText);
+            List<Supplier> suppliers = supplierDAO.SearchSupplierByName(searchText);
             ShowSuppliers(suppliers);
         }
 

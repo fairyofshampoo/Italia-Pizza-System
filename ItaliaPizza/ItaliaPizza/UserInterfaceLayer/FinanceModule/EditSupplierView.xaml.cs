@@ -258,7 +258,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 SupplierDAO supplierDAO = new SupplierDAO();
 
-                if (supplierDAO.ChangeStatus(supplierEmail, Constants.ACTIVE_STATUS))
+                if (supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
                     NavigationService.GoBack();
@@ -279,7 +279,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 SupplierDAO supplierDAO = new SupplierDAO();
 
-                if(supplierDAO.ChangeStatus(supplierEmail, Constants.INACTIVE_STATUS))
+                if(supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
                     NavigationService.GoBack();
@@ -289,6 +289,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                     DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
                 }
             }
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

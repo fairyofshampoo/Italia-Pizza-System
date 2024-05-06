@@ -16,7 +16,19 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="600">
-                    <Label Content="Edición de proveedor" Foreground="White" FontWeight="SemiBold" FontSize="40" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                    <Grid>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="50" Margin="5,5,5,0"
+                                BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                    </Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Content="Edición de proveedor" Foreground="White" FontWeight="SemiBold" FontSize="40" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                    </Grid>
+                    
                     <Canvas HorizontalAlignment="Center">
                         <Line X1="-170" Y1="-10" X2="170" Y2="-10" Stroke="#ff7b00" StrokeThickness="3"/>
                     </Canvas>

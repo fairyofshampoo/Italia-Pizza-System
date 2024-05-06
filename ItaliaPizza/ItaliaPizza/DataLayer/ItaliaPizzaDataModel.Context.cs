@@ -48,13 +48,13 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
     
-        public virtual int ReduceIngredients(string internalOrderCode)
+        public virtual int ReduceIngredientsV10(string internalOrderCode)
         {
             var internalOrderCodeParameter = internalOrderCode != null ?
                 new ObjectParameter("internalOrderCode", internalOrderCode) :
                 new ObjectParameter("internalOrderCode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceIngredients", internalOrderCodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceIngredientsV10", internalOrderCodeParameter);
         }
     }
 }

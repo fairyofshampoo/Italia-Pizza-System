@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -24,13 +26,41 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplyOrderView : Page
     {
         private Supplier supplierData;
+        private bool isAnUpdate;
+        private int orderId;
+        private float totalPayment;
         public SupplyOrderView()
         {
             InitializeComponent();
             GetSupplies();
         }
 
-        public void SetSupplier(Supplier supplier)
+        public void SetSupplyOrderData(SupplierOrder supplierOrder, bool isAnUpdate)
+        {
+            this.isAnUpdate = isAnUpdate;
+            SetSupplier(supplierOrder.Supplier);
+
+            if (isAnUpdate)
+            {
+                SetOrderSupplies();
+            } else {
+
+                GenerateSupplierOrder();
+            }
+        }
+
+        private void SetOrderSupplies()
+        {
+            //sacar datos de la orden y mostrarlos
+            //for each ShowSupplyInResume()
+        }
+
+        private void ShowSupplyInResume(Supply supply)
+        {
+
+        }
+
+        private void SetSupplier(Supplier supplier)
         {
             lblSupplierName.Text = supplier.manager + ": " + supplier.companyName;
             StringBuilder supplyAreasText = new StringBuilder();
@@ -44,6 +74,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             lblSupplyArea.Content = supplyAreasText.ToString();
             this.supplierData = supplier;
         }
+        private void CalculateTotalPayment()
+        {
+
+        }
+
         private void GetSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
@@ -51,7 +86,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             if(availableSupplies.Count > 0 )
             {
-                SetSuppliesInPage(availableSupplies);
+                ShowSupplies(availableSupplies);
+
             } else
             {
                 ShowNoSuppliesMessage();
@@ -67,8 +103,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             suppliesListView.Items.Add(lblNoSupplies);
         }
 
-        private void SetSuppliesInPage(List<Supply> suppliesList)
+        private void ShowSupplies(List<Supply> suppliesList)
         {
+            suppliesListView.Items.Clear();
             SupplyOrderAddUC supplyUC = new SupplyOrderAddUC();
             supplyUC.SupplyOrderView = this;
             supplyUC.SetTitleData();
@@ -99,7 +136,66 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
+            string searchText = txtSearchBar.Text;
+            if (searchText.Length > 3)
+            {
+                SearchSupplyByName(searchText);
 
+            } else
+            {
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    GetSupplies();
+                }
+            }
+        }
+
+        private void SearchSupplyByName(string searchText)
+        {
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
+            ShowSupplies(supplies);
+        }
+
+        public void AddSupplyToOrder(Supply supply)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            string supplyName = supply.name;
+            bool result = supplyOrderDAO.AddSupplyToOrder(supplyName, orderId);
+            if (result)
+            {
+                ShowSupplyInResume(supply);
+            }
+        }
+
+        private void GenerateSupplierOrder()
+        {
+            SupplyOrderDAO supplierDAO = new SupplyOrderDAO();
+            int result = supplierDAO.AddSupplierOrder(SetNewSupplierOrder());
+            if(result != Constants.UNSUCCESSFUL_RESULT || result != Constants.EXCEPTION_RESULT)
+            {
+                orderId = result;
+            } else
+            {
+                DialogManager.ShowDataBaseErrorMessageBox();
+            }
+        }
+
+        private SupplierOrder SetNewSupplierOrder()
+        {
+            DateTime currentDate = DateTime.Today;
+            TimeSpan time = new TimeSpan(currentDate.Hour, currentDate.Minute, currentDate.Second);
+            SupplierOrder newSupplierOrder = new SupplierOrder()
+            {
+                status = Constants.INACTIVE_STATUS,
+                date = currentDate,
+                time = time,
+                total = 0,
+                modificationDate = currentDate,
+                supplierId = supplierData.email,
+            };
+
+            return newSupplierOrder;
         }
     }
 }

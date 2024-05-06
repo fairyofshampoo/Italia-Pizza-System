@@ -34,8 +34,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnSupplyOrder_Click(object sender, RoutedEventArgs e)
         {
+            bool isAnUpdate = false;
+            SupplierOrder supplierOrder = new SupplierOrder();
+            supplierOrder.Supplier = SupplierData;
             SupplyOrderView supplyOrderView = new SupplyOrderView();
-            supplyOrderView.SetSupplier(SupplierData);
+            supplyOrderView.SetSupplyOrderData(supplierOrder, isAnUpdate);
             SuppliersView.NavigationService.Navigate(supplyOrderView);
         }
 
@@ -67,6 +70,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             lblSupplyArea.Content = supplyAreasText.ToString();
             SupplierData = supplier;
+        }
+
+        private void Supplier_Click(object sender, MouseButtonEventArgs e)
+        {
+            //historial de pedidos del proveedor
         }
     }
 }
