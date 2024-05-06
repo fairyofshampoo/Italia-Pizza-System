@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 {
@@ -23,26 +25,62 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
     /// </summary>
     public partial class RecipeEditView : Page
     {
+        Recipe recipeSelected;
+
         public RecipeEditView(Recipe recipe, List<Supply> recipeSupplies)
         {
             InitializeComponent();
+            recipeSelected = recipe;
             SetModifyRecipe(recipe);
             SetRecipeSupplies(recipeSupplies);
+            SetAvailableSupplies(recipeSupplies);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ValidateFields())
+            {
+                recipeSelected.description = txtDescription.Text;
+                EditRecipe(recipeSelected);                
+            }
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("¿Desea eliminar la receta?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                RecipeDAO recipeDAO = new RecipeDAO();
+
+                if (recipeDAO.ChangeStatus(recipeSelected.recipeCode, Constants.INACTIVE_STATUS))
+                {
+                    DialogManager.ShowSuccessMessageBox("Receta actualizada exitosamente");
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar la receta");
+                }
+            }
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("¿Desea activar la receta?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                RecipeDAO recipeDAO = new RecipeDAO();
+
+                if (recipeDAO.ChangeStatus(recipeSelected.recipeCode, Constants.ACTIVE_STATUS))
+                {
+                    DialogManager.ShowSuccessMessageBox("Receta actualizada exitosamente");
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar la receta");
+                }
+            }
         }
 
         private void btnAddSupply_Click(object sender, RoutedEventArgs e)
@@ -52,7 +90,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 System.Windows.Controls.CheckBox selectedCheckBox = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>().
                                                                     FirstOrDefault(c => c.IsChecked == true);
                 Supply selectedSupply = selectedCheckBox.Tag as Supply;
-                selectedSupply.amount = int.Parse(txtAmount.Text);
+                selectedSupply.amount = decimal.Parse(txtAmount.Text);
 
                 SupplyUC supplyUC = new SupplyUC();
                 supplyUC.Tag = selectedSupply;
@@ -86,6 +124,11 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             if (recipe.status == Constants.INACTIVE_STATUS)
             {
                 txtStatus.Text = "Inactiva";
+                btnDesactive.IsEnabled = false;
+                btnDesactive.Visibility = Visibility.Hidden;
+
+                btnActive.IsEnabled = true;
+                btnActive.Visibility = Visibility.Visible;
             }
             else
             {
@@ -114,7 +157,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             check.Unchecked += CheckBox_Unchecked;
             AvailableSuppliesWrapPanel.Children.Add(check);
         }
-       
+
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.CheckBox checkBox = sender as System.Windows.Controls.CheckBox;
@@ -149,7 +192,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             lblSupplyName.Content = supply.name;
             lblMeasurementUnit.Content = supply.measurementUnit;
         }
-       
+
         private void CleanSupplySelectedArea()
         {
             txtAmount.BorderBrush = System.Windows.Media.Brushes.Transparent;
@@ -158,17 +201,56 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             SupplySelectedGrid.IsEnabled = false;
         }
 
-        private void SetAvailableSupplies()
+        private void SetAvailableSupplies(List<Supply> recipeSupplies)
         {
-            
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> allSupplies = supplyDAO.GetSuppliesByStatus(true);
+
+            var suppliesNotInRecipe = allSupplies.Where(supply => !recipeSupplies
+                                     .Any(excluded => excluded.name == supply.name)).ToList();
+
+            foreach (Supply supply in suppliesNotInRecipe)
+            {
+                AddSupplyToWrapPanel(supply);
+            }
+
         }
 
         private void EditRecipe(Recipe recipe)
         {
-            
-        }
+            RecipeDAO recipeDAO = new RecipeDAO();
 
-        
+            List<Supply> suppliesSelected = GetSuppliesFromListBox();
+
+            if (AreSuppliesActive(suppliesSelected))
+            {
+                List<RecipeSupply> recipeSupplies = GenerateRecipeSupplies(suppliesSelected);
+
+                if (recipeDAO.EditRecipe(recipe))
+                {
+                    recipeDAO.DeleteRecipeSupplies(recipe.recipeCode);
+                    recipe.RecipeSupplies = recipeSupplies;
+
+                    if (recipeDAO.RegisterRecipeSupplies(recipe.recipeCode, recipeSupplies))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Registro exitoso");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
+                    }
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
+
+                }
+            }
+            else
+            {
+                DialogManager.ShowErrorMessageBox("Al menos un suministro está inactivo");
+            }
+        }
 
         private List<Supply> GetSuppliesFromListBox()
         {
@@ -180,7 +262,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 if (supplyUC != null)
                 {
                     Supply supply = supplyUC.Tag as Supply;
-                    supply.amount = (int)supplyUC.lblSupplyAmount.Content;
+                    supply.amount = (decimal?)supplyUC.lblSupplyAmount.Content;
                     suppliesSelected.Add(supply);
                 }
             }
@@ -237,7 +319,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 txtDescription.BorderBrush = Brushes.Red;
                 txtDescription.BorderThickness = new Thickness(2);
                 validateFields = false;
-            }           
+            }
 
             if (SuppliesSelectedListBox.Items.Count == 0)
             {

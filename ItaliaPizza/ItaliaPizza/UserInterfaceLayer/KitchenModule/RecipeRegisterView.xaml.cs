@@ -42,7 +42,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 System.Windows.Controls.CheckBox selectedCheckBox = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>().
                                                                     FirstOrDefault(c => c.IsChecked == true);
                 Supply selectedSupply = selectedCheckBox.Tag as Supply;
-                selectedSupply.amount = int.Parse(txtAmount.Text);
+                selectedSupply.amount = decimal.Parse(txtAmount.Text);
 
                 SupplyUC supplyUC = new SupplyUC();
                 supplyUC.Tag = selectedSupply;
@@ -101,58 +101,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 name = txtProductName.Text,
                 ProductId = product.productCode
             };
-        }
-
-        /* MÉTODO SIN ROLLBACK
-        private void RegisterRecipe(Recipe recipe)
-        {
-            RecipeDAO recipeDAO = new RecipeDAO();
-            ProductDAO productDAO = new ProductDAO();
-
-            if (productDAO.AddProduct(product))
-            {
-                if (!recipeDAO.AlreadyExistRecipe(recipe.name))
-                {
-                    if (recipeDAO.RegisterRecipe(recipe, product.productCode))
-                    {
-                        int idRecipe = recipeDAO.GetIdRecipe(recipe.name);
-                        recipe.recipeCode = idRecipe;
-                        List<Supply> suppliesSelected = GetSuppliesFromListBox();
-
-                        if (suppliesSelected != null)
-                        {
-                            List<RecipeSupply> recipeSupplies = GenerateRecipeSupplies(suppliesSelected);
-                            recipe.RecipeSupplies = recipeSupplies;
-
-                            if (idRecipe > 0)
-                            {
-                                if (recipeDAO.RegisterRecipeSupplies(recipe))
-                                {
-                                    DialogManager.ShowSuccessMessageBox("Registro exitoso");
-                                }
-                                else
-                                {
-                                    DialogManager.ShowErrorMessageBox("Error al registrar los ingredientes de la receta");
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        DialogManager.ShowErrorMessageBox("Error al registrar la receta");
-                    }
-                }
-                else
-                {
-                    DialogManager.ShowErrorMessageBox("La receta ya está registrada");
-                }
-            }
-            else
-            {
-                DialogManager.ShowErrorMessageBox("Error al registrar el producto");
-            }
-        }
-        */
+        }       
 
         private void RegisterRecipe(Recipe recipe)
         {
@@ -197,7 +146,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 if (supplyUC != null)
                 {
                     Supply supply = supplyUC.Tag as Supply;
-                    supply.amount = (int)supplyUC.lblSupplyAmount.Content;
+                    supply.amount = (decimal?)supplyUC.lblSupplyAmount.Content;
                     suppliesSelected.Add(supply);
                 }
             }
@@ -351,7 +300,4 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             return validateFields;
         }
     }
-
-
-
 }
