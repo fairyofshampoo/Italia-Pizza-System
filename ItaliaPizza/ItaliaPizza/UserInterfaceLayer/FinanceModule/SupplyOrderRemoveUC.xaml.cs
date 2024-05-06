@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.DataLayer;
+using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +38,25 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             txtAmount.FontSize = fontSize;
             txtName.FontSize = fontSize;
             txtUnit.FontSize = fontSize;
-            txtChangeAmount.Visibility = Visibility.Collapsed;
+            txtAmount.Visibility = Visibility.Visible;
+            brdChangeAmount.Visibility = Visibility.Collapsed;
             btnRemoveSupply.Visibility = Visibility.Hidden;
         }
+
         public void SetSupplyData(Supply supply)
         {
             txtAmount.Visibility = Visibility.Collapsed;
             supplyData = supply;
             txtName.Text = supply.name;
-            txtChangeAmount.Text = supply.amount.ToString();
+            txtChangeAmount.Text = GetAmountData();
             txtUnit.Text = supply.measurementUnit;
+        }
+
+        public string GetAmountData()
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            decimal orderedQuantity = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(this.SupplyOrderView.OrderId, supplyData.name);
+            return orderedQuantity.ToString();
         }
 
         private void BtnRemoveSupply_Click(object sender, RoutedEventArgs e)

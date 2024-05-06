@@ -15,7 +15,7 @@ namespace ItaliaPizza.DataLayer
     public partial class SupplyOrder
     {
         public int supplyOrderCode { get; set; }
-        public int quantityOrdered { get; set; }
+        public Nullable<decimal> quantityOrdered { get; set; }
         public string supplyId { get; set; }
         public int supplierOrderId { get; set; }
     

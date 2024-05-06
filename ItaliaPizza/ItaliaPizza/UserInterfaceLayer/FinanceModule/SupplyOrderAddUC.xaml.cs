@@ -52,7 +52,22 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnAddSupply_Click(object sender, RoutedEventArgs e)
         {
-            this.SupplyOrderView.AddSupplyToOrder(supplyData);
+            if (IsSupplyRegistered(this.supplyData.name))
+            {
+                this.SupplyOrderView.IncreaseAmount(supplyData);
+            } else
+            {
+
+                this.SupplyOrderView.AddSupplyToOrder(supplyData);
+            }
+            
+        }
+
+        private bool IsSupplyRegistered(string supplyName)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            bool isRegister = supplyOrderDAO.IsSupplyAlreadyInOrder(supplyName, this.SupplyOrderView.OrderId);
+            return isRegister;
         }
     }
 }
