@@ -152,14 +152,22 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //Eliminar todo de la base de datos con el internalordercode
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            internalOrderDAO.CancelInternalOrder(orderCode);
         }
 
         private void BtnSaveInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            //Cambiar el estado de la orden 
-            //Cambiar el estado de los productos 
-            //Reducir la cantidad de ingredientes
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int status = internalOrderDAO.SaveInternalOrder(orderCode);
+            if (status == 1)
+            {
+                Console.WriteLine("Se ha guardao");
+            }
+            else
+            {
+                Console.WriteLine("No se ha guardao");
+            }
         }
 
         private void BtnDeleteProduct_Click(object sender, RoutedEventArgs e)

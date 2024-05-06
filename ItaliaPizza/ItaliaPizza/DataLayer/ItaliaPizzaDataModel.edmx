@@ -207,9 +207,9 @@
         </EntityType>
         <EntityType Name="SupplyOrder">
           <Key>
-            <PropertyRef Name="supplyCode" />
+            <PropertyRef Name="supplyOrderCode" />
           </Key>
-          <Property Name="supplyCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplyOrderCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="quantityOrdered" Type="int" Nullable="false" />
           <Property Name="supplyId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="supplierOrderId" Type="int" Nullable="false" />
@@ -500,7 +500,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="ReduceIngredients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="ReduceIngredientsV10" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="internalOrderCode" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="VALIDATEINGREDIENTSAMOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
@@ -850,9 +850,9 @@
         </EntityType>
         <EntityType Name="SupplyOrder">
           <Key>
-            <PropertyRef Name="supplyCode" />
+            <PropertyRef Name="supplyOrderCode" />
           </Key>
-          <Property Name="supplyCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplyOrderCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="quantityOrdered" Type="Int32" Nullable="false" />
           <Property Name="supplyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="supplierOrderId" Type="Int32" Nullable="false" />
@@ -1222,7 +1222,7 @@
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="SupplyArea" EntitySet="SupplyAreas" />
           </AssociationSet>
-          <FunctionImport Name="ReduceIngredients">
+          <FunctionImport Name="ReduceIngredientsV10">
             <Parameter Name="internalOrderCode" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -1446,7 +1446,7 @@
           <EntitySetMapping Name="SupplyOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.SupplyOrder">
               <MappingFragment StoreEntitySet="SupplyOrder">
-                <ScalarProperty Name="supplyCode" ColumnName="supplyCode" />
+                <ScalarProperty Name="supplyOrderCode" ColumnName="supplyOrderCode" />
                 <ScalarProperty Name="quantityOrdered" ColumnName="quantityOrdered" />
                 <ScalarProperty Name="supplyId" ColumnName="supplyId" />
                 <ScalarProperty Name="supplierOrderId" ColumnName="supplierOrderId" />
@@ -1461,7 +1461,7 @@
               <ScalarProperty Name="area_id" ColumnName="SupplyArea_area_id" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="ReduceIngredients" FunctionName="ItaliaPizzaDBModel.Store.ReduceIngredients" />
+          <FunctionImportMapping FunctionImportName="ReduceIngredientsV10" FunctionName="ItaliaPizzaDBModel.Store.ReduceIngredientsV10" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

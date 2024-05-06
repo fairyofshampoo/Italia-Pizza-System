@@ -1,6 +1,8 @@
 ﻿using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -34,11 +36,56 @@ namespace ItaliaPizza.DataLayer.DAO
                                    .Add(internalOrderProduct);
                     databaseContext.SaveChanges();
                     operationStatus = true;
-                } catch (Exception ex)
+                } catch (Exception)
                 {
                     operationStatus = false;
                 }
             }
+            return operationStatus;
+        }
+
+        public bool CancelInternalOrder(string internalOrderCode)
+        {
+            bool operationStatus = false;
+
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                using (var transaction = databaseContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var InternalOrder = databaseContext.InternalOrders
+                                                           .Where(order => order.internalOrderId == internalOrderCode)
+                                                           .FirstOrDefault();
+                        if (InternalOrder != null)
+                        {
+                            databaseContext.InternalOrders.Remove(InternalOrder);
+                            databaseContext.SaveChanges();
+                            operationStatus = true;
+                        } else
+                        {
+                            operationStatus = false;
+                        }
+
+                        var InternalOrderProduct = databaseContext.InternalOrderProducts
+                                                                  .Where(products => products.internalOrderId == internalOrderCode)
+                                                                  .ToList();
+                        if(InternalOrderProduct != null)
+                        {
+                            databaseContext.InternalOrderProducts.RemoveRange(InternalOrderProduct);
+                        } else
+                        {
+                            operationStatus = false;
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+            }
+
             return operationStatus;
         }
 
@@ -173,6 +220,19 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplyForProduct;
         }
 
+        public int GetTotalExternalProduct(string productId)
+        {
+            int totalExternalProduct = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                totalExternalProduct = (int)databaseContext.Products
+                                           .Where(product => product.productCode == productId)
+                                           .Select(product => product.amount)
+                                           .FirstOrDefault();
+            }
+            return totalExternalProduct;
+        }
+
         public bool IncreaseAmount(string productId, string internalOrderCode)
         {
             bool operationStatus = false;
@@ -189,11 +249,6 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return operationStatus;
-        }
-
-        public bool InternalOrderTransaction(string internalOrderCode)
-        {
-            throw new NotImplementedException();
         }
 
         public bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode)
@@ -226,6 +281,20 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return isRegisterInDatabase;
+        }
+
+        public int SaveInternalOrder(string internalOrderCode)
+        {
+            int operationStatus = 0;
+
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    string query = "EXEC ReduceIngredientsV10 @internalOrderCode";
+                    databaseContext.Database.ExecuteSqlCommand(query, new SqlParameter("@internalOrderCode", internalOrderCode));
+                    operationStatus = 1;
+                }
+        
+            return operationStatus;
         }
     }
  
