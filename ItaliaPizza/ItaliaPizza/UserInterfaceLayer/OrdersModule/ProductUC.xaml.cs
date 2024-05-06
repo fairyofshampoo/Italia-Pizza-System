@@ -32,17 +32,32 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            int productLimit = GetNumberOfProducts(GetRecipeByProduct());
+            
+            if (ProductData.isExternal == 0)
+            {
+                RegisterInternalProduct();
+            }
+            else
+            {
+                RegisterExternalProduct();
+            }
+
+
+        }
+
+        private void RegisterInternalProduct()
+        {
             int productsAvailable = 0;
+            int productLimit = GetNumberOfProducts(GetRecipeByProduct());
             if (GetCountOfProduct())
             {
                 int productsOnHold = GetNumberOfProductsOnHold();
                 productsAvailable = productLimit - productsOnHold;
-            } else
+            }
+            else
             {
                 productsAvailable = productLimit;
             }
-
 
             if (productsAvailable > 0)
             {
@@ -53,6 +68,38 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                 Console.WriteLine("Ya no se pueden meter más productos");
                 //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
             }
+        }
+
+        private void RegisterExternalProduct()
+        {
+            int productsAvailable = 0;
+            int totalProducts = GetNumberOfExternalProducts();
+            if (GetCountOfProduct())
+            {
+                int productsOnHold = GetNumberOfProductsOnHold();
+                productsAvailable = totalProducts - productsOnHold;
+            } else
+            {
+                productsAvailable = totalProducts;
+            }
+
+            if (productsAvailable > 0)
+            {
+                AddProduct();
+            }
+            else
+            {
+                Console.WriteLine("Ya no se pueden meter más productos");
+                //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
+            }
+
+        }
+
+        private int GetNumberOfExternalProducts()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int productsAvailable = internalOrderDAO.GetTotalExternalProduct(ProductData.productCode);
+            return productsAvailable;
         }
 
         private int GetRecipeByProduct()
