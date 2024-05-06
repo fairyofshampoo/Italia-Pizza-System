@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.FinanceModule"
       mc:Ignorable="d" 
       d:DesignHeight="720.0" d:DesignWidth="1280.0">
-
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
@@ -14,13 +13,26 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-
                 <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="600">
-                    <Label Content="Proveedor nuevo" Foreground="White" FontSize="40" FontFamily="Times New Roman" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                    <Grid>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                Width="50" Height="50" Margin="5,5,5,0"
+                                BorderThickness="0" Click="BtnGoBack_Click"
+                                Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="../Resources/Icons/goBackIcon.png"
+                                           Stretch="UniformToFill">
+                                    </Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Content="Proveedor nuevo" Foreground="White" FontSize="40" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="5,5,5,0" />
+                    </Grid>
                     <Canvas HorizontalAlignment="Center">
                         <Line X1="-170" Y1="-10" X2="170" Y2="-10" Stroke="#ff7b00" StrokeThickness="3"/>
                     </Canvas>
-                    <Label Content="Complete los siguientes campos para registrar un nuevo proveedor:" Foreground="White" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" FontSize="16"></Label>
+                    <Label Content="Complete los siguientes campos para registrar un nuevo proveedor:" Foreground="White" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" FontSize="16"></Label>
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -33,60 +45,60 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Vertical" Grid.Column="0">
-                            <Label Content="* Nombre de la empresa" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Label Content="* Nombre de la empresa" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtCompanyName" FontSize="15" TextChanged="TxtCompanyName_TextChanged" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtCompanyName" FontSize="15" TextChanged="TxtCompanyName_TextChanged" FontWeight="Medium" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
-                            <Label x:Name="lblCompanyHint" Margin="20,0,0,0" Content="Por ejemplo: Coca-Cola" FontSize="10" Foreground="LightGray"></Label>
+                            <Label x:Name="lblCompanyHint" Margin="20,0,0,0" Content="Por ejemplo: Coca-Cola" FontSize="10" FontFamily="{StaticResource InterFont}" Foreground="LightGray"></Label>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Column="1">
-                            <Label Content="* Nombre del representante" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Label Content="* Nombre del representante" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrSupplierManager" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtManagerName" TextChanged="TxtManagerName_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtManagerName" TextChanged="TxtManagerName_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
-                            <Label x:Name="lblManagerHint"  Margin="20,0,0,0" Content="Por ejemplo: Juan Raúl Nuñez Mejía" FontSize="10" Foreground="LightGray"></Label>
+                            <Label x:Name="lblManagerHint" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0" Content="Por ejemplo: Juan Raúl Nuñez Mejía" FontSize="10" Foreground="LightGray"></Label>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
-                            <Label Content="* Área de abastecimiento" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
-                            <Label x:Name="lblSupplyAreasHint" Margin="20,0,0,0" Content="Selecciona todas las áreas que le abastece este proveedor" FontSize="10" Foreground="LightGray"></Label>
-                            <ListBox x:Name="SupplyAreaCheckboxList" Margin="20,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding SupplyAreas}" SelectionMode="Multiple">
+                            <Label Content="* Área de abastecimiento" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
+                            <Label x:Name="lblSupplyAreasHint" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0" Content="Selecciona todas las áreas que le abastece este proveedor" FontSize="10" Foreground="LightGray"></Label>
+                            <ListBox x:Name="SupplyAreaCheckboxList" Margin="20,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding SupplyAreas}" SelectionMode="Multiple" Background="LightGray">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding AreaName}" IsChecked="{Binding IsSelected}" />
+                                        <CheckBox Content="{Binding AreaName}" FontFamily="{StaticResource InterFont}" IsChecked="{Binding IsSelected}" />
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                            <Label Content="* Correo eletrónico" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Label Content="* Correo eletrónico" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtEmail" TextChanged="TxtEmail_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtEmail" TextChanged="TxtEmail_TextChanged" FontSize="15" FontWeight="Medium" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
-                            <Label x:Name="lblEmailHint" Margin="20,0,0,0" Content="Por ejemplo: juanrnmejia@coca-cola.com" FontSize="10" Foreground="LightGray"></Label>
+                            <Label x:Name="lblEmailHint" Margin="20,0,0,0" Content="Por ejemplo: juanrnmejia@coca-cola.com" FontFamily="{StaticResource InterFont}" FontSize="10" Foreground="LightGray"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2">
-                            <Label Content="* Teléfono" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,10,0,0"/>
+                            <Label Content="* Teléfono" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox x:Name="txtPhone" TextChanged="TxtPhone_TextChanged" FontSize="15" FontWeight="Medium" PreviewTextInput="TxtPhone_PreviewTextInput" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtPhone" FontFamily="{StaticResource InterFont}" TextChanged="TxtPhone_TextChanged" FontSize="15" FontWeight="Medium" PreviewTextInput="TxtPhone_PreviewTextInput" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                 </Border>
                             </Grid>
-                            <Label x:Name="lblPhoneHint" Margin="20,0,0,0" Content="Por ejemplo: 2282142649" FontSize="10" Foreground="LightGray"></Label>
+                            <Label x:Name="lblPhoneHint" Margin="20,0,0,0" Content="Por ejemplo: 2282142649" FontSize="10" FontFamily="{StaticResource InterFont}" Foreground="LightGray"></Label>
                         </StackPanel>
-                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="2" BorderThickness="0" Content="Registrar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand"  Margin="0,20,10,0"  HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnSave_Click">
+                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="2" BorderThickness="0" Content="Registrar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand"  Margin="0,20,10,0" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnSave_Click">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="#FF7B00"/>
@@ -94,7 +106,7 @@
                             </Button.Style>
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Width="120" Height="30" 
+                                    <Border Width="120" Height="40" 
                                             CornerRadius="10" Background="{TemplateBinding Background}">
                                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Border>
@@ -103,7 +115,7 @@
                         </Button>
                     </Grid>
                 </StackPanel>
-                <Image Source="../Resources/Images/Supplier.png" Stretch="Uniform" Opacity=".8" Grid.Column="1"/>
+                <Image Source="../Resources/Images/Supplier.png" Stretch="Uniform" Grid.Column="1"/>
             </Grid>
         </ScrollViewer>
     </Viewbox>

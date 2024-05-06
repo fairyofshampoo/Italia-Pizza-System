@@ -12,6 +12,8 @@ namespace ItaliaPizza.DataLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ItaliaPizzaDBEntities : DbContext
     {
@@ -45,6 +47,14 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+    
+        public virtual int ReduceIngredientsV10(string internalOrderCode)
+        {
+            var internalOrderCodeParameter = internalOrderCode != null ?
+                new ObjectParameter("internalOrderCode", internalOrderCode) :
+                new ObjectParameter("internalOrderCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceIngredientsV10", internalOrderCodeParameter);
+        }
     }
 }

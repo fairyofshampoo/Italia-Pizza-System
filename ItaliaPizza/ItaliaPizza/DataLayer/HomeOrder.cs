@@ -30,5 +30,6 @@ namespace ItaliaPizza.DataLayer
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeOrderProduct> HomeOrderProducts { get; set; }
+        public virtual StatusOrder StatusOrder { get; set; }
     }
 }

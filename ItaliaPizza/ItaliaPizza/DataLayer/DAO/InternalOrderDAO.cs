@@ -36,7 +36,7 @@ namespace ItaliaPizza.DataLayer.DAO
                                    .Add(internalOrderProduct);
                     databaseContext.SaveChanges();
                     operationStatus = true;
-                } catch (Exception ex)
+                } catch (Exception)
                 {
                     operationStatus = false;
                 }

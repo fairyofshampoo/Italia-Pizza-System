@@ -66,19 +66,20 @@ namespace ItaliaPizza.DataLayer.DAO
             return lastSuppliers;
         }
 
-        public List<Supplier> SearchProductByName(string name)
+        public List<Supplier> SearchSupplierByName(string name)
         {
             List<Supplier> suppliers = new List<Supplier> ();
             using(var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var suppliersDB = databaseContext.Suppliers
-                    .Where(s => s.manager.StartsWith(name))
-                    .Take(10)
-                    .ToList();
+                var suppliersDB = databaseContext.Suppliers.ToList();
 
-                if(suppliersDB != null)
+                var filteredSuppliers = suppliersDB.Where(s => DiacriticsUtilities.RemoveDiacritics(s.manager).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(name).ToUpper()))
+                                                 .Take(10)
+                                                 .ToList();
+
+                if (filteredSuppliers != null)
                 {
-                    foreach(var supplier in suppliersDB)
+                    foreach(var supplier in filteredSuppliers)
                     {
                         databaseContext.Entry(supplier)
                             .Collection(s => s.SupplyAreas)
@@ -90,7 +91,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return suppliers;
         }
 
-        public List<Supplier> SearchProductByArea(string area)
+        public List<Supplier> SearchSupplierByArea(string area)
         {
             List<Supplier> suppliers = new List<Supplier>();
 
@@ -112,7 +113,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return suppliers;
         }
 
-        public bool ChangeStatus(string email, int newStatus)
+        public bool ChangeSupplierStatus(string email, int newStatus)
         {
             bool succesfulChange = false;
             using(var databaseContext = new ItaliaPizzaDBEntities())

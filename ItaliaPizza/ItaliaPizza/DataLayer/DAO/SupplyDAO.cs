@@ -2,6 +2,7 @@
 using ItaliaPizza.DataLayer.DAO.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
-        public bool ChangeStatus(string name, int status)
+        public bool ChangeSupplyStatus(string name, int status)
         {
             bool successfulChange = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -115,34 +116,77 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return successfulUpdate;
         }
-
-        public Supply GetSupplyByName(string name)
+        
+        public List<Supply> GetSuppliesByStatus(bool status)
         {
-            Supply supplyFound = new Supply();
-
-            try
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                using (var databaseContext = new ItaliaPizzaDBEntities())
+                var supplies = databaseContext.Supplies
+                                              .Where(s => s.status == status)
+                                              .Include(s => s.SupplyArea)
+                                              .ToList();
+                if (supplies != null)
                 {
-                    Supply supply = databaseContext.Supplies.Find(name);
-
-                    if (supply != null)
+                    foreach (var supply in supplies)
                     {
-                        supplyFound.name = supply.name;
-                        supplyFound.amount = supply.amount;
-                        supply.measurementUnit = supply.measurementUnit;
-                        supplyFound.category = supply.category;
-                        supplyFound.status = supply.status;
+                        suppliesDB.Add(supply);
                     }
-
-                    databaseContext.SaveChanges();
                 }
             }
-            catch (ArgumentException argumentException)
+            return suppliesDB;            
+        }
+
+        public List<Supply> GetRecipeSupplies(int idRecipe)
+        {
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                throw argumentException;
+                var recipeSupplies = databaseContext.RecipeSupplies
+                                              .Where(r => r.recipeID == idRecipe)
+                                              .ToList();
+                if (recipeSupplies != null)
+                {
+                    foreach (var recipeSupply in recipeSupplies)
+                    {
+                        Supply supply = new Supply
+                        {
+                            name = recipeSupply.supplyId,
+                            category = recipeSupply.Supply.category,
+                            status = recipeSupply.Supply.status,
+                            //amount = (int)recipeSupply.supplyAmount, //cambiar a decimal en db
+                            measurementUnit = recipeSupply.Supply.measurementUnit,
+                        };
+                        suppliesDB.Add(supply);
+                    }
+                }
             }
-            return supplyFound;
-        }        
+            return suppliesDB;
+        }
+
+        public List<Supply> SearchSupplyByName(string name)
+        {
+            List<Supply> supplies = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var suppliesDB = databaseContext.Supplies.ToList();
+
+                var filteredSupplies = suppliesDB.Where(s => DiacriticsUtilities.RemoveDiacritics(s.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(name).ToUpper()))
+                                                 .Take(10)
+                                                 .ToList();
+
+                if (filteredSupplies != null)
+                {
+                    foreach (var supply in filteredSupplies)
+                    {
+                        databaseContext.Entry(supply)
+                            .Reference(s => s.SupplyArea)
+                            .Load();
+                        supplies.Add(supply);
+                    }
+                }
+            }
+            return supplies;
+        }
     }
 }
