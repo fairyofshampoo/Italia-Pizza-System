@@ -110,12 +110,35 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplyAdded;
         }
 
-
-
         public bool DeleteSupplierOrder(int supplierOrderId)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var orderToDelete = dbContext.SupplierOrders.FirstOrDefault(order => order.orderCode == supplierOrderId);
+                    if (orderToDelete != null)
+                    {
+                        dbContext.SupplierOrders.Remove(orderToDelete);
+                        dbContext.SaveChanges();
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al eliminar el pedido de proveedor: " + ex.Message);
+                    result = false;
+                }
+            }
+
+            return result;
         }
+
 
         public bool IsSupplyAlreadyInOrder(string supplyName, int orderId)
         {
@@ -154,6 +177,96 @@ namespace ItaliaPizza.DataLayer.DAO
             }
 
             return supplies;
+        }
+
+        public bool UpdateStatusOrderAndPayment(int supplierOrderId, byte status, decimal totalPayment)
+        {
+            bool isUpdated = false;
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var order = dbContext.SupplierOrders.FirstOrDefault(o => o.orderCode == supplierOrderId);
+
+                    if (order != null)
+                    {
+                        order.status = status;
+                        order.total = totalPayment;
+                        dbContext.SaveChanges();
+
+                        isUpdated = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    isUpdated = false;
+                    Console.WriteLine("Error al actualizar el estado del pedido y el pago: " + ex.Message);
+                }
+            }
+
+            return isUpdated;
+        }
+
+        public bool AreAnySuppliesInOrder(int supplierOrderId)
+        {
+            bool anySupplies = false;
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    anySupplies = dbContext.SupplyOrders.Any(s => s.supplierOrderId == supplierOrderId);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al verificar si hay suministros en el pedido: " + ex.Message);
+                }
+            }
+
+            return anySupplies;
+        }
+
+        public bool DeleteSupplyFromOrder(string supplyName, int orderId)
+        {
+            bool result = false;
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplyOrder = dbContext.SupplyOrders
+                                           .FirstOrDefault(so => so.supplyId == supplyName && so.supplierOrderId == orderId);
+
+                if (supplyOrder != null)
+                {
+                    dbContext.SupplyOrders.Remove(supplyOrder);
+                    dbContext.SaveChanges();
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public bool UpdateSupplyAmountInOrder(decimal amount, int orderCode, string supplyName)
+        {
+            bool result = false;
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplyOrder = dbContext.SupplyOrders
+                                           .FirstOrDefault(so => so.supplierOrderId == orderCode && so.supplyId == supplyName);
+
+                if (supplyOrder != null)
+                {
+                    supplyOrder.quantityOrdered = amount;
+                    dbContext.SaveChanges();
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
         }
 
     }

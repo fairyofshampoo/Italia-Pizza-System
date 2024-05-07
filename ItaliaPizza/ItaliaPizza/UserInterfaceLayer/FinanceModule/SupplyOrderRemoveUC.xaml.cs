@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -61,12 +62,55 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnRemoveSupply_Click(object sender, RoutedEventArgs e)
         {
+            RemoveSupply();
+        }
 
+        private void RemoveSupply()
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            if (supplyOrderDAO.DeleteSupplyFromOrder(supplyData.name, this.SupplyOrderView.OrderId))
+            {
+                this.SupplyOrderView.RemoveSupplyFromOrder(this);
+            }
         }
 
         private void TxtChangeAmountChanged(object sender, TextChangedEventArgs e)
         {
+            ResetTextBoxColors();
 
+            string amountText = txtChangeAmount.Text;
+
+            if (Validations.IsSupplyAmountValid(amountText))
+            {
+                decimal amount = decimal.Parse(amountText);
+                UpdateSupplyAmount(amount);
+            }
+            else
+            {
+                SetTextBoxColorsToRed();
+            }
+        }
+
+        private void ResetTextBoxColors()
+        {
+            txtAmount.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4C4C4C"));
+            txtName.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4C4C4C"));
+            txtUnit.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#4C4C4C"));
+            txtChangeAmount.Foreground = Brushes.Black;
+        }
+
+        private void SetTextBoxColorsToRed()
+        {
+            txtName.Foreground = Brushes.Red;
+            txtUnit.Foreground = Brushes.Red;
+            txtChangeAmount.Foreground = Brushes.Red;
+        }
+
+        private void UpdateSupplyAmount(decimal amount)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            int orderCode = this.SupplyOrderView.OrderId;
+            supplyOrderDAO.UpdateSupplyAmountInOrder(amount, orderCode, supplyData.name);
         }
     }
 }
