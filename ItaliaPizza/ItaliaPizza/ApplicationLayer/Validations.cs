@@ -33,6 +33,46 @@ namespace ItaliaPizza.ApplicationLayer
             return isValid && ValidateWithTimeout(name, nameRegex);
         }
 
+        public static bool IsTotalPaymentValid(string totalPayment)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(totalPayment))
+            {
+                isValid = false;
+            }
+            else if (!decimal.TryParse(totalPayment, out decimal paymentValue) || paymentValue <= 0)
+            {
+                isValid = false;
+            }
+
+            var totalPaymentRegex = new Regex("^\\d{0,8}(\\.\\d{0,2})?$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(totalPayment, totalPaymentRegex);
+        }
+
+        public static bool IsSupplyAmountValid(string amount)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(amount))
+            {
+                isValid = false;
+            }
+            else if (!decimal.TryParse(amount, out decimal paymentValue) || paymentValue <= 0)
+            {
+                isValid = false;
+            }
+
+            var amountRegex = new Regex("^\\d{0,3}(\\.\\d{0,3})?$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(amount, amountRegex);
+        }
+
         public static bool IsAddressValid(string address) 
         {
             int limitTime = 500;

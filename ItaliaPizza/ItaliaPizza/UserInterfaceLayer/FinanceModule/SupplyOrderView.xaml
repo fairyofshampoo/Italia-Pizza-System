@@ -62,7 +62,7 @@
                                                  Background="LightGray" BorderThickness="0" />
                                     </Border>
                                 </Grid>
-                                <Label Content="Ingrese el nombre del insumo" Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                                <Label Content="Ingrese el nombre del insumo a buscar" Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
                             </StackPanel>
                             <Border Grid.Row="1" Width="740" Height="400" Background="#D9D9D9">
                                 <ScrollViewer>
@@ -118,8 +118,10 @@
                                       StrokeThickness="2"/>
                             </Canvas>
                             <StackPanel Orientation="Horizontal" Width="480">
-                                <Label Content="Total a pagar: " Foreground="#FF7B00" FontWeight="Bold" FontSize="26" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0"/>
-                                <TextBlock x:Name="lblTotalPay" Text="$0.00"  FontWeight="Bold" Width="Auto" TextWrapping="NoWrap" HorizontalAlignment="Right" Foreground="Black" FontSize="30" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0"/>
+                                <Label x:Name="lblTotalPayment" Content="*Total a pagar: " Foreground="#FF7B00" FontWeight="Bold" FontSize="26" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0"/>
+                                <Border x:Name="brdChangeAmount" Margin="20,0,0,20" CornerRadius="10" BorderBrush="White" BorderThickness="4" Width="Auto" Height="50" Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBox x:Name="txtTotalPayment" TextChanged="TxtTotalPaymentChanged" Text="0.00" Background="White" FontWeight="Bold" Width="150" TextWrapping="NoWrap" HorizontalAlignment="Center" Padding="10,0,0,0" Foreground="Black" FontSize="30" FontFamily="{StaticResource InterFont}"/>
+                                </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button x:Name="btnCancel" BorderThickness="0" Content="Cancelar"
