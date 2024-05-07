@@ -101,16 +101,12 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private InternalOrder CreateInternalOrder()
         {
-            DateTime dateTime = DateTime.Now;
-            TimeSpan time = new TimeSpan(dateTime.Hour, dateTime.Minute, dateTime.Second);
-            var date = dateTime.Date;
-
+            DateTime currentDate = DateTime.Today;
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
-                status = 0, 
-                date = date,
-                time = time,
+                status = 0,
+                date = currentDate,
                 total = 0,
                 waiterEmail = this.waiterEmail
             };
