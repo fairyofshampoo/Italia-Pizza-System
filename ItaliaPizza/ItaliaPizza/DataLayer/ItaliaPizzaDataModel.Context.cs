@@ -34,8 +34,6 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<ColonyCatalog> ColonyCatalogs { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<HomeOrder> HomeOrders { get; set; }
-        public virtual DbSet<HomeOrderProduct> HomeOrderProducts { get; set; }
         public virtual DbSet<InternalOrder> InternalOrders { get; set; }
         public virtual DbSet<InternalOrderProduct> InternalOrderProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }

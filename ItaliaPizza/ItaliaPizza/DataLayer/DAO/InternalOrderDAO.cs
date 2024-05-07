@@ -269,7 +269,7 @@ namespace ItaliaPizza.DataLayer.DAO
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var exist = databaseContext.InternalOrders
-                                           .Where(order => order.internalOrderId == internalOrderCode) //Cambiar en la base de datos el tipo de dato
+                                           .Where(order => order.internalOrderId == internalOrderCode)
                                            .ToList();
                 if (exist != null)
                 {

@@ -223,7 +223,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 status = Constants.INACTIVE_STATUS,
                 date = currentDate,
-                time = time,
                 total = 0,
                 modificationDate = currentDate,
                 supplierId = supplierData.email,
