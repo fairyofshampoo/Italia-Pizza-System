@@ -27,7 +27,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     {
         private Supplier supplierData;
         private bool isAnUpdate;
-        private int orderId;
+        public int OrderId { get; set; }
         private float totalPayment;
         public SupplyOrderView()
         {
@@ -39,6 +39,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             this.isAnUpdate = isAnUpdate;
             SetSupplier(supplierOrder.Supplier);
+            SetResumeOrderTitle();
 
             if (isAnUpdate)
             {
@@ -49,15 +50,33 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             }
         }
 
-        private void SetOrderSupplies()
+        private void SetResumeOrderTitle()
         {
-            //sacar datos de la orden y mostrarlos
-            //for each ShowSupplyInResume()
+            orderListView.Items.Clear();
+            SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
+            supplyCard.SupplyOrderView = this;
+            supplyCard.SetTitleData();
+            orderListView.Items.Add(supplyCard);
         }
 
-        private void ShowSupplyInResume(Supply supply)
+        private void SetOrderSupplies()
         {
+            orderListView.Items.Clear();
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(this.OrderId);
+            foreach (Supply supply in suppliesInOrder)
+            {
+                AddSupplyToResume(supply);
+                Console.WriteLine(supply.name);
+            }
+        }
 
+        private void AddSupplyToResume(Supply supply)
+        {
+            SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
+            supplyCard.SupplyOrderView = this;
+            supplyCard.SetSupplyData(supply);
+            orderListView.Items.Add(supplyCard);
         }
 
         private void SetSupplier(Supplier supplier)
@@ -161,10 +180,24 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
             string supplyName = supply.name;
-            bool result = supplyOrderDAO.AddSupplyToOrder(supplyName, orderId);
+            decimal defaultAmount = 1;
+            bool result = supplyOrderDAO.AddSupplyToOrder(supplyName, OrderId, defaultAmount);
+            Console.WriteLine("RESULTADO DE ADD SUPPLY TO ORDER " + result.ToString());
             if (result)
             {
-                ShowSupplyInResume(supply);
+                SetOrderSupplies();
+            }
+        }
+
+        public void IncreaseAmount(Supply supply)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            bool result = supplyOrderDAO.IncreaseSupplyAmountInOrder(supply, OrderId);
+
+            if (result)
+            {
+                SetResumeOrderTitle();
+                SetOrderSupplies();
             }
         }
 
@@ -174,7 +207,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             int result = supplierDAO.AddSupplierOrder(SetNewSupplierOrder());
             if(result != Constants.UNSUCCESSFUL_RESULT || result != Constants.EXCEPTION_RESULT)
             {
-                orderId = result;
+                Console.WriteLine("CODIGO ORDEN: " + result);
+                this.OrderId = result;
             } else
             {
                 DialogManager.ShowDataBaseErrorMessageBox();

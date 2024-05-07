@@ -15,8 +15,8 @@
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="txtName" Grid.Column="0" Text="Nombre" Margin="5,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <TextBlock x:Name="txtAmount" Grid.Column="1" Text="Cantidad" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <Border CornerRadius="10" BorderBrush="White" BorderThickness="4" Width="150" Height="50" Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock x:Name="txtAmount" Visibility="Collapsed" Grid.Column="1" Text="Cantidad" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <Border x:Name="brdChangeAmount" CornerRadius="10" BorderBrush="White" BorderThickness="4" Width="150" Height="50" Grid.Column="1" VerticalAlignment="Center">
                 <TextBox x:Name="txtChangeAmount" TextChanged="TxtChangeAmountChanged" FontSize="30" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Background="White" BorderThickness="0" />
             </Border>
             <TextBlock x:Name="txtUnit" Grid.Column="2" Text="Unidad de medida" Margin="10,10,0,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
@@ -29,7 +29,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="border" Value="#228B22" />
+                                <Setter Property="Background" TargetName="border" Value="DarkRed" />
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="Background" TargetName="border" Value="Black" />
