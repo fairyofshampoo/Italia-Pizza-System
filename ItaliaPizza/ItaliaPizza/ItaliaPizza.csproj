@@ -117,12 +117,6 @@
     <Compile Include="DataLayer\Employee.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\HomeOrder.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\HomeOrderProduct.cs">
-      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\InternalOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
