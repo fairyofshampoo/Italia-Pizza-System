@@ -24,5 +24,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool CancelInternalOrder(string internalOrderCode);
         int SaveInternalOrder(string internalOrderCode);
         int GetTotalExternalProduct (string productId); 
+        List<InternalOrderProduct> GetAllInternalProductsByOrden(string internalOrderCode);
     }
 }

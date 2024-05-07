@@ -76,28 +76,6 @@
           <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="HomeOrder">
-          <Key>
-            <PropertyRef Name="homeOrderId" />
-          </Key>
-          <Property Name="homeOrderId" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="status" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
-          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="clientName" Type="varchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HomeOrderProduct">
-          <Key>
-            <PropertyRef Name="OrderProductId" />
-          </Key>
-          <Property Name="OrderProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="amount" Type="int" Nullable="false" />
-          <Property Name="homeOrderId" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="isConfirmed" Type="tinyint" Nullable="false" />
-          <Property Name="productId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="addressId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="InternalOrder">
           <Key>
             <PropertyRef Name="internalOrderId" />
@@ -107,7 +85,9 @@
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="waiterEmail" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="waiterEmail" Type="varchar" MaxLength="30" />
+          <Property Name="clientEmail" Type="varchar" MaxLength="30" />
+          <Property Name="addressId" Type="int" />
         </EntityType>
         <EntityType Name="InternalOrderProduct">
           <Key>
@@ -227,16 +207,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AddressId">
-          <End Role="Address" Type="Self.Address" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+        <Association Name="FK_AddressID">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="addressId" />
             </Principal>
-            <Dependent Role="HomeOrderProduct">
+            <Dependent Role="InternalOrder">
               <PropertyRef Name="addressId" />
             </Dependent>
           </ReferentialConstraint>
@@ -255,17 +233,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientName">
-          <End Role="Client" Type="Self.Client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
+        <Association Name="FK_ClientEmail">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="email" />
             </Principal>
-            <Dependent Role="HomeOrder">
-              <PropertyRef Name="clientName" />
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="clientEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -278,32 +254,6 @@
             </Principal>
             <Dependent Role="CashierLog">
               <PropertyRef Name="employeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HomeOrderId">
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="1" />
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HomeOrder">
-              <PropertyRef Name="homeOrderId" />
-            </Principal>
-            <Dependent Role="HomeOrderProduct">
-              <PropertyRef Name="homeOrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HomeProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="productCode" />
-            </Principal>
-            <Dependent Role="HomeOrderProduct">
-              <PropertyRef Name="productId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -374,18 +324,6 @@
             </Principal>
             <Dependent Role="RecipeSupply">
               <PropertyRef Name="supplyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusOrder_HomeOrders">
-          <End Role="StatusOrder" Type="Self.StatusOrder" Multiplicity="1" />
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrder">
-              <PropertyRef Name="statusId" />
-            </Principal>
-            <Dependent Role="HomeOrder">
-              <PropertyRef Name="status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -486,7 +424,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_waiterEmail">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
@@ -513,8 +451,6 @@
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColonyCatalog" EntityType="Self.ColonyCatalog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HomeOrder" EntityType="Self.HomeOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HomeOrderProduct" EntityType="Self.HomeOrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InternalOrder" EntityType="Self.InternalOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InternalOrderProduct" EntityType="Self.InternalOrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -531,29 +467,21 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Account" EntitySet="Account" />
           </AssociationSet>
-          <AssociationSet Name="FK_AddressId" Association="Self.FK_AddressId">
+          <AssociationSet Name="FK_AddressID" Association="Self.FK_AddressID">
             <End Role="Address" EntitySet="Address" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientAddress" Association="Self.FK_ClientAddress">
             <End Role="Client" EntitySet="Client" />
             <End Role="Address" EntitySet="Address" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
+          <AssociationSet Name="FK_ClientEmail" Association="Self.FK_ClientEmail">
             <End Role="Client" EntitySet="Client" />
-            <End Role="HomeOrder" EntitySet="HomeOrder" />
+            <End Role="InternalOrder" EntitySet="InternalOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeForCashier" Association="Self.FK_EmployeeForCashier">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="CashierLog" EntitySet="CashierLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
-            <End Role="HomeOrder" EntitySet="HomeOrder" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_InternalOrderId" Association="Self.FK_InternalOrderId">
             <End Role="InternalOrder" EntitySet="InternalOrder" />
@@ -574,10 +502,6 @@
           <AssociationSet Name="FK_Recipeupsuppl_02FC7413" Association="Self.FK_Recipeupsuppl_02FC7413">
             <End Role="Supply" EntitySet="Supply" />
             <End Role="RecipeSupply" EntitySet="RecipeSupply" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusOrder_HomeOrders" Association="Self.FK_StatusOrder_HomeOrders">
-            <End Role="StatusOrder" EntitySet="StatusOrder" />
-            <End Role="HomeOrder" EntitySet="HomeOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_StatusOrder_InternalOrders" Association="Self.FK_StatusOrder_InternalOrders">
             <End Role="StatusOrder" EntitySet="StatusOrder" />
@@ -638,7 +562,7 @@
           <Property Name="colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="clientId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_AddressId" FromRole="Address" ToRole="HomeOrderProduct" />
+          <NavigationProperty Name="InternalOrders" Relationship="Self.FK_AddressID" FromRole="Address" ToRole="InternalOrder" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientAddress" FromRole="Address" ToRole="Client" />
         </EntityType>
         <EntityType Name="CashierLog">
@@ -671,7 +595,7 @@
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK_ClientAddress" FromRole="Client" ToRole="Address" />
-          <NavigationProperty Name="HomeOrders" Relationship="Self.FK_ClientName" FromRole="Client" ToRole="HomeOrder" />
+          <NavigationProperty Name="InternalOrders" Relationship="Self.FK_ClientEmail" FromRole="Client" ToRole="InternalOrder" />
         </EntityType>
         <EntityType Name="ColonyCatalog">
           <Key>
@@ -697,34 +621,6 @@
           <NavigationProperty Name="CashierLogs" Relationship="Self.FK_EmployeeForCashier" FromRole="Employee" ToRole="CashierLog" />
           <NavigationProperty Name="InternalOrders" Relationship="Self.FK_waiterEmail" FromRole="Employee" ToRole="InternalOrder" />
         </EntityType>
-        <EntityType Name="HomeOrder">
-          <Key>
-            <PropertyRef Name="homeOrderId" />
-          </Key>
-          <Property Name="homeOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="clientName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientName" FromRole="HomeOrder" ToRole="Client" />
-          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrder" ToRole="HomeOrderProduct" />
-          <NavigationProperty Name="StatusOrder" Relationship="Self.FK_StatusOrder_HomeOrders" FromRole="HomeOrder" ToRole="StatusOrder" />
-        </EntityType>
-        <EntityType Name="HomeOrderProduct">
-          <Key>
-            <PropertyRef Name="OrderProductId" />
-          </Key>
-          <Property Name="OrderProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="amount" Type="Int32" Nullable="false" />
-          <Property Name="homeOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="isConfirmed" Type="Byte" Nullable="false" />
-          <Property Name="productId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="addressId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_AddressId" FromRole="HomeOrderProduct" ToRole="Address" />
-          <NavigationProperty Name="HomeOrder" Relationship="Self.FK_HomeOrderId" FromRole="HomeOrderProduct" ToRole="HomeOrder" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_HomeProductId" FromRole="HomeOrderProduct" ToRole="Product" />
-        </EntityType>
         <EntityType Name="InternalOrder">
           <Key>
             <PropertyRef Name="internalOrderId" />
@@ -734,7 +630,11 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="waiterEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="waiterEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="clientEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="addressId" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_AddressID" FromRole="InternalOrder" ToRole="Address" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientEmail" FromRole="InternalOrder" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_waiterEmail" FromRole="InternalOrder" ToRole="Employee" />
           <NavigationProperty Name="InternalOrderProducts" Relationship="Self.FK_InternalOrderId" FromRole="InternalOrder" ToRole="InternalOrderProduct" />
           <NavigationProperty Name="StatusOrder" Relationship="Self.FK_StatusOrder_InternalOrders" FromRole="InternalOrder" ToRole="StatusOrder" />
@@ -763,7 +663,6 @@
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="HomeOrderProducts" Relationship="Self.FK_HomeProductId" FromRole="Product" ToRole="HomeOrderProduct" />
           <NavigationProperty Name="InternalOrderProducts" Relationship="Self.FK_ProductId" FromRole="Product" ToRole="InternalOrderProduct" />
           <NavigationProperty Name="Recipes" Relationship="Self.FK_ProductId_Recipe" FromRole="Product" ToRole="Recipe" />
         </EntityType>
@@ -796,7 +695,6 @@
           </Key>
           <Property Name="statusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HomeOrders" Relationship="Self.FK_StatusOrder_HomeOrders" FromRole="StatusOrder" ToRole="HomeOrder" />
           <NavigationProperty Name="InternalOrders" Relationship="Self.FK_StatusOrder_InternalOrders" FromRole="StatusOrder" ToRole="InternalOrder" />
         </EntityType>
         <EntityType Name="Supplier">
@@ -871,16 +769,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AddressId">
-          <End Role="Address" Type="Self.Address" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
+        <Association Name="FK_AddressID">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="addressId" />
             </Principal>
-            <Dependent Role="HomeOrderProduct">
+            <Dependent Role="InternalOrder">
               <PropertyRef Name="addressId" />
             </Dependent>
           </ReferentialConstraint>
@@ -911,22 +807,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientName">
-          <End Role="Client" Type="Self.Client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
+        <Association Name="FK_ClientEmail">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="email" />
             </Principal>
-            <Dependent Role="HomeOrder">
-              <PropertyRef Name="clientName" />
+            <Dependent Role="InternalOrder">
+              <PropertyRef Name="clientEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_waiterEmail">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="InternalOrder" Type="Self.InternalOrder" Multiplicity="*" />
@@ -936,44 +830,6 @@
             </Principal>
             <Dependent Role="InternalOrder">
               <PropertyRef Name="waiterEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HomeOrderId">
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="1" />
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HomeOrder">
-              <PropertyRef Name="homeOrderId" />
-            </Principal>
-            <Dependent Role="HomeOrderProduct">
-              <PropertyRef Name="homeOrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusOrder_HomeOrders">
-          <End Role="StatusOrder" Type="Self.StatusOrder" Multiplicity="1" />
-          <End Role="HomeOrder" Type="Self.HomeOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrder">
-              <PropertyRef Name="statusId" />
-            </Principal>
-            <Dependent Role="HomeOrder">
-              <PropertyRef Name="status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HomeProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="HomeOrderProduct" Type="Self.HomeOrderProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="productCode" />
-            </Principal>
-            <Dependent Role="HomeOrderProduct">
-              <PropertyRef Name="productId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1127,8 +983,6 @@
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="ColonyCatalogs" EntityType="Self.ColonyCatalog" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="HomeOrders" EntityType="Self.HomeOrder" />
-          <EntitySet Name="HomeOrderProducts" EntityType="Self.HomeOrderProduct" />
           <EntitySet Name="InternalOrders" EntityType="Self.InternalOrder" />
           <EntitySet Name="InternalOrderProducts" EntityType="Self.InternalOrderProduct" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -1144,9 +998,9 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
-          <AssociationSet Name="FK_AddressId" Association="Self.FK_AddressId">
+          <AssociationSet Name="FK_AddressID" Association="Self.FK_AddressID">
             <End Role="Address" EntitySet="Addresses" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
+            <End Role="InternalOrder" EntitySet="InternalOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientAddress" Association="Self.FK_ClientAddress">
             <End Role="Client" EntitySet="Clients" />
@@ -1156,25 +1010,13 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="CashierLog" EntitySet="CashierLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientName" Association="Self.FK_ClientName">
+          <AssociationSet Name="FK_ClientEmail" Association="Self.FK_ClientEmail">
             <End Role="Client" EntitySet="Clients" />
-            <End Role="HomeOrder" EntitySet="HomeOrders" />
+            <End Role="InternalOrder" EntitySet="InternalOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_waiterEmail" Association="Self.FK_waiterEmail">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="InternalOrder" EntitySet="InternalOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HomeOrderId" Association="Self.FK_HomeOrderId">
-            <End Role="HomeOrder" EntitySet="HomeOrders" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusOrder_HomeOrders" Association="Self.FK_StatusOrder_HomeOrders">
-            <End Role="StatusOrder" EntitySet="StatusOrders" />
-            <End Role="HomeOrder" EntitySet="HomeOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HomeProductId" Association="Self.FK_HomeProductId">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="HomeOrderProduct" EntitySet="HomeOrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_InternalOrderId" Association="Self.FK_InternalOrderId">
             <End Role="InternalOrder" EntitySet="InternalOrders" />
@@ -1308,30 +1150,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HomeOrders">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrder">
-              <MappingFragment StoreEntitySet="HomeOrder">
-                <ScalarProperty Name="homeOrderId" ColumnName="homeOrderId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="clientName" ColumnName="clientName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HomeOrderProducts">
-            <EntityTypeMapping TypeName="ItaliaPizzaDBModel.HomeOrderProduct">
-              <MappingFragment StoreEntitySet="HomeOrderProduct">
-                <ScalarProperty Name="OrderProductId" ColumnName="OrderProductId" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="homeOrderId" ColumnName="homeOrderId" />
-                <ScalarProperty Name="isConfirmed" ColumnName="isConfirmed" />
-                <ScalarProperty Name="productId" ColumnName="productId" />
-                <ScalarProperty Name="addressId" ColumnName="addressId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="InternalOrders">
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.InternalOrder">
               <MappingFragment StoreEntitySet="InternalOrder">
@@ -1341,6 +1159,8 @@
                 <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="waiterEmail" ColumnName="waiterEmail" />
+                <ScalarProperty Name="clientEmail" ColumnName="clientEmail" />
+                <ScalarProperty Name="addressId" ColumnName="addressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
