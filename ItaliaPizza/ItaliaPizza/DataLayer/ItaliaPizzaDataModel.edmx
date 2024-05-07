@@ -83,7 +83,6 @@
           <Property Name="internalOrderId" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="waiterEmail" Type="varchar" MaxLength="30" />
           <Property Name="clientEmail" Type="varchar" MaxLength="30" />
@@ -628,7 +627,6 @@
           <Property Name="internalOrderId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="waiterEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="clientEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -1156,7 +1154,6 @@
                 <ScalarProperty Name="internalOrderId" ColumnName="internalOrderId" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="waiterEmail" ColumnName="waiterEmail" />
                 <ScalarProperty Name="clientEmail" ColumnName="clientEmail" />

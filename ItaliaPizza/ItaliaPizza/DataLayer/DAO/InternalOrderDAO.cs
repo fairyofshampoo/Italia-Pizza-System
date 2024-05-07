@@ -196,6 +196,18 @@ namespace ItaliaPizza.DataLayer.DAO
             return numberOfProductsOnHold;
         }
 
+        public List<InternalOrder> GetOrdersForPreapartion()
+        {
+            List<InternalOrder> internalOrders = new List<InternalOrder>();
+            using(var databaseContext = new  ItaliaPizzaDBEntities())
+            {
+                internalOrders = databaseContext.InternalOrders
+                                                .Where(order => order.status == 1)
+                                                .ToList();
+            }
+            return internalOrders;
+        }
+
         public int GetRecipeIdByProduct(string productId)
         {
             int recipeId = 0;
