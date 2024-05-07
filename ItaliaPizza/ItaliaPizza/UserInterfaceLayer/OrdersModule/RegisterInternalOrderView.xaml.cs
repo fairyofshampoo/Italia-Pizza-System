@@ -27,18 +27,28 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int columnsAdded = 0;
         private string waiterEmailClass = "lalocel09@gmail.com"; //Cambiar por singleton
 
-        public RegisterInternalOrderView()
+        public RegisterInternalOrderView(bool isAEdition, string orderCode)
         {
             InitializeComponent();
             List<Product> products = GetProducts();
             if (products.Any())
             {
-                RegisterInternalOrder(products);
+                if(isAEdition)
+                {
+                    this.orderCode = orderCode;
+                    btnCancel.Visibility = Visibility.Collapsed;
+                    ShowProducts(products);
+                } 
+                else
+                {
+                    RegisterInternalOrder(products);
+                }
             }
             else
             {
-                //Mostrar mensaje de que no hay prodcutos registrados en la base
+                //Mostrar mensaje de que hubo un error al recuperar los productos
             }
+    
         }
 
         private List<Product> GetProducts()
