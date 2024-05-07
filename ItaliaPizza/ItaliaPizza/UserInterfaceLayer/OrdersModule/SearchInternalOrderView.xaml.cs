@@ -56,7 +56,19 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void ShowOrderForChef()
         {
-           
+            List<InternalOrder> orders = GetOrdersForPreapartion();
+        }
+
+        private void VerifyOrders(List<InternalOrder> orders)
+        {
+
+        }
+
+        private List<InternalOrder> GetOrdersForPreapartion()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            List<InternalOrder> internalOrders = internalOrderDAO.GetOrdersForPreapartion();
+            return internalOrders;
         }
 
         private void ShowInternalOrders(List<InternalOrder> orders)
