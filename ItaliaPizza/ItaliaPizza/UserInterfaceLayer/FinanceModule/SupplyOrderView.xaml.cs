@@ -247,8 +247,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             AddSupplyToResume(supply);
         }
 
-        public void RemoveSupplyFromOrder(SupplyOrderRemoveUC supplyCard)
+        public void RemoveSupplyFromOrder(string supplyName, SupplyOrderRemoveUC supplyCard)
         {
+            suppliesDictionary.Remove(supplyName);
             orderListView.Items.Remove(supplyCard);
         }
 

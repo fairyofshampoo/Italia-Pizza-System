@@ -70,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
             if (supplyOrderDAO.DeleteSupplyFromOrder(supplyData.name, this.SupplyOrderView.OrderId))
             {
-                this.SupplyOrderView.RemoveSupplyFromOrder(this);
+                this.SupplyOrderView.RemoveSupplyFromOrder(supplyData.name, this);
             }
         }
 
