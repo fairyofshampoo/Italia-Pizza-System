@@ -28,7 +28,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public SupplyEditView()
         {
             InitializeComponent();
-            SetComboBoxItems();
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
@@ -79,21 +78,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-                if (!IsSupplyExisting())
+                if (EditSupply())
                 {
-                    if (EditSupply()) 
-                    {
-                        DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
-                        NavigationService.GoBack();
-                    }
-                    else
-                    {
-                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
-                    }
+                    DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("El insumo ingresado ya se encuentra registrado");
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
                 }
             }
         }
@@ -101,7 +93,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool EditSupply()
         {
             string name = txtName.Text;
-            int amount = int.Parse(txtAmount.Text);
+            decimal amount = decimal.Parse(txtAmount.Text);
             string measurementUnit = cmbMeasurementUnit.SelectedItem.ToString();
             string category = cmbCategory.SelectedItem.ToString();
 
@@ -123,6 +115,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (supplyInfo != null)
             {
+                SetComboBoxItems();
                 txtName.Text = supplyInfo.name;
                 txtAmount.Text = supplyInfo.amount.ToString();
 
@@ -131,39 +124,32 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     cmbMeasurementUnit.SelectedItem = supplyInfo.measurementUnit;
                 }
 
-                if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.category))
+                if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.SupplyArea.area_name))
                 {
-                    cmbCategory.SelectedItem = supplyInfo.category;
+                    cmbCategory.SelectedItem = supplyInfo.SupplyArea.area_name;
                 }
 
-                
                 if (supplyInfo.status.HasValue && supplyInfo.status.Value)
                 {
-                    txtName.IsEnabled = false;
-                    txtAmount.IsEnabled = false;
-                    cmbCategory.IsEnabled = false;
-                    cmbMeasurementUnit.IsEnabled = false;
+                    if (supplyInfo.status == false)
+                    {
+                        txtName.IsEnabled = false;
+                        txtAmount.IsEnabled = false;
+                        cmbCategory.IsEnabled = false;
+                        cmbMeasurementUnit.IsEnabled = false;
 
-                    btnDesactive.IsEnabled = false;
-                    btnDesactive.Visibility = Visibility.Hidden;
+                        btnDesactive.IsEnabled = false;
+                        btnDesactive.Visibility = Visibility.Hidden;
 
-                    btnActive.IsEnabled = true;
-                    btnActive.Visibility = Visibility.Visible;
+                        btnActive.IsEnabled = true;
+                        btnActive.Visibility = Visibility.Visible;
 
-                    btnSave.IsEnabled = false;
-                    btnSave.Background = Brushes.Gray;
-                } 
-                
+                        btnSave.IsEnabled = false;
+                        btnSave.Background = Brushes.Gray;
+                    }
+                }
             }
-        }
-
-        private bool IsSupplyExisting()
-        {
-            SupplyDAO supplyDAO = new SupplyDAO();
-            string name = txtName.Text;
-            bool isSupplyAlreadyExisting = supplyDAO.IsSupplyNameExisting(name);
-            return isSupplyAlreadyExisting;
-        }
+        }       
 
         private void SetComboBoxItems()
         {

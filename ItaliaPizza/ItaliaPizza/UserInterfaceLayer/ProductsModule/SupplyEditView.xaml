@@ -47,7 +47,7 @@
                             <Grid Margin="20,0,0,0">
                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="9,0,0,-3" Width="435" HorizontalAlignment="Left"/>
                                 <Border x:Name="bdrName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="432" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="9,0,0,0">
-                                    <TextBox x:Name="txtName" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                    <TextBox x:Name="txtName" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
                                 </Border>
                             </Grid>
                             <Label x:Name="lblNameError" Margin="25,0,0,0" Content="Nombre inválido" FontSize="10" Foreground="Red" Visibility="Hidden">
