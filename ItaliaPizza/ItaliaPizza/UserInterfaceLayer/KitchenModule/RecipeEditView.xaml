@@ -90,7 +90,7 @@
                             </Button.Template>
                         </Button>
 
-                        <Button x:Name="btnAactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnDesactive_Click">
+                        <Button x:Name="btnDesactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnDesactive_Click">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="#FF0422"/>

@@ -32,7 +32,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         public void SetTitleData()
         {
-            int fontSize = 25;
+            int fontSize = 20;
             txtAmount.FontWeight = FontWeights.Bold;
             txtName.FontWeight = FontWeights.Bold;
             txtUnit.FontWeight = FontWeights.Bold;

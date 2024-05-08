@@ -171,6 +171,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml.cs">
       <DependentUpon>RegisterCashoutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml.cs">
+      <DependentUpon>SupplierOrderHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,9 @@
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml.cs">
       <DependentUpon>ProductEditView.xaml</DependentUpon>
     </Compile>
@@ -224,6 +230,9 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyAddUC.xaml.cs">
+      <DependentUpon>SupplyAddUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml.cs">
       <DependentUpon>SupplyEditView.xaml</DependentUpon>
@@ -287,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -335,6 +348,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -356,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyAddUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -528,6 +549,9 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\reportIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

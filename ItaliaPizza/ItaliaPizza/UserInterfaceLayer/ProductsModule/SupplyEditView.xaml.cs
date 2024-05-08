@@ -29,7 +29,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetComboBoxItems();
-            //SetModifySupply(supplyData);
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
@@ -43,7 +42,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                 if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
                 {
-                    DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
+                    DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -63,7 +63,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                 if (supplyDAO.ChangeSupplyStatus(name, Constants.ACTIVE_STATUS))
                 {
-                    DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
+                    DialogManager.ShowSuccessMessageBox("Insumo activado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -83,6 +84,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     if (EditSupply()) 
                     {
                         DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
+                        NavigationService.GoBack();
                     }
                     else
                     {
@@ -135,7 +137,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 }
 
                 
-                if (supplyInfo.status == true)
+                if (supplyInfo.status.HasValue && supplyInfo.status.Value)
                 {
                     txtName.IsEnabled = false;
                     txtAmount.IsEnabled = false;
@@ -235,6 +237,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             cmbMeasurementUnit.BorderBrush = System.Windows.Media.Brushes.Transparent;
             cmbMeasurementUnit.BorderThickness = new Thickness(0);
             lblMeasurementUnitError.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

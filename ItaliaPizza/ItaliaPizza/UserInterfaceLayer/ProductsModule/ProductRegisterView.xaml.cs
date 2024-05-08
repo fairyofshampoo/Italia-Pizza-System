@@ -200,7 +200,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code;
             do
             {
-                code = new string(Enumerable.Repeat(chars, 10)
+                code = new string(Enumerable.Repeat(chars, 5)
                 .Select(s => s[random.Next(s.Length)])
                 .ToArray());
             } while (productDAO.IsCodeExisting(code));

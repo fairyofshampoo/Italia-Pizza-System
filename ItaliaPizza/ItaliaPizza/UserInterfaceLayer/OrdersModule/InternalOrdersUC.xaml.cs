@@ -37,7 +37,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             lblWaiter.Content = waiterName;
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
-            lblTime.Content = order.time;
         }
 
         private string GetWaiterName(string waiterName)
