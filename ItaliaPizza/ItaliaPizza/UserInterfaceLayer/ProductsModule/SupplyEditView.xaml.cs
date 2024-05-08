@@ -108,7 +108,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 category = supplierAreaDAO.GetSupplyAreaIdByName(category),
             };
 
-            return supplyDAO.ModifySupply(supply, name); //Método de editar
+            return supplyDAO.ModifySupply(supply, name);
         }
 
         public void SetModifySupply(Supply supplyInfo)
@@ -129,27 +129,25 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     cmbCategory.SelectedItem = supplyInfo.SupplyArea.area_name;
                 }
 
-                if (supplyInfo.status.HasValue && supplyInfo.status.Value)
+                if (supplyInfo.status == false)
                 {
-                    if (supplyInfo.status == false)
-                    {
-                        txtName.IsEnabled = false;
-                        txtAmount.IsEnabled = false;
-                        cmbCategory.IsEnabled = false;
-                        cmbMeasurementUnit.IsEnabled = false;
+                    txtName.IsEnabled = false;
+                    txtAmount.IsEnabled = false;
+                    cmbCategory.IsEnabled = false;
+                    cmbMeasurementUnit.IsEnabled = false;
 
-                        btnDesactive.IsEnabled = false;
-                        btnDesactive.Visibility = Visibility.Hidden;
+                    btnDesactive.IsEnabled = false;
+                    btnDesactive.Visibility = Visibility.Hidden;
 
-                        btnActive.IsEnabled = true;
-                        btnActive.Visibility = Visibility.Visible;
+                    btnActive.IsEnabled = true;
+                    btnActive.Visibility = Visibility.Visible;
 
-                        btnSave.IsEnabled = false;
-                        btnSave.Background = Brushes.Gray;
-                    }
+                    btnSave.IsEnabled = false;
+                    btnSave.Background = Brushes.Gray;
                 }
+
             }
-        }       
+        }
 
         private void SetComboBoxItems()
         {
