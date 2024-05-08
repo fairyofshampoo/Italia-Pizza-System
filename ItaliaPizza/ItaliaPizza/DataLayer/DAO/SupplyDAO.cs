@@ -188,5 +188,30 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return supplies;
         }
+
+        public List<Supply> SearchActiveSupplyByName(string name)
+        {
+            List<Supply> supplies = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var suppliesDB = databaseContext.Supplies.ToList();
+
+                var filteredSupplies = suppliesDB.Where(s => DiacriticsUtilities.RemoveDiacritics(s.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(name).ToUpper()) && s.status == true)
+                                         .Take(10)
+                                         .ToList();
+
+                if (filteredSupplies != null)
+                {
+                    foreach (var supply in filteredSupplies)
+                    {
+                        databaseContext.Entry(supply)
+                            .Reference(s => s.SupplyArea)
+                            .Load();
+                        supplies.Add(supply);
+                    }
+                }
+            }
+            return supplies;
+        }
     }
 }
