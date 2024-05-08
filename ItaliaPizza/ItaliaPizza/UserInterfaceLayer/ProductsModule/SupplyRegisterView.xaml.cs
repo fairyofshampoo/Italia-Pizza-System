@@ -156,5 +156,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             cmbMeasurementUnit.BorderThickness = new Thickness(0);
             lblMeasurementUnitError.Visibility = Visibility.Collapsed;
         }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

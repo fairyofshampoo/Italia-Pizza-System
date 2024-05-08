@@ -88,7 +88,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void GetSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> availableSupplies = supplyDAO.GetSuppliesByStatus(true);
+            List<Supply> availableSupplies = supplyDAO.GetAllSupplies();
 
             if (availableSupplies.Count > 0)
             {

@@ -138,6 +138,25 @@ namespace ItaliaPizza.DataLayer.DAO
             return suppliesDB;            
         }
 
+        public List<Supply> GetAllSupplies()
+        {
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var supplies = databaseContext.Supplies
+                                              .Include(s => s.SupplyArea)
+                                              .ToList();
+                if (supplies != null)
+                {
+                    foreach (var supply in supplies)
+                    {
+                        suppliesDB.Add(supply);
+                    }
+                }
+            }
+            return suppliesDB;
+        }
+
         public List<Supply> GetRecipeSupplies(int idRecipe)
         {
             List<Supply> suppliesDB = new List<Supply>();
