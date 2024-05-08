@@ -26,6 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public InventoryView()
         {
             InitializeComponent();
+            GetSupplies();
         }
 
         private void BtnNewInventoryReport_Click(object sender, RoutedEventArgs e)
@@ -35,7 +36,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void BtnAddSupply_Click(object sender, RoutedEventArgs e)
         {
-
+            SupplyRegister supplierRegisterView = new SupplyRegister();
+            this.NavigationService.Navigate(supplierRegisterView);
         }
 
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
@@ -58,15 +60,15 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void SearchSupplyByName(string searchText)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.SearchActiveSupplyByName(searchText);
+            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
             ShowSupplies(supplies);
         }
 
         private void ShowSupplies(List<Supply> suppliesList)
         {
             suppliesListView.Items.Clear();
-            SupplyOrderAddUC supplyUC = new SupplyOrderAddUC();
-            supplyUC.SupplyOrderView = this;
+            SupplyAddUC supplyUC = new SupplyAddUC();
+            supplyUC.InventoryView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
             foreach (Supply supply in suppliesList)
@@ -77,8 +79,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void AddSupplyToList(Supply supply)
         {
-            SupplyOrderAddUC supplyCard = new SupplyOrderAddUC();
-            //supplyCard.SupplyOrderView = this;
+            SupplyAddUC supplyCard = new SupplyAddUC();
+            supplyCard.InventoryView = this;
             supplyCard.SetSupplyData(supply);
             suppliesListView.Items.Add(supplyCard);
         }
@@ -108,5 +110,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             lblNoSupplies.VerticalAlignment = VerticalAlignment.Center;
             suppliesListView.Items.Add(lblNoSupplies);
         }
+
     }
 }

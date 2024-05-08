@@ -5,25 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.ProductsModule"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="740" Background="#D9D9D9">
+             d:DesignHeight="100" d:DesignWidth="1100" Background="#D9D9D9">
 
     <Border BorderBrush="LightGray" BorderThickness="1">
-        <Grid Width="710">
+        <Grid Width="1100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="txtName" Grid.Column="0" Text="Nombre" Margin="5,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <TextBlock x:Name="txtAmount" Grid.Column="1" Text="Cantidad" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <TextBlock x:Name="txtUnit" Grid.Column="2" Text="Unidad de medida" Margin="10,10,0,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <TextBlock x:Name="txtSupplyArea" Grid.Column="3" Text="Categoría" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="20" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <Button x:Name="btnAddSupply" Grid.Column="4" Click="BtnAddSupply_Click" Height="30" Width="30" Margin="5,5,5,5">
+            <TextBlock x:Name="txtName" Grid.Column="0" Text="Nombre" Margin="5,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="30" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtAmount" Grid.Column="1" Text="Cantidad" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="30" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtUnit" Grid.Column="2" Text="Unidad de medida" Margin="10,10,0,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="30" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtSupplyArea" Grid.Column="3" Text="Categoría" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="30" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <Button x:Name="btnAddSupply" Grid.Column="4" Click="BtnEditSupply_Click" Height="50" Width="50" Margin="5,5,5,5">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderThickness="0" Background="#FA9500" CornerRadius="15">
+                        <Border x:Name="border" BorderThickness="0" Background="#FA9500" CornerRadius="25">
                             <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="../Resources/Icons/editicon.png"/>
                         </Border>
                         <ControlTemplate.Triggers>
