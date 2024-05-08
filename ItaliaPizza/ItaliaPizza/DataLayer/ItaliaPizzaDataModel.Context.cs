@@ -34,8 +34,6 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<ColonyCatalog> ColonyCatalogs { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<HomeOrder> HomeOrders { get; set; }
-        public virtual DbSet<HomeOrderProduct> HomeOrderProducts { get; set; }
         public virtual DbSet<InternalOrder> InternalOrders { get; set; }
         public virtual DbSet<InternalOrderProduct> InternalOrderProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -48,13 +46,13 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
     
-        public virtual int ReduceIngredients(string internalOrderCode)
+        public virtual int ReduceIngredientsV10(string internalOrderCode)
         {
             var internalOrderCodeParameter = internalOrderCode != null ?
                 new ObjectParameter("internalOrderCode", internalOrderCode) :
                 new ObjectParameter("internalOrderCode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceIngredients", internalOrderCodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceIngredientsV10", internalOrderCodeParameter);
         }
     }
 }

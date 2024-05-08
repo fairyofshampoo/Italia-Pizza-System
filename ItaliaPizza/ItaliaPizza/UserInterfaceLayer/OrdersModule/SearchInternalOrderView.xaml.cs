@@ -26,9 +26,23 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private int rowsAdded = 0;
 
-        public SearchInternalOrderView()
+        public SearchInternalOrderView(bool isAWaiter)
         {
             InitializeComponent();
+
+            if(isAWaiter)
+            {
+                ShowOrderForWaiter();
+            }
+            else
+            {
+                ShowOrderForChef();
+            }
+
+        }
+
+        private void ShowOrderForWaiter()
+        {
             List<InternalOrder> orders = GetInternalOrder();
             if (orders.Any())
             {
@@ -38,6 +52,23 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             {
                 //Mostrar Mesnaje avisando que no hay ordenes registradas
             }
+        }
+
+        private void ShowOrderForChef()
+        {
+            List<InternalOrder> orders = GetOrdersForPreapartion();
+        }
+
+        private void VerifyOrders(List<InternalOrder> orders)
+        {
+
+        }
+
+        private List<InternalOrder> GetOrdersForPreapartion()
+        {
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            List<InternalOrder> internalOrders = internalOrderDAO.GetOrdersForPreapartion();
+            return internalOrders;
         }
 
         private void ShowInternalOrders(List<InternalOrder> orders)
@@ -76,12 +107,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
             internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1, waiterEmail);
             return internalOrders;
-        }
-
-        private void txtSearchBarChanged(object sender, TextChangedEventArgs e)
-        {
-            string searchText = ((TextBox)sender).Text;
-
         }
 
         private void SearchInternalOrderByCode(string  orderCode)
@@ -126,28 +151,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             //Mandar a llamar la pantalpara hacer otra orden
         }
 
-        private void BtnSearchOrder_Click(object sender, RoutedEventArgs e)
-        {
-            string search = txtSearchBar.Text;
-            bool band = true;
-            foreach (char caracter in search)
-            {
-                if (!char.IsDigit(caracter))
-                {
-                    band = false; break;    
-                }
-            }
-            if(band)
-            {
-                String orderCode = search;
-                InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-                InternalOrder internalOrder = internalOrderDAO.GetInternalOrdersByNumber(orderCode, waiterEmail);
-                if (internalOrder != null)
-                {
-                    List<InternalOrder> internalOrders = new List<InternalOrder> { internalOrder };
-                    ShowInternalOrders(internalOrders);
-                }
-            }
-        }
     }
 }

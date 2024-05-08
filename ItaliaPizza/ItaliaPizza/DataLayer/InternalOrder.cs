@@ -23,10 +23,13 @@ namespace ItaliaPizza.DataLayer
         public string internalOrderId { get; set; }
         public int status { get; set; }
         public System.DateTime date { get; set; }
-        public System.TimeSpan time { get; set; }
         public decimal total { get; set; }
         public string waiterEmail { get; set; }
+        public string clientEmail { get; set; }
+        public Nullable<int> addressId { get; set; }
     
+        public virtual Address Address { get; set; }
+        public virtual Client Client { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InternalOrderProduct> InternalOrderProducts { get; set; }

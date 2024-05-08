@@ -21,7 +21,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     
     public partial class InternalOrdersUC : UserControl
     {
-        private InternalOrder internalOrderData;
+        //private InternalOrder internalOrderData;
 
         public SearchInternalOrderView searchInternalOrderView { get; set;}
 
@@ -37,7 +37,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             lblWaiter.Content = waiterName;
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
-            lblTime.Content = order.time;
         }
 
         private string GetWaiterName(string waiterName)

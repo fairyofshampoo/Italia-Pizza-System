@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -25,20 +26,30 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private string orderCode;
         private int rowAdded = 0;
         private int columnsAdded = 0;
-        private string waiterEmailClass = "lalocel09@gmail.com"; //Cambiar por singleton
+        private string waiterEmail = UserSingleton.Instance.Email;
 
-        public RegisterInternalOrderView()
+        public RegisterInternalOrderView(bool isAEdition, string orderCode)
         {
             InitializeComponent();
             List<Product> products = GetProducts();
             if (products.Any())
             {
-                RegisterInternalOrder(products);
+                if(isAEdition)
+                {
+                    this.orderCode = orderCode;
+                    btnCancel.Visibility = Visibility.Collapsed;
+                    ShowProducts(products);
+                } 
+                else
+                {
+                    RegisterInternalOrder(products);
+                }
             }
             else
             {
-                //Mostrar mensaje de que no hay prodcutos registrados en la base
+                DialogManager.ShowErrorMessageBox("No hay productos registrados");
             }
+    
         }
 
         private List<Product> GetProducts()
@@ -59,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                //Mostrar mensaje avisando que ha ocurrido un problema sql
+                DialogManager.ShowDataBaseErrorMessageBox();
             }
         }
 
@@ -90,18 +101,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private InternalOrder CreateInternalOrder()
         {
-            DateTime dateTime = DateTime.Now;
-            TimeSpan time = new TimeSpan(dateTime.Hour, dateTime.Minute, dateTime.Second);
-            var date = dateTime.Date;
-
+            DateTime currentDate = DateTime.Today;
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
-                status = 0, 
-                date = date,
-                time = time,
+                status = 0,
+                date = currentDate,
                 total = 0,
-                waiterEmail = waiterEmailClass
+                waiterEmail = this.waiterEmail
             };
             return newInternalOrder;
         }
@@ -152,14 +159,22 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //Eliminar todo de la base de datos con el internalordercode
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            internalOrderDAO.CancelInternalOrder(orderCode);
         }
 
         private void BtnSaveInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            //Cambiar el estado de la orden 
-            //Cambiar el estado de los productos 
-            //Reducir la cantidad de ingredientes
+            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            int status = internalOrderDAO.SaveInternalOrder(orderCode);
+            if (status == 1)
+            {
+                Console.WriteLine("Se ha guardao");
+            }
+            else
+            {
+                Console.WriteLine("No se ha guardao");
+            }
         }
 
         private void BtnDeleteProduct_Click(object sender, RoutedEventArgs e)
