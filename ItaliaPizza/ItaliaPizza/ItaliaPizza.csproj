@@ -210,6 +210,9 @@
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml.cs">
+      <DependentUpon>InventoryReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
@@ -345,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
