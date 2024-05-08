@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace ItaliaPizza.DataLayer.DAO
@@ -95,7 +96,7 @@ namespace ItaliaPizza.DataLayer.DAO
             {
                 try
                 {
-                    var modifySupply = databaseContext.Supplies.First(s => s.name == name);
+                    var modifySupply = databaseContext.Supplies.First(s => s.name == supply.name);
 
                     if (modifySupply != null)
                     {

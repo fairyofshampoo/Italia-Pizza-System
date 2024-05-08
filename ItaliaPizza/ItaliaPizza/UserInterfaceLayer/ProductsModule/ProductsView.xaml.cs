@@ -56,12 +56,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             btnInternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
             btnExternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 255, 123, 0));
             SearchProductByType(Constants.EXTERNAL_PRODUCT);
-        }
-
-        private void btnInventario_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }       
 
         private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
