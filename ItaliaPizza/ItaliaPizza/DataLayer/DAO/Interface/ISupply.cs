@@ -17,5 +17,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         List<Supply> SearchSupplyByName(string name);
         List<Supply> SearchActiveSupplyByName(string name);
         List<Supply> GetAllSupplies();
+        bool ExistsSupplyInRecipe(string supplyName);
     }
 }

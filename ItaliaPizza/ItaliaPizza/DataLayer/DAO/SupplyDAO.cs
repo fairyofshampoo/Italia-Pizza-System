@@ -89,6 +89,20 @@ namespace ItaliaPizza.DataLayer.DAO
             return isSupplyNameExisting;
         }
 
+        public bool ExistsSupplyInRecipe(string supplyName)
+        {
+            bool existsSupplyInRecipe = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var existingInRecipe = databaseContext.RecipeSupplies.FirstOrDefault(n => n.supplyId == supplyName);
+                if (existingInRecipe != null)
+                {
+                    existsSupplyInRecipe = true;
+                }
+            }
+            return existsSupplyInRecipe;
+        }
+
         public bool ModifySupply(Supply supply, string name)
         {
             var successfulUpdate = false;
@@ -232,6 +246,6 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return supplies;
-        }
+        }       
     }
 }
