@@ -1,20 +1,8 @@
 ﻿using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.DataLayer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -26,12 +14,13 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public InventoryView()
         {
             InitializeComponent();
-            GetSupplies();
+            GetAllSupplies();
         }
 
         private void BtnNewInventoryReport_Click(object sender, RoutedEventArgs e)
         {
-
+            InventoryReport inventoryReport = new InventoryReport();
+            this.NavigationService.Navigate(inventoryReport);
         }
 
         private void BtnAddSupply_Click(object sender, RoutedEventArgs e)
@@ -52,7 +41,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (string.IsNullOrEmpty(searchText))
                 {
-                    GetSupplies();
+                    GetAllSupplies();
                 }
             }
         }
@@ -67,7 +56,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void ShowSupplies(List<Supply> suppliesList)
         {
             suppliesListView.Items.Clear();
-            SupplyAddUC supplyUC = new SupplyAddUC();
+            SupplyUC supplyUC = new SupplyUC();
             supplyUC.InventoryView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
@@ -79,20 +68,36 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void AddSupplyToList(Supply supply)
         {
-            SupplyAddUC supplyCard = new SupplyAddUC();
+            SupplyUC supplyCard = new SupplyUC();
             supplyCard.InventoryView = this;
             supplyCard.SetSupplyData(supply);
             suppliesListView.Items.Add(supplyCard);
         }
 
-        private void GetSupplies()
+        private void GetAllSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> availableSupplies = supplyDAO.GetAllSupplies();
+            List<Supply> supplies = supplyDAO.GetAllSupplies();
 
-            if (availableSupplies.Count > 0)
+            if (supplies.Count > 0)
             {
-                ShowSupplies(availableSupplies);
+                ShowSupplies(supplies);
+
+            }
+            else
+            {
+                ShowNoSuppliesMessage();
+            }
+        }
+
+        private void GetSuppliesByStatus(bool status)
+        {
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> supplies = supplyDAO.GetSuppliesByStatus(status);
+
+            if (supplies.Count > 0)
+            {
+                ShowSupplies(supplies);
 
             }
             else
@@ -111,5 +116,25 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             suppliesListView.Items.Add(lblNoSupplies);
         }
 
+        private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
+        {
+            GetAllSupplies();
+            radioButtonActive.IsChecked = false;
+            radioButtonInactive.IsChecked = false;
+        }
+
+        private void RadioButtonInactive_Checked(object sender, RoutedEventArgs e)
+        {
+            GetSuppliesByStatus(false);
+            radioButtonAll.IsChecked = false;
+            radioButtonActive.IsChecked = false;
+        }
+
+        private void RadioButtonActive_Checked(object sender, RoutedEventArgs e)
+        {
+            GetSuppliesByStatus(true);
+            radioButtonInactive.IsChecked = false;
+            radioButtonAll.IsChecked = false;
+        }
     }
 }

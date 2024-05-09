@@ -25,7 +25,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid Margin="0,20,0,0">
+                    <Grid Margin="0,20,0,20">
 
                         <Label Content="Reporte de inventario" Foreground="White" FontWeight="SemiBold" FontSize="70" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Left" Margin="200,5,5,0"/>
 
@@ -36,18 +36,16 @@
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="400"/>
+                            <RowDefinition Height="390"/>
                         </Grid.RowDefinitions>
-                        <Label Content="Ingrese las existencias actuales en inventario para generar su reporte" Margin="60,0,0,0"  Foreground="LightGray" FontSize="32" FontWeight="SemiBold"/>
+                        <TextBlock Text="Ingrese las existencias actuales en inventario para generar su reporte, en caso de no coincidir ingrese una nota (máx. 250 caracteres)"  Foreground="LightGray" FontSize="25" Width="1100" FontWeight="SemiBold" TextWrapping="Wrap"/>
 
-                        <ScrollViewer Grid.Row="1" Height="400" Width="1200">
-                            <ListView Background="#D9D9D9" Name="suppliesListView" Width="Auto" Margin="10" Height="Auto"/>
-                        </ScrollViewer>
-                        <Label Name="lblSupplierNotFound" Grid.Row="1"  Content="No se encontró ningún insumo" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="60" FontWeight="SemiBold" Margin="40,0,0,0" Height="Auto" Width="Auto" Visibility="Collapsed"/>
+                        <ListBox Grid.Row="1" Background="#D9D9D9" Width="1200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="suppliesListView" Margin="10" Height="Auto"/>
+                        <Label Name="lblSupplierNotFound" Grid.Row="1" Content="No se encontró ningún insumo" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="60" FontWeight="SemiBold" Margin="40,0,0,0" Height="Auto" Width="Auto" Visibility="Collapsed"/>
                     </Grid>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Margin="0,20,0,0">
                         <Button x:Name="btnCancel" Grid.Column="0" BorderThickness="0" Foreground="White" FontSize="25" FontWeight="Bold" FontFamily="{StaticResource InterFont}" 
-        Cursor="Hand" HorizontalAlignment="Right" Content="Cancelar" Click="BtnCancel_Click" Margin="0,0,20,0">
+                                Cursor="Hand" HorizontalAlignment="Right" Content="Cancelar" Click="BtnCancel_Click" Margin="0,0,20,0">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="#FF0422"/>
@@ -55,7 +53,7 @@
                             </Button.Style>
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Width="300" Height="70" CornerRadius="10" Background="{TemplateBinding Background}">
+                                    <Border Width="200" Height="70" CornerRadius="10" Background="{TemplateBinding Background}">
                                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
@@ -63,7 +61,7 @@
                         </Button>
                         <Button x:Name="btnSave" Grid.Column="1" BorderThickness="0" FontFamily="{StaticResource InterFont}"
         Content="Descargar reporte" Foreground="White" FontSize="25" FontWeight="Bold" 
-        Cursor="Hand" HorizontalAlignment="Right" Click="BtnDownload_Click" Margin="0,0,20,0">
+        Cursor="Hand" HorizontalAlignment="Right" Click="BtnDownload_Click" Margin="50,0,0,0">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="#FF7B00"/>

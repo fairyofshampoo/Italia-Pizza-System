@@ -96,9 +96,15 @@
                                     <Image Source="../Resources/Icons/addIcon.png" Height="50" Width="50"/>
                                 </Button>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                <Viewbox Height="40" Margin="10,0,0,0">
-                                    <RadioButton />
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Viewbox Height="30">
+                                    <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonActive" Content="Activos" Foreground="White" Checked="RadioButtonActive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonInactive" Content="Inactivos" Foreground="White" Checked="RadioButtonInactive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                 </Viewbox>
                             </StackPanel>
                             <ListBox Background="#D9D9D9" Name="suppliesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="Auto" Margin="10" Grid.Row="2" Height="400"/>
