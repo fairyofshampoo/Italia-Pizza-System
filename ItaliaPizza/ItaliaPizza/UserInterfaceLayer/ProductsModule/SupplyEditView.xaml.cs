@@ -32,23 +32,33 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea eliminar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            SupplyDAO supplyDAO = new SupplyDAO();
 
-            if (result == MessageBoxResult.Yes)
+            if (!supplyDAO.ExistsSupplyInRecipe(txtName.Text))
             {
-                string name = txtName.Text;
-                SupplyDAO supplyDAO = new SupplyDAO();
+                MessageBoxResult result = MessageBox.Show("¿Desea eliminar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-                if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
+                if (result == MessageBoxResult.Yes)
                 {
-                    DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
-                    NavigationService.GoBack();
-                }
-                else
-                {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                    string name = txtName.Text;
+
+                    if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                    }
                 }
             }
+            else
+            {
+                DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta");
+            }
+
+            
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
