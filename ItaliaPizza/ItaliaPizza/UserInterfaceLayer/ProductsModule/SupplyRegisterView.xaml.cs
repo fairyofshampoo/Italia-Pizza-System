@@ -159,7 +159,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
     }
 }
