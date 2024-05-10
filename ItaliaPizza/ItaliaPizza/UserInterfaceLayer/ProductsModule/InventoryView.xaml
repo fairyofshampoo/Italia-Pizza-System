@@ -14,6 +14,20 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="#4C4C4C" />
         </Style>
+        <Style x:Key="NoItemsLabelStyle" TargetType="Label">
+            <Setter Property="Content" Value="No hay elementos registrados"/>
+            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#4C4C4C" />
+        </Style>
+        <Style x:Key="NoProductsLabelStyle" TargetType="Label">
+            <Setter Property="Content" Value="No hay productos registrados"/>
+            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#4C4C4C" />
+        </Style>
     </Page.Resources>
 
     <Viewbox Stretch="Fill">
@@ -54,7 +68,7 @@
                                             <TextBox x:Name="txtSearchBar" TextChanged="TxtSearchBarChanged" FontSize="30" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Background="LightGray" BorderThickness="0" />
                                         </Border>
                                     </Grid>
-                                    <Label Content="Ingrese el nombre del insumo a buscar" Margin="60,0,0,0"  Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                                    <TextBlock Text="Ingrese el nombre del insumo o producto a buscar" Margin="60,0,0,0" Width="330" TextWrapping="Wrap" Foreground="LightGray" FontSize="17" FontWeight="SemiBold"/>
                                 </StackPanel>
                                 <Border CornerRadius="10" VerticalAlignment="Top" BorderBrush="#8D3A02" BorderThickness="4" Width="274" Height="60" Background="#8D3A02" Grid.Column="1" Margin="40,42,0,0" HorizontalAlignment="Left">
                                 </Border>
@@ -79,7 +93,7 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button Width="80" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Grid.Column="2" Margin="40,38,0,0" Click="BtnAddSupply_Click">
+                                <Button Width="80" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Grid.Column="2" Margin="40,38,0,0" Click="BtnAddSupply_Click" ToolTip="Agregar insumo">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Template">
@@ -96,12 +110,24 @@
                                     <Image Source="../Resources/Icons/addIcon.png" Height="50" Width="50"/>
                                 </Button>
                             </Grid>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                <Viewbox Height="40" Margin="10,0,0,0">
-                                    <RadioButton />
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Viewbox Height="30">
+                                    <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonSupplies" Content="Insumos" Foreground="White" Checked="RadioButtonSupplies_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonProducts" Content="Productos externos" Foreground="White" Checked="RadioButtonProducts_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonActive" Content="Activos" Foreground="White" Checked="RadioButtonActive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
+                                <Viewbox Height="30" Margin="10,0,0,0">
+                                    <RadioButton x:Name="radioButtonInactive" Content="Inactivos" Foreground="White" Checked="RadioButtonInactive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                 </Viewbox>
                             </StackPanel>
-                            <ListBox Background="#D9D9D9" Name="suppliesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="Auto" Margin="10" Grid.Row="2" Height="400"/>
+                            <ListBox Background="#D9D9D9" Name="suppliesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="Auto" Margin="10" Grid.Row="2" Height="Auto"/>
                             <Label Name="lblSupplierNotFound" Grid.Row="1"  Content="No se encontró ningún insumo" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="60" FontWeight="SemiBold" Margin="40,0,0,0" Height="Auto" Width="Auto" Visibility="Collapsed"/>
                         </Grid>
                     </Border>

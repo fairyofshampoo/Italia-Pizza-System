@@ -224,5 +224,46 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return products;
         }
+
+        public List<Product> GetAllExternalProducts()
+        {
+            byte isExternal = 1;
+            List<Product> externalProducts = new List<Product>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                externalProducts = databaseContext.Products
+                                                   .Where(p => p.isExternal == isExternal)
+                                                   .ToList();
+            }
+            return externalProducts;
+        }
+
+        public bool UpdateProductAmount(string productCode, int newAmount)
+        {
+            bool success = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var product = databaseContext.Products.FirstOrDefault(p => p.productCode == productCode);
+                    if (product != null)
+                    {
+                        product.amount = newAmount;
+                        databaseContext.SaveChanges();
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
+                catch (SqlException)
+                {
+                    success = false;
+                }
+            }
+            return success;
+        }
+
     }
 }
