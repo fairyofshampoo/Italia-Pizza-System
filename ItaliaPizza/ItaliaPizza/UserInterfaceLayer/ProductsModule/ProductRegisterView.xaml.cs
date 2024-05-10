@@ -162,6 +162,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     txtCode.IsEnabled = false;
                     txtCode.Text = GenerateProductCode();
+                    txtAmount.Text = "1";
                 }
 
                 if (cmbIsExternal.SelectedItem.ToString() == "Sí")
