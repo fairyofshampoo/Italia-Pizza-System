@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 {
     /// <summary>
-    /// Lógica de interacción para SupplyUC.xaml
+    /// Lógica de interacción para SupplyProductCardUC.xaml
     /// </summary>
     public partial class SupplyUC : UserControl
     {

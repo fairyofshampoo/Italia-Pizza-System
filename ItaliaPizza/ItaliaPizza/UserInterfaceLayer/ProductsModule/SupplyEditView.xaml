@@ -4,9 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.ProductsModule"
-      mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
-      Title="SupplyEditView">
+      mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
 
     <Viewbox Stretch="Fill">
         <Grid>
@@ -27,9 +25,9 @@
                         </Button.Template>
                     </Button>
 
-                    <Label Content="Editar insumo" Foreground="White" FontSize="40" FontFamily="Times New Roman" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                    <Label Content="Editar insumo" Foreground="White" FontSize="40" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
                     <Canvas HorizontalAlignment="Left">
-                        <Line X1="180" Y1="50" X2="430" Y2="50" Stroke="#ff7b00" StrokeThickness="3"/>
+                        <Line X1="140" Y1="60" X2="470" Y2="60" Stroke="#ff7b00" StrokeThickness="3"/>
                     </Canvas>
                 </Grid>
                 <Label Content="Actualice los siguientes campos del insumo:" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="13" Margin="55,10,10,0"/>

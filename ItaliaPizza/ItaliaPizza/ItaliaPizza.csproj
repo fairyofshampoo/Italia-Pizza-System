@@ -328,8 +328,8 @@
     <Compile Include="UserInterfaceLayer\ProductsModule\ReportUC.xaml.cs">
       <DependentUpon>ReportUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyUC.xaml.cs">
-      <DependentUpon>SupplyUC.xaml</DependentUpon>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyProductUC.xaml.cs">
+      <DependentUpon>SupplyProductUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml.cs">
       <DependentUpon>SupplyEditView.xaml</DependentUpon>
@@ -481,7 +481,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterfaceLayer\ProductsModule\SupplyUC.xaml">
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

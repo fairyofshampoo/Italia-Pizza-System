@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Collections.ObjectModel;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -36,9 +37,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (!supplyDAO.ExistsSupplyInRecipe(txtName.Text))
             {
-                MessageBoxResult result = MessageBox.Show("¿Desea eliminar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                DialogWindow dialogWindow = new DialogWindow();
+                dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-                if (result == MessageBoxResult.Yes)
+                if (dialogWindow.ShowDialog() == true)
                 {
                     string name = txtName.Text;
 
@@ -63,9 +65,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea activar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea activar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 string name = txtName.Text;
                 SupplyDAO supplyDAO = new SupplyDAO();

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -24,6 +25,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     {
         private Supply supplyData;
         private bool isNoteRequired;
+        private Product productData;
+        private bool isSupply;
         public ReportUC()
         {
             InitializeComponent();
@@ -39,8 +42,33 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             brdCurrentAmount.Visibility = Visibility.Collapsed;
             brdNote.Visibility = Visibility.Collapsed;
         }
+        public void SetObjectData(object item)
+        {
+            if (item is Supply supply)
+            {
+                SetSupplyData(supply);
+            }
+            else if (item is Product product && product.isExternal == 1)
+            {
+                SetProductData(product);
+            }
+        }
+
+        private void SetProductData(Product product)
+        {
+            isSupply = false;
+            productData = product;
+            txtName.Text = product.name;
+            txtAmount.Text = product.amount.ToString();
+            txtSupplyArea.Text = "Producto externo";
+            txtUnit.Text = "Unidad";
+            txtCurrentAmount.Visibility = Visibility.Collapsed;
+            brdCurrentAmount.Visibility = Visibility.Visible;
+        }
+
         public void SetSupplyData(Supply supply)
         {
+            isSupply = true;
             supplyData = supply;
             txtName.Text = supply.name;
             txtAmount.Text = supply.amount.ToString();
@@ -52,35 +80,69 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void CurrentAmount_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SolidColorBrush backgroundBrush;
-            Visibility noteVisibility;
+            decimal amount = GetAmount();
+            decimal enteredAmount = GetEnteredAmount();
 
+            SolidColorBrush backgroundBrush = GetBackgroundBrush(amount, enteredAmount);
+            Visibility noteVisibility = GetNoteVisibility(amount, enteredAmount);
+
+            UpdateBackgroundAndNote(noteVisibility, backgroundBrush);
+        }
+
+        private decimal GetAmount()
+        {
+            decimal amount = productData.amount ?? 0;
+            if (isSupply)
+            {
+                amount = supplyData.amount ?? 0;
+            }
+
+            return amount;
+        }
+
+        private decimal GetEnteredAmount()
+        {
             if (!decimal.TryParse(txtChangeCurrentAmount.Text, out decimal enteredAmount))
             {
                 txtChangeCurrentAmount.Text = string.Empty;
-                return;
+                return 0;
             }
+            return enteredAmount;
+        }
 
-            if (enteredAmount == supplyData.amount)
+        private SolidColorBrush GetBackgroundBrush(decimal amount, decimal enteredAmount)
+        {
+            if (enteredAmount == amount)
             {
-                backgroundBrush = Brushes.LightGreen;
-                noteVisibility = Visibility.Collapsed;
+                return Brushes.LightGreen;
+            }
+            else if (enteredAmount < amount)
+            {
+                return Brushes.LightBlue;
             }
             else
             {
-                noteVisibility = Visibility.Visible;
-                if (enteredAmount < supplyData.amount)
-                    backgroundBrush = Brushes.Red;
-                else
-                    backgroundBrush = GetOrangeBrush();
+                return GetOrangeBrush();
             }
-
-            UpdateBackgroundAndNote(true, noteVisibility, backgroundBrush);
         }
 
-        private void UpdateBackgroundAndNote(bool noteRequired, Visibility noteVisibility, SolidColorBrush backgroundBrush)
+        private Visibility GetNoteVisibility(decimal amount, decimal enteredAmount)
         {
-            isNoteRequired = noteRequired;
+            Visibility noteVisibility = Visibility.Visible;
+            isNoteRequired = true;
+
+            if (enteredAmount == amount)
+            {
+                noteVisibility = Visibility.Collapsed;
+                isNoteRequired = false;
+            }
+
+            return noteVisibility;
+        }
+
+
+        private void UpdateBackgroundAndNote(Visibility noteVisibility, SolidColorBrush backgroundBrush)
+        {
             brdNote.Visibility = noteVisibility;
             this.Background = backgroundBrush;
         }

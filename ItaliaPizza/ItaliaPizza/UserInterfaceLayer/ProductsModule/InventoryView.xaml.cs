@@ -3,6 +3,7 @@ using ItaliaPizza.DataLayer;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -14,7 +15,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public InventoryView()
         {
             InitializeComponent();
-            GetAllSupplies();
+            GetAllSuppliesAndExternalProducts();
         }
 
         private void BtnNewInventoryReport_Click(object sender, RoutedEventArgs e)
@@ -32,78 +33,135 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = txtSearchBar.Text;
-            if (searchText.Length > 3)
+            if (searchText.Length > 3 && searchText.Length < 100)
             {
-                SearchSupplyByName(searchText);
+                SearchItemByName(searchText);
 
             }
             else
             {
                 if (string.IsNullOrEmpty(searchText))
                 {
-                    GetAllSupplies();
+                    GetAllSuppliesAndExternalProducts();
                 }
             }
         }
 
-        private void SearchSupplyByName(string searchText)
+        private void SearchItemByName(string searchText)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
-            ShowSupplies(supplies);
+            List<object> suppliesAndProducts = supplyDAO.SearchSupplyOrExternalProductByName(searchText);
+            ShowInventory(suppliesAndProducts);
         }
 
-        private void ShowSupplies(List<Supply> suppliesList)
+        private void ShowInventory(List<object> suppliesAndProducts)
         {
             suppliesListView.Items.Clear();
-            SupplyUC supplyUC = new SupplyUC();
+            SupplyProductCardUC supplyUC = new SupplyProductCardUC();
             supplyUC.InventoryView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
-            foreach (Supply supply in suppliesList)
+            foreach (object item in suppliesAndProducts)
             {
-                AddSupplyToList(supply);
+                AddSupplyToList(item);
             }
         }
 
-        private void AddSupplyToList(Supply supply)
+        private void AddSupplyToList(object item)
         {
-            SupplyUC supplyCard = new SupplyUC();
+            SupplyProductCardUC supplyCard = new SupplyProductCardUC();
             supplyCard.InventoryView = this;
-            supplyCard.SetSupplyData(supply);
+            supplyCard.SetObjectData(item);
             suppliesListView.Items.Add(supplyCard);
+        }
+
+        private void GetAllSuppliesAndExternalProducts()
+        {
+            radioButtonAll.IsChecked = true;
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<object> suppliesAndProducts = supplyDAO.GetAllSuppliesAndExternalProducts();
+
+            if (suppliesAndProducts.Count > 0)
+            {
+                ShowInventory(suppliesAndProducts);
+
+            }
+            else
+            {
+                ShowNoItemsMessage();
+            }
+        }
+
+        private void GetItemsByStatus(bool status)
+        {
+            byte productStatus = 0;
+            if (status)
+            {
+                productStatus = 1;
+            }
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<object> suppliesAndProducts = supplyDAO.GetSupplyOrExternalProductByStatus(status, productStatus);
+
+            if (suppliesAndProducts.Count > 0)
+            {
+                ShowInventory(suppliesAndProducts);
+
+            }
+            else
+            {
+                ShowNoItemsMessage();
+            }
         }
 
         private void GetAllSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
             List<Supply> supplies = supplyDAO.GetAllSupplies();
+            List<object> suppliesAsObjects = supplies.Cast<object>().ToList();
 
-            if (supplies.Count > 0)
+            if (suppliesAsObjects.Count > 0)
             {
-                ShowSupplies(supplies);
-
-            }
-            else
+                ShowInventory(suppliesAsObjects);
+            } else
             {
                 ShowNoSuppliesMessage();
             }
         }
 
-        private void GetSuppliesByStatus(bool status)
+        private void GetAllExternalProducts()
         {
-            SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.GetSuppliesByStatus(status);
+            ProductDAO productDAO = new ProductDAO();
+            List<Product> products = productDAO.GetAllExternalProducts();
+            List<object> productsAsObjects = products.Cast<object>().ToList();
 
-            if (supplies.Count > 0)
+            if (productsAsObjects.Count > 0)
             {
-                ShowSupplies(supplies);
-
+                ShowInventory(productsAsObjects);
             }
             else
             {
-                ShowNoSuppliesMessage();
+                ShowNoProductsMessage();
             }
+        }
+
+        private void ShowNoItemsMessage()
+        {
+            suppliesListView.Items.Clear();
+            Label lblNoItems = new Label();
+            lblNoItems.Style = (Style)FindResource("NoItemsLabelStyle");
+            lblNoItems.HorizontalAlignment = HorizontalAlignment.Center;
+            lblNoItems.VerticalAlignment = VerticalAlignment.Center;
+            suppliesListView.Items.Add(lblNoItems);
+        }
+
+        private void ShowNoProductsMessage()
+        {
+            suppliesListView.Items.Clear();
+            Label lblNoProducts = new Label();
+            lblNoProducts.Style = (Style)FindResource("NoProductsLabelStyle");
+            lblNoProducts.HorizontalAlignment = HorizontalAlignment.Center;
+            lblNoProducts.VerticalAlignment = VerticalAlignment.Center;
+            suppliesListView.Items.Add(lblNoProducts);
         }
 
         private void ShowNoSuppliesMessage()
@@ -118,23 +176,47 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
         {
-            GetAllSupplies();
+            GetAllSuppliesAndExternalProducts();
             radioButtonActive.IsChecked = false;
             radioButtonInactive.IsChecked = false;
+            radioButtonProducts.IsChecked = false;
+            radioButtonSupplies.IsChecked = false;
         }
 
         private void RadioButtonInactive_Checked(object sender, RoutedEventArgs e)
         {
-            GetSuppliesByStatus(false);
+            GetItemsByStatus(false);
             radioButtonAll.IsChecked = false;
             radioButtonActive.IsChecked = false;
+            radioButtonProducts.IsChecked = false;
+            radioButtonSupplies.IsChecked = false;
         }
 
         private void RadioButtonActive_Checked(object sender, RoutedEventArgs e)
         {
-            GetSuppliesByStatus(true);
+            GetItemsByStatus(true);
             radioButtonInactive.IsChecked = false;
             radioButtonAll.IsChecked = false;
+            radioButtonProducts.IsChecked = false;
+            radioButtonSupplies.IsChecked = false;
+        }
+
+        private void RadioButtonSupplies_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButtonActive.IsChecked = false;
+            radioButtonInactive.IsChecked = false;
+            radioButtonProducts.IsChecked = false;
+            radioButtonAll.IsChecked = false;
+            GetAllSupplies();
+        }
+
+        private void RadioButtonProducts_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButtonActive.IsChecked = false;
+            radioButtonInactive.IsChecked = false;
+            radioButtonSupplies.IsChecked = false;
+            radioButtonAll.IsChecked = false;
+            GetAllExternalProducts();
         }
     }
 }

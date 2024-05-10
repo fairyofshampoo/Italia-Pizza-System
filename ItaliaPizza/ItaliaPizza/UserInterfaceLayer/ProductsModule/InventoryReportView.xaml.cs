@@ -14,6 +14,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Renderer;
+using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -23,7 +24,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     public partial class InventoryReport : Page
     {
         bool isInventoryEmpty;
-        Dictionary<string, ReportUC> reportDictionary = new Dictionary<string, ReportUC>();
         public InventoryReport()
         {
             InitializeComponent();
@@ -123,48 +123,47 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             return table;
         }
 
-        private void ShowSupplies(List<Supply> suppliesList)
+        private void ShowInventory(List<object> suppliesAndProducts)
         {
             suppliesListView.Items.Clear();
-            reportDictionary.Clear();
             ReportUC reportCard = new ReportUC();
             reportCard.SetTitleData();
             suppliesListView.Items.Add(reportCard);
-            foreach (Supply supply in suppliesList)
+
+            foreach (object item in suppliesAndProducts)
             {
-                AddSupplyToList(supply);
+                AddItemToList(item);
             }
         }
 
-        private void AddSupplyToList(Supply supply)
+        private void AddItemToList(object item)
         {
             ReportUC reportCard = new ReportUC();
-            reportDictionary.Add(supply.name, reportCard);
-            reportCard.SetSupplyData(supply);
+            reportCard.SetObjectData(item);
             suppliesListView.Items.Add(reportCard);
         }
 
         private void GetSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> availableSupplies = supplyDAO.GetSuppliesByStatus(true);
+            List<object> availableItems = supplyDAO.GetSupplyOrExternalProductByStatus(true, Constants.ACTIVE_STATUS);
 
-            if (availableSupplies.Count > 0)
+            if (availableItems.Count > 0)
             {
-                ShowSupplies(availableSupplies);
+                ShowInventory(availableItems);
             }
             else
             {
-                ShowNoSuppliesMessage();
+                ShowNoItemsMessage();
             }
         }
 
-        private void ShowNoSuppliesMessage()
+        private void ShowNoItemsMessage()
         {
             isInventoryEmpty = true;
             suppliesListView.Items.Clear();
             Label lblNoSupplies = new Label();
-            lblNoSupplies.Style = (System.Windows.Style)FindResource("NoSuppliesLabelStyle");
+            lblNoSupplies.Style = (System.Windows.Style)FindResource("NoItemsLabelStyle");
             lblNoSupplies.HorizontalAlignment = HorizontalAlignment.Center;
             lblNoSupplies.VerticalAlignment = VerticalAlignment.Center;
             suppliesListView.Items.Add(lblNoSupplies);
