@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer.DAO.Interface;
+using System.Text.RegularExpressions;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -24,9 +26,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     public partial class ReportUC : UserControl
     {
         private Supply supplyData;
-        private bool isNoteRequired;
         private Product productData;
         private bool isSupply;
+        public bool isValid;
+        public bool isDifferent;
+        public InventoryReport InventoryReport {  get; set; }
         public ReportUC()
         {
             InitializeComponent();
@@ -46,10 +50,12 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (item is Supply supply)
             {
+                this.InventoryReport.suppliesDictionary.Add(supply, this);
                 SetSupplyData(supply);
             }
             else if (item is Product product && product.isExternal == 1)
             {
+                this.InventoryReport.productsDictionary.Add(product, this);
                 SetProductData(product);
             }
         }
@@ -77,11 +83,49 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtCurrentAmount.Visibility = Visibility.Collapsed;
             brdCurrentAmount.Visibility = Visibility.Visible;
         }
-
         private void CurrentAmount_TextChanged(object sender, TextChangedEventArgs e)
         {
+            isValid = true;
+            txtChangeCurrentAmount.Foreground = Brushes.Black;
+            if (txtChangeCurrentAmount.Text.Length > 7)
+            {
+                LimitTextLength();
+            }
+            else
+            {
+                ValidateAmountInput();
+            }
+        }
+
+        private void LimitTextLength()
+        {
+            txtChangeCurrentAmount.Text = txtChangeCurrentAmount.Text.Substring(0, 7);
+            txtChangeCurrentAmount.CaretIndex = txtChangeCurrentAmount.Text.Length;
+        }
+
+        private void ValidateAmountInput()
+        {
             decimal amount = GetAmount();
-            decimal enteredAmount = GetEnteredAmount();
+            decimal enteredAmount;
+
+            if (isSupply)
+            {
+                if (!decimal.TryParse(txtChangeCurrentAmount.Text, out enteredAmount) ||
+                    !IsDecimalValid(txtChangeCurrentAmount.Text))
+                {
+                    isValid = false;
+                    txtChangeCurrentAmount.Foreground = Brushes.Red;
+                }
+            }
+            else
+            {
+                if (!decimal.TryParse(txtChangeCurrentAmount.Text, out enteredAmount) ||
+                    !IsIntegerValid(txtChangeCurrentAmount.Text))
+                {
+                    isValid = false;
+                    txtChangeCurrentAmount.Foreground = Brushes.Red;
+                }
+            }
 
             SolidColorBrush backgroundBrush = GetBackgroundBrush(amount, enteredAmount);
             Visibility noteVisibility = GetNoteVisibility(amount, enteredAmount);
@@ -89,52 +133,58 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             UpdateBackgroundAndNote(noteVisibility, backgroundBrush);
         }
 
+        private bool IsIntegerValid(string input)
+        {
+            return Validations.IsProductIntegerValid(input);
+        }
+
+        private bool IsDecimalValid(string input)
+        {
+            return Validations.IsSupplyNewAmountValid(input);
+        }
+
         private decimal GetAmount()
         {
-            decimal amount = productData.amount ?? 0;
+            decimal amount = 0;
+
             if (isSupply)
             {
                 amount = supplyData.amount ?? 0;
+            }
+            else
+            {
+                amount = productData.amount ?? 0;
             }
 
             return amount;
         }
 
-        private decimal GetEnteredAmount()
-        {
-            if (!decimal.TryParse(txtChangeCurrentAmount.Text, out decimal enteredAmount))
-            {
-                txtChangeCurrentAmount.Text = string.Empty;
-                return 0;
-            }
-            return enteredAmount;
-        }
-
         private SolidColorBrush GetBackgroundBrush(decimal amount, decimal enteredAmount)
         {
+            isDifferent = true;
+
             if (enteredAmount == amount)
             {
+                isDifferent = false;
                 return Brushes.LightGreen;
             }
             else if (enteredAmount < amount)
             {
-                return Brushes.LightBlue;
+                return GetOrangeBrush();
             }
             else
             {
-                return GetOrangeBrush();
+                return Brushes.LightBlue;
             }
         }
 
         private Visibility GetNoteVisibility(decimal amount, decimal enteredAmount)
         {
             Visibility noteVisibility = Visibility.Visible;
-            isNoteRequired = true;
 
             if (enteredAmount == amount)
             {
                 noteVisibility = Visibility.Collapsed;
-                isNoteRequired = false;
             }
 
             return noteVisibility;
@@ -161,7 +211,5 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 txtNote.CaretIndex = txtNote.Text.Length;
             }
         }
-
-
     }
 }

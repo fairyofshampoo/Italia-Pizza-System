@@ -93,7 +93,7 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button Width="80" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Grid.Column="2" Margin="40,38,0,0" Click="BtnAddSupply_Click">
+                                <Button Width="80" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Grid.Column="2" Margin="40,38,0,0" Click="BtnAddSupply_Click" ToolTip="Agregar insumo">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Template">
@@ -127,7 +127,7 @@
                                     <RadioButton x:Name="radioButtonInactive" Content="Inactivos" Foreground="White" Checked="RadioButtonInactive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                 </Viewbox>
                             </StackPanel>
-                            <ListBox Background="#D9D9D9" Name="suppliesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="Auto" Margin="10" Grid.Row="2" Height="400"/>
+                            <ListBox Background="#D9D9D9" Name="suppliesListView" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="Auto" Margin="10" Grid.Row="2" Height="Auto"/>
                             <Label Name="lblSupplierNotFound" Grid.Row="1"  Content="No se encontró ningún insumo" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="60" FontWeight="SemiBold" Margin="40,0,0,0" Height="Auto" Width="Auto" Visibility="Collapsed"/>
                         </Grid>
                     </Border>

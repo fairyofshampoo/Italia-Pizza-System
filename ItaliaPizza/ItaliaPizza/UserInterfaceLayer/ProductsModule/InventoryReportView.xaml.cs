@@ -15,6 +15,10 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Renderer;
 using ItaliaPizza.ApplicationLayer;
+using System.IO.Packaging;
+using System.Windows.Media;
+using iText.Kernel.Colors;
+using iText.Kernel.Geom;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -24,10 +28,13 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     public partial class InventoryReport : Page
     {
         bool isInventoryEmpty;
+        public Dictionary<Supply, ReportUC> suppliesDictionary = new Dictionary<Supply, ReportUC>();
+        public Dictionary<Product, ReportUC> productsDictionary = new Dictionary<Product, ReportUC>();
         public InventoryReport()
         {
             InitializeComponent();
             GetSupplies();
+            CreateReport();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -43,7 +50,98 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void BtnDownload_Click(object sender, RoutedEventArgs e)
         {
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "InventoryReport.pdf");
+            if (ValidateNewAmounts() && ValidateNotes())
+            {
+                UpdateAmounts();
+                CreateReport();
+                NavigationService.GoBack();
+
+                DialogManager.ShowSuccessMessageBox("Se han actualizado los valores en el inventario");
+            } else
+            {
+                DialogManager.ShowWarningMessageBox("Corrige las cantidades en rojo a números válidos y no dejes campos vacíos (máx. 6 caracteres)");
+            }
+        }
+
+        private bool ValidateNotes()
+        {
+            bool isValid = true;
+            foreach (ReportUC report in suppliesDictionary.Values)
+            {
+                if (report.isDifferent && string.IsNullOrEmpty(report.txtNote.Text))
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            foreach (ReportUC reportUC in productsDictionary.Values)
+            {
+                if (reportUC.isDifferent && string.IsNullOrEmpty(reportUC.txtNote.Text))
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            return isValid;
+        }
+
+        private void UpdateAmounts()
+        {
+            foreach (var kvp in suppliesDictionary)
+            {
+                ReportUC report = kvp.Value;
+                if (report.isDifferent)
+                {
+                    if (decimal.TryParse(report.txtChangeCurrentAmount.Text, out decimal newAmount))
+                    {
+                        SupplyDAO supplyDAO = new SupplyDAO();
+                        supplyDAO.ModifySupplyAmount(kvp.Key.name, newAmount);
+                    }
+                }
+            }
+
+
+            foreach (var keyValuePair in productsDictionary)
+            {
+                ReportUC reportUC = keyValuePair.Value;
+                if (reportUC.isDifferent)
+                {
+                    ProductDAO productDAO = new ProductDAO();
+                    productDAO.UpdateProductAmount(keyValuePair.Key.productCode, Convert.ToInt32(reportUC.txtChangeCurrentAmount.Text));
+                }
+            }
+        }
+
+        private bool ValidateNewAmounts()
+        {
+            bool isValid = true;
+            foreach (ReportUC report in suppliesDictionary.Values )
+            {
+                if (!report.isValid)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            foreach(ReportUC reportUC in productsDictionary.Values )
+            {
+                if (!reportUC.isValid)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            return isValid;
+        }
+
+        private void CreateReport()
+        {
+            string fileName = "InventoryReport-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
 
             if (isInventoryEmpty)
             {
@@ -54,7 +152,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 GeneratePDF(filePath);
             }
 
-            MessageBox.Show("El informe se ha generado correctamente y se ha guardado en tu escritorio.", "Informe generado", MessageBoxButton.OK, MessageBoxImage.Information);
+            DialogManager.ShowSuccessMessageBox("El reporte se ha guardado en tu escritorio.");
         }
 
         private void GenerateEmptyInventoryReport(string filePath)
@@ -78,9 +176,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 PdfWriter writer = new PdfWriter(fs);
                 PdfDocument pdf = new PdfDocument(writer);
+                PageSize pageSize = PageSize.LETTER;
                 Document doc = new Document(pdf);
 
                 doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"));
+                //doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
 
                 iText.Layout.Element.Table table = CreateDataTable();
                 doc.Add(table);
@@ -91,37 +191,48 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private iText.Layout.Element.Table CreateDataTable()
         {
-            iText.Layout.Element.Table table = new iText.Layout.Element.Table(5);
+            iText.Layout.Element.Table table = new iText.Layout.Element.Table(6);
+            table.SetMaxWidth(600);
 
-            table.AddCell("Nombre");
-            table.AddCell("Cantidad");
-            table.AddCell("Área de Suministro");
-            table.AddCell("Unidad de Medida");
-            table.AddCell("Existencia actual");
-
-            if (suppliesListView.Items.Count == 0)
+            int count = 0;
+            foreach (var item in suppliesListView.Items)
             {
-                Cell cell = new Cell().Add(new iText.Layout.Element.Paragraph("No hay insumos registrados"));
-                cell.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
-                table.AddCell(cell);
-            }
-            else
-            {
-                foreach (var item in suppliesListView.Items)
+                if (item is ReportUC reportUC)
                 {
-                    if (item is ReportUC reportUC)
+                    System.Windows.Media.Color backgroundColor = ((SolidColorBrush)reportUC.Background).Color;
+
+                    table.AddCell(CreateCellWithBackground(reportUC.txtName.Text, backgroundColor));
+                    table.AddCell(CreateCellWithBackground(reportUC.txtAmount.Text, backgroundColor));
+                    table.AddCell(CreateCellWithBackground(reportUC.txtSupplyArea.Text, backgroundColor));
+                    table.AddCell(CreateCellWithBackground(reportUC.txtUnit.Text, backgroundColor));
+
+                    if (count == 0)
                     {
-                        table.AddCell(reportUC.txtName.Text);
-                        table.AddCell(reportUC.txtAmount.Text);
-                        table.AddCell(reportUC.txtSupplyArea.Text);
-                        table.AddCell(reportUC.txtUnit.Text);
-                        table.AddCell(reportUC.txtChangeCurrentAmount.Text);
+                        table.AddCell(CreateCellWithBackground(reportUC.txtCurrentAmount.Text, backgroundColor));
+                        table.AddCell(CreateCellWithBackground("Notas", backgroundColor));
                     }
+                    else
+                    {
+                        table.AddCell(CreateCellWithBackground(reportUC.txtChangeCurrentAmount.Text, backgroundColor));
+                        table.AddCell(CreateCellWithBackground(reportUC.txtNote.Text, backgroundColor));
+                    }
+
+                    count++;
                 }
             }
 
             return table;
         }
+        private Cell CreateCellWithBackground(string text, System.Windows.Media.Color backgroundColor)
+        {
+            Cell cell = new Cell();
+            cell.Add(new Paragraph(text));
+            DeviceRgb deviceRgb = new DeviceRgb(backgroundColor.R, backgroundColor.G, backgroundColor.B);
+
+            cell.SetBackgroundColor(deviceRgb);
+            return cell;
+        }
+
 
         private void ShowInventory(List<object> suppliesAndProducts)
         {
@@ -139,6 +250,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void AddItemToList(object item)
         {
             ReportUC reportCard = new ReportUC();
+            reportCard.InventoryReport = this;
             reportCard.SetObjectData(item);
             suppliesListView.Items.Add(reportCard);
         }

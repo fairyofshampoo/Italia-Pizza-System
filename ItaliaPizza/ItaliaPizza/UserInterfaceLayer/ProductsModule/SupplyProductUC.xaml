@@ -20,7 +20,7 @@
             <TextBlock x:Name="txtAmount" Grid.Column="1" Text="Cantidad" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="25" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
             <TextBlock x:Name="txtUnit" Grid.Column="2" Text="Unidad de medida" Margin="10,10,0,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="25" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
             <TextBlock x:Name="txtArea" Grid.Column="3" Text="Categoría" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="25" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <Button x:Name="btnEdit" Grid.Column="4" Click="BtnEdit_Click" Height="50" Width="50" Margin="5,5,5,5">
+            <Button x:Name="btnEdit" Grid.Column="4" Click="BtnEdit_Click" ToolTip="Editar elemento" Height="50" Width="50" Margin="5,5,5,5">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" BorderThickness="0" Background="#FA9500" CornerRadius="25">
