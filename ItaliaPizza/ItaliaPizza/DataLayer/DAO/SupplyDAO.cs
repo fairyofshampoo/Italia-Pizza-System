@@ -286,5 +286,33 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return suppliesDB;
         }
+
+        public bool ModifySupplyAmount(string name, decimal newAmount)
+        {
+            bool success = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var supply = databaseContext.Supplies.FirstOrDefault(s => s.name == name);
+                    if (supply != null)
+                    {
+                        supply.amount = newAmount;
+                        databaseContext.SaveChanges();
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
+                catch (SqlException)
+                {
+                    success = false;
+                }
+            }
+            return success;
+        }
+
     }
 }

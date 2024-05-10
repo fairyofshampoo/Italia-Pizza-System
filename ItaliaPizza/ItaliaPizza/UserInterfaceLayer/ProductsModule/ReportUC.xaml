@@ -24,7 +24,7 @@
                 <TextBox x:Name="txtChangeCurrentAmount" FontSize="30" TextChanged="CurrentAmount_TextChanged" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Background="White" BorderThickness="0" />
             </Border>
             <TextBlock x:Name="txtCurrentAmount" Grid.Column="4" Text="Existencia actual" Margin="10,10,5,0" FontFamily="{StaticResource InterFont}" Foreground="#4C4C4C" FontSize="30" FontWeight="Regular" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <Border x:Name="brdNote" Visibility="Collapsed" Margin="5,0,5,0" CornerRadius="10" BorderBrush="White" BorderThickness="4" Width="250" Height="70" Grid.Column="5" VerticalAlignment="Center">
+            <Border x:Name="brdNote" Visibility="Collapsed" Margin="5,0,5,0" CornerRadius="10" BorderBrush="White" BorderThickness="4" Width="250" Height="50" Grid.Column="5" VerticalAlignment="Center">
                 <TextBox x:Name="txtNote" FontSize="20" FontWeight="Regular" TextChanged="Note_TextChanged" FontFamily="{StaticResource InterFont}" Background="White" BorderThickness="0" />
             </Border>
         </Grid>
