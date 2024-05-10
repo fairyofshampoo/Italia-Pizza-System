@@ -224,5 +224,19 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return products;
         }
+
+        public List<Product> GetAllExternalProducts()
+        {
+            byte isExternal = 1;
+            List<Product> externalProducts = new List<Product>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                externalProducts = databaseContext.Products
+                                                   .Where(p => p.isExternal == isExternal)
+                                                   .ToList();
+            }
+            return externalProducts;
+        }
+
     }
 }

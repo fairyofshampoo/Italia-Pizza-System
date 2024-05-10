@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Collections.ObjectModel;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -28,35 +29,46 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public SupplyEditView()
         {
             InitializeComponent();
-            SetComboBoxItems();
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea eliminar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            SupplyDAO supplyDAO = new SupplyDAO();
 
-            if (result == MessageBoxResult.Yes)
+            if (!supplyDAO.ExistsSupplyInRecipe(txtName.Text))
             {
-                string name = txtName.Text;
-                SupplyDAO supplyDAO = new SupplyDAO();
+                DialogWindow dialogWindow = new DialogWindow();
+                dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-                if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
+                if (dialogWindow.ShowDialog() == true)
                 {
-                    DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
-                    NavigationService.GoBack();
-                }
-                else
-                {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                    string name = txtName.Text;
+
+                    if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                    }
                 }
             }
+            else
+            {
+                DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta");
+            }
+
+            
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea activar el insumo?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea activar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 string name = txtName.Text;
                 SupplyDAO supplyDAO = new SupplyDAO();
@@ -79,21 +91,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-                if (!IsSupplyExisting())
+                if (EditSupply())
                 {
-                    if (EditSupply()) 
-                    {
-                        DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
-                        NavigationService.GoBack();
-                    }
-                    else
-                    {
-                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
-                    }
+                    DialogManager.ShowSuccessMessageBox("Insumo actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("El insumo ingresado ya se encuentra registrado");
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
                 }
             }
         }
@@ -101,7 +106,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool EditSupply()
         {
             string name = txtName.Text;
-            int amount = int.Parse(txtAmount.Text);
+            decimal amount = decimal.Parse(txtAmount.Text);
             string measurementUnit = cmbMeasurementUnit.SelectedItem.ToString();
             string category = cmbCategory.SelectedItem.ToString();
 
@@ -116,13 +121,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 category = supplierAreaDAO.GetSupplyAreaIdByName(category),
             };
 
-            return supplyDAO.ModifySupply(supply, name); //Método de editar
+            return supplyDAO.ModifySupply(supply, name);
         }
 
         public void SetModifySupply(Supply supplyInfo)
         {
             if (supplyInfo != null)
             {
+                SetComboBoxItems();
                 txtName.Text = supplyInfo.name;
                 txtAmount.Text = supplyInfo.amount.ToString();
 
@@ -131,13 +137,12 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     cmbMeasurementUnit.SelectedItem = supplyInfo.measurementUnit;
                 }
 
-                if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.category))
+                if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.SupplyArea.area_name))
                 {
-                    cmbCategory.SelectedItem = supplyInfo.category;
+                    cmbCategory.SelectedItem = supplyInfo.SupplyArea.area_name;
                 }
 
-                
-                if (supplyInfo.status.HasValue && supplyInfo.status.Value)
+                if (supplyInfo.status == false)
                 {
                     txtName.IsEnabled = false;
                     txtAmount.IsEnabled = false;
@@ -152,17 +157,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     btnSave.IsEnabled = false;
                     btnSave.Background = Brushes.Gray;
-                } 
-                
-            }
-        }
+                }
 
-        private bool IsSupplyExisting()
-        {
-            SupplyDAO supplyDAO = new SupplyDAO();
-            string name = txtName.Text;
-            bool isSupplyAlreadyExisting = supplyDAO.IsSupplyNameExisting(name);
-            return isSupplyAlreadyExisting;
+            }
         }
 
         private void SetComboBoxItems()

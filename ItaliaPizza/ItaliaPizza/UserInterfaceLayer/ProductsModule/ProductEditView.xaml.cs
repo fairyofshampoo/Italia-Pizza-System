@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -93,9 +94,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea eliminar el producto?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar el producto?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 string code = txtCode.Text;
                 ProductDAO productDAO = new ProductDAO();
@@ -103,6 +105,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 if (productDAO.ChangeStatus(code, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -113,9 +116,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea activar el producto?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea activar el producto?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (dialogWindow.ShowDialog() == true)
             {
                 string code = txtCode.Text;
                 ProductDAO productDAO = new ProductDAO();
@@ -123,6 +127,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 if (productDAO.ChangeStatus(code, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
+                    NavigationService.GoBack();
                 }
                 else
                 {
@@ -289,6 +294,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtPrice.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtPrice.BorderThickness = new Thickness(0);
             lblPriceError.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
