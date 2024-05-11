@@ -57,10 +57,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
             else
             {
-                DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta");
-            }
-
-            
+                DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta activa");
+            }           
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
@@ -180,24 +178,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool ValidateFields()
         {
             bool validateFields = true;
-            decimal amount = 0;
-
-            if (txtName.Text.Equals(string.Empty) || !Validations.IsSupplyNameValid(txtName.Text))
-            {
-                txtName.BorderBrush = Brushes.Red;
-                txtName.BorderThickness = new Thickness(2);
-                lblNameError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
-            if (txtAmount.Text.Equals(string.Empty) || !Decimal.TryParse(txtAmount.Text, out amount) || amount < 0)
-            {
-                txtAmount.BorderBrush = Brushes.Red;
-                txtAmount.BorderThickness = new Thickness(2);
-                lblAmountError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
+           
             if (cmbCategory.SelectedItem == null)
             {
                 cmbCategory.BorderBrush = Brushes.Red;
@@ -205,35 +186,15 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 lblCategoryError.Visibility = Visibility.Visible;
                 validateFields = false;
             }
-
-            if (cmbMeasurementUnit.SelectedItem == null)
-            {
-                cmbMeasurementUnit.BorderBrush = Brushes.Red;
-                cmbMeasurementUnit.BorderThickness = new Thickness(2);
-                lblMeasurementUnitError.Visibility = Visibility.Visible;
-                validateFields = false;
-            }
-
+           
             return validateFields;
         }
 
         private void ResetFields()
-        {
-            txtName.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtName.BorderThickness = new Thickness(0);
-            lblNameError.Visibility = Visibility.Collapsed;
-
-            txtAmount.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            txtAmount.BorderThickness = new Thickness(0);
-            lblAmountError.Visibility = Visibility.Collapsed;
-
+        {           
             cmbCategory.BorderBrush = System.Windows.Media.Brushes.Transparent;
             cmbCategory.BorderThickness = new Thickness(0);
             lblCategoryError.Visibility = Visibility.Collapsed;
-
-            cmbMeasurementUnit.BorderBrush = System.Windows.Media.Brushes.Transparent;
-            cmbMeasurementUnit.BorderThickness = new Thickness(0);
-            lblMeasurementUnitError.Visibility = Visibility.Collapsed;
         }
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)

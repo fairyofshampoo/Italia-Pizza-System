@@ -55,7 +55,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="9,-4,0,11" Width="168" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
                                     <Border x:Name="bdrStatus" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="166" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,-4,0,0" Grid.ColumnSpan="2">
-                                        <ComboBox x:Name="cmbStatus" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                        <TextBox x:Name="txtStatus" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
                                     </Border>
                                 </Grid>
                             </StackPanel>

@@ -29,17 +29,23 @@ namespace ItaliaPizza.DataLayer.DAO
             return alreadyExistRecipe;
         }
 
-        public bool ChangeStatus(int idRecipe, int status)
+        public bool ChangeStatus(Recipe recipe, int status)
         {
             bool successfulChange = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 try
                 {
-                    var modifyRecipe = databaseContext.Recipes.First(r => r.recipeCode == idRecipe);
+                    var modifyRecipe = databaseContext.Recipes.First(r => r.recipeCode == recipe.recipeCode);
                     if (modifyRecipe != null)
                     {
                         modifyRecipe.status = Convert.ToByte(status);
+                    }
+
+                    var modifyProductStatus = databaseContext.Products.First(p => p.productCode == recipe.ProductId);
+                    if (modifyProductStatus != null)
+                    {
+                        modifyProductStatus.status = Convert.ToByte(status);
                     }
 
                     databaseContext.SaveChanges();

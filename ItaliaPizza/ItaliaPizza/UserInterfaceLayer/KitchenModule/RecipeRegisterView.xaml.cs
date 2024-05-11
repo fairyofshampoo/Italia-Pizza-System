@@ -30,18 +30,17 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
         {
             InitializeComponent();
             product = productData;
-            SetProductInfo(productData.name);
+            SetProductInfo(productData);
             SetAvailableSupplies();
-            SetComboBoxStatusItems();
         }
 
         private void btnAddSupply_Click(object sender, RoutedEventArgs e)
         {
             if (IsAmountSupplyValid())
             {
-                System.Windows.Controls.CheckBox selectedCheckBox = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>().
+                System.Windows.Controls.RadioButton selectedRadioButton = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.RadioButton>().
                                                                     FirstOrDefault(c => c.IsChecked == true);
-                Supply selectedSupply = selectedCheckBox.Tag as Supply;
+                Supply selectedSupply = selectedRadioButton.Tag as Supply;
                 selectedSupply.amount = decimal.Parse(txtAmount.Text);
 
                 SupplyUC supplyUC = new SupplyUC();
@@ -49,7 +48,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 supplyUC.SetDataCard(selectedSupply);
                 SuppliesSelectedListBox.Items.Add(supplyUC);
 
-                AvailableSuppliesWrapPanel.Children.Remove(selectedCheckBox);
+                AvailableSuppliesWrapPanel.Children.Remove(selectedRadioButton);
                 CleanSupplySelectedArea();
             }
         }
@@ -82,10 +81,9 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private Recipe GenerateRecipeObject()
         {
-            string statusItem = cmbStatus.SelectedItem.ToString();
             byte status;
 
-            if (statusItem == "Activa")
+            if (txtStatus.Text == "Activa")
             {
                 status = Constants.ACTIVE_STATUS;
             }
@@ -101,38 +99,31 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 name = txtProductName.Text,
                 ProductId = product.productCode
             };
-        }       
+        }
 
         private void RegisterRecipe(Recipe recipe)
         {
             RecipeDAO recipeDAO = new RecipeDAO();
 
-            if (!recipeDAO.AlreadyExistRecipe(recipe.name))
+            List<Supply> suppliesSelected = GetSuppliesFromListBox();
+
+            if (AreSuppliesActive(suppliesSelected))
             {
-                List<Supply> suppliesSelected = GetSuppliesFromListBox();
+                List<RecipeSupply> recipeSupplies = GenerateRecipeSupplies(suppliesSelected);
+                recipe.RecipeSupplies = recipeSupplies;
 
-                if (AreSuppliesActive(suppliesSelected))
+                if (recipeDAO.RegisterRecipeWithSupplies(recipe, product))
                 {
-                    List<RecipeSupply> recipeSupplies = GenerateRecipeSupplies(suppliesSelected);
-                    recipe.RecipeSupplies = recipeSupplies;
-
-                    if (recipeDAO.RegisterRecipeWithSupplies(recipe, product))
-                    {
-                        DialogManager.ShowSuccessMessageBox("Registro exitoso");
-                    }
-                    else
-                    {
-                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
-                    }
+                    DialogManager.ShowSuccessMessageBox("Registro exitoso");
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Al menos un suministro está inactivo");
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
                 }
             }
             else
             {
-                DialogManager.ShowErrorMessageBox("La receta ya está registrada");
+                DialogManager.ShowErrorMessageBox("Al menos un suministro está inactivo");
             }
         }
 
@@ -180,9 +171,18 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             return isActive;
         }
 
-        private void SetProductInfo(String productName)
+        private void SetProductInfo(Product product)
         {
-            txtProductName.Text = productName;
+            txtProductName.Text = product.name;
+            
+            if (product.status == Constants.ACTIVE_STATUS)
+            {
+                txtStatus.Text = "Activa";
+            }
+            else
+            {
+                txtStatus.Text = "Inactiva";
+            }
         }
 
         private void SetAvailableSupplies()
@@ -196,26 +196,18 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             }
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.CheckBox checkBox = sender as System.Windows.Controls.CheckBox;
+            System.Windows.Controls.RadioButton radioButton = sender as System.Windows.Controls.RadioButton;
 
-            foreach (System.Windows.Controls.CheckBox otherCheckBox in AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>())
+            if (radioButton != null && radioButton.IsChecked == true)
             {
-                if (otherCheckBox != checkBox && otherCheckBox.IsChecked == true)
-                {
-                    otherCheckBox.IsChecked = false;
-                }
-            }
-
-            if (checkBox != null && checkBox.IsChecked == true)
-            {
-                Supply selectedSupply = checkBox.Tag as Supply;
+                Supply selectedSupply = radioButton.Tag as Supply;
                 ShowSupplyDetails(selectedSupply);
             }
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void RadioButton_Unchecked(object sender, RoutedEventArgs e)
         {
             SupplySelectedGrid.Visibility = Visibility.Hidden;
             SupplySelectedGrid.IsEnabled = false;
@@ -229,14 +221,6 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
             lblSupplyName.Content = supply.name;
             lblMeasurementUnit.Content = supply.measurementUnit;
-        }
-
-        private void SetComboBoxStatusItems()
-        {
-            cmbStatus.ItemsSource = new string[]
-            {
-                "Activa", "Inactiva"
-            };
         }
 
         private bool IsAmountSupplyValid()
@@ -263,13 +247,13 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void AddSupplyToWrapPanel(Supply supply)
         {
-            System.Windows.Controls.CheckBox check = new System.Windows.Controls.CheckBox();
-            check.Content = supply.name;
-            check.Margin = new Thickness(10);
-            check.Tag = supply;
-            check.Checked += CheckBox_Checked;
-            check.Unchecked += CheckBox_Unchecked;
-            AvailableSuppliesWrapPanel.Children.Add(check);
+            System.Windows.Controls.RadioButton radioButton = new System.Windows.Controls.RadioButton();
+            radioButton.Content = supply.name;
+            radioButton.Margin = new Thickness(10);
+            radioButton.Tag = supply;
+            radioButton.Checked += RadioButton_Checked;
+            radioButton.Unchecked += RadioButton_Unchecked;
+            AvailableSuppliesWrapPanel.Children.Add(radioButton);
         }
 
         private bool ValidateFields()
@@ -281,14 +265,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 txtDescription.BorderBrush = Brushes.Red;
                 txtDescription.BorderThickness = new Thickness(2);
                 validateFields = false;
-            }
-
-            if (cmbStatus.SelectedItem == null)
-            {
-                cmbStatus.BorderBrush = Brushes.Red;
-                cmbStatus.BorderThickness = new Thickness(2);
-                validateFields = false;
-            }
+            }            
 
             if (SuppliesSelectedListBox.Items.Count == 0)
             {

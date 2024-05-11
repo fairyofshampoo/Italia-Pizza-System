@@ -97,7 +97,11 @@ namespace ItaliaPizza.DataLayer.DAO
                 var existingInRecipe = databaseContext.RecipeSupplies.FirstOrDefault(n => n.supplyId == supplyName);
                 if (existingInRecipe != null)
                 {
-                    existsSupplyInRecipe = true;
+                    var recipeActive = databaseContext.Recipes.FirstOrDefault(r => r.recipeCode == existingInRecipe.recipeID && r.status == Constants.ACTIVE_STATUS);
+                    if (recipeActive != null)
+                    {
+                        existsSupplyInRecipe = true;
+                    }
                 }
             }
             return existsSupplyInRecipe;
