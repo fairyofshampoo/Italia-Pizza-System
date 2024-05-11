@@ -259,6 +259,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml.cs">
       <DependentUpon>EditSupplierView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\ManagerMenu.xaml.cs">
+      <DependentUpon>ManagerMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml.cs">
       <DependentUpon>RegisterCashoutView.xaml</DependentUpon>
     </Compile>
@@ -386,6 +389,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\ManagerMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -654,6 +661,11 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\logoutIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\inventoryIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\pizzaProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\shopIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\employeesManagementIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\addIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\reportIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />

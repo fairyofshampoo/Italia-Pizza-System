@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         public EmployeesView()
         {
             InitializeComponent();
+            menuFrame.Content = new ManagerMenu(this);
             SetLastEmployees();
         }
 

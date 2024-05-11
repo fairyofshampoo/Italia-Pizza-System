@@ -30,6 +30,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         public SuppliersView()
         {
             InitializeComponent();
+            menuFrame.Content = new ManagerMenu(this);
             LoadButtons();
             SetSuppliers();
         }
@@ -167,10 +168,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void TxtSearchBarChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = txtSearchBar.Text;
-            if(searchText.Length > 3)
+            if (searchText.Length > 3)
             {
 
                 SearchSupplierByName(searchText);
+            } else
+            {
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    SetSuppliers();
+                }
             }
         }
 
