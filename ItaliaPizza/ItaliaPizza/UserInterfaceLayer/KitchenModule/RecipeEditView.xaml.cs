@@ -47,13 +47,14 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea eliminar la receta?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show("¿Desea desactivar la receta? El producto asociado será también desactivado", 
+                                      "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
                 RecipeDAO recipeDAO = new RecipeDAO();
 
-                if (recipeDAO.ChangeStatus(recipeSelected.recipeCode, Constants.INACTIVE_STATUS))
+                if (recipeDAO.ChangeStatus(recipeSelected, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Receta actualizada exitosamente");
                 }
@@ -66,19 +67,27 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea activar la receta?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show("¿Desea activar la receta? El producto asociado será también activado", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
+                List<Supply> suppliesSelected = GetSuppliesFromListBox();
                 RecipeDAO recipeDAO = new RecipeDAO();
 
-                if (recipeDAO.ChangeStatus(recipeSelected.recipeCode, Constants.ACTIVE_STATUS))
+                if (AreSuppliesActive(suppliesSelected))
                 {
-                    DialogManager.ShowSuccessMessageBox("Receta actualizada exitosamente");
+                    if (recipeDAO.ChangeStatus(recipeSelected, Constants.ACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Receta actualizada exitosamente");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar la receta");
+                    }
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar la receta");
+                    DialogManager.ShowErrorMessageBox("Al menos un suministro está inactivo");
                 }
             }
         }
@@ -87,9 +96,9 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
         {
             if (IsAmountSupplyValid())
             {
-                System.Windows.Controls.CheckBox selectedCheckBox = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>().
+                System.Windows.Controls.RadioButton selectedRadioButton = AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.RadioButton>().
                                                                     FirstOrDefault(c => c.IsChecked == true);
-                Supply selectedSupply = selectedCheckBox.Tag as Supply;
+                Supply selectedSupply = selectedRadioButton.Tag as Supply;
                 selectedSupply.amount = decimal.Parse(txtAmount.Text);
 
                 SupplyUC supplyUC = new SupplyUC();
@@ -97,7 +106,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 supplyUC.SetDataCard(selectedSupply);
                 SuppliesSelectedListBox.Items.Add(supplyUC);
 
-                AvailableSuppliesWrapPanel.Children.Remove(selectedCheckBox);
+                AvailableSuppliesWrapPanel.Children.Remove(selectedRadioButton);
                 CleanSupplySelectedArea();
             }
         }
@@ -149,35 +158,27 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void AddSupplyToWrapPanel(Supply supply)
         {
-            System.Windows.Controls.CheckBox check = new System.Windows.Controls.CheckBox();
-            check.Content = supply.name;
-            check.Margin = new Thickness(10);
-            check.Tag = supply;
-            check.Checked += CheckBox_Checked;
-            check.Unchecked += CheckBox_Unchecked;
-            AvailableSuppliesWrapPanel.Children.Add(check);
+            System.Windows.Controls.RadioButton radioButton = new System.Windows.Controls.RadioButton();
+            radioButton.Content = supply.name;
+            radioButton.Margin = new Thickness(10);
+            radioButton.Tag = supply;
+            radioButton.Checked += RadioButton_Checked;
+            radioButton.Unchecked += RadioButton_Unchecked;
+            AvailableSuppliesWrapPanel.Children.Add(radioButton);
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.CheckBox checkBox = sender as System.Windows.Controls.CheckBox;
+            System.Windows.Controls.RadioButton radioButton = sender as System.Windows.Controls.RadioButton;
 
-            foreach (System.Windows.Controls.CheckBox otherCheckBox in AvailableSuppliesWrapPanel.Children.OfType<System.Windows.Controls.CheckBox>())
+            if (radioButton != null && radioButton.IsChecked == true)
             {
-                if (otherCheckBox != checkBox && otherCheckBox.IsChecked == true)
-                {
-                    otherCheckBox.IsChecked = false;
-                }
-            }
-
-            if (checkBox != null && checkBox.IsChecked == true)
-            {
-                Supply selectedSupply = checkBox.Tag as Supply;
+                Supply selectedSupply = radioButton.Tag as Supply;
                 ShowSupplyDetails(selectedSupply);
             }
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void RadioButton_Unchecked(object sender, RoutedEventArgs e)
         {
             SupplySelectedGrid.Visibility = Visibility.Hidden;
             SupplySelectedGrid.IsEnabled = false;
