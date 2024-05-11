@@ -13,7 +13,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         int GetIdRecipe(string name);
         bool RegisterRecipeSupplies(int recipeId, List<RecipeSupply> recipeSupplies);
         List<Recipe> GetRecipes();
-        bool ChangeStatus(int idRecipe, int status);
+        bool ChangeStatus(Recipe recipe, int status);
         bool EditRecipe(Recipe recipe);
         bool DeleteRecipeSupplies(int idRecipe);
     }

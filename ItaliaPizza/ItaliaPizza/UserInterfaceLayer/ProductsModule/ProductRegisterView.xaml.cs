@@ -39,7 +39,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-                if (!IsProductCodeExisting())
+                if (!IsProductCodeExisting() && !IsInternalProductRecipeExisting())
                 {
                     Product productData = GetProductData();
                     RecipeRegisterView recipeRegisterView = new RecipeRegisterView(productData);
@@ -47,7 +47,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
+                    DialogManager.ShowErrorMessageBox("El producto ingresado ya se encuentra registrado");
                 }
 
             }
@@ -235,6 +235,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code = txtCode.Text;
             bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
             return isCodeAlreadyExisting;
+        }
+
+        private bool IsInternalProductRecipeExisting()
+        {
+            RecipeDAO recipeDAO = new RecipeDAO();
+            string name = txtName.Text;
+            bool isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            return isInternalProductRecipeExisting;
         }
 
         private bool ValidateFields()
