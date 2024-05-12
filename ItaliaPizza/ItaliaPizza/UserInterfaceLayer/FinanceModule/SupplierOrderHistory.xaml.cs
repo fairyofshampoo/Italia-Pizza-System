@@ -29,5 +29,25 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
 
         }
+
+        private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButtonOpen_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButtonReceived_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButtonCanceled_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

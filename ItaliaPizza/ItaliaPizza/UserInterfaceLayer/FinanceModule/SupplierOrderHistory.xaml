@@ -113,8 +113,20 @@
                     </Button>
 
                 </Grid>
-                <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                    <Label Content ="Estado del pedido" Margin="60,0,20,0" Foreground="LightGray"  FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Medium"/>
+                <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Label Content ="Estado del pedido:" Margin="0,0,20,0" Foreground="White"  FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold"/>
+                    <Viewbox Height="25">
+                        <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonOpen" Content="Abiertos" Foreground="White" Checked="RadioButtonOpen_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonReceived" Content="Recibidos" Foreground="White" Checked="RadioButtonReceived_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonCanceled" Content="Cancelados" Foreground="White" Checked="RadioButtonCanceled_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
                 </StackPanel>
 
                 <ScrollViewer x:Name="scrollViewer" Height="500"

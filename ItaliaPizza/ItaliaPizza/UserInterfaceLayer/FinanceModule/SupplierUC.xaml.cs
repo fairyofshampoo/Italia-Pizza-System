@@ -25,7 +25,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplierUC : UserControl
     {
         private Supplier SupplierData;
-
         public SuppliersView SuppliersView { get; set; }
         public SupplierUC()
         {

@@ -268,6 +268,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml.cs">
       <DependentUpon>SupplierOrderHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierOrderUC.xaml.cs">
+      <DependentUpon>SupplierOrderUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
     </Compile>
@@ -422,6 +425,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierOrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -725,6 +732,10 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\approvalIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\deleteIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\orderReceivedIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\personsIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
