@@ -1,6 +1,9 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using ItaliaPizza.UserInterfaceLayer.KitchenModule;
+using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +44,30 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void DisplayMainMenuView()
         {
-            TellerScreenView tellerScreenView = new TellerScreenView();
-            this.NavigationService.Navigate(tellerScreenView);
+            string userRole = UserSingleton.Instance.Role;
+            switch (userRole)
+            {
+                case Constants.CHEF_ROLE:
+                    SearchInternalOrderView ordersChefView = new SearchInternalOrderView(false);
+                    NavigationService.Navigate(ordersChefView);
+                    break;
+                case Constants.CASHIER_ROLE:
+                    TellerScreenView tellerScreenView = new TellerScreenView();
+                    NavigationService.Navigate(tellerScreenView);
+                    break;
+                case Constants.WAITER_ROLE:
+                    SearchInternalOrderView ordersWaiterView = new SearchInternalOrderView(true);
+                    NavigationService.Navigate(ordersWaiterView);
+                    break;
+                case Constants.MANAGER_ROLE:
+                    SuppliersView suppliersView = new SuppliersView();
+                    NavigationService.Navigate(suppliersView);
+                    break;
+                default:
+                    break;
+            }
         }
+
 
         private bool HandleLoginAttempt()
         {

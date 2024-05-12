@@ -4,165 +4,84 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.KitchenModule"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280"
       Title="RecipeEditView">
 
     <Viewbox Stretch="Fill">
         <StackPanel Background="#2c2c2c" Width="1280" Height="720">
-            <Grid Height="720" Width="1280">
+            <Grid Height="720">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*"/>
-                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Frame x:Name="menuFrame"/>
+                <StackPanel Grid.Column="1">
+                    <Grid Height="720" Width="1180">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48*"/>
-                        <RowDefinition Height="157*"/>
-                        <RowDefinition Height="35*"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Content="Editar receta" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="110,0,0,0" Height="94" Width="450"/>
-                    <Canvas HorizontalAlignment="Center" Width="0">
-                        <Line X1="-260" Y1="-10" X2="100" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="18" Canvas.Top="133" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
-                    </Canvas>
-
-                    <Border Grid.Row="1" Background="#393D42" CornerRadius="10" Margin="45,16,45,0">
-                        <Grid>
+                        <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="71*"/>
-                                <RowDefinition Height="49*"/>
-                                <RowDefinition Height="360*"/>
+                                <RowDefinition Height="48*"/>
+                                <RowDefinition Height="157*"/>
+                                <RowDefinition Height="35*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Producto:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,10,0,10" Height="30"/>
-                                <Grid Margin="20,0,0,0" Width="475">
-                                    <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,18,0,15" Width="472" HorizontalAlignment="Left"/>
-                                    <Border x:Name="bdrProductName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="471" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <TextBox x:Name="txtProductName" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
+                            <Label Content="Editar receta" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="110,0,0,0" Height="94" Width="450"/>
+                            <Canvas HorizontalAlignment="Center" Width="0">
+                                <Line X1="-260" Y1="-10" X2="100" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="18" Canvas.Top="133" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
+                            </Canvas>
+
+                            <Border Grid.Row="1" Background="#393D42" CornerRadius="10" Margin="45,16,45,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="71*"/>
+                                        <RowDefinition Height="49*"/>
+                                        <RowDefinition Height="360*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Producto:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,10,0,10" Height="30"/>
+                                        <Grid Margin="20,0,0,0" Width="475">
+                                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,18,0,15" Width="472" HorizontalAlignment="Left"/>
+                                            <Border x:Name="bdrProductName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="471" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBox x:Name="txtProductName" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
+                                            </Border>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                        <Label Content="Estatus:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,-15,0,0" Height="30"/>
+                                        <Grid Margin="20,4,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="21*"/>
+                                                <ColumnDefinition Width="157*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="9,-4,0,11" Width="168" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                                            <Border x:Name="bdrStatus" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="166" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,-4,0,0" Grid.ColumnSpan="2">
+                                                <TextBox x:Name="txtStatus" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
+                                            </Border>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <Border Grid.Row="2" Background="#D9D9D9" CornerRadius="10" Margin="25,16,25,25">
+                                        <StackPanel>
+                                            <Label Content="Procedimiento" Foreground="#ff7b00" FontSize="15" FontFamily="Microsoft YaHei UI" Height="29" Width="120" Margin="20,05,0,0" HorizontalAlignment="Left" FontWeight="DemiBold"/>
+                                            <Canvas HorizontalAlignment="Center" Width="0">
+                                                <Line X1="-480" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="190" Canvas.Top="11" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
+                                            </Canvas>
+
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,10,10,0" Height="246" Width="544">
+                                                <TextBox x:Name="txtDescription" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True" Height="236"/>
+                                            </ScrollViewer>
+                                        </StackPanel>
                                     </Border>
                                 </Grid>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                <Label Content="Estatus:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,-15,0,0" Height="30"/>
-                                <Grid Margin="20,4,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="21*"/>
-                                        <ColumnDefinition Width="157*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="9,-4,0,11" Width="168" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
-                                    <Border x:Name="bdrStatus" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="166" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,-4,0,0" Grid.ColumnSpan="2">
-                                        <TextBox x:Name="txtStatus" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
-                                    </Border>
-                                </Grid>
-                            </StackPanel>
-
-                            <Border Grid.Row="2" Background="#D9D9D9" CornerRadius="10" Margin="25,16,25,25">
-                                <StackPanel>
-                                    <Label Content="Procedimiento" Foreground="#ff7b00" FontSize="15" FontFamily="Microsoft YaHei UI" Height="29" Width="120" Margin="20,05,0,0" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-                                    <Canvas HorizontalAlignment="Center" Width="0">
-                                        <Line X1="-480" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="190" Canvas.Top="11" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
-                                    </Canvas>
-
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,10,10,0" Height="246" Width="544">
-                                        <TextBox x:Name="txtDescription" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True" Height="236"/>
-                                    </ScrollViewer>
-                                </StackPanel>
                             </Border>
-                        </Grid>
-                    </Border>
 
-                        <Button x:Name="btnActive" BorderThickness="0" Content="Activar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnActive_Click" IsEnabled="False" Visibility="Hidden">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="#3F8C23"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-
-                        <Button x:Name="btnAactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnDesactive_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#FF0422"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-
-                        <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="250,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnSave_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#FF7B00"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-
-                    
-                </Grid>
-
-                <Border Grid.Column="1" Background="#D9D9D9" CornerRadius="10,0,10,0" Margin="1,0,-1,105">
-                    <StackPanel>
-                        <StackPanel>
-                            <Label Content="Ingredientes" Foreground="#ff7b00" FontSize="15" FontFamily="Microsoft YaHei UI" Height="29" Width="120" Margin="20,05,0,0" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-                            <Canvas HorizontalAlignment="Center" Width="0">
-                                <Line X1="-460" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="180" Canvas.Top="14" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
-                            </Canvas>
-                        </StackPanel>
-
-                        <Grid x:Name="SupplySelectedGrid" Height="120" Margin="20,10,20,0" Visibility="Hidden" IsEnabled="False">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="41*"/>
-                                <RowDefinition Height="50*"/>
-                                <RowDefinition Height="29*"/>
-                            </Grid.RowDefinitions>
-
-                            <Label Content="Nombre" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" FontWeight="DemiBold" Width="60"/>
-                            <Label Content="Cantidad" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="1" Width="66" FontWeight="DemiBold"/>
-                            <Label Content="Unidad de medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="2" Width="120" FontWeight="DemiBold"/>
-
-                            <Canvas HorizontalAlignment="Center" Width="0">
-                                <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="328" Canvas.Top="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
-                            </Canvas>
-
-                            <Label x:Name="lblSupplyName" Content="Insumo" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,13,0,13" HorizontalAlignment="Center" VerticalContentAlignment="Stretch" Width="Auto" Grid.Row="1"/>
-                            <Grid Margin="20,0,10,0" Grid.Column="1" Grid.Row="1">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="31,14,45,12" Height="24"/>
-                                <Border x:Name="bdrAmount" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="22" Width="64" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0">
-                                    <TextBox x:Name="txtAmount" FontSize="11" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="60" />
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblMeasurementUnit" Content="Medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,14,0,10" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.Column="2" Width="Auto"/>
-
-                            <Button x:Name="btnAddSupply" BorderThickness="0" Content="Agregar" Foreground="White" FontSize="12" FontWeight="DemiBold" Cursor="Hand" Grid.Row="2" Margin="1,0,101,0" Click="btnAddSupply_Click">
+                            <Button x:Name="btnActive" BorderThickness="0" Content="Activar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnActive_Click" IsEnabled="False" Visibility="Hidden">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="Background" Value="#3F8C23"/>
@@ -170,63 +89,152 @@
                                 </Button.Style>
                                 <Button.Template>
                                     <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Width="70" Height="25" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
                                             <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
+
+                            <Button x:Name="btnDesactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnDesactive_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#FF0422"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="250,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnSave_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#FF7B00"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+
                         </Grid>
 
-                        <Canvas HorizontalAlignment="Center" Width="0">
-                            <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="155" Canvas.Top="26" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
-                        </Canvas>
+                        <Border Grid.Column="1" Background="#D9D9D9" CornerRadius="10,0,10,0" Margin="1,0,0,105">
+                            <StackPanel>
+                                <StackPanel>
+                                    <Label Content="Ingredientes" Foreground="#ff7b00" FontSize="15" FontFamily="Microsoft YaHei UI" Height="29" Width="120" Margin="20,05,0,0" HorizontalAlignment="Left" FontWeight="DemiBold"/>
+                                    <Canvas HorizontalAlignment="Center" Width="0">
+                                        <Line X1="-460" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="180" Canvas.Top="14" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
+                                    </Canvas>
+                                </StackPanel>
 
-                        <Label Content="Seleccione un ingrediente:" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="35,20,0,13" HorizontalAlignment="Left" Width="168"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Width="505" Height="118" Margin="6,-5,0,0">
-                            <WrapPanel x:Name="AvailableSuppliesWrapPanel"/>
-                        </ScrollViewer>
+                                <Grid x:Name="SupplySelectedGrid" Height="120" Margin="20,10,20,0" Visibility="Hidden" IsEnabled="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
 
-                        <Canvas HorizontalAlignment="Center" Width="0" Margin="0,5,0,0">
-                            <Line X1="-460" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="180" Canvas.Top="14" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
-                        </Canvas>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="41*"/>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="29*"/>
+                                    </Grid.RowDefinitions>
 
-                        <Label Content="Ingredientes seleccionados:" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="35,9,0,13" HorizontalAlignment="Left" Width="168"/>
+                                    <Label Content="Nombre" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" FontWeight="DemiBold" Width="60"/>
+                                    <Label Content="Cantidad" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="1" Width="66" FontWeight="DemiBold"/>
+                                    <Label Content="Unidad de medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="2" Width="120" FontWeight="DemiBold"/>
 
-                        <Grid Height="43" Margin="20,-10,20,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition  Width="*"/>
-                                <ColumnDefinition  Width="*"/>
-                            </Grid.ColumnDefinitions>
+                                    <Canvas HorizontalAlignment="Center" Width="0">
+                                        <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="328" Canvas.Top="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
+                                    </Canvas>
 
-                            <Label Content="Nombre" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" FontWeight="DemiBold" Width="60"/>
-                            <Label Content="Cantidad" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="1" Width="66" FontWeight="DemiBold"/>
-                            <Label Content="Unidad de medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="2" Width="120" FontWeight="DemiBold"/>
+                                    <Label x:Name="lblSupplyName" Content="Insumo" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,13,0,13" HorizontalAlignment="Center" VerticalContentAlignment="Stretch" Width="Auto" Grid.Row="1"/>
+                                    <Grid Margin="20,0,10,0" Grid.Column="1" Grid.Row="1">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="31,14,45,12" Height="24"/>
+                                        <Border x:Name="bdrAmount" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="22" Width="64" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0">
+                                            <TextBox x:Name="txtAmount" FontSize="11" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="60" />
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblMeasurementUnit" Content="Medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,14,0,10" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.Column="2" Width="Auto"/>
 
-                            <Canvas HorizontalAlignment="Center" Width="0">
-                                <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="328" Canvas.Top="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
-                            </Canvas>
-                        </Grid>
+                                    <Button x:Name="btnAddSupply" BorderThickness="0" Content="Agregar" Foreground="White" FontSize="12" FontWeight="DemiBold" Cursor="Hand" Grid.Row="2" Margin="1,0,101,0" Click="btnAddSupply_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#3F8C23"/>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="70" Height="25" CornerRadius="10" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
 
-                        <ListBox x:Name="SuppliesSelectedListBox" Margin="0,-4,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="145" Width="515" Background="#D9D9D9"/>
+                                <Canvas HorizontalAlignment="Center" Width="0">
+                                    <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="155" Canvas.Top="26" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
+                                </Canvas>
 
-                        <Button x:Name="btnDeleteSelectedSupply" BorderThickness="0" Content="Eliminar" Foreground="White" FontSize="12" FontWeight="DemiBold" Cursor="Hand" Grid.Row="2" Margin="13,10,0,0" Width="91" HorizontalAlignment="Left" Click="btnDeleteSelectedSupply_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#FF0422"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="70" Height="25" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </StackPanel>
-                </Border>
+                                <Label Content="Seleccione un ingrediente:" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="35,20,0,13" HorizontalAlignment="Left" Width="168"/>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Width="505" Height="118" Margin="6,-5,0,0">
+                                    <WrapPanel x:Name="AvailableSuppliesWrapPanel"/>
+                                </ScrollViewer>
+
+                                <Canvas HorizontalAlignment="Center" Width="0" Margin="0,5,0,0">
+                                    <Line X1="-460" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="180" Canvas.Top="14" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"/>
+                                </Canvas>
+
+                                <Label Content="Ingredientes seleccionados:" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="35,9,0,13" HorizontalAlignment="Left" Width="168"/>
+
+                                <Grid Height="43" Margin="20,-10,20,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition  Width="*"/>
+                                        <ColumnDefinition  Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Nombre" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" FontWeight="DemiBold" Width="60"/>
+                                    <Label Content="Cantidad" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="1" Width="66" FontWeight="DemiBold"/>
+                                    <Label Content="Unidad de medida" Foreground="Black" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="0,2,0,15" HorizontalAlignment="Center" Grid.Column="2" Width="120" FontWeight="DemiBold"/>
+
+                                    <Canvas HorizontalAlignment="Center" Width="0">
+                                        <Line X1="-410" Y1="-10" X2="100" Y2="-10" Stroke="Black" StrokeThickness="1" Canvas.Left="328" Canvas.Top="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Opacity="0.5"/>
+                                    </Canvas>
+                                </Grid>
+
+                                <ListBox x:Name="SuppliesSelectedListBox" Margin="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="145" Width="515" Background="#D9D9D9"/>
+
+                                <Button x:Name="btnDeleteSelectedSupply" BorderThickness="0" Content="Eliminar" Foreground="White" FontSize="12" FontWeight="DemiBold" Cursor="Hand" Grid.Row="2" Margin="13,10,0,0" Width="91" HorizontalAlignment="Left" Click="btnDeleteSelectedSupply_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#FF0422"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="70" Height="25" CornerRadius="10" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </StackPanel>
             </Grid>
         </StackPanel>
     </Viewbox>

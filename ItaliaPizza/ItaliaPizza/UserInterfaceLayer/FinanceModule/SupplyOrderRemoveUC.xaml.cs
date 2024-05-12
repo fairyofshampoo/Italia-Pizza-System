@@ -32,7 +32,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         public void SetTitleData()
         {
-            int fontSize = 25;
+            int fontSize = 20;
             txtAmount.FontWeight = FontWeights.Bold;
             txtName.FontWeight = FontWeights.Bold;
             txtUnit.FontWeight = FontWeights.Bold;
@@ -70,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
             if (supplyOrderDAO.DeleteSupplyFromOrder(supplyData.name, this.SupplyOrderView.OrderId))
             {
-                this.SupplyOrderView.RemoveSupplyFromOrder(this);
+                this.SupplyOrderView.RemoveSupplyFromOrder(supplyData.name, this);
             }
         }
 

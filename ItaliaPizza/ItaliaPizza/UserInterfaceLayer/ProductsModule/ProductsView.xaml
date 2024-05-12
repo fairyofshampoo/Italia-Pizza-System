@@ -11,111 +11,102 @@
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <StackPanel Grid.Column = "0" Background="#2c2c2c" Width="1280" Height="720">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <Grid Height="720">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame x:Name="menuFrame"/>
+                    <StackPanel Grid.Column="1">
+                        <Grid Width="1180">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                    <Grid Height="200" Width="1280">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="450"/>
-                            <ColumnDefinition Width="420"/>
-                            <ColumnDefinition Width="145"/>
-                            <ColumnDefinition Width="185"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid Height="200" Width="1280">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="450"/>
+                                    <ColumnDefinition Width="470"/>
+                                    <ColumnDefinition Width="95"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Label Content="Productos" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="70,0,0,0" Height="80" Width="300"/>
-                        <Canvas HorizontalAlignment="Center" Width="0">
-                            <Line X1="-200" Y1="-10" X2="80" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="50" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
-                        </Canvas>
+                                <Label Content="Productos" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="70" Margin="70,0,0,0" Height="80" Width="300"/>
+                                <Canvas HorizontalAlignment="Center" Width="0">
+                                    <Line X1="-200" Y1="-10" X2="80" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="50" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130"/>
+                                </Canvas>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="1">
-                            <Grid Margin="0,10,0,0">
-                                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="380" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,60,00,0"/>
-                                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="378" Height="60" Margin="0,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtSearchBar" FontSize="30" FontWeight="Medium" FontFamily = "Segoe UI Variable Display" Background="LightGray" BorderThickness="0" TextChanged="txtSearchBar_TextChanged"/>
-                                </Border>
+                                <StackPanel Orientation="Vertical" Grid.Column="1">
+                                    <Grid Margin="0,10,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="457" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0"/>
+                                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="460" Height="60" Margin="0,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <TextBox x:Name="txtSearchBar" FontSize="30" FontWeight="Medium" FontFamily = "Segoe UI Variable Display" Background="LightGray" BorderThickness="0" TextChanged="TxtSearchBar_TextChanged"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblInstruction" Content ="Ingrese el nombre del producto" Margin="0,0,0,0" FontSize="18" Foreground="White" Visibility="Visible"/>
+                                </StackPanel>
+
+                                <Button x:Name="btnAddProduct" Background="Transparent" ToolTip="Añadir producto" Grid.Column="2" Width="96" BorderBrush="Transparent" HorizontalAlignment="Center" Margin="80,60,-80,60" Click="BtnAddProduct_Click">
+                                    <Image Source="../Resources/Icons/AddProductIcon.png" Width="72" Height="67"/>
+                                </Button>
                             </Grid>
-                            <Label x:Name="lblInstruction" Content ="Ingrese el nombre del producto" Margin="0,0,0,0" FontSize="18" Foreground="White" Visibility="Visible"/>
-                        </StackPanel>
+                            <StackPanel x:Name="stpFiltersProducts" Orientation="Horizontal" Grid.Row="1">
+                                <Label x:Name="lblFilters" Content ="Tipo de producto" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
 
-                        <Button x:Name="btnAddProduct" Background="Transparent" Grid.Column="2" Width="76" BorderBrush="Transparent" HorizontalAlignment="Center" Margin="0,60,0,60" Click="btnAddProduct_Click">
-                            <Image Source="../Resources/Icons/AddProductIcon.png" Width="72" Height="67"/>
-                        </Button>
+                                <Button x:Name="btnAllFilter" BorderThickness="0" Content="Todos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="30,7,0,9" Width="162" Click="BtnAllFilter_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="100" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                        <Button x:Name="btnInventario" BorderThickness="0" Content="Inventario" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="21,79,0,69" HorizontalAlignment="Left" Width="164" Grid.Column="3" Click="btnInventario_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#FF7B00"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </Grid>
-                    <StackPanel x:Name="stpFiltersProducts" Orientation="Horizontal" Grid.Row="1">
-                        <Label x:Name="lblFilters" Content ="Tipo de producto" Margin="70,0,0,0" FontSize="18" Foreground="White" Visibility="Visible" Height="35" FontWeight="DemiBold"/>
+                                <Button x:Name="btnInternalFilter" BorderThickness="0" Content="Internos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="BtnInternalFilter_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                        <Button x:Name="btnAllFilter" BorderThickness="0" Content="Todos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="30,7,0,9" Width="162" Click="btnAllFilter_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="100" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                <Button x:Name="btnExternalFilter" BorderThickness="0" Content="Externos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="BtnExternalFilter_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
 
-                        <Button x:Name="btnInternalFilter" BorderThickness="0" Content="Internos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnInternalFilter_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                            <ScrollViewer Height="390" Grid.Row="2">
+                                <Grid Name="ProductsGrid" Width = "1100" Height = "Auto"/>
+                            </ScrollViewer>
 
-                        <Button x:Name="btnExternalFilter" BorderThickness="0" Content="Externos" Foreground="Black" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,7,0,9" Width="162" Click="btnExternalFilter_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Width="110" Height="50" CornerRadius="20" Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                            <Label Name="lblProductNotFound" Grid.Row="2" Content="No se encontró ningún producto" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
+                        </Grid>
                     </StackPanel>
-
-                    <ScrollViewer Height="390" Grid.Row="2">
-                        <Grid Name="ProductsGrid" Width = "1100" Height = "Auto"/>
-                    </ScrollViewer>
-                    
-                    
-
-                    <Label Name="lblProductNotFound" Grid.Row="2" Content="No se encontró ningún producto" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Times New Roman" FontSize="60" Height="80" Width="780" Visibility="Collapsed"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>

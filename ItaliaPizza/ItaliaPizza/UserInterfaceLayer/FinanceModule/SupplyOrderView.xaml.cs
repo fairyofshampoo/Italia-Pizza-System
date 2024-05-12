@@ -111,6 +111,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void ShowNoSuppliesMessage()
         {
+            suppliesListView.Items.Clear();
             Label lblNoSupplies = new Label();
             lblNoSupplies.Style = (Style)FindResource("NoSuppliesLabelStyle");
             lblNoSupplies.HorizontalAlignment = HorizontalAlignment.Center;
@@ -237,7 +238,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void SearchSupplyByName(string searchText)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
+            List<Supply> supplies = supplyDAO.SearchActiveSupplyByName(searchText);
             ShowSupplies(supplies);
         }
 
@@ -246,8 +247,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             AddSupplyToResume(supply);
         }
 
-        public void RemoveSupplyFromOrder(SupplyOrderRemoveUC supplyCard)
+        public void RemoveSupplyFromOrder(string supplyName, SupplyOrderRemoveUC supplyCard)
         {
+            suppliesDictionary.Remove(supplyName);
             orderListView.Items.Remove(supplyCard);
         }
 

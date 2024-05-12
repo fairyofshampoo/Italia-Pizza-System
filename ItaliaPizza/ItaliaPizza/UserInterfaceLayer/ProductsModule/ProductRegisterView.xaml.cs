@@ -39,7 +39,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (ValidateFields())
             {
-                if (!IsProductCodeExisting())
+                if (!IsProductCodeExisting() && !IsInternalProductRecipeExisting())
                 {
                     Product productData = GetProductData();
                     RecipeRegisterView recipeRegisterView = new RecipeRegisterView(productData);
@@ -47,7 +47,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("El código ingresado ya se encuentra registrado");
+                    DialogManager.ShowErrorMessageBox("El producto ingresado ya se encuentra registrado");
                 }
 
             }
@@ -162,6 +162,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                     txtCode.IsEnabled = false;
                     txtCode.Text = GenerateProductCode();
+                    txtAmount.Text = "1";
                 }
 
                 if (cmbIsExternal.SelectedItem.ToString() == "Sí")
@@ -200,7 +201,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code;
             do
             {
-                code = new string(Enumerable.Repeat(chars, 10)
+                code = new string(Enumerable.Repeat(chars, 5)
                 .Select(s => s[random.Next(s.Length)])
                 .ToArray());
             } while (productDAO.IsCodeExisting(code));
@@ -234,6 +235,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string code = txtCode.Text;
             bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
             return isCodeAlreadyExisting;
+        }
+
+        private bool IsInternalProductRecipeExisting()
+        {
+            RecipeDAO recipeDAO = new RecipeDAO();
+            string name = txtName.Text;
+            bool isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            return isInternalProductRecipeExisting;
         }
 
         private bool ValidateFields()
@@ -330,6 +339,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtPrice.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtPrice.BorderThickness = new Thickness(0);
             lblPriceError.Visibility = Visibility.Collapsed;
-        }        
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

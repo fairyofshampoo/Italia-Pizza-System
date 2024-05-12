@@ -79,7 +79,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         }
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                     }
@@ -346,7 +346,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         updateStatus = true;
                     }
                 }
-            }catch (Exception ex)
+            }catch (Exception)
             {
                 updateStatus = false;
             }

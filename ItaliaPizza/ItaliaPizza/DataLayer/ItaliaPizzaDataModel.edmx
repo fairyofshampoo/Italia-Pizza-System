@@ -10,7 +10,6 @@
             <PropertyRef Name="user" />
           </Key>
           <Property Name="user" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="isAdmin" Type="tinyint" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="64" />
           <Property Name="status" Type="tinyint" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
@@ -545,7 +544,6 @@
             <PropertyRef Name="user" />
           </Key>
           <Property Name="user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="isAdmin" Type="Byte" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Byte" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1074,7 +1072,6 @@
             <EntityTypeMapping TypeName="ItaliaPizzaDBModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="user" ColumnName="user" />
-                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="email" ColumnName="email" />

@@ -28,11 +28,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             InitializeComponent();
             SetComboBoxItems();
-            
-            // Sólo para comprobar que funciona
-            string email = "feliza@gmail.com";
 
-            SetModifyEmployee(email);
+            SetModifyEmployee(employeeData.email);
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)

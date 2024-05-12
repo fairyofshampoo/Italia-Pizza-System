@@ -147,7 +147,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool ValidateCompanyName()
         {
             bool isValid = true;
-            String companyName = txtCompanyName.Text;
+            string companyName = txtCompanyName.Text;
 
             if (!Validations.IsCompanyNameValid(companyName))
             {
@@ -160,7 +160,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         public bool ValidatePhone()
         {
             bool isValid = true;
-            String phone = txtPhone.Text;
+            string phone = txtPhone.Text;
             if (!Validations.IsPhoneValid(phone))
             {
                 lblPhoneHint.Foreground = Brushes.Red;

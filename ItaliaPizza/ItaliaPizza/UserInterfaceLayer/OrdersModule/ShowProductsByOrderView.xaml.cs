@@ -23,12 +23,12 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     {
         private int rowAdded = 0;
         private int columnsAdded = 0;
+        private string internalOrderCode;
 
-        public string internalOrderCode;
-
-        public ShowProductsByOrderView()
+        public ShowProductsByOrderView(string orderCode)
         {
             InitializeComponent();
+            this.internalOrderCode = orderCode;
             List<InternalOrderProduct> productsByOrder = GetProductsByOrder();
             ShowProducts(productsByOrder);
         }
@@ -45,13 +45,13 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             {
                 foreach (InternalOrderProduct product in products)
                 {
-                    for (int index = 0; index < 4; index++)
+                    for (int index = 0; index < 3; index++)
                     {
                         ColumnDefinition column = new ColumnDefinition();
                         ProductsGrid.ColumnDefinitions.Add(column);
                     }
 
-                    if (columnsAdded == 3)
+                    if (columnsAdded == 2)
                     {
                         columnsAdded = 0;
                         rowAdded++;
@@ -105,6 +105,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             {
                 //Mostrar mensaje que ha ocurrido un error
             }
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

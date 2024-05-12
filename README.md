@@ -35,41 +35,5 @@ git clone https://github.com/fairyofshampoo/ItaliaPizzaManagementSystem.git
 
 4. Compilar y ejecutar la aplicación.
 
-## Notas Adicionales
-
-- Para la primera entrega que corresponde al 40%, se requiere modificar el archivo MainWindow.xaml que por defecto viene de la siguiente manera y permite revisar los casos de uso correspondientes a clientes con la pantalla principal del cajero:
-
-```bash
-<Grid Margin="0">
-    <Grid.RowDefinitions>
-        <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <Frame x:Name="NavigationFrame" 
-    Width="Auto" 
-    Height="Auto" 
-    Grid.Row="0" 
-    NavigationUIVisibility="Hidden" Source="UserInterfaceLayer/UsersModule/LoginView.xaml" 
-    Margin="0"/>
-</Grid>
-```
-
-Para revisar la parte de los casos de uso de proveedores es necesario poner en el atributo Source lo siguiente:
-
-```bash
-Source="UserInterfaceLayer/FinanceModule/SupplierView.xaml"
-```
-
-Por otro lado, para revisar los casos de uso relacionados a la gestión de empleados:
-
-```bash
-Source="UserInterfaceLayer/FinanceModule/SupplierView.xaml"
-```
-
-Mientras que para la parte de productos es necesario el siguiente ajuste:
-
-```bash
-Source="UserInterfaceLayer/FinanceModule/SupplierView.xaml"
-```
-
 - Este proyecto se desarrolla como parte de un curso de desarrollo de software.
-- Última actualización: [26/03/2024]
+- Última actualización: [11/05/2024]

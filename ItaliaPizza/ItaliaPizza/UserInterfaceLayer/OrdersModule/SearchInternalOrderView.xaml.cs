@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,27 +23,30 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
     public partial class SearchInternalOrderView : Page
     {
-        private string waiterEmail = "lalo@gmail.com"; //Esto debe ser cambiado por el singleton
+        private string waiterEmail = ApplicationLayer.UserSingleton.Instance.Email;
         private int rowsAdded = 0;
         public bool isWaiter = false;
 
-        public SearchInternalOrderView()
+        public SearchInternalOrderView(bool isWaiter)
         {
             InitializeComponent();
 
             if (isWaiter)
             {
-                ShowElemntsForWiater();
+                menuFrame.Content = new WaiterMenu(this);
+                ShowElementsForWaiter();
                 ShowOrderForWaiter();
             }
             else
             {
+                menuFrame.Content = new ChefMenu(this);
+                ShowElementsForChef();
                 ShowOrderForChef();
             }
 
         }
 
-        private void ShowElemntsForWiater()
+        private void ShowElementsForWaiter()
         {
             btnAddInternalOrder.Visibility = Visibility.Visible;
             btnFinishedOrder.Visibility = Visibility.Visible;

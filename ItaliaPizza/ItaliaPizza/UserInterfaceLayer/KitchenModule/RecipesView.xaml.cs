@@ -30,6 +30,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
         {
             InitializeComponent();
             SetRecipesInComboBox();
+            menuFrame.Content = new ChefMenu(this);
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

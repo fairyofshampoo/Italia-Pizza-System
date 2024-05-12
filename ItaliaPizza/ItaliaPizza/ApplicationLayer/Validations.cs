@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -55,6 +56,15 @@ namespace ItaliaPizza.ApplicationLayer
 
         public static bool IsSupplyAmountValid(string amount)
         {
+            return IsAmountValid(amount, false);
+        }
+
+        public static bool IsSupplyNewAmountValid(string amount)
+        {
+            return IsAmountValid(amount, true);
+        }
+        private static bool IsAmountValid(string amount, bool allowZero)
+        {
             int limitTime = 500;
             bool isValid = true;
 
@@ -62,7 +72,7 @@ namespace ItaliaPizza.ApplicationLayer
             {
                 isValid = false;
             }
-            else if (!decimal.TryParse(amount, out decimal paymentValue) || paymentValue <= 0)
+            else if (!decimal.TryParse(amount, out decimal paymentValue) || (!allowZero && paymentValue <= 0))
             {
                 isValid = false;
             }
@@ -71,6 +81,21 @@ namespace ItaliaPizza.ApplicationLayer
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(amount, amountRegex);
+        }
+        public static bool IsProductIntegerValid(string productInt)
+        {
+            int limitTime = 500;
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(productInt))
+            {
+                isValid = false;
+            }
+
+            var integerRegex = new Regex("^\\d{1,6}$",
+                RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
+
+            return isValid && ValidateWithTimeout(productInt, integerRegex);
         }
 
         public static bool IsAddressValid(string address) 
@@ -191,7 +216,7 @@ namespace ItaliaPizza.ApplicationLayer
             {
                 isValid = false;
             }
-            var nameProductRegex = new Regex("^(?=.{1,100}$)(?![ .])[a-zA-Z0-9áéíóúÁÉÍÓÚ]+(?: [a-zA-Z0-9áéíóúÁÉÍÓÚ]+)*$",
+            var nameProductRegex = new Regex("^(?=.{1,100}$)(?![ .])[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ]+(?: [a-zA-Z0-9áéíóúñÑÁÉÍÓÚ]+)*$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(nameProduct, nameProductRegex);
