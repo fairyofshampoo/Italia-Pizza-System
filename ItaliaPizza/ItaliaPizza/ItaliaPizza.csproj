@@ -35,17 +35,110 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itext.barcodes, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-adapter, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.bouncy-castle-adapter.8.0.4\lib\net461\itext.bouncy-castle-adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.bouncy-castle-connector, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.bouncy-castle-connector.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.commons, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.commons.8.0.4\lib\net461\itext.commons.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfua, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.pdfua.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.sign.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.styledxmlparser, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.styledxmlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.svg, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext.8.0.4\lib\net461\itext.svg.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.5.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,96 +157,239 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationLayer\BitMapConvertion.cs" />
     <Compile Include="ApplicationLayer\Constants.cs" />
     <Compile Include="ApplicationLayer\DialogManager.cs" />
+    <Compile Include="ApplicationLayer\Encription.cs" />
+    <Compile Include="ApplicationLayer\DiacriticsUtilities.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
+    <Compile Include="ApplicationLayer\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Validations.cs" />
     <Compile Include="DataLayer\Account.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Address.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\Cashin.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    <Compile Include="DataLayer\CashierLog.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Cashout.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Client.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\ColonyCatalog.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\DAO\AddressDAO.cs" />
+    <Compile Include="DataLayer\DAO\CashoutDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
+    <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ICashOut.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IEmployee.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IAddress.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IInternalOrder.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IRecipe.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplier.cs" />
     <Compile Include="DataLayer\DAO\Interface\IClient.cs" />
     <Compile Include="DataLayer\DAO\Interface\ISupplierArea.cs" />
-    <Compile Include="DataLayer\Dealer.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Employee.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\HomeOrderProduct.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\HouseOrder.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\InternalOrder.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\InternalOrderProduct.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\ItaliaPizzaModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ItaliaPizzaModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\ItaliaPizzaModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\ItaliaPizzaModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Product.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Recipe.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\RecipeSupply.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Supplier.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DataLayer\DAO\Interface\ISupply.cs" />
+    <Compile Include="DataLayer\DAO\Interface\ISupplyOrder.cs" />
+    <Compile Include="DataLayer\DAO\InternalOrderDAO.cs" />
+    <Compile Include="DataLayer\DAO\RecipeDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierAreaDAO.cs" />
     <Compile Include="DataLayer\DAO\SupplierDAO.cs" />
+    <Compile Include="DataLayer\DAO\Interface\IProduct.cs" />
+    <Compile Include="DataLayer\DAO\ProductDAO.cs" />
+    <Compile Include="DataLayer\DAO\SupplyDAO.cs" />
+    <Compile Include="DataLayer\DAO\SupplyOrderDAO.cs" />
+    <Compile Include="DataLayer\Employee.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\InternalOrder.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\InternalOrderProduct.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\ItaliaPizzaDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Product.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Recipe.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\RecipeSupply.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\StatusOrder.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Supplier.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\SupplierOrder.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Supply.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\supplyArea.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+    <Compile Include="DataLayer\SupplyArea.cs">
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\SupplyOrder.cs">
-      <DependentUpon>ItaliaPizzaModel.tt</DependentUpon>
+      <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml.cs">
+      <DependentUpon>EditSupplierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\ManagerMenu.xaml.cs">
+      <DependentUpon>ManagerMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml.cs">
+      <DependentUpon>RegisterCashoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml.cs">
+      <DependentUpon>SupplierOrderHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml.cs">
       <DependentUpon>SupplierRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml.cs">
+      <DependentUpon>SuppliersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml.cs">
+      <DependentUpon>SupplierUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml.cs">
+      <DependentUpon>SupplyOrderAddUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderRemoveUC.xaml.cs">
+      <DependentUpon>SupplyOrderRemoveUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
+      <DependentUpon>SupplyOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml.cs">
+      <DependentUpon>ChefMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml.cs">
+      <DependentUpon>RecipeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipesView.xaml.cs">
+      <DependentUpon>RecipesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
+      <DependentUpon>SupplyUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml.cs">
+      <DependentUpon>ProductByOrderUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
+      <DependentUpon>ProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml.cs">
+      <DependentUpon>RegisterInternalOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
+      <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml.cs">
+      <DependentUpon>WaiterMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml.cs">
+      <DependentUpon>InventoryReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml.cs">
+      <DependentUpon>ShowProductsByOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml.cs">
+      <DependentUpon>ProductEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\InternalOrdersUC.xaml.cs">
+      <DependentUpon>InternalOrdersUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\SearchInternalOrderView.xaml.cs">
+      <DependentUpon>SearchInternalOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml.cs">
+      <DependentUpon>ProductRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml.cs">
+      <DependentUpon>ProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\ReportUC.xaml.cs">
+      <DependentUpon>ReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyProductUC.xaml.cs">
+      <DependentUpon>SupplyProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml.cs">
+      <DependentUpon>SupplyEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\ProductsModule\SupplyRegisterView.xaml.cs">
+      <DependentUpon>SupplyRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\Resources\DesignMaterials\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditClientAddress.xaml.cs">
+      <DependentUpon>EditClientAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml.cs">
+      <DependentUpon>EditEmployeeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EditClientView.xaml.cs">
+      <DependentUpon>EditClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml.cs">
+      <DependentUpon>EmployeeRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml.cs">
+      <DependentUpon>ClientsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeesView.xaml.cs">
+      <DependentUpon>EmployeesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\EmployeeUC.xaml.cs">
+      <DependentUpon>EmployeeUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml.cs">
       <DependentUpon>RegisterClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml.cs">
+      <DependentUpon>RegisterNewClientAddressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml.cs">
+      <DependentUpon>TellerMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml.cs">
+      <DependentUpon>TellerScreenView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -167,7 +403,167 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserInterfaceLayer\FinanceModule\EditSupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\ManagerMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\RegisterCashoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierOrderHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplierRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SuppliersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplierUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderAddUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderRemoveUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\InternalOrdersUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\SearchInternalOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\ReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\ProductsModule\SupplyRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\Resources\DesignMaterials\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\Resources\Fonts\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditClientAddress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EditClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\ClientsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\EmployeeUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,6 +572,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\RegisterClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,26 +606,29 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataLayer\ItaliaPizzaModel.edmx">
+    <EntityDeploy Include="DataLayer\ItaliaPizzaDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ItaliaPizzaModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ItaliaPizzaDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DataLayer\ItaliaPizzaModel.edmx.diagram">
-      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
+    <None Include="DataLayer\ItaliaPizzaDataModel.edmx.diagram">
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="UserInterfaceLayer\Resources\Fonts\Inter.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserInterfaceLayer\KitchenModule\" />
-    <Folder Include="UserInterfaceLayer\OrdersModule\" />
-    <Folder Include="UserInterfaceLayer\ProductsModule\" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\questionIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\infoIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\errorIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\warningIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -232,16 +643,77 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataLayer\ItaliaPizzaModel.Context.tt">
+    <Resource Include="UserInterfaceLayer\Resources\Images\RegisterEmployeeBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddressIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PencilIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PlusSignIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ShoppingCarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PlaceMarkerIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PhoneIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ClientIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ClientShadowIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddClientIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\LogExpenseIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\InvisibleIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\VisibleIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\Logo.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\LoginBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmailIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EditIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SupplierOrderIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductImageIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\ProductRegisterBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditEmployeeBanner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ProductCodeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\PriceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EmployeeTypeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\EditProductBanner.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Images\Supply.jpeg" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\SearchIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\DollarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\WaiterIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\goBackIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\cookBookIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\moneyPigIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\clientsIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\logoutIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\inventoryIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\pizzaProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\shopIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\employeesManagementIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\reportIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaModel.Context.cs</LastGenOutput>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataLayer\ItaliaPizzaModel.tt">
+    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaModel.cs</LastGenOutput>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

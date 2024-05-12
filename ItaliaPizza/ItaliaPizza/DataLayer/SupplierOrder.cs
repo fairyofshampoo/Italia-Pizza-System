@@ -23,7 +23,7 @@ namespace ItaliaPizza.DataLayer
         public int orderCode { get; set; }
         public byte status { get; set; }
         public System.DateTime date { get; set; }
-        public System.TimeSpan time { get; set; }
+        public System.DateTime modificationDate { get; set; }
         public decimal total { get; set; }
         public string supplierId { get; set; }
     

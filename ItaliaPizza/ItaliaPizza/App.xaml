@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:ItaliaPizza"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="UserInterfaceLayer/Resources/Fonts/Fonts.xaml" />
     </Application.Resources>
 </Application>

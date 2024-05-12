@@ -9,6 +9,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 {
     public interface ISupplierArea
     {
-        List<supplyArea> GetAllSupplyAreas();
+        List<SupplyArea> GetAllSupplyAreas();
+        int GetSupplyAreaIdByName(string name);
     }
 }

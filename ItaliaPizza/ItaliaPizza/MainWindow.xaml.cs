@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,14 +29,15 @@ namespace ItaliaPizza
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Desea cerrar la app?", "Confirmar cierre", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.No)
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Desea cerrar la app?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
+            if(dialogWindow.ShowDialog() == false)
             {
                 e.Cancel = true;
             }
             else
             {
-                //UserSingleton.Instance.Clear();
+                UserSingleton.Instance.Clear();
             }
         }
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)

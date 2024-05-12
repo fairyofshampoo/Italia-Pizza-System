@@ -17,19 +17,18 @@ namespace ItaliaPizza.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
         {
-            this.HomeOrderProducts = new HashSet<HomeOrderProduct>();
+            this.InternalOrders = new HashSet<InternalOrder>();
         }
     
         public int addressId { get; set; }
         public string street { get; set; }
-        public int number { get; set; }
         public string postalCode { get; set; }
         public string colony { get; set; }
         public byte status { get; set; }
         public string clientId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HomeOrderProduct> HomeOrderProducts { get; set; }
+        public virtual ICollection<InternalOrder> InternalOrders { get; set; }
         public virtual Client Client { get; set; }
     }
 }

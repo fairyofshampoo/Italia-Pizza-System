@@ -18,19 +18,17 @@ namespace ItaliaPizza.DataLayer
         public Client()
         {
             this.Addresses = new HashSet<Address>();
-            this.HouseOrders = new HashSet<HouseOrder>();
+            this.InternalOrders = new HashSet<InternalOrder>();
         }
     
         public string email { get; set; }
         public string name { get; set; }
-        public string firstLastName { get; set; }
-        public string secondLastName { get; set; }
         public string phone { get; set; }
         public byte status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HouseOrder> HouseOrders { get; set; }
+        public virtual ICollection<InternalOrder> InternalOrders { get; set; }
     }
 }

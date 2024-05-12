@@ -15,7 +15,6 @@ namespace ItaliaPizza.DataLayer
     public partial class Account
     {
         public string user { get; set; }
-        public byte isAdmin { get; set; }
         public string password { get; set; }
         public byte status { get; set; }
         public string email { get; set; }

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="ItaliaPizza.UserInterfaceLayer.OrdersModule.InternalOrdersUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.OrdersModule"
+             mc:Ignorable="d" 
+             d:DesignHeight="190" d:DesignWidth="650" Background= "Transparent">
+    <Grid>
+        <Border
+        Width="630"
+        Height="170"
+        Background="#4C4C4C"
+        CornerRadius="20">
+            <Border CornerRadius="20"
+                Background="#D9D9D9"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="140"
+                Width="600">
+                <Grid>
+
+                    <Label
+                    x:Name="lblOrderNumber"
+                    Grid.Row = "0"
+                    Grid.Column="0"
+                    FontSize = "35"
+                    Foreground = "Black"
+                    VerticalAlignment = "Top"
+                    Content="Número del pedido: xxxxxx-xxxx"
+                    Margin="40,0,0,0"/>
+
+                    <Label
+                    x:Name="lblDate"
+                    Grid.Row = "0"
+                    Grid.Column="1"
+                    FontSize = "20"
+                    Foreground = "Black"
+                    VerticalAlignment = "Center"
+                    Content="XX/XX/XXXX xx:xx:xx.xxxx"
+                    Margin="50,20,0,0"/>
+
+                    <Image 
+                       Name="imgDollarIcon"
+                       Source = "../Resources/Icons/DollarIcon.png"
+                       Grid.Row = "1"
+                       Grid.Column="1"
+                       Width = "36"
+                       HorizontalAlignment = "Left"
+                       VerticalAlignment="Bottom"
+                       Visibility="Collapsed"
+                       Margin="50,0,0,0"/>
+
+                    <Label
+                    x:Name="lblTotal"
+                    Grid.Row = "1"
+                    Grid.Column="1"
+                    FontSize = "20"
+                    Foreground = "Black"
+                    VerticalAlignment = "Bottom"
+                    Content="00000"
+                    Visibility="Collapsed"
+                    Margin="80,0,0,0"/>
+
+                <Button Grid.Row="1" ToolTip="Editar pedido interno"
+                        Grid.Column="2"
+                        Name="btnEditOrder"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,50,0"
+                        Width="70"
+                        Height="70"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="BtnEditInternalOrder_Click"
+                        Visibility="Collapsed">
+                        <Image Source = "../Resources/Icons/EditIcon.png"
+                       Width = "90"/>
+                    </Button>
+
+                    <Button 
+                        Name="btnViewDetails"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,50,0"
+                        Width="70"
+                        Height="70"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="BtnViewDetails_Click"
+                        Visibility="Collapsed">
+                        <Image Source = "../Resources/Icons/EyeIcon.png"
+                       Width = "90"/>
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

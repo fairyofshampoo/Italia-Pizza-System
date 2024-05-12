@@ -20,13 +20,14 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             InitializeComponent();
             SetSupplyAreaItems();
+            txtPhone.PreviewTextInput += TxtPhone_PreviewTextInput;
         }
 
         private void SetSupplyAreaItems()
         {
             SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
 
-            List<supplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
+            List<SupplyArea> supplyAreas = supplierAreaDAO.GetAllSupplyAreas();
 
             SupplyAreas = new ObservableCollection<SupplyAreaViewModel>(
                 supplyAreas.Select(area => new SupplyAreaViewModel { AreaName = area.area_name })
@@ -41,6 +42,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (RegisterSupplier())
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor registrado exitosamente");
+                    NavigationService.GoBack();
                 }
             }
         }
@@ -54,13 +56,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             supplier.companyName = txtCompanyName.Text;
             supplier.manager = txtManagerName.Text;
             supplier.status = Constants.ACTIVE_STATUS;
-            supplier.supplyAreas = GetSupplyAreas();
+            supplier.SupplyAreas = GetSupplyAreas();
             return supplierDAO.AddSupplier(supplier);
         }
 
-        private ICollection<supplyArea> GetSupplyAreas()
+        private ICollection<SupplyArea> GetSupplyAreas()
         {
-            var selectedAreas = SupplyAreas.Where(area => area.IsSelected).Select(area => new supplyArea { area_name = area.AreaName });
+            var selectedAreas = SupplyAreas.Where(area => area.IsSelected).Select(area => new SupplyArea { area_name = area.AreaName });
 
             return selectedAreas.ToList();
         }
@@ -169,6 +171,27 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void TxtPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
             lblPhoneHint.Foreground = Brushes.LightGray;
+        }
+
+        private void TxtPhone_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if(!Validations.IsNumber(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length >= 10)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void BtnGoBack_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
