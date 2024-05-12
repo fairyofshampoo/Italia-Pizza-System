@@ -56,12 +56,12 @@
                 </Grid>
 
                 <Button x:Name="btnNewOrder" Background="Transparent" Height="Auto" BorderBrush="Transparent" 
-                        VerticalAlignment="Top" Grid.Row="0" Click="BtnSupplyOrder_Click" Cursor="Hand"
+                        VerticalAlignment="Top" Grid.Row="0" Click="BtnSupplyOrder_Click" Cursor="Hand" ToolTip="Registrar pedido de insumos"
                         Grid.Column="1" Margin="0,10,30,0" HorizontalAlignment="Right">
                     <Image Source="../Resources/Icons/SupplierOrderIcon.png" Width="70" Height="70"/>
                 </Button>
 
-                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Cursor="Hand"
+                <Button Background="Transparent" Height="Auto" BorderBrush="Transparent" Cursor="Hand" ToolTip="Editar proveedor"
                         Grid.Row="1" Grid.Column="1" Margin="0,0,30,20" HorizontalAlignment="Right"
                         Click="BtnEditSupplier_Click" VerticalAlignment="Top">
                     <Image Source="../Resources/Icons/EditIcon.png" Width="70" Height="70"/>

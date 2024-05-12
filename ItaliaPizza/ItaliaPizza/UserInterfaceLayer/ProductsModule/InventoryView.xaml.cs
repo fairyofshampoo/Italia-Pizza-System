@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -16,6 +17,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             GetAllSuppliesAndExternalProducts();
+            menuFrame.Content = new ManagerMenu(this);
         }
 
         private void BtnNewInventoryReport_Click(object sender, RoutedEventArgs e)

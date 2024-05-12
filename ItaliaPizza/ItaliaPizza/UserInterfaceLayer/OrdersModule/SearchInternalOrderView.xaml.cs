@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
+                menuFrame.Content = new ChefMenu(this);
                 ShowOrderForChef();
             }
 

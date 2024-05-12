@@ -286,6 +286,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
       <DependentUpon>SupplyOrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml.cs">
+      <DependentUpon>ChefMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml.cs">
       <DependentUpon>RecipeEditView.xaml</DependentUpon>
     </Compile>
@@ -373,6 +376,9 @@
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml.cs">
       <DependentUpon>RegisterNewClientAddressView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml.cs">
+      <DependentUpon>TellerMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml.cs">
       <DependentUpon>TellerScreenView.xaml</DependentUpon>
     </Compile>
@@ -425,6 +431,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -548,6 +558,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -661,6 +675,9 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\cookBookIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\moneyPigIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\clientsIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\logoutIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\inventoryIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\pizzaProductIcon.png" />

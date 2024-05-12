@@ -37,7 +37,7 @@
                             Content="Nombre del producto"
                             Margin="20,0,0,0"/>
 
-                    <Button x:Name="btnAddProduct"
+                    <Button x:Name="btnAddProduct" ToolTip="Agregar producto"
                                 Content="+"
                                 Foreground="White"
                                 FontSize="20"

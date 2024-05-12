@@ -91,7 +91,7 @@
                     </Button>
                 </Grid>
 
-                <Border Grid.Column="1" Background="#D9D9D9" CornerRadius="10,0,10,0" Margin="1,0,-1,105">
+                <Border Grid.Column="1" Background="#D9D9D9" CornerRadius="10,0,10,0" Margin="0,0,0,105">
                     <StackPanel>
                         <StackPanel>
                             <Label Content="Ingredientes" Foreground="#ff7b00" FontSize="15" FontFamily="Microsoft YaHei UI" Height="29" Width="120" Margin="20,05,0,0" HorizontalAlignment="Left" FontWeight="DemiBold"/>
@@ -177,7 +177,7 @@
                             </Canvas>
                         </Grid>
 
-                        <ListBox x:Name="SuppliesSelectedListBox" Margin="0,-4,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="145" Width="515" Background="#D9D9D9"/>
+                        <ListBox x:Name="SuppliesSelectedListBox" Margin="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="145" Width="515" Background="#D9D9D9"/>
 
                         <Button x:Name="btnDeleteSelectedSupply" BorderThickness="0" Content="Eliminar" Foreground="White" FontSize="12" FontWeight="DemiBold" Cursor="Hand" Grid.Row="2" Margin="13,10,0,0" Width="91" HorizontalAlignment="Left" Click="btnDeleteSelectedSupply_Click">
                             <Button.Style>

@@ -106,5 +106,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             txtCellPhone.Text = string.Empty;
         }
 
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

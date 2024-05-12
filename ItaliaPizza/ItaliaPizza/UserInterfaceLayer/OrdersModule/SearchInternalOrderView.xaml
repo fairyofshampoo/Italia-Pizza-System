@@ -10,38 +10,45 @@
 
 
     <Viewbox Stretch="Fill">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid Background="#2c2c2c"
+        <StackPanel Background="#2c2c2c" Width="1280" Height="720">
+            <Grid Height="720">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="menuFrame"/>
+                <StackPanel Grid.Column="1">
+                    <Grid Background="#2c2c2c"
                   Height="720"
-                  Width="1280">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                  Width="1180">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width = "Auto"/>
-                        <ColumnDefinition Width = "Auto"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width = "Auto"/>
+                                <ColumnDefinition Width = "Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                    <Label Content="Lista de pedidos" 
+                            <Label Content="Lista de pedidos" 
                            Foreground="White" 
                            FontSize="70" 
                            FontFamily="Times New Roman" HorizontalAlignment="Center" 
                            Grid.Column="0"
                            Margin="140,0,0,0"/>
 
-                    <Canvas HorizontalAlignment="Center"
+                            <Canvas HorizontalAlignment="Center"
                             Grid.Column="0"
                             Height="15" Margin="-120,100,0,-17">
-                        <Line X1="-220" Y1="-10" 
+                                <Line X1="-220" Y1="-10" 
                               X2="250" Y2="-10" Stroke="#ff7b00" 
                               StrokeThickness="3" HorizontalAlignment="Left" Canvas.Left="125" VerticalAlignment="Center"/>
-                    </Canvas>
+                            </Canvas>
 
-                    <Button x:Name="btnAddInternalOrder"
+                            <Button x:Name="btnAddInternalOrder"
                         Content="Añadir pedido"
                         Foreground="White"
                         FontSize="25"
@@ -51,24 +58,24 @@
                         Grid.Column="2"
                         Click="BtnAddInternalOrder_Click"
                         Visibility="Collapsed">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#FF7B00"/>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="250" Height="60"
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#FF7B00"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="250" Height="60"
                                     CornerRadius="20"
                                     Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
-                    <Button x:Name="btnRefreshPage"
+                            <Button x:Name="btnRefreshPage"
                         Content="Recargar pantalla"
                         Foreground="White"
                         FontSize="25"
@@ -78,42 +85,42 @@
                         Grid.Column="2"
                         Click="BtnAddInternalOrder_Click"
                         Visibility="Collapsed">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#FF7B00"/>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="250" Height="60"
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#FF7B00"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="250" Height="60"
                                     CornerRadius="20"
                                     Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
 
-                </Grid>
+                        </Grid>
 
 
 
 
 
-                <Grid
+                        <Grid
                     Height="Auto"
                     Grid.Row="1"
                     Width="400"
                     HorizontalAlignment="Left"
                     Margin="160,45,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                    <Label Content="Estado del pedido" 
+                            <Label Content="Estado del pedido" 
                            Foreground="White"
                            FontSize="20" 
                            FontWeight="Bold" 
@@ -121,15 +128,15 @@
                            Grid.Row="0" 
                            HorizontalAlignment="Center"/>
 
-                    <Grid
+                            <Grid
                         Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="133.333"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="133.333"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
 
-                        <Button x:Name="btnImpromptuOrder"
+                                <Button x:Name="btnImpromptuOrder"
                         Content="Por preparar"
                         Foreground="Black"
                         FontSize="15"
@@ -137,24 +144,24 @@
                         Cursor="Hand"
                         Grid.Column="0"
                         Click="BtnOpenOrder_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="120" Height="40"
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="120" Height="40"
                                     CornerRadius="20"
                                     Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                                <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                        <Button x:Name="btnPreparingOrder"
+                                <Button x:Name="btnPreparingOrder"
                         Content="En preparación"
                         Foreground="Black"
                         FontSize="15"
@@ -162,24 +169,24 @@
                         Cursor="Hand"
                         Grid.Column="1"
                         Click="BtnPreparingOrder_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="120" Height="40"
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="120" Height="40"
                                     CornerRadius="20"
                                     Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                                <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                        <Button x:Name="btnFinishedOrder"
+                                <Button x:Name="btnFinishedOrder"
                         Content="Preparado"
                         Foreground="Black"
                         FontSize="15"
@@ -188,35 +195,37 @@
                         Grid.Column="2"
                         Click="BtnFinishedOrder_Click"
                         Visibility="Collapsed">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#E9E1FF"/>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="120" Height="40"
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="120" Height="40"
                                     CornerRadius="20"
                                     Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                                <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                    </Grid>
-                </Grid>
+                            </Grid>
+                        </Grid>
 
-                <ScrollViewer
+                        <ScrollViewer
                   Grid.Row="2"
                   Width="1000">
-                    <Grid Name="OrdersGrid"
+                            <Grid Name="OrdersGrid"
                   Width = "1000"
                   Height = "Auto"/>
-                </ScrollViewer>
+                        </ScrollViewer>
 
+                    </Grid>
+                </StackPanel>
             </Grid>
-        </ScrollViewer>
+        </StackPanel>
     </Viewbox>
 </Page>

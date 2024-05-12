@@ -99,6 +99,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 if (clientDAO.EditDataClient(client))
                 {
                     ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la información del cliente");
+                    NavigationService.GoBack();
                 }
             }
         }
@@ -143,6 +144,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             lblNameEditedError.Visibility = Visibility.Collapsed;
             lblCellPhoneEditedError.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

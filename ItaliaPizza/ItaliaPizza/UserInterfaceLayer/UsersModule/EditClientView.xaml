@@ -8,78 +8,74 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="EditClientView">
 
-<WrapPanel>
+<Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
+                <Grid Height="720" Width="1280">
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
+                        <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
 
-            <Grid
-                Grid.Row="0"
-                Height="200"
-                Width="800">
+                        <StackPanel Grid.Row="0">
+                            <Grid Margin="0,50,0,0">
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
+BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="27"/>
-                </Grid.RowDefinitions>
-
-                <Label
-                    Grid.Row="1"
-                    Content="Editar Cliente"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Foreground="White"
-                    FontFamily="Times New Roman"
-                    FontSize="60"
-                    Margin="-110,0,0,0" Height="70" Width="450"/>
-
-                <Canvas HorizontalAlignment="Center" Grid.Row="2">
-                    <Line X1="-310" Y1="-10" X2="105" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
-                </Canvas>
-            </Grid>
+                                <Label Content="Editar cliente" Foreground="White" FontSize="60" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                                <Canvas HorizontalAlignment="Left">
+                                    <Line X1="400" Y1="80" X2="880" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
+                                </Canvas>
+                            </Grid>
+                        </StackPanel>
 
 
-            <StackPanel
+                        <StackPanel
                 Grid.Row="1"
-                Height="650"
-                Width="1370"
+                Height="Auto"
+                Width="1280"
                 Background="#2c2c2c">
 
-                <Label Content="Modifique la información necesaria."
+                            <Label Content="Modifique la información necesaria."
                        Foreground="White"
                        FontSize="25"
                        Margin="140,20,0,0"
                        FontFamily="inter"/>
 
-                <Border
+                            <Border
                     Background="#393D42"
                     Height="300"
                     Width="1000"
                     CornerRadius="10"
                     Margin="0,20,0,0">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="90"/>
-                        </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="90"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="90"/>
+                                    </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
-                        </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
 
-                        <Label
+                                    <Label
                             Grid.Row = "0"
                             Grid.Column = "1"
                             FontSize = "35"
@@ -88,27 +84,27 @@
                             Content="Nombre"
                             Margin="53,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="680" Height="40"
                                 Grid.Row="1" Grid.Column="1" Margin="60,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                        </Border>
+                                    </Border>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="680" 
                                 Height="40"
                                 Grid.Row="1" 
                                 Grid.Column="1" Margin="57,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                            <TextBox x:Name="txtName"
+                                        <TextBox x:Name="txtName"
                                          FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
                                          BorderThickness="0" />
-                        </Border>
+                                    </Border>
 
-                        <Label
+                                    <Label
                             x:Name="lblNameEditedError"
                             Grid.Row = "1"
                             Grid.Column = "1"
@@ -119,7 +115,7 @@
                             Content="El nombre es incorrecto"
                             Visibility="Collapsed"/>
 
-                        <Label
+                                    <Label
                             Grid.Row = "2"
                             Grid.Column = "1"
                             FontSize = "35"
@@ -128,25 +124,25 @@
                             Content="Teléfono"
                             Margin="53,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
+                                    </Border>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtCellPhone"
+                                        <TextBox x:Name="txtCellPhone"
                                          FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
                                          BorderThickness="0" />
-                        </Border>
+                                    </Border>
 
-                        <Label
+                                    <Label
                             x:Name="lblCellPhoneEditedError"
                             Grid.Row = "3"
                             Grid.Column = "1"
@@ -157,7 +153,7 @@
                             Content="El número de teléfono es incorrecto"
                             Visibility="Collapsed"/>
 
-                        <Label
+                                    <Label
                             Grid.Row = "2"
                             Grid.Column = "2"
                             FontSize = "35"
@@ -166,17 +162,17 @@
                             Content="Correo electrónico"
                             Margin="10,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="2" Margin="19,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
+                                    </Border>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                                    <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="280" Height="40"
                                 Grid.Row="3" Grid.Column="2" Margin="15,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtEmail"
+                                        <TextBox x:Name="txtEmail"
                                          FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
@@ -184,9 +180,9 @@
                                          BorderThickness="0"
                                          IsReadOnly="True"
                                          IsEnabled="False"/>
-                        </Border>
+                                    </Border>
 
-                        <Label
+                                    <Label
                             x:Name="lblEmailEditedError"
                             Grid.Row = "3"
                             Grid.Column = "2"
@@ -197,37 +193,37 @@
                             Content="El correo electrónico es incorrecto"
                             Visibility="Collapsed"/>
 
-                    </Grid>
+                                </Grid>
 
-                </Border>
+                            </Border>
 
-                <Button x:Name="btnDisable"
+                            <Button x:Name="btnDisable"
                         BorderThickness="0"
                         Content="Deshabilitar"
                         Foreground="White"
                         FontSize="25"
                         FontWeight="Bold"
                         Cursor="Hand"
-                        Margin="0,40,413,0" 
+                        Margin="0,40,433,0" 
                         HorizontalAlignment="Right" Click="BtnDisable_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#FF0422"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="50"
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#FF0422"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
-                <Button x:Name="btnEnable"
+                            <Button x:Name="btnEnable"
                         BorderThickness="0"
                         Content="Habilitar"
                         Foreground="White"
@@ -237,53 +233,53 @@
                         Margin="0,-50,190,0" 
                         HorizontalAlignment="Right" Click="BtnEnable_Click"
                         Visibility = "Visible">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Green"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="50"
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Green"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
 
-                <Button x:Name="btnModify"
+                            <Button x:Name="btnModify"
                         BorderThickness="0"
-                        Content="Modificar"
+                        Content="Guardar cambios"
                         Foreground="White"
                         FontSize="25"
                         FontWeight="Bold"
                         Cursor="Hand"
                         Margin="0,-50,187,0" 
                         HorizontalAlignment="Right" Click="BtnModify_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#FF7B00"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="50"
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#FF7B00"/>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="210" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
             </StackPanel>
-
-
-        </Grid>
-    </WrapPanel>
+        </ScrollViewer>
+    </Viewbox>
 </Page>

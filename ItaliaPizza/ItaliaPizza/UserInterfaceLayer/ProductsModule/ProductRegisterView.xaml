@@ -16,7 +16,7 @@
                 </Grid.RowDefinitions>
 
                 <Rectangle HorizontalAlignment="Center" Height="140" Fill="Black" Stroke="Black" VerticalAlignment="Center" Width="1280"/>
-                <Image Source="../Resources/Images/ProductRegisterBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
+                <Image Source="../Resources/Images/ProductRegisterBanner.jpg" Opacity=".4" Stretch="Fill"/>
                 <Grid Grid.Row="0" Width="800" Margin="240,0,240,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
