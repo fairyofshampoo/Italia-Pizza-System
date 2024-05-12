@@ -75,20 +75,43 @@
                         </Grid>
                     </Border>
 
-                    <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="37,19,0,19" HorizontalAlignment="Left" Width="165" Grid.Row="2" Click="btnSave_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="#FF7B00"/>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="37,19,0,19">
+                        <Button x:Name="btnCancel" BorderThickness="0" Content="Cancelar"
+            Foreground="White" FontSize="18" FontFamily="{StaticResource InterFont}"
+            FontWeight="Bold" Cursor="Hand" Width="170"
+            Height="52" Margin="0,0,50,0" Click="BtnCancel_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#F15366"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="170" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button x:Name="btnSave" BorderThickness="0" Content="Guardar"
+            Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="18" 
+            FontWeight="Bold" Cursor="Hand" Width="170" Height="52" Margin="0,0,0,0"
+            Click="BtnSave_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#FA8A00"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="170" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <Border Grid.Column="1" Background="#D9D9D9" CornerRadius="10,0,10,0" Margin="0,0,0,105">

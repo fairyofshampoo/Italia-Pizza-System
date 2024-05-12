@@ -33,6 +33,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             SetComboBoxItems();
         }
 
+        public void SetRegisterForInternalProduct()
+        {
+            cmbIsExternal.SelectedItem = "No";
+            cmbIsExternal.IsEnabled = false;
+            cmbIsExternal.Foreground = Brushes.DarkGreen;
+            ChangeProductType();
+        }
+
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             ResetFields();
@@ -89,7 +97,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             string name = txtName.Text;
             string code = txtCode.Text;
-            Decimal price = Decimal.Parse(txtPrice.Text);
+            decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
 
@@ -152,30 +160,40 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (cmbIsExternal.SelectedItem != null)
             {
-                if (cmbIsExternal.SelectedItem.ToString() == "No")
-                {
-                    btnContinue.IsEnabled = true;
-                    btnContinue.Visibility = Visibility.Visible;
+                ChangeProductType();
+            }
+        }
 
-                    btnSave.Visibility = Visibility.Hidden;
-                    btnSave.IsEnabled = false;
+        private void ChangeProductType()
+        {
+            if (cmbIsExternal.SelectedItem.ToString() == "No")
+            {
+                btnContinue.IsEnabled = true;
+                btnContinue.Visibility = Visibility.Visible;
 
-                    txtCode.IsEnabled = false;
-                    txtCode.Text = GenerateProductCode();
-                    txtAmount.Text = "1";
-                }
+                btnSave.Visibility = Visibility.Hidden;
+                btnSave.IsEnabled = false;
 
-                if (cmbIsExternal.SelectedItem.ToString() == "Sí")
-                {
-                    btnContinue.IsEnabled = false;
-                    btnContinue.Visibility = Visibility.Hidden;
+                txtCode.IsEnabled = false;
+                txtCode.Text = GenerateProductCode();
 
-                    btnSave.Visibility = Visibility.Visible;
-                    btnSave.IsEnabled = true;
+                txtAmount.Text = "0";
+                txtAmount.IsEnabled = false;
+            }
 
-                    txtCode.Clear();
-                    txtCode.IsEnabled = true;
-                }
+            if (cmbIsExternal.SelectedItem.ToString() == "Sí")
+            {
+                btnContinue.IsEnabled = false;
+                btnContinue.Visibility = Visibility.Hidden;
+
+                btnSave.Visibility = Visibility.Visible;
+                btnSave.IsEnabled = true;
+
+                txtAmount.Text = "1";
+                txtAmount.IsEnabled = true;
+
+                txtCode.Clear();
+                txtCode.IsEnabled = true;
             }
         }
 
