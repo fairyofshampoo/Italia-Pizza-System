@@ -286,6 +286,9 @@
     <Compile Include="UserInterfaceLayer\FinanceModule\SupplyOrderView.xaml.cs">
       <DependentUpon>SupplyOrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml.cs">
+      <DependentUpon>ChefMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml.cs">
       <DependentUpon>RecipeEditView.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,9 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
       <DependentUpon>SupplyUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml.cs">
+      <DependentUpon>ProductByOrderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
@@ -304,8 +310,14 @@
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml.cs">
+      <DependentUpon>WaiterMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml.cs">
       <DependentUpon>InventoryReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml.cs">
+      <DependentUpon>ShowProductsByOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
@@ -373,6 +385,9 @@
     <Compile Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml.cs">
       <DependentUpon>RegisterNewClientAddressView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml.cs">
+      <DependentUpon>TellerMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\UsersModule\TellerScreenView.xaml.cs">
       <DependentUpon>TellerScreenView.xaml</DependentUpon>
     </Compile>
@@ -428,6 +443,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\KitchenModule\ChefMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -437,6 +456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -452,7 +475,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,6 +576,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\UsersModule\RegisterNewClientAddressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\UsersModule\TellerMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -651,6 +686,21 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\goBackIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\cookBookIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\moneyPigIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\clientsIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\logoutIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\inventoryIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\pizzaProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\shopIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\employeesManagementIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\reportIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
@@ -661,15 +711,9 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\logoutIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\inventoryIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\pizzaProductIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\shopIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\employeesManagementIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\addIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\reportIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

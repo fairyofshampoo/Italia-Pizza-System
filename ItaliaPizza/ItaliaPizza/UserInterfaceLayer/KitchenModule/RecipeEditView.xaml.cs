@@ -34,6 +34,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             SetModifyRecipe(recipe);
             SetRecipeSupplies(recipeSupplies);
             SetAvailableSupplies(recipeSupplies);
+            menuFrame.Content = new ChefMenu(this);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

@@ -5,103 +5,96 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.OrdersModule"
              mc:Ignorable="d" 
-             d:DesignHeight="210" d:DesignWidth="950" Background= "Transparent">
-    <Border
+             d:DesignHeight="190" d:DesignWidth="650" Background= "Transparent">
+    <Grid>
+        <Border
+        Width="630"
+        Height="170"
         Background="#4C4C4C"
         CornerRadius="20">
-        <Border CornerRadius="20"
+            <Border CornerRadius="20"
                 Background="#D9D9D9"
-                Height="160"
-                Width="900">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="140"
+                Width="600">
+                <Grid>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label
+                    <Label
                     x:Name="lblOrderNumber"
                     Grid.Row = "0"
                     Grid.Column="0"
                     FontSize = "35"
                     Foreground = "Black"
-                    VerticalAlignment = "Center"
-                    Content="Número del pedido: 3148"
+                    VerticalAlignment = "Top"
+                    Content="Número del pedido: xxxxxx-xxxx"
                     Margin="40,0,0,0"/>
 
-                <Label
+                    <Label
                     x:Name="lblDate"
                     Grid.Row = "0"
                     Grid.Column="1"
                     FontSize = "20"
                     Foreground = "Black"
                     VerticalAlignment = "Center"
-                    Content="XX/XX/XXXX"
-                    Margin="80,0,0,0"/>
+                    Content="XX/XX/XXXX xx:xx:xx.xxxx"
+                    Margin="50,20,0,0"/>
 
-                <Label
-                    x:Name="lblTime"
-                    Grid.Row = "0"
-                    Grid.Column="2"
-                    FontSize = "20"
-                    Foreground = "Black"
-                    VerticalAlignment = "Center"
-                    Content="XX:XX hrs"
-                    Margin="80,0,0,0"/>
-
-                <Image Source = "../Resources/Icons/WaiterIcon.png"
-                       Grid.Row = "1"
-                       Width = "36"
-                       HorizontalAlignment = "Left"
-                       Margin="50,0,0,0"/>
-
-                <Label
-                    x:Name="lblWaiter"
-                    Grid.Row = "1"
-                    Grid.Column="0"
-                    FontSize = "20"
-                    Foreground = "Black"
-                    VerticalAlignment = "Center"
-                    Content="Nombre del Mesero"
-                    Margin="90,0,0,0"/>
-
-                <Image Source = "../Resources/Icons/DollarIcon.png"
+                    <Image 
+                       Name="imgDollarIcon"
+                       Source = "../Resources/Icons/DollarIcon.png"
                        Grid.Row = "1"
                        Grid.Column="1"
                        Width = "36"
                        HorizontalAlignment = "Left"
+                       VerticalAlignment="Bottom"
+                       Visibility="Collapsed"
                        Margin="50,0,0,0"/>
 
-                <Label
+                    <Label
                     x:Name="lblTotal"
                     Grid.Row = "1"
                     Grid.Column="1"
                     FontSize = "20"
                     Foreground = "Black"
-                    VerticalAlignment = "Center"
-                    Content="200"
+                    VerticalAlignment = "Bottom"
+                    Content="00000"
+                    Visibility="Collapsed"
                     Margin="80,0,0,0"/>
 
-                <Button Grid.Row="1"
+                <Button Grid.Row="1" ToolTip="Editar pedido interno"
                         Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        Margin="100,0,0,0"
+                        Name="btnEditOrder"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,50,0"
                         Width="70"
                         Height="70"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Click="BtnEditInternalOrder_Click">
-                    <Image Source = "../Resources/Icons/EditIcon.png"
+                        Click="BtnEditInternalOrder_Click"
+                        Visibility="Collapsed">
+                        <Image Source = "../Resources/Icons/EditIcon.png"
                        Width = "90"/>
-                </Button>
+                    </Button>
 
-            </Grid> 
+                    <Button 
+                        Name="btnViewDetails"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,50,0"
+                        Width="70"
+                        Height="70"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="BtnViewDetails_Click"
+                        Visibility="Collapsed">
+                        <Image Source = "../Resources/Icons/EyeIcon.png"
+                       Width = "90"/>
+                    </Button>
+
+                </Grid>
+            </Border>
         </Border>
-    </Border>
+    </Grid>
 </UserControl>

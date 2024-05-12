@@ -1,6 +1,8 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.DataLayer.DAO.Interface;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,16 +31,39 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             InitializeComponent();
 
+            menuFrame.Content = new TellerMenu(this);
+            SetClientsInPage();
+        }
+
+        private void SetClientsInPage()
+        {
             List<Client> clients = GetCients();
             if (clients.Any())
             {
                 ShowClients(clients);
                 txtSearchBar.IsReadOnly = false;
-            } else
+            }
+            else
             {
                 txtSearchBar.IsReadOnly = true;
-                DialogManager.ShowErrorMessageBox("No hay clientes registrados");
+                ShowNoClientsMessage();
             }
+        }
+
+        private void ShowNoClientsMessage()
+        {
+            ClientsGrid.Children.Clear();
+            ClientsGrid.RowDefinitions.Clear();
+            Label lblNoProducts = new Label();
+            lblNoProducts.Style = (Style)FindResource("NoClientsLabelStyle");
+            lblNoProducts.HorizontalAlignment = HorizontalAlignment.Center;
+            lblNoProducts.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(lblNoProducts, rowsAdded);
+            ClientsGrid.Children.Add(lblNoProducts);
+            rowsAdded++;
+
+            RowDefinition row = new RowDefinition();
+            ClientsGrid.RowDefinitions.Add(row);
         }
 
         private void ShowClients(List<Client> clients)
@@ -141,6 +166,12 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 searchFlag = 0;
             }
             ShowClients(clients);
+        }
+
+        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterClientView registerClientView = new RegisterClientView();
+            NavigationService.Navigate(registerClientView);
         }
     }
 }

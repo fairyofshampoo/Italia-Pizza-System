@@ -34,7 +34,7 @@
                 </Grid>
             </Border>
 
-            <Button x:Name="btnEditData" Background="Transparent" Height="50" BorderBrush="Transparent" Grid.Row="2" Margin="30,-5,41,9" Click="BtnEditEmployee_Click" Grid.Column="2">
+            <Button x:Name="btnEditData" Background="Transparent" ToolTip="Editar empleado" Height="50" BorderBrush="Transparent" Grid.Row="2" Margin="30,-5,41,9" Click="BtnEditEmployee_Click" Grid.Column="2">
                 <Image Source="../Resources/Icons/PencilIcon.png" HorizontalAlignment="Left" RenderTransformOrigin="0.727,0.547" Width="47" Height="47"/>
             </Button>
 

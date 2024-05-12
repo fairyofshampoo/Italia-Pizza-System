@@ -8,10 +8,10 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 {
     internal interface IInternalOrder
     {
-        List<InternalOrder> GetInternalOrdersByStatus(int status, string waiterEmail);
+        List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail);
         InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail);
         List<RecipeSupply> GetSupplyForProduct(string productId);
-        List<Supply> GetInventoryQuantitiesForIngredients (List<string> recipeSupplyList);
+        List<Supply> GetInventoryQuantitiesForIngredients(List<string> recipeSupplyList);
         bool AddInternalOrderProduct(InternalOrderProduct internalOrderProduct);
         bool AddInternalOrder(InternalOrder order);
         bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode);
@@ -23,8 +23,10 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool IncreaseAmount(string productId, string internalOrderCode);
         bool CancelInternalOrder(string internalOrderCode);
         int SaveInternalOrder(string internalOrderCode);
-        int GetTotalExternalProduct (string productId); 
+        int GetTotalExternalProduct(string productId);
         List<InternalOrderProduct> GetAllInternalProductsByOrden(string internalOrderCode);
-        List<InternalOrder> GetOrdersForPreapartion();
+        List<InternalOrder> GetInternalOrdersByStatus(int status);
+        string GetProductName(string productId);
+        bool ChangeOrderStatus(int status, string internalOrderCode);
     }
 }

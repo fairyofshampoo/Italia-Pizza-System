@@ -38,7 +38,6 @@ namespace ItaliaPizza.DataLayer.DAO
                         user = account.user,
                         password = Encription.ToSHA2Hash(account.password),
                         email = employee.email,
-                        isAdmin = 0,
                         status = 1
                     };
                     databaseContext.Accounts.Add(newAccount);

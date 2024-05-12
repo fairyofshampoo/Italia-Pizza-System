@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -30,9 +31,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetLastProducts();
+            menuFrame.Content = new ManagerMenu(this);
         }
 
-        private void btnAllFilter_Click(object sender, RoutedEventArgs e)
+        private void BtnAllFilter_Click(object sender, RoutedEventArgs e)
         {
             btnExternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
             btnInternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
@@ -41,7 +43,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             SetLastProducts();
         }
 
-        private void btnInternalFilter_Click(object sender, RoutedEventArgs e)
+        private void BtnInternalFilter_Click(object sender, RoutedEventArgs e)
         {
             btnAllFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
             btnExternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
@@ -50,7 +52,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             SearchProductByType(Constants.INTERNAL_PRODUCT);
         }
 
-        private void btnExternalFilter_Click(object sender, RoutedEventArgs e)
+        private void BtnExternalFilter_Click(object sender, RoutedEventArgs e)
         {
             btnAllFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
             btnInternalFilter.Background = new SolidColorBrush(Color.FromArgb(255, 233, 225, 255));
@@ -58,7 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             SearchProductByType(Constants.EXTERNAL_PRODUCT);
         }       
 
-        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = ((TextBox)sender).Text;
             if (searchText.Length > 3)
@@ -67,7 +69,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             ProductRegisterView productRegisterView = new ProductRegisterView();
             NavigationService.Navigate(productRegisterView);

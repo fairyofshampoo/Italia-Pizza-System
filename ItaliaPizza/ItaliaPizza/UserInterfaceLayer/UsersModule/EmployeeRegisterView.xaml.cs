@@ -192,7 +192,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             cmbEmployeeType.ItemsSource = new String[]
             {
-                "Cocinero", "Cajero", "Mesero"
+                "Cocinero", "Cajero", "Mesero", "Gerente"
             };
         }
 

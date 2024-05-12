@@ -339,6 +339,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtPrice.BorderBrush = System.Windows.Media.Brushes.Transparent;
             txtPrice.BorderThickness = new Thickness(0);
             lblPriceError.Visibility = Visibility.Collapsed;
-        }        
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }
