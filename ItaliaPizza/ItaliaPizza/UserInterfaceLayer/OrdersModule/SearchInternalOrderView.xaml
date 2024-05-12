@@ -76,7 +76,7 @@
                         Cursor="Hand"
                         Margin="310,40,137,0" 
                         Grid.Column="2"
-                        Click="BtnAddInternalOrder_Click"
+                        Click="BtnRefreshScreen_Click"
                         Visibility="Collapsed">
                         <Button.Style>
                             <Style TargetType="Button">
@@ -97,10 +97,6 @@
 
 
                 </Grid>
-
-
-
-
 
                 <Grid
                     Height="Auto"
@@ -212,8 +208,8 @@
                   Grid.Row="2"
                   Width="1000">
                     <Grid Name="OrdersGrid"
-                  Width = "1000"
-                  Height = "Auto"/>
+                  Width = "650"
+                  Height = "600"/>
                 </ScrollViewer>
 
             </Grid>

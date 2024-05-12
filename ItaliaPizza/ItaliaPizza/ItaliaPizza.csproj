@@ -198,6 +198,9 @@
     <Compile Include="UserInterfaceLayer\KitchenModule\SupplyUC.xaml.cs">
       <DependentUpon>SupplyUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml.cs">
+      <DependentUpon>ProductByOrderUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,9 @@
     </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml.cs">
+      <DependentUpon>ShowProductsByOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\ProductEditView.xaml.cs">
       <DependentUpon>ProductEditView.xaml</DependentUpon>
@@ -323,6 +329,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -332,6 +342,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ShowProductsByOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -528,6 +542,7 @@
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

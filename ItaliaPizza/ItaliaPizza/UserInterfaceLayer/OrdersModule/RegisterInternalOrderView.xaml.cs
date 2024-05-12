@@ -23,20 +23,21 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class RegisterInternalOrderView : Page
     {
 
-        private string orderCode;
+        public string orderCode;
+        public bool isEdition = false;
         private int rowAdded = 0;
         private int columnsAdded = 0;
         private string waiterEmail = UserSingleton.Instance.Email;
 
-        public RegisterInternalOrderView(bool isAEdition, string orderCode)
+
+        public RegisterInternalOrderView()
         {
             InitializeComponent();
             List<Product> products = GetProducts();
             if (products.Any())
             {
-                if(isAEdition)
+                if(isEdition)
                 {
-                    this.orderCode = orderCode;
                     btnCancel.Visibility = Visibility.Collapsed;
                     ShowProducts(products);
                 } 
@@ -101,7 +102,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private InternalOrder CreateInternalOrder()
         {
-            DateTime currentDate = DateTime.Today;
+            DateTime currentDate = DateTime.Now;
             var newInternalOrder = new InternalOrder
             {
                 internalOrderId = orderCode,
