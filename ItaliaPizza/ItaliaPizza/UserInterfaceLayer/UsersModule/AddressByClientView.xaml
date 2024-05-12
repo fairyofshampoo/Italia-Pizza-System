@@ -163,15 +163,15 @@
                                          Height="Auto"/>
 
                                 <Label
-                                    Name="lblClientNotFound"
+                                    Name="lblAddresssNotFound"
                                     Grid.Row="1"
-                                    Content="No se encontró ningún cliente"
+                                    Content="No se ha encontrado ninguna dirección"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="White"
                                     FontFamily="Times New Roman"
-                                    FontSize="70"
-                                    Margin="40,0,0,0" Height="80" Width="1000"
+                                    FontSize="60"
+                                    Margin="10,0,0,0" Height="80" Width="1000"
                                     Visibility="Collapsed"/>
                             </StackPanel>
                         </Grid>

@@ -26,15 +26,16 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         public AddressByClientView()
         {
             InitializeComponent();
-            ValidateAdresses();
+            List<Address> addresses = GetAddressByClient();
+            ValidateAdresses(addresses);
         }
 
-        private void ValidateAdresses()
+        private void ValidateAdresses(List<Address> addressList)
         {
-            List<Address> addresses = GetAddressByClient();
-            if (addresses.Any()) 
+            if (addressList.Any()) 
             {
-                ShowAddresses(addresses);
+                lblAddresssNotFound.Visibility = Visibility.Collapsed;
+                ShowAddresses(addressList);
             }
             else
             {
@@ -62,7 +63,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void ShowErrorLabel()
         {
-
+            lblAddresssNotFound.Visibility = Visibility.Visible;
         }
 
 
@@ -75,17 +76,26 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void BtnEnabled_Click(object sender, RoutedEventArgs e)
         {
-
+            int status = 1;
+            GetAddressByStatus(status);
         }
 
         private void BtnDisable_Click(object sender, RoutedEventArgs e)
         {
+            int status = 0;
+            GetAddressByStatus(status);
+        }
 
+        private void GetAddressByStatus(int status)
+        {
+            AddressDAO addressDAO = new AddressDAO();
+            List<Address> addresses = addressDAO.GetAddressByStatus(status, clientEmail);
+            ValidateAdresses(addresses);
         }
 
         private void BtnAddNewAddress_Click(object sender, RoutedEventArgs e)
         {
-
+            //Lleva a la pantalla de añadir orden
         }
     }
 }

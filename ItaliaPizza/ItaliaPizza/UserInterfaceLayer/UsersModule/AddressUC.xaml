@@ -36,7 +36,7 @@
                            Foreground = "#4c4c4c"
                            VerticalAlignment = "Center"
                            Content="Dirección"
-                           Margin="72,0,0,0"/>
+                           Margin="20,0,0,0"/>
                 </Grid>
             </Border>
             <Grid
