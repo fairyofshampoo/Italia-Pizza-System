@@ -136,37 +136,41 @@ namespace ItaliaPizza.DataLayer.DAO
             return succesfulChange;
         }
 
-        public bool ModifySupplier(Supplier supplierUpdated, string email)
+        public int ModifySupplier(Supplier supplierUpdated, string email)
         {
-            bool successfulUpdate = false;
+            int result = -1;
 
-            using(var databaseContext = new ItaliaPizzaDBEntities())
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 try
                 {
-                    var modifySupplier = databaseContext.Suppliers.First(s => s.email == email);
-                    if( modifySupplier != null)
+                    var modifySupplier = databaseContext.Suppliers.Include("SupplyAreas").FirstOrDefault(s => s.email == email);
+                    if (modifySupplier != null)
                     {
-                        modifySupplier.email = supplierUpdated.email;
                         modifySupplier.phone = supplierUpdated.phone;
                         modifySupplier.companyName = supplierUpdated.companyName;
                         modifySupplier.manager = supplierUpdated.manager;
-                        modifySupplier.SupplyAreas = supplierUpdated.SupplyAreas;
+                        modifySupplier.SupplyAreas.Clear();
+                        foreach (var selectedArea in supplierUpdated.SupplyAreas)
+                        {
+                            var existingArea = databaseContext.SupplyAreas.FirstOrDefault(a => a.area_name == selectedArea.area_name);
+                            if (existingArea != null)
+                            {
+                                modifySupplier.SupplyAreas.Add(existingArea);
+                            }
+                        }
+                        result = databaseContext.SaveChanges();
                     }
-
-                    if(databaseContext.SaveChanges() == Constants.SUCCESSFUL_RESULT)
-                    {
-                        successfulUpdate = true;
-                    }
-
-                } catch (SqlException sqlException)
+                }
+                catch (SqlException sqlException)
                 {
                     throw sqlException;
                 }
             }
 
-            return successfulUpdate;
+            return result;
         }
+
 
         public Supplier GetSupplierByEmail (string email)
         {

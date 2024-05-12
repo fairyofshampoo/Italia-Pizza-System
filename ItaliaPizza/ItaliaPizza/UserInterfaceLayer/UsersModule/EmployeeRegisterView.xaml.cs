@@ -230,5 +230,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             pswPassword.BorderThickness = new Thickness(0);
             lblPassowrdError.Visibility = Visibility.Collapsed;
         }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

@@ -30,7 +30,7 @@
             <Image Source="../Resources/Icons/ordersChefIcon.png" Height="60" Width="60"/>
         </Button>
 
-        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="1" Click="BtnRecipes_Click" ToolTip="Recetas">
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="1" Click="BtnRecipes_Click" ToolTip="Recetario">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">

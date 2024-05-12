@@ -9,115 +9,120 @@
       Title="EditEmployeeView">
 
     <Viewbox Stretch="Fill">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="140"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
+                <Grid Height="720" Width="1280">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <Rectangle HorizontalAlignment="Center" Height="140" Fill="Black" Stroke="Black" VerticalAlignment="Center" Width="1280"/>
-            <Image Source="../Resources/Images/EditEmployeeBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
-            <Grid Grid.Row="0" Width="800" Margin="240,0,240,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="25"/>
-                </Grid.RowDefinitions>
+                    <Rectangle HorizontalAlignment="Center" Height="140" Fill="Black" Stroke="Black" VerticalAlignment="Center" Width="1280"/>
+                    <Image Source="../Resources/Images/EditEmployeeBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
+                    <StackPanel Grid.Row="0">
+                        <Grid Margin="0,20,0,0">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
+                BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                        </Image>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
-                <Label Content="Editar Empleado" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Times New Roman" FontSize="50" Margin="-100,0,0,0" Height="70" Width="415" Grid.Row="1"/>
+                            <Label Content="Editar empleado" Foreground="White" FontSize="60" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
+                            <Canvas HorizontalAlignment="Left">
+                                <Line X1="400" Y1="80" X2="880" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
+                            </Canvas>
+                        </Grid>
+                    </StackPanel>
 
-                <Canvas HorizontalAlignment="Center" Grid.Row="2" Width="0">
-                    <Line X1="-310" Y1="-10" X2="25" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-182" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="1"/>
-                </Canvas>
-            </Grid>
+                    <StackPanel Grid.Row="1" Width="1280" Background="#2c2c2c">
 
+                        <Label Content="Actualice los siguientes campos del empleado:" Foreground="White" FontWeight="Bold" FontFamily="{StaticResource InterFont}" FontSize="26" Width="978" Margin="0,10,10,0"/>
 
+                        <Border Background="#393D42" Height="370" Width="1000" CornerRadius="10" Margin="0,10,0,0">
 
-            <StackPanel Grid.Row="1" Width="1280" Background="#2c2c2c">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                <Label Content="Actualice los siguientes campos del empleado:" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="16" Width="978" Margin="0,10,10,0"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                <Border Background="#393D42" Height="270" Width="1000" CornerRadius="10" Margin="0,10,0,0">
+                                <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                                    <Label Content="Nombre: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="1,3,21,0" Height="38" VerticalAlignment="Center"/>
+                                        <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="623" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <TextBox x:Name="txtName" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,0,0,0" FontSize="10" Foreground="red" Visibility="Hidden"/>
+                                </StackPanel>
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                                <StackPanel Orientation="Vertical" Grid.Row="1">
+                                    <Label Content="Teléfono: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
+                                        <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <TextBox x:Name="txtPhone" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblPhoneError" Content ="Teléfono inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                </StackPanel>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                                    <Label Content="Correo electrónico:" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
+                                        <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <TextBox x:Name="txtEmail" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
-                            <Label Content="Nombre: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="1,3,21,0" Height="38" VerticalAlignment="Center"/>
-                                <Border x:Name="bdrCompanyName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="623" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtName" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,0,0,0" FontSize="10" Foreground="red" Visibility="Hidden"/>
-                        </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+                                    <Label Content="Tipo de empleado: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
+                                        <Border x:Name="bdrEmployeeType" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <ComboBox x:Name="cmbEmployeeType"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblEmployeeTypeError" Content ="Tipo de empleado inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="1">
-                            <Label Content="Teléfono: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
-                                <Border x:Name="bdrPhone" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtPhone" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblPhoneError" Content ="Teléfono inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
-                        </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="3">
+                                    <Label Content="Nombre de usuario:" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
+                                        <Border x:Name="bdrUsername" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <TextBox x:Name="txtUsername" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                            <Label Content="Correo electrónico:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
-                                <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtEmail" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
-                                </Border>
-                            </Grid>
-                        </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
+                                    <Label Content="Contraseña: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                    <Grid Margin="20,0,0,0">
+                                        <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
+                                        <Border x:Name="bdrPassword" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <PasswordBox x:Name="pswPassword"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label x:Name="lblPassowrdError" Content ="Contraseña inválida" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
-                            <Label Content="Tipo de empleado: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
-                                <Border x:Name="bdrEmployeeType" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <ComboBox x:Name="cmbEmployeeType"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblEmployeeTypeError" Content ="Tipo de empleado inválido" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Row="3">
-                            <Label Content="Nombre de usuario:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
-                                <Border x:Name="bdrUsername" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBox x:Name="txtUsername" FontSize="15" FontWeight="Medium" FontFamily="Montserrat" Background="LightGray" Foreground="Black" BorderThickness="0" IsEnabled="False"/>
-                                </Border>
-                            </Grid>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
-                            <Label Content="Contraseña: *" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="20,5,0,0"/>
-                            <Grid Margin="20,0,0,0">
-                                <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,3,22,0" Height="38" VerticalAlignment="Top"/>
-                                <Border x:Name="bdrPassword" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <PasswordBox x:Name="pswPassword"/>
-                                </Border>
-                            </Grid>
-                            <Label x:Name="lblPassowrdError" Content ="Contraseña inválida" Margin="20,0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
-                        </StackPanel>
-
-                        <Label Grid.Row="2" Grid.Column="2" Foreground="White" FontSize="12" FontFamily="Microsoft YaHei UI" Margin="30,5,0,0">
-                            <TextBlock>
+                                <Label Grid.Row="2" Grid.Column="2" Foreground="White" FontSize="15" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Margin="30,5,0,0">
+                                    <TextBlock>
                          <Run Text="La contraseña debe contener:"/>
                          <LineBreak/>
                          <Run Text="* Al menos 8 caracteres."/>
@@ -125,60 +130,60 @@
                          <Run Text="* Un caracter especial."/>
                          <LineBreak/>
                          <Run Text="* Un número."/>
-                            </TextBlock>
-                        </Label>
+                                    </TextBlock>
+                                </Label>
 
-                    </Grid>
+                            </Grid>
 
-                </Border>
+                        </Border>
 
-                <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,10,137,20" HorizontalAlignment="Right" Width="165" Height="52" Click="btnSave_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#FF7B00"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        <Button x:Name="btnSave" BorderThickness="0" Content="Guardar" Foreground="White" FontSize="18" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Cursor="Hand" Margin="0,10,137,20" HorizontalAlignment="Right" Width="165" Height="52" Click="btnSave_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#FF7B00"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
-                <Button x:Name="btnDesactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Width="165" Height="52" Margin="450, -91, 30, 0" Click="btnDesactive_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#FF0422"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        <Button x:Name="btnDesactive" BorderThickness="0" Content="Desactivar" Foreground="White" FontSize="18" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Cursor="Hand" Width="165" Height="52" Margin="450, -91, 30, 0" Click="btnDesactive_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#FF0422"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
-                <Button x:Name="btnActive" BorderThickness="0" Content="Activar" Foreground="White" FontSize="18" FontWeight="Bold" Cursor="Hand" Width="165" Height="52" Margin="450, -91, 30, 0" Click="btnActive_Click" IsEnabled="False" Visibility="Hidden">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#3F8C23"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
+                        <Button x:Name="btnActive" BorderThickness="0" Content="Activar" Foreground="White" FontSize="18" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Cursor="Hand" Width="165" Height="52" Margin="450, -91, 30, 0" Click="btnActive_Click" IsEnabled="False" Visibility="Hidden">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#3F8C23"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Width="150" Height="50" CornerRadius="10" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
-
-        </Grid>
+        </ScrollViewer>
     </Viewbox>
 </Page>
