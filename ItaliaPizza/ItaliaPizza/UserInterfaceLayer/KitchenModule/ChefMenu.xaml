@@ -4,15 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.KitchenModule"
-        mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="100">
+      mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="100">
 
     <Grid Background="#FA9500">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="0" Click="BtnRecipes_Click" ToolTip="Recetas">
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="0" Click="BtnOrders_Click" ToolTip="Pedidos">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10" BorderBrush="#FA9500" BorderThickness="4" Background="#FA9500">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Image Source="../Resources/Icons/ordersChefIcon.png" Height="60" Width="60"/>
+        </Button>
+
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="1" Click="BtnRecipes_Click" ToolTip="Recetas">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">
@@ -28,9 +46,8 @@
             </Button.Style>
             <Image Source="../Resources/Icons/cookBookIcon.png" Height="60" Width="60"/>
         </Button>
-        
 
-        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="1" Click="BtnOrders_Click" ToolTip="Pedidos a domicilio">
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="2" Click="BtnAddInternalProduct_Click" ToolTip="Agregar receta">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">
@@ -44,10 +61,10 @@
                     </Setter>
                 </Style>
             </Button.Style>
-            <Image Source="../Resources/Icons/pizzaProductIcon.png" Height="60" Width="60"/>
+            <Image Source="../Resources/Icons/addRecipeIcon.png" Height="60" Width="60"/>
         </Button>
 
-        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="2" Click="BtnLogout_Click" ToolTip="Cerrar sesión">
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="3" Click="BtnLogout_Click" ToolTip="Cerrar sesión">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">

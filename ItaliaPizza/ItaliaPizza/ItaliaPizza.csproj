@@ -310,6 +310,9 @@
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml.cs">
+      <DependentUpon>WaiterMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\ProductsModule\InventoryReportView.xaml.cs">
       <DependentUpon>InventoryReportView.xaml</DependentUpon>
     </Compile>
@@ -469,6 +472,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -679,16 +686,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\goBackIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
-      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="UserInterfaceLayer\Resources\Icons\cookBookIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\moneyPigIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\clientsIcon.png" />
@@ -702,6 +699,21 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataLayer\ItaliaPizzaDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
+      <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
+    </Content>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

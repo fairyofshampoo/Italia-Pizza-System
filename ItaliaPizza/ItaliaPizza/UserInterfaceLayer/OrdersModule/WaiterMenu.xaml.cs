@@ -1,5 +1,4 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using ItaliaPizza.UserInterfaceLayer.UsersModule;
 using System;
 using System.Collections.Generic;
@@ -16,29 +15,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
+namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
     /// <summary>
-    /// Interaction logic for ChefMenu.xaml
+    /// Interaction logic for WaiterMenu.xaml
     /// </summary>
-    public partial class ChefMenu : Page
+    public partial class WaiterMenu : Page
     {
-        Page page;
-        public ChefMenu(Page page)
+        private Page page;
+        public WaiterMenu(Page page)
         {
             InitializeComponent();
             this.page = page;
         }
 
-        private void BtnRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            RecipesView recipesView = new RecipesView();
-            page.NavigationService.Navigate(recipesView);
-        }
-
         private void BtnOrders_Click(object sender, RoutedEventArgs e)
         {
-            bool isWaiter = false;
+            bool isWaiter = true;
             SearchInternalOrderView orderView = new SearchInternalOrderView(isWaiter);
             page.NavigationService.Navigate(orderView);
         }
@@ -48,11 +41,6 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             UserSingleton.Instance.Clear();
             LoginView loginView = new LoginView();
             page.NavigationService.Navigate(loginView);
-        }
-
-        private void BtnAddInternalProduct_Click(object sender, RoutedEventArgs e)
-        {
-            //Mandar a register product pero settear el producto en interno de ley
         }
     }
 }

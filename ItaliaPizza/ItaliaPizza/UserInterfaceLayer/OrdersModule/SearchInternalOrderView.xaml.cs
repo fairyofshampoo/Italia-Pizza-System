@@ -23,7 +23,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
     public partial class SearchInternalOrderView : Page
     {
-        private string waiterEmail = "lalo@gmail.com"; //Esto debe ser cambiado por el singleton
+        private string waiterEmail = ApplicationLayer.UserSingleton.Instance.Email;
         private int rowsAdded = 0;
         public bool isWaiter = false;
 
@@ -33,7 +33,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             if (isWaiter)
             {
-                ShowElemntsForWaiter();
+                menuFrame.Content = new WaiterMenu(this);
+                ShowElementsForWaiter();
                 ShowOrderForWaiter();
             }
             else
@@ -45,7 +46,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         }
 
-        private void ShowElemntsForWaiter()
+        private void ShowElementsForWaiter()
         {
             btnAddInternalOrder.Visibility = Visibility.Visible;
             btnFinishedOrder.Visibility = Visibility.Visible;

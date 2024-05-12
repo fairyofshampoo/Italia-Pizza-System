@@ -13,7 +13,6 @@ namespace ItaliaPizza.ApplicationLayer
         public string Username { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public byte IsAdmin { get; set; }
         public string Role { get; set; }
 
         private UserSingleton() { }
@@ -23,7 +22,6 @@ namespace ItaliaPizza.ApplicationLayer
             Username = account.user;
             Name = account.Employee.name;
             Email = account.email;
-            IsAdmin = account.isAdmin;
             Role = account.Employee.role;
 
         }
@@ -33,7 +31,6 @@ namespace ItaliaPizza.ApplicationLayer
             Username = null;
             Name = null;
             Email = null;
-            IsAdmin = 0;
             Role = null;
         }
 

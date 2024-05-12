@@ -61,7 +61,7 @@
                     </Setter>
                 </Style>
             </Button.Style>
-            <Image Source="../Resources/Icons/pizzaProductIcon.png" Height="60" Width="60"/>
+            <Image Source="../Resources/Icons/homeOrdersIcon.png" Height="60" Width="60"/>
         </Button>
         
         <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="3" Click="BtnLogout_Click" ToolTip="Cerrar sesión">
