@@ -346,7 +346,7 @@ namespace ItaliaPizza.DataLayer.DAO
                         updateStatus = true;
                     }
                 }
-            }catch (Exception ex)
+            }catch (Exception)
             {
                 updateStatus = false;
             }

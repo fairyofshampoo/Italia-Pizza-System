@@ -124,7 +124,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             if (suppliesAsObjects.Count > 0)
             {
                 ShowInventory(suppliesAsObjects);
-            } else
+            }
+            else
             {
                 ShowNoSuppliesMessage();
             }

@@ -27,24 +27,25 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int rowsAdded = 0;
         public bool isWaiter = false;
 
-        public SearchInternalOrderView()
+        public SearchInternalOrderView(bool isWaiter)
         {
             InitializeComponent();
 
             if (isWaiter)
             {
-                ShowElemntsForWiater();
+                ShowElemntsForWaiter();
                 ShowOrderForWaiter();
             }
             else
             {
                 menuFrame.Content = new ChefMenu(this);
+                ShowElementsForChef();
                 ShowOrderForChef();
             }
 
         }
 
-        private void ShowElemntsForWiater()
+        private void ShowElemntsForWaiter()
         {
             btnAddInternalOrder.Visibility = Visibility.Visible;
             btnFinishedOrder.Visibility = Visibility.Visible;

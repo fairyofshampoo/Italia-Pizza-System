@@ -22,6 +22,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class InternalOrdersUC : UserControl
     {
         public SearchInternalOrderView searchInternalOrderView { get; set;}
+        private InternalOrder orderData;
 
         public InternalOrdersUC()
         {
@@ -34,7 +35,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
             btnEditOrder.Visibility = Visibility.Visible;
-            imgDollarIcon.Visibility = Visibility.Visible;   
+            imgDollarIcon.Visibility = Visibility.Visible; 
+            orderData = order;
         }
 
         public void ShowInternalOrderByChef (InternalOrder order)
@@ -43,6 +45,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
             btnViewDetails.Visibility = Visibility.Visible;
+            orderData = order;
         }
 
         private void BtnEditInternalOrder_Click(object sender, RoutedEventArgs e)
@@ -52,6 +55,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnViewDetails_Click(object sender, RoutedEventArgs e)
         {
+            ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId);
+            searchInternalOrderView.NavigationService.Navigate(showProductsByOrderView);
             //Mostrar todos los productos de la orden para que se pueda preparar
         }
     }
