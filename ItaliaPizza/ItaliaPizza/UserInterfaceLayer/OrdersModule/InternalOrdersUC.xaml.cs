@@ -21,8 +21,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     
     public partial class InternalOrdersUC : UserControl
     {
-        //private InternalOrder internalOrderData;
-
         public SearchInternalOrderView searchInternalOrderView { get; set;}
 
         public InternalOrdersUC()
@@ -30,24 +28,31 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             InitializeComponent();
         }
 
-        public void ShowInternalOrderData(InternalOrder order)
+        public void ShowInternalOrderDataByWaiter(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            string waiterName = GetWaiterName(order.waiterEmail);
-            lblWaiter.Content = waiterName;
             lblTotal.Content = order.total;
             lblDate.Content = order.date;
+            btnEditOrder.Visibility = Visibility.Visible;
+            imgDollarIcon.Visibility = Visibility.Visible;   
         }
 
-        private string GetWaiterName(string waiterName)
+        public void ShowInternalOrderByChef (InternalOrder order)
         {
-            EmployeeDAO employeeDAO = new EmployeeDAO();
-            return employeeDAO.GetEmployeeNameByEmail(waiterName);
+            lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
+            lblTotal.Content = order.total;
+            lblDate.Content = order.date;
+            btnViewDetails.Visibility = Visibility.Visible;
         }
 
         private void BtnEditInternalOrder_Click(object sender, RoutedEventArgs e)
         {
             //Se debe hacer referencia a la pantalla de editar
+        }
+
+        private void BtnViewDetails_Click(object sender, RoutedEventArgs e)
+        {
+            //Mostrar todos los productos de la orden para que se pueda preparar
         }
     }
 }

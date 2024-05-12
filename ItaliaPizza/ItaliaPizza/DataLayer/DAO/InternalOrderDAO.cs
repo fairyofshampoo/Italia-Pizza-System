@@ -134,21 +134,15 @@ namespace ItaliaPizza.DataLayer.DAO
             return internalOrder;
         }
 
-        public List<InternalOrder> GetInternalOrdersByStatus(int status, string waiterEmail)
+        public List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail)
         {
            List<InternalOrder> internalOrders = new List<InternalOrder>();
             using(var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var ordersDB = databaseContext.InternalOrders
+                internalOrders = databaseContext.InternalOrders
                                               .Where(order => order.status == status && order.waiterEmail == waiterEmail)
+                                              .OrderByDescending(order => order.date)
                                               .ToList();
-                if(ordersDB != null)
-                {
-                    foreach(var order in ordersDB)
-                    {
-                        internalOrders.Add(order);
-                    }
-                }
             }
             return internalOrders;
         }
@@ -196,13 +190,14 @@ namespace ItaliaPizza.DataLayer.DAO
             return numberOfProductsOnHold;
         }
 
-        public List<InternalOrder> GetOrdersForPreapartion()
+        public List<InternalOrder> GetInternalOrdersByStatus(int status)
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
             using(var databaseContext = new  ItaliaPizzaDBEntities())
             {
                 internalOrders = databaseContext.InternalOrders
-                                                .Where(order => order.status == 1)
+                                                .Where(order => order.status == status)
+                                                .OrderByDescending(order => order.date)
                                                 .ToList();
             }
             return internalOrders;
@@ -319,6 +314,44 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
         
             return operationStatus;
+        }
+
+        public string GetProductName(string productId)
+        {
+            string nameProduct = string.Empty;
+            using(var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                nameProduct = databaseContext.Products
+                                             .Where(product => product.productCode == productId)
+                                             .Select(product => product.name)
+                                             .FirstOrDefault();
+            }
+            return nameProduct;
+        }
+
+        public bool ChangeOrderStatus(int status, string internalOrderCode)
+        {
+            bool updateStatus = false;
+            try
+            {
+                using (var databseContext = new ItaliaPizzaDBEntities())
+                {
+                    var order = databseContext.InternalOrders
+                                              .Where(internalOrder => internalOrder.internalOrderId == internalOrderCode)
+                                              .FirstOrDefault();
+                    if(order != null)
+                    {
+                        order.status = status;
+                        databseContext.SaveChanges();
+                        updateStatus = true;
+                    }
+                }
+            }catch (Exception ex)
+            {
+                updateStatus = false;
+            }
+
+            return updateStatus;
         }
     }
  
