@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using ItaliaPizza.UserInterfaceLayer.UsersModule;
 using System;
@@ -60,6 +61,12 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             SuppliersView suppliersView = new SuppliersView();
             page.NavigationService.Navigate(suppliersView);
+        }
+
+        private void BtnRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            RecipesView recipesView = new RecipesView();
+            page.NavigationService.Navigate(recipesView);
         }
     }
 }

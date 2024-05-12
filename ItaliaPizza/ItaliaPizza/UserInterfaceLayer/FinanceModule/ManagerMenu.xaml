@@ -13,6 +13,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="0" Click="BtnEmployees_Click" ToolTip="Gestión de empleados">
             <Button.Style>
@@ -64,8 +65,25 @@
             </Button.Style>
             <Image Source="../Resources/Icons/pizzaProductIcon.png" Height="60" Width="60"/>
         </Button>
-        
-        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Cursor="Hand" Click="BtnInventory_Click" ToolTip="Inventario">
+
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Grid.Row="3" Click="BtnRecipes_Click" ToolTip="Recetario">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10" BorderBrush="#FA9500" BorderThickness="4" Background="#FA9500">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Image Source="../Resources/Icons/cookBookIcon.png" Height="60" Width="60"/>
+        </Button>
+
+        <Button Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Cursor="Hand" Click="BtnInventory_Click" ToolTip="Inventario">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">

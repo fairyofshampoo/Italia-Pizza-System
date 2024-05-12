@@ -67,7 +67,7 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             }
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateFields())
             {
@@ -115,10 +115,12 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
                 if (recipeDAO.RegisterRecipeWithSupplies(recipe, product))
                 {
                     DialogManager.ShowSuccessMessageBox("Registro exitoso");
+                    RecipesView recipesView = new RecipesView();
+                    NavigationService.Navigate(recipesView);
                 }
                 else
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro");
+                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error durante el registro. Intente nuevamente");
                 }
             }
             else
@@ -275,6 +277,11 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             }
 
             return validateFields;
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

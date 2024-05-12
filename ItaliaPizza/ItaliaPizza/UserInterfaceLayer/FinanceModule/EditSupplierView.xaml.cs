@@ -95,7 +95,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (ModifySupplier())
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
-                    NavigationService.GoBack();
+                    GoBack();
                 }
             }
         }
@@ -103,15 +103,15 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool ModifySupplier()
         {
             SupplierDAO supplierDAO = new SupplierDAO();
-            Supplier supplier = new Supplier();
-
-            supplier.email = txtEmail.Text;
-            supplier.phone = txtPhone.Text;
-            supplier.companyName = txtCompanyName.Text;
-            supplier.manager = txtManagerName.Text;
-            supplier.SupplyAreas = GetSupplyAreas();
-
-            return supplierDAO.ModifySupplier(supplier, supplierEmail);
+            Supplier supplier = new Supplier
+            {
+                email = txtEmail.Text,
+                phone = txtPhone.Text,
+                companyName = txtCompanyName.Text,
+                manager = txtManagerName.Text,
+                SupplyAreas = GetSupplyAreas()
+            };
+            return (supplierDAO.ModifySupplier(supplier, supplierEmail) > 0);
         }
 
         private ICollection<SupplyArea> GetSupplyAreas()
@@ -200,7 +200,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             bool isDuplicated = false;
             string email = txtEmail.Text;
-            if(email == supplierEmail)
+            if(email != supplierEmail)
             {
                 SupplierDAO supplierDAO = new SupplierDAO();
                 isDuplicated = supplierDAO.IsEmailSupplierExisting(txtEmail.Text);
@@ -261,7 +261,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
-                    NavigationService.GoBack();
+                    GoBack();
                 }
                 else
                 {
@@ -282,7 +282,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if(supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
-                    NavigationService.GoBack();
+                    GoBack();
                 }
                 else
                 {
@@ -293,7 +293,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            GoBack();
+        }
+
+        private void GoBack()
+        {
+            SuppliersView suppliersView = new SuppliersView();
+            NavigationService.Navigate(suppliersView);
         }
     }
 }

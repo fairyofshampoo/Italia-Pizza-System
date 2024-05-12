@@ -2,6 +2,7 @@
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.DataLayer.DAO.Interface;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,15 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
             SetModifyRecipe(recipe);
             SetRecipeSupplies(recipeSupplies);
             SetAvailableSupplies(recipeSupplies);
-            menuFrame.Content = new ChefMenu(this);
+
+            if (UserSingleton.Instance.Role == Constants.CHEF_ROLE)
+            {
+                menuFrame.Content = new ChefMenu(this);
+            }
+            else
+            {
+                menuFrame.Content = new ManagerMenu(this);
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
