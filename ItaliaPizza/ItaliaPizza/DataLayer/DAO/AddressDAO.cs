@@ -100,6 +100,18 @@ namespace ItaliaPizza.DataLayer.DAO
                 return addressFounded;
         }
 
+        public List<Address> GetAddressByStatus(int status, string emailClient)
+        {
+            List<Address> addresses = new List<Address>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                addresses = databaseContext.Addresses
+                                           .Where(address => address.status == status && address.clientId == emailClient)
+                                           .ToList();
+            }
+            return addresses;
+        }
+
         public Address GetClientAddress(string email)
         {
             using (var databaseContext = new ItaliaPizzaDBEntities())

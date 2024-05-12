@@ -22,6 +22,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         public AddressByClientView addressByClient {  get; set; }
 
+        private int addressId;
+
         public AddressUC()
         {
             InitializeComponent();
@@ -30,12 +32,13 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         public void EditDataCard(Address address)
         {
-
+            lblAddress.Content = address.street;
+            addressId = address.addressId;
         }
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)
         {
-
+            //Lleva la pantalla principal a la pantlla de editar y manda el addressId
         }
     }
 }
