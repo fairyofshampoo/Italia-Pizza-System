@@ -118,6 +118,44 @@
                             Content="El total debe ser un número entero o decimal"
                             Visibility="Collapsed"/>
 
+
+                        <Label
+                            Grid.Row = "0"
+                            Grid.Column = "1"
+                            FontSize = "30"
+                            Foreground = "White"
+                            VerticalAlignment = "Bottom"
+                            Content="Tipo de movimiento"
+                            FontFamily="{StaticResource InterFont}"
+                            HorizontalAlignment="Center"
+                            Margin="250,0,0,0"/>
+
+                        <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1"
+                                 Margin="80,0,0,50">
+                            <RadioButton 
+                                x:Name="radioButtonCashin" 
+                                Content="Entrada" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashin_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                        </Viewbox>
+
+                        <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1" 
+                                 Margin="400,0,0,50">
+                            <RadioButton 
+                                x:Name="radioButtonCashout" 
+                                Content="Salida" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashout_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                        </Viewbox>
+
                         <Label
                             Grid.Row = "2"
                             Grid.Column = "1"

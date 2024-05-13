@@ -20,6 +20,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
     public partial class RegisterCashoutView : Page
     {
+
+
         public RegisterCashoutView()
         {
             InitializeComponent();
@@ -30,34 +32,17 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             ClearErrorLabels();
             if(IsDataValid())
             {
-                DateTime dateTime = DateTime.Now;
-                TimeSpan time = dateTime.TimeOfDay;
-                string totalString = txtTotal.Text;
-                decimal total = decimal.Parse(totalString);
-                var newCashout = new Cashout 
-                {
-                    date = DateTime.Today, 
-                    time = time, 
-                    cashoutType = txtDescription.Text, 
-                    total = total
-                };
-                CashoutDAO cashoutDAO = new CashoutDAO();
-                if (cashoutDAO.RegisterCashout(newCashout))
-                {
-                    //Mostrar mensaje de éxito
-                }
-                else
-                {
-                    //Mostrar mensaje de error
-                }
+                Cashout cashout = CreateCashout();
+                RegisterCashout(cashout);
             } 
         }
 
         private bool IsDataValid()
         {
             bool isTotalValid = ValidateTotal();
-            bool isDescriptionValid = ValidateDescription();    
-            return isTotalValid && isDescriptionValid;
+            bool isDescriptionValid = ValidateDescription();
+            bool areAnyRadioButtonChecked = ValidateRadioButtons();
+            return isTotalValid && isDescriptionValid && areAnyRadioButtonChecked; 
         }
 
         private bool ValidateTotal()
@@ -88,10 +73,67 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             return isValid;
         }
 
+        private Cashout CreateCashout()
+        {
+
+            int cashoutType = 0;
+
+            if(radioButtonCashin.IsChecked == true)
+            {
+                cashoutType = 1;
+            }
+
+
+            DateTime dateTime = DateTime.Now;
+            string totalString = txtTotal.Text;
+            decimal total = decimal.Parse(totalString);
+            var newCashout = new Cashout
+            {
+                date = dateTime,
+                cashoutType = txtDescription.Text,
+                total = total, 
+            };
+
+            return newCashout;
+        }
+
+        private void RegisterCashout(Cashout cashout)
+        {
+            CashoutDAO cashoutDAO = new CashoutDAO();
+            if (cashoutDAO.RegisterCashout(cashout))
+            {
+                //Mostrar mensaje de éxito
+            }
+            else
+            {
+                //Mostrar mensaje de error
+            }
+        }
+
+        private bool ValidateRadioButtons()
+        {
+            bool areAnyRadioButtonChecked = false;
+            if(radioButtonCashin.IsChecked == true || radioButtonCashout.IsChecked == true)
+            {
+                areAnyRadioButtonChecked = true;
+            }
+            return areAnyRadioButtonChecked;
+        }
+
         private void ClearErrorLabels()
         {
             lblDescriptionError.Visibility = Visibility.Collapsed;
             lblTotalError.Visibility = Visibility.Collapsed;
+        }
+
+        private void RadioButtonCashin_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButtonCashout.IsChecked = false;
+        }
+
+        private void RadioButtonCashout_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButtonCashin.IsChecked = false;
         }
     }
 }
