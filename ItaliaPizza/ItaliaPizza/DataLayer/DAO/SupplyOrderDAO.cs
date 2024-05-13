@@ -208,6 +208,34 @@ namespace ItaliaPizza.DataLayer.DAO
             return isUpdated;
         }
 
+        public bool UpdateStatusOrder(int supplierOrderId, byte status)
+        {
+            bool isUpdated = false;
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var order = dbContext.SupplierOrders.FirstOrDefault(o => o.orderCode == supplierOrderId);
+
+                    if (order != null)
+                    {
+                        order.status = status;
+                        dbContext.SaveChanges();
+
+                        isUpdated = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    isUpdated = false;
+                    Console.WriteLine("Error al actualizar el estado del pedido y el pago: " + ex.Message);
+                }
+            }
+
+            return isUpdated;
+        }
+
         public bool AreAnySuppliesInOrder(int supplierOrderId)
         {
             bool anySupplies = false;
@@ -269,5 +297,21 @@ namespace ItaliaPizza.DataLayer.DAO
             return result;
         }
 
+        public List<SupplierOrder> GetOrdersBySupplierId(string supplierId)
+        {
+            List<SupplierOrder> orders = new List<SupplierOrder>();
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplierOrders = dbContext.SupplierOrders
+                                              .Where(so => so.supplierId == supplierId)
+                                              .ToList();
+
+                orders.AddRange(supplierOrders);
+            }
+
+            return orders;
+        }
     }
+
 }

@@ -73,7 +73,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void Supplier_Click(object sender, MouseButtonEventArgs e)
         {
-            //historial de pedidos del proveedor
+            SupplierOrderHistory orderHistory = new SupplierOrderHistory(SupplierData);
+            this.SuppliersView.NavigationService.Navigate(orderHistory);
         }
     }
 }

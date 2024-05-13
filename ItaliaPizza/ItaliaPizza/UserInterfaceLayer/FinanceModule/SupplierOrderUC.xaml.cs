@@ -1,20 +1,12 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -24,6 +16,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplierOrderUC : UserControl
     {
         private SupplierOrder SupplierOrderData;
+
         public SupplierOrderUC()
         {
             InitializeComponent();
@@ -31,33 +24,129 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         public void SetDataCards(SupplierOrder supplierOrder)
         {
-            lblOrderTitle.Content = "Pedido: " + supplierOrder.orderCode;
-            txtSupplierName.Text = supplierOrder.Supplier.manager + ": " + supplierOrder.Supplier.companyName;
-            if (supplierOrder.status == Constants.INACTIVE_STATUS)
+            SupplierOrderData = supplierOrder;
+            SetOrderTitle(supplierOrder.orderCode);
+            SetSupplierInfo(supplierOrder.Supplier);
+            SetStatus(supplierOrder.status);
+            SetCreationDate(supplierOrder.date);
+            SetModificationDate(supplierOrder.modificationDate);
+            SetTotalPayment(supplierOrder.total);
+        }
+
+        private void SetOrderTitle(int orderCode)
+        {
+            lblOrderTitle.Content = "Pedido: " + orderCode;
+        }
+
+        private void SetSupplierInfo(Supplier supplier)
+        {
+            txtSupplierName.Text = supplier.manager + ": " + supplier.companyName;
+        }
+
+        private void SetStatus(int status)
+        {
+            lblStatus.Content = GetStringStatus(status);
+            if (status == Constants.INACTIVE_STATUS)
             {
                 lblOrderTitle.Foreground = Brushes.Red;
             }
-            SupplierData = supplier;
+            else if (status == Constants.COMPLETE_STATUS)
+            {
+                btnReceive.Visibility = Visibility.Hidden;
+                btnCancel.Visibility = Visibility.Hidden;
+            }
         }
 
-        private string GetStringStatus()
+        private string GetStringStatus(int status)
         {
+            switch (status)
+            {
+                case Constants.ACTIVE_STATUS:
+                    return "Activo";
+                case Constants.INACTIVE_STATUS:
+                    return "Cancelado";
+                case Constants.COMPLETE_STATUS:
+                    return "Recibido";
+                default:
+                    return "Desconocido";
+            }
+        }
 
+        private void SetCreationDate(DateTime creationDate)
+        {
+            txtCreationDate.Text = "Creado: " + creationDate.ToString("dd/MM/yyyy HH:mm");
+        }
+
+        private void SetModificationDate(DateTime modificationDate)
+        {
+            txtModificationDate.Text = "Modificado: " + modificationDate.ToString("dd/MM/yyyy HH:mm");
+        }
+
+        private void SetTotalPayment(decimal total)
+        {
+            txtTotalPayment.Text = "$" + total.ToString();
         }
 
         private void SupplierOrder_Click(object sender, MouseButtonEventArgs e)
         {
+            GoToEditOrderView();
+        }
 
+        private void GoToEditOrderView()
+        {
+            // Implementar la lógica para navegar a la vista de edición del pedido
         }
 
         private void BtnReceive_Click(object sender, RoutedEventArgs e)
         {
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Ha recibido este pedido? Una vez confirmado, no es posible deshacer la acción", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
+            if (dialogWindow.ShowDialog() == true)
+            {
+                if (ChangeOrderToReceived())
+                {
+                    UpdateInventory();
+                    DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido");
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("No se ha podido confirmar su pedido. Intente nuevamente");
+                }
+            }
+        }
 
+        private void UpdateInventory()
+        {
+
+        }
+
+        private bool ChangeOrderToReceived()
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.UpdateStatusOrder(SupplierOrderData.orderCode, Constants.COMPLETE_STATUS);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            DialogWindow dialogWindow = new DialogWindow();
+            dialogWindow.SetDialogWindowData("Confirmación", "¿Está seguro de cancelar este pedido?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
+            if(dialogWindow.ShowDialog() == true)
+            {
+                if (CancelOrder())
+                {
+                    DialogManager.ShowSuccessMessageBox("Se ha cancelado exitosamente su pedido");
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("No se ha podido cancelar su pedido. Intente nuevamente");
+                }
+            }
+        }
 
+        private bool CancelOrder()
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.UpdateStatusOrder(SupplierOrderData.orderCode, Constants.INACTIVE_STATUS);
         }
     }
 }
