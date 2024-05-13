@@ -59,10 +59,10 @@
 
                 <Border
                     Background="#393D42"
-                    Height="320"
+                    Height="170"
                     Width="1000"
                     CornerRadius="10"
-                    Margin="0,20,0,0">
+                    Margin="0,100,0,0">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -118,32 +118,44 @@
                             Content="El total debe ser un número entero o decimal"
                             Visibility="Collapsed"/>
 
+
                         <Label
-                            Grid.Row = "2"
+                            Grid.Row = "0"
                             Grid.Column = "1"
-                            FontSize = "35"
+                            FontSize = "30"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Descripción *"
-                            Margin="53,0,0,0"/>
+                            Content="Tipo de movimiento"
+                            FontFamily="{StaticResource InterFont}"
+                            HorizontalAlignment="Center"
+                            Margin="250,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
+                        <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1"
+                                 Margin="80,0,0,50">
+                            <RadioButton 
+                                x:Name="radioButtonCashin" 
+                                Content="Entrada" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashin_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                        </Viewbox>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtDescription"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
+                        <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1" 
+                                 Margin="400,0,0,50">
+                            <RadioButton 
+                                x:Name="radioButtonCashout" 
+                                Content="Salida" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashout_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                        </Viewbox>
+
 
                         <Label
                             x:Name="lblDescriptionError"
