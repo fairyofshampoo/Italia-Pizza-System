@@ -16,8 +16,7 @@ namespace ItaliaPizza.DataLayer
     {
         public int cashoutId { get; set; }
         public System.DateTime date { get; set; }
-        public System.TimeSpan time { get; set; }
         public decimal total { get; set; }
-        public string cashoutType { get; set; }
+        public Nullable<byte> cashoutType { get; set; }
     }
 }

@@ -40,9 +40,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool IsDataValid()
         {
             bool isTotalValid = ValidateTotal();
-            bool isDescriptionValid = ValidateDescription();
             bool areAnyRadioButtonChecked = ValidateRadioButtons();
-            return isTotalValid && isDescriptionValid && areAnyRadioButtonChecked; 
+            return isTotalValid && areAnyRadioButtonChecked; 
         }
 
         private bool ValidateTotal()
@@ -57,18 +56,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 isValid = false;
                 lblTotalError.Visibility = Visibility.Visible;
-            }
-            return isValid;
-        }
-
-        private bool ValidateDescription()
-        {
-            string descriptionString = txtDescription.Text;
-            Regex regex = new Regex(@"^(?!\s)[^\s].{0,29}$");
-            bool isValid = regex.IsMatch(descriptionString);
-            if (!isValid)
-            {
-                lblDescriptionError.Visibility = Visibility.Visible;
             }
             return isValid;
         }
@@ -90,7 +77,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             var newCashout = new Cashout
             {
                 date = dateTime,
-                cashoutType = txtDescription.Text,
+                cashoutType = (byte?)cashoutType,
                 total = total, 
             };
 

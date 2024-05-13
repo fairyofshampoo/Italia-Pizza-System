@@ -59,10 +59,10 @@
 
                 <Border
                     Background="#393D42"
-                    Height="320"
+                    Height="170"
                     Width="1000"
                     CornerRadius="10"
-                    Margin="0,20,0,0">
+                    Margin="0,100,0,0">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -156,32 +156,6 @@
                                 FontFamily="{StaticResource InterFont}" />
                         </Viewbox>
 
-                        <Label
-                            Grid.Row = "2"
-                            Grid.Column = "1"
-                            FontSize = "35"
-                            Foreground = "White"
-                            VerticalAlignment = "Bottom"
-                            Content="Descripción *"
-                            Margin="53,0,0,0"/>
-
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
-
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtDescription"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
 
                         <Label
                             x:Name="lblDescriptionError"
