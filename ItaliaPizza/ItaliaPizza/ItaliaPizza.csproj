@@ -649,7 +649,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\infoIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\errorIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\warningIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\ArrowIcon.png" />
@@ -720,11 +719,6 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\calendarIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\AddProductIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
-    <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">

@@ -16,10 +16,12 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplierOrderUC : UserControl
     {
         private SupplierOrder SupplierOrderData;
+        private SupplierOrderHistory supplierOrderHistory;
 
-        public SupplierOrderUC()
+        public SupplierOrderUC(SupplierOrderHistory supplierOrderHistory)
         {
             InitializeComponent();
+            this.supplierOrderHistory = supplierOrderHistory;
         }
 
         public void SetDataCards(SupplierOrder supplierOrder)
@@ -48,10 +50,14 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             lblStatus.Content = GetStringStatus(status);
             if (status == Constants.INACTIVE_STATUS)
             {
+                brdStatus.BorderBrush = Brushes.Red;
+                btnReceive.Visibility = Visibility.Hidden;
+                btnCancel.Visibility = Visibility.Hidden;
                 lblOrderTitle.Foreground = Brushes.Red;
             }
             else if (status == Constants.COMPLETE_STATUS)
             {
+                brdStatus.BorderBrush = Brushes.Orange;
                 btnReceive.Visibility = Visibility.Hidden;
                 btnCancel.Visibility = Visibility.Hidden;
             }
@@ -62,7 +68,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             switch (status)
             {
                 case Constants.ACTIVE_STATUS:
-                    return "Activo";
+                    return "Abierto";
                 case Constants.INACTIVE_STATUS:
                     return "Cancelado";
                 case Constants.COMPLETE_STATUS:

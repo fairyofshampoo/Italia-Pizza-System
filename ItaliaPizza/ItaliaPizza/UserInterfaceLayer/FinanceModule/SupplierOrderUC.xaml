@@ -25,7 +25,7 @@
            VerticalAlignment = "Center" Content="Pedido 847"
            Margin="20,10,0,0"/>
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="Auto" Margin="20,0,0,0"
+                            <Border x:Name="brdStatus" Width="Auto" Margin="20,0,0,0"
             BorderBrush="#41B541" BorderThickness="4" VerticalAlignment="Top"
             CornerRadius="23.333" HorizontalAlignment="Left">
                                 <Label x:Name="lblStatus" Content="Solicitado" FontSize="18" FontWeight="Medium" FontFamily="{StaticResource InterFont}"

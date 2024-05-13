@@ -16,7 +16,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public InventoryView()
         {
             InitializeComponent();
-            GetAllSuppliesAndExternalProducts();
+            radioButtonAll.IsChecked = true;
             menuFrame.Content = new ManagerMenu(this);
         }
 
@@ -79,7 +79,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void GetAllSuppliesAndExternalProducts()
         {
-            radioButtonAll.IsChecked = true;
             SupplyDAO supplyDAO = new SupplyDAO();
             List<object> suppliesAndProducts = supplyDAO.GetAllSuppliesAndExternalProducts();
 

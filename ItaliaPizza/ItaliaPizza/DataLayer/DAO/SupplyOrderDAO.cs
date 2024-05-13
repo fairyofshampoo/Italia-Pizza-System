@@ -312,6 +312,42 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return orders;
         }
+
+        public List<SupplierOrder> GetOrdersBySupplierIdAndStatus(string supplierId, byte status)
+        {
+            List<SupplierOrder> orders = new List<SupplierOrder>();
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplierOrders = dbContext.SupplierOrders
+                                              .Where(so => so.supplierId == supplierId && so.status == status)
+                                              .ToList();
+
+                orders.AddRange(supplierOrders);
+            }
+
+            return orders;
+        }
+
+        public List<SupplierOrder> GetOrdersBySupplierIdAndCreationDateRange(string supplierId, DateTime startDate, DateTime endDate)
+        {
+            List<SupplierOrder> orders = new List<SupplierOrder>();
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplierOrders = dbContext.SupplierOrders
+                                              .Where(so => so.supplierId == supplierId &&
+                                                           so.date >= startDate &&
+                                                           so.date <= endDate)
+                                              .ToList();
+
+                orders.AddRange(supplierOrders);
+            }
+
+            return orders;
+        }
+
+
     }
 
 }
