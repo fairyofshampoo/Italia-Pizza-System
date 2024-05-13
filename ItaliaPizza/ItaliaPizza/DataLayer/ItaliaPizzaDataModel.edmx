@@ -41,9 +41,8 @@
           </Key>
           <Property Name="cashoutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="time" Type="time" Precision="7" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="cashoutType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="cashoutType" Type="tinyint" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -579,9 +578,8 @@
           </Key>
           <Property Name="cashoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="cashoutType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cashoutType" Type="Byte" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -1106,7 +1104,6 @@
               <MappingFragment StoreEntitySet="Cashout">
                 <ScalarProperty Name="cashoutId" ColumnName="cashoutId" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="cashoutType" ColumnName="cashoutType" />
               </MappingFragment>

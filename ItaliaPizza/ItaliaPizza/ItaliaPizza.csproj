@@ -722,6 +722,11 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\EyeIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaDataModel.edmx</DependentUpon>
