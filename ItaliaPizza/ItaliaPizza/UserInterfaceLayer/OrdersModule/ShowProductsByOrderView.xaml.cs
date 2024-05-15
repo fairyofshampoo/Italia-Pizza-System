@@ -76,7 +76,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private List<InternalOrderProduct> GetProductsByOrder()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrderProduct> products = internalOrderDAO.GetAllInternalProductsByOrden(internalOrderCode);
             return products;
         }
@@ -96,7 +96,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void ChangeStatusOrder(int status)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             if (internalOrderDAO.ChangeOrderStatus(status, internalOrderCode))
             {
                 //Mostrar mensaje que se ha cambiado el estado

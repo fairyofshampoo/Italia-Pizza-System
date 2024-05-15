@@ -30,9 +30,11 @@
             <PropertyRef Name="logId" />
           </Key>
           <Property Name="logId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="creationDate" Type="date" Nullable="false" />
-          <Property Name="creationTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="creationDate" Type="datetime" Nullable="false" />
           <Property Name="employeeId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="totalCashin" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="totalCashout" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="report" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Cashout">
@@ -566,9 +568,11 @@
             <PropertyRef Name="logId" />
           </Key>
           <Property Name="logId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="creationTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="employeeId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="totalCashin" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="totalCashout" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="report" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeForCashier" FromRole="CashierLog" ToRole="Employee" />
         </EntityType>
@@ -1093,8 +1097,10 @@
               <MappingFragment StoreEntitySet="CashierLog">
                 <ScalarProperty Name="logId" ColumnName="logId" />
                 <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-                <ScalarProperty Name="creationTime" ColumnName="creationTime" />
                 <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="totalCashin" ColumnName="totalCashin" />
+                <ScalarProperty Name="totalCashout" ColumnName="totalCashout" />
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="report" ColumnName="report" />
               </MappingFragment>
             </EntityTypeMapping>

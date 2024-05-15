@@ -3,10 +3,12 @@ using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -100,7 +102,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GoToEditOrderView()
         {
-            // Implementar la lógica para navegar a la vista de edición del pedido
+            if(SupplierOrderData.status == Constants.ACTIVE_STATUS)
+            {
+                SupplyOrderView supplyOrderView = new SupplyOrderView();
+                supplyOrderView.SetSupplyOrderData(SupplierOrderData, true);
+                this.supplierOrderHistory.NavigationService.Navigate(supplyOrderView);
+            } else
+            {
+                SupplierOrderDetailView supplierOrderDetail = new SupplierOrderDetailView(SupplierOrderData);
+                this.supplierOrderHistory.NavigationService.Navigate(supplierOrderDetail);
+            }
         }
 
         private void BtnReceive_Click(object sender, RoutedEventArgs e)
@@ -112,7 +123,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (ChangeOrderToReceived())
                 {
                     UpdateInventory();
-                    DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido");
                 }
                 else
                 {
@@ -123,7 +133,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void UpdateInventory()
         {
-
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(SupplierOrderData.orderCode);
+            if (supplyDAO.UpdateInventoryFromOrder(suppliesInOrder))
+            {
+                SetModificationDate(DateTime.Now);
+                DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido y se ha actualizado el inventario");
+                SupplierOrderData.status = Constants.COMPLETE_STATUS;
+                SetStatus(Constants.COMPLETE_STATUS);
+            }
         }
 
         private bool ChangeOrderToReceived()
@@ -140,7 +159,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 if (CancelOrder())
                 {
+                    SetModificationDate(DateTime.Now);
                     DialogManager.ShowSuccessMessageBox("Se ha cancelado exitosamente su pedido");
+                    SupplierOrderData.status = Constants.INACTIVE_STATUS;
+                    SetStatus(Constants.INACTIVE_STATUS);
                 }
                 else
                 {

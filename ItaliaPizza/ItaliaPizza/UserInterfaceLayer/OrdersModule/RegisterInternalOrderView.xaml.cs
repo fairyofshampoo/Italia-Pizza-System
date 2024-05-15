@@ -64,7 +64,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             CreateOrderCode();
             InternalOrder internalOrder = CreateInternalOrder();
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             if (internalOrderDAO.AddInternalOrder(internalOrder))
             {
                 ShowProducts(products);
@@ -80,7 +80,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             DateTime date = DateTime.Today;
             Random random = new Random();
             string randomChar = RandomString(random, 4);
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             string code = string.Empty;
             do
             {
@@ -160,13 +160,13 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             internalOrderDAO.CancelInternalOrder(orderCode);
         }
 
         private void BtnSaveInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int status = internalOrderDAO.SaveInternalOrder(orderCode);
             if (status == 1)
             {

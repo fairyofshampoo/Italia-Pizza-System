@@ -156,6 +156,50 @@ namespace ItaliaPizza.DataLayer.DAO
             return suppliesDB;            
         }
 
+        public List<Supply> GetAllSupplies()
+        {
+            List<Supply> suppliesDB = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var supplies = databaseContext.Supplies
+                                              .Include(s => s.SupplyArea)
+                                              .ToList();
+                if (supplies != null)
+                {
+                    foreach (var supply in supplies)
+                    {
+                        suppliesDB.Add(supply);
+                    }
+                }
+            }
+            return suppliesDB;
+        }
+
+        public List<Supply> SearchSupplyByName(string name)
+        {
+            List<Supply> supplies = new List<Supply>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var suppliesDB = databaseContext.Supplies.ToList();
+
+                var filteredSupplies = suppliesDB.Where(s => DiacriticsUtilities.RemoveDiacritics(s.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(name).ToUpper()))
+                                                 .Take(10)
+                                                 .ToList();
+
+                if (filteredSupplies != null)
+                {
+                    foreach (var supply in filteredSupplies)
+                    {
+                        databaseContext.Entry(supply)
+                            .Reference(s => s.SupplyArea)
+                            .Load();
+                        supplies.Add(supply);
+                    }
+                }
+            }
+            return supplies;
+        }
+
         public List<object> GetAllSuppliesAndExternalProducts()
         {
             byte trueByte = 1;
@@ -253,44 +297,6 @@ namespace ItaliaPizza.DataLayer.DAO
             return supplies;
         }
 
-        public List<object> GetSupplyOrExternalProductByStatus(bool supplyStatus, byte productStatus)
-        {
-            byte trueByte = 1;
-            List<object> suppliesAndExternalProducts = new List<object>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                var supplies = databaseContext.Supplies
-                                              .Where(s => s.status == supplyStatus)
-                                              .Include(s => s.SupplyArea)
-                                              .ToList<object>();
-                var externalProducts = databaseContext.Products
-                                                       .Where(p => p.isExternal == trueByte && p.status == productStatus)
-                                                       .ToList<object>();
-                suppliesAndExternalProducts.AddRange(supplies);
-                suppliesAndExternalProducts.AddRange(externalProducts);
-            }
-            return suppliesAndExternalProducts;
-        }
-
-        public List<Supply> GetAllSupplies()
-        {
-            List<Supply> suppliesDB = new List<Supply>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                var supplies = databaseContext.Supplies
-                                              .Include(s => s.SupplyArea)
-                                              .ToList();
-                if (supplies != null)
-                {
-                    foreach (var supply in supplies)
-                    {
-                        suppliesDB.Add(supply);
-                    }
-                }
-            }
-            return suppliesDB;
-        }
-
         public bool ModifySupplyAmount(string name, decimal newAmount)
         {
             bool success = false;
@@ -317,6 +323,31 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return success;
         }
+
+        public bool UpdateInventoryFromOrder(List<Supply> orderSupplies)
+        {
+            bool changesSaved = false;
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                foreach (var orderSupply in orderSupplies)
+                {
+                    var supply = dbContext.Supplies.FirstOrDefault(s => s.name == orderSupply.name);
+                    if (supply != null)
+                    {
+                        supply.amount += orderSupply.amount;
+                    }
+                }
+                int rowsAffected = dbContext.SaveChanges();
+                if (rowsAffected > 0)
+                {
+                    changesSaved = true;
+                }
+            }
+
+            return changesSaved;
+        }
+
 
     }
 }

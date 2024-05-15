@@ -16,8 +16,10 @@ namespace ItaliaPizza.DataLayer
     {
         public int logId { get; set; }
         public System.DateTime creationDate { get; set; }
-        public System.TimeSpan creationTime { get; set; }
         public string employeeId { get; set; }
+        public decimal totalCashin { get; set; }
+        public decimal totalCashout { get; set; }
+        public decimal total { get; set; }
         public byte[] report { get; set; }
     
         public virtual Employee Employee { get; set; }

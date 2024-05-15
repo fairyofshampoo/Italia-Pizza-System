@@ -52,6 +52,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style x:Key="styleCalendar" TargetType="{x:Type Calendar}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -68,9 +69,8 @@
             </Setter>
         </Style>
     </Page.Resources>
-
-
-            <Viewbox Stretch="Fill">
+    
+    <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <StackPanel Background="#2c2c2c" Width="1280" Height="720">
                 <Grid Margin="0,20,0,0" >

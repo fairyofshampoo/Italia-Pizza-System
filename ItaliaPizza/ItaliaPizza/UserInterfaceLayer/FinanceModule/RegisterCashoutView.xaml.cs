@@ -1,20 +1,10 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -89,11 +79,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             CashoutDAO cashoutDAO = new CashoutDAO();
             if (cashoutDAO.RegisterCashout(cashout))
             {
-                //Mostrar mensaje de éxito
+                DialogManager.ShowSuccessMessageBox("Se ha registrado exitosamente su movimiento");
             }
             else
             {
-                //Mostrar mensaje de error
+                DialogManager.ShowErrorMessageBox("Ocurrió un error al registrar su movimiento. Intente nuevamente.");
             }
         }
 
@@ -121,6 +111,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void RadioButtonCashout_Checked(object sender, RoutedEventArgs e)
         {
             radioButtonCashin.IsChecked = false;
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

@@ -84,7 +84,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private List<InternalOrder> GetOrdersForPreapartion()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1);
             return internalOrders;
         }
@@ -142,7 +142,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<InternalOrder> GetInternalOrder()
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(1, waiterEmail);
             return internalOrders;
         }
@@ -180,14 +180,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void SearchInternalOrderByStatusAndWaiter(int status)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(status, waiterEmail);
             ShowInternalOrders(internalOrders);
         }
 
         private void SearchInternalOrderByStatus (int status)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(status);
             ShowInternalOrders(internalOrders);
         }

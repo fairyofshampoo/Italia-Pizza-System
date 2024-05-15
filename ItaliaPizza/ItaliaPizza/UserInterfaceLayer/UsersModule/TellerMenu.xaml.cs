@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void BtnTransaction_Click(object sender, RoutedEventArgs e)
         {
-            //cortes de caja
+            CashReconciliationHistory cashReconciliation = new CashReconciliationHistory();
+            page.NavigationService.Navigate(cashReconciliation);
         }
 
         private void BtnClients_Click(object sender, RoutedEventArgs e)
