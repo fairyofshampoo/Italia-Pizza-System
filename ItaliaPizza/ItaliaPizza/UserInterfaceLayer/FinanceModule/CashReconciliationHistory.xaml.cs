@@ -54,8 +54,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GetLogsByDate(DateTime selectedDate)
         {
-            CashoutDAO cashoutDAO = new CashoutDAO();
-            List<CashierLog> logs = cashoutDAO.GetCashierLogsByDateRange(selectedDate);
+            CashierLogDAO cashierLogDAO = new CashierLogDAO();
+            List<CashierLog> logs = cashierLogDAO.GetCashierLogsByDateRange(selectedDate);
 
             if (logs.Count > 0)
             {
@@ -70,8 +70,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GetAllLogs()
         {
-            CashoutDAO cashoutDAO = new CashoutDAO();
-            List<CashierLog> logs = cashoutDAO.GetCashierLogs();
+            CashierLogDAO cashierLogDAO = new CashierLogDAO();
+            List<CashierLog> logs = cashierLogDAO.GetCashierLogsByStatus(0);
 
             if (logs.Count > 0)
             {
@@ -97,7 +97,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void ShowLogs(List<CashierLog> logs)
         {
             cashierLogsListBox.Items.Clear();
-            CashierLogUC cashierLogUC = new CashierLogUC();
+            CashierLogUC cashierLogUC = new CashierLogUC(this);
             cashierLogUC.SetTitleData();
             cashierLogsListBox.Items.Add(cashierLogUC);
 
@@ -109,7 +109,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void AddLogToList(CashierLog log)
         {
-            CashierLogUC cashierLogUC = new CashierLogUC();
+            CashierLogUC cashierLogUC = new CashierLogUC(this);
             cashierLogUC.SetCashierLogData(log);
             cashierLogsListBox.Items.Add(cashierLogUC);
         }

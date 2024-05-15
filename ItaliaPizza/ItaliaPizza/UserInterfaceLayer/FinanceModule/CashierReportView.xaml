@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.FinanceModule"
       mc:Ignorable="d"       d:DesignHeight="720" d:DesignWidth="1280">
     <Viewbox Stretch="Fill">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
-                <Grid Height="720">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="720">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="1200">
+                <Grid Height="1200">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
@@ -16,10 +16,6 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0">
                             <Grid Margin="0,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="800"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
                                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
                                         BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
                                     <Button.Template>
@@ -29,36 +25,25 @@
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                <Button Width="300" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Grid.Column="1" Margin="40,10,0,0" Click="BtnDownloadReport_Click">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border CornerRadius="10" BorderBrush="#41B541" BorderThickness="4" Background="#41B541">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Button.Style>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="../Resources/Icons/reporticon.png" Height="35" Width="35" Margin="0,0,5,0"/>
-                                        <TextBlock Text="Descargar reporte" FontFamily="{StaticResource InterFont}" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Foreground="White"/>
-                                    </StackPanel>
-                                </Button>
 
                                 <Label Content="Corte de caja" Foreground="White" FontSize="60" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
                                 <Canvas HorizontalAlignment="Left">
-                                    <Line X1="150" Y1="80" X2="650" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
+                                    <Line X1="400" Y1="80" X2="890" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
                                 </Canvas>
                             </Grid>
                         </StackPanel>
-                        <Border HorizontalAlignment="Center" Grid.Row="1" Background="LightGray" CornerRadius="20" Height="600" Width="1150">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Background="LightGray" CornerRadius="20" Height="630" Width="1150" Margin="0,20,0,0">
                             <StackPanel>
                                 <TextBlock x:Name="txtCashierName" Text="Corte efectuado por: Eduardo Carrera Colorado" FontSize="28" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,5,0,0" />
                                 <TextBlock x:Name="txtDate" Text="Fecha de corte actual: 17/04/2024 11:48 hrs" FontSize="20" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" Margin="20,5,0,0" Foreground="#4C4C4C" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Saldo inicial" Grid.Column="0" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,0,0,0" Width="750" Foreground="White" Background="#ff7b00" />
+                                    <TextBlock x:Name="txtOpeningBalance" Text="$55,056.00" Grid.Column="1" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="0,0,20,0" Width="750" Foreground="White" Background="#ff7b00" />
+                                </Grid>
                                 <Grid Height="520" Width="1150">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -73,13 +58,13 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                         <RowDefinition />
-                                        
+
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="400"/>
                                     </Grid.ColumnDefinitions>
-                                    
+
                                     <TextBlock Text="ENTRADAS" Grid.Column="0" Grid.Row="0" FontSize="28" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,15,0,0" />
                                     <TextBlock Text="Concepto" Grid.Column="0" Grid.Row="1" FontSize="28" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,5,0,0" Foreground="#4C4C4C" />
                                     <TextBlock Text="Subtotal" Grid.Column="1" Grid.Row="1" FontSize="28" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,5,0,0" Foreground="#4C4C4C" />
@@ -94,7 +79,7 @@
 
                                     <TextBlock Text="Ingresos varios" Grid.Column="0" Grid.Row="3" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Regular" Margin="20,10,0,0" Foreground="#4C4C4C" />
                                     <TextBlock x:Name="txtCashin" Text="$4,567.00" Grid.Column="1" Grid.Row="3" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Regular" Margin="20,10,0,0" Foreground="#4C4C4C" />
-                                    
+
                                     <TextBlock Text="Total entradas" Grid.Column="0" Grid.Row="4" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,0,0,0" Width="750" Foreground="White" Background="Black" />
                                     <TextBlock x:Name="txtTotalCashin" Text="$55,056.00" Grid.Column="1" Grid.Row="4" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="0,0,20,0" Width="750" Foreground="White" Background="Black" />
 
@@ -115,11 +100,99 @@
                                     <TextBlock Text="Total salidas" Grid.Column="0" Grid.Row="10" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,0,0,0" Width="750" Foreground="White" Background="Black" />
                                     <TextBlock x:Name="txtTotalCashout" Text="$55,056.00" Grid.Column="1" Grid.Row="10" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="0,0,20,0" Width="750" Foreground="White" Background="Black" />
 
-                                    <TextBlock Text="Total en caja hoy:" Grid.Column="0" Grid.Row="11" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,0,0,0" Width="350" Foreground="White" Background="#FF7B00" HorizontalAlignment="Right"/>
-                                    <TextBlock x:Name="txtTotal" Text="$55,056.00" Grid.Column="1" Grid.Row="11" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="0,0,20,0" Width="750" Foreground="White" Background="#FF7B00" />
+                                    <TextBlock Text="Saldo final:" Grid.Column="0" Grid.Row="11" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="20,0,0,0" Width="350" Foreground="White" Background="#FF7B00" HorizontalAlignment="Right"/>
+                                    <TextBlock x:Name="txtFinalBalance" Text="$55,056.00" Grid.Column="1" Grid.Row="11" FontSize="24" FontFamily="{StaticResource InterFont}" FontWeight="Bold" Margin="0,0,20,0" Width="750" Foreground="White" Background="#FF7B00" />
                                 </Grid>
                             </StackPanel>
                         </Border>
+                        <TextBlock Grid.Row="1" VerticalAlignment="Bottom" Foreground="White" FontSize="25" FontFamily="{StaticResource InterFont}" Text="Ingrese cuántos billetes y monedas se encuentran en caja con cada uno de las siguientes denominaciones:" Margin="60,0,50,375" TextWrapping="Wrap" />
+                        <Border Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="LightGray" CornerRadius="20" Height="230" Width="1150" Margin="0,0,0,130">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="../Resources/Icons/coinsIcon.png" Height="70"/>
+                                <Image Grid.Row="1" Source="../Resources/Icons/bankNotesIcon.png" Height="70"/>
+                                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt1000Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$1000" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt500Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$500" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt200Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$200" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="4" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt100Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$100" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="5" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt50Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$50" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="6" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt20Bill" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$20" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt20Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$20" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt10Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$10" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="tx5Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$5" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="4" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt2Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$2" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="5" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt1Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <Label Content="$1" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="6" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBox x:Name="txt50Cent" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50" />
+                                    <Label Content="$0.50" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Button x:Name="btnSave" Width="300" Height="60" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand" Margin="0,0,70,40" Click="BtnSave_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border CornerRadius="10" BorderBrush="#ff7b00" BorderThickness="4" Background="#ff7b00">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Guardar corte de caja" FontFamily="{StaticResource InterFont}" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </Grid>
             </StackPanel>

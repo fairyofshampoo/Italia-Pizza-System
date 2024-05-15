@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using ItaliaPizza.DataLayer.DAO.Interface;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -24,8 +25,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class CashierLogUC : UserControl
     {
         CashierLog CashierLogData { get; set; }
-        public CashierLogUC()
+        CashReconciliationHistory cashReconciliation;
+        public CashierLogUC(CashReconciliationHistory reconciliationHistory)
         {
+            this.cashReconciliation = reconciliationHistory;
             InitializeComponent();
         }
 
@@ -41,15 +44,22 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         public void SetCashierLogData(CashierLog cashierLog)
         {
             CashierLogData = cashierLog;
-            txtDate.Text = cashierLog.creationDate.ToString();
-            txtCashin.Text = cashierLog.totalCashin.ToString();
-            txtCashout.Text = cashierLog.totalCashout.ToString();
-            txtTotal.Text = cashierLog.total.ToString();
+            decimal totalSupplyOrders = CashierLogData.supplierOrderCashout;
+            decimal cashout = CashierLogData.miscellaneousCashout;
+            decimal totalCashout = totalSupplyOrders + cashout;
+            decimal totalOrders = CashierLogData.ordersCashin;
+            decimal cashin = CashierLogData.miscellaneousCashin ?? 0;
+            decimal totalCashin = totalOrders + cashin;
+            txtDate.Text = cashierLog.openingDate.ToString();
+            txtCashin.Text = totalCashin.ToString();
+            txtCashout.Text = totalCashout.ToString();
+            txtTotal.Text = cashierLog.finalBalance.ToString();
 
         }
         private void BtnWatch_Click(object sender, RoutedEventArgs e)
         {
-
+            BalanceLogView balanceLogView = new BalanceLogView(CashierLogData);
+            this.cashReconciliation.NavigationService.Navigate(balanceLogView);
         }
     }
 }

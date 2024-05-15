@@ -184,6 +184,7 @@
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\AddressDAO.cs" />
+    <Compile Include="DataLayer\DAO\CashierLogDAO.cs" />
     <Compile Include="DataLayer\DAO\CashoutDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
@@ -255,6 +256,9 @@
     </Compile>
     <Compile Include="DataLayer\SupplyOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml.cs">
+      <DependentUpon>BalanceLogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\CashierLogUC.xaml.cs">
       <DependentUpon>CashierLogUC.xaml</DependentUpon>
@@ -427,6 +431,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\CashierLogUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -764,6 +772,10 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\bankNotesIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\coinsIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">

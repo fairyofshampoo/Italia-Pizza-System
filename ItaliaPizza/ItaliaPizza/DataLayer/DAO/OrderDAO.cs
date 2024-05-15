@@ -354,7 +354,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return updateStatus;
         }
 
-        public decimal GetSumOfTotalOrdersByDate(int day, int month, int year)
+        public decimal GetSumOfTotalOrdersByDate(DateTime date)
         {
             decimal sumOfTotalOrders = 0;
 
@@ -363,7 +363,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 try
                 {
                     var orders = databaseContext.InternalOrders
-                        .Where(order => order.date.Day == day && order.date.Month == month && order.date.Year == year)
+                        .Where(order => order.date >= date)
                         .ToList();
 
                     if (orders.Any())
@@ -380,6 +380,26 @@ namespace ItaliaPizza.DataLayer.DAO
             return sumOfTotalOrders;
         }
 
+        public decimal GetSumOfTotalOrders()
+        {
+            decimal totalOrders = 0;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    totalOrders = databaseContext.InternalOrders
+                        .ToList()
+                        .Sum(o => o.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Total orders error" + ex.Message);
+                }
+            }
+
+            return totalOrders;
+        }
     }
 
 }
