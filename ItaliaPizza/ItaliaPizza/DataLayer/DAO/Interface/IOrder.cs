@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.DataLayer.DAO.Interface
 {
-    internal interface IInternalOrder
+    internal interface IOrder
     {
         List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail);
         InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail);

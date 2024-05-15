@@ -117,7 +117,7 @@
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button x:Name="btnCancel" BorderThickness="0" Content="Cancelar"
+                                <Button x:Name="btnCancel" BorderThickness="0" Content="Atrás"
                                         Foreground="White" FontSize="18" FontFamily="{StaticResource InterFont}"
                                         FontWeight="Bold" Cursor="Hand" Width="170"
                                         Height="52" Margin="0,0,50,0" Click="BtnCancel_Click">

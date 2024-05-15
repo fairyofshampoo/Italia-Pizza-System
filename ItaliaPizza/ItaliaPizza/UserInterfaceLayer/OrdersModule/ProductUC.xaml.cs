@@ -97,35 +97,35 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private int GetNumberOfExternalProducts()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int productsAvailable = internalOrderDAO.GetTotalExternalProduct(ProductData.productCode);
             return productsAvailable;
         }
 
         private int GetRecipeByProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
             return recipeId;
         }
 
         private int GetNumberOfProducts(int recipeId)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
             return numberOfProducts;
         }
 
         private int GetNumberOfProductsOnHold()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
             return productsOnHold;
         }
 
         private bool GetCountOfProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             bool areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
             return areThereAnyRegister;
         }
@@ -144,7 +144,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void RegisterInternalOrderProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
             if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
             {
@@ -158,13 +158,13 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void IncreaseAmount()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             internalOrderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
         }
 
         private bool IsRegisterInDB ()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             bool isRegister = internalOrderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
             return isRegister;
         }

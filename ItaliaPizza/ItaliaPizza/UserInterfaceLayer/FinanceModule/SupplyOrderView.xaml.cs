@@ -26,8 +26,9 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplyOrderView : Page
     {
         private Supplier supplierData;
-        private readonly Dictionary<string, SupplyOrderRemoveUC> suppliesDictionary = new Dictionary<string, SupplyOrderRemoveUC>();
-        private bool isAnUpdate;
+        private Dictionary<string, SupplyOrderRemoveUC> suppliesDictionary = new Dictionary<string, SupplyOrderRemoveUC>();
+        private List<Supply> suppliesInDB = new List<Supply>();
+        public bool isAnUpdate;
         public int OrderId { get; set; }
         public SupplyOrderView()
         {
@@ -35,14 +36,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             GetSupplies();
         }
 
-        public void SetSupplyOrderData(SupplierOrder supplierOrder, bool isAnUpdate)
+        public void SetSupplyOrderData(SupplierOrder supplierOrder, bool isInReadMode)
         {
-            this.isAnUpdate = isAnUpdate;
+            this.isAnUpdate = isInReadMode;
             SetSupplier(supplierOrder.Supplier);
             SetResumeOrderTitle();
 
-            if (isAnUpdate)
+            if (isInReadMode)
             {
+                OrderId = supplierOrder.orderCode;
+                txtTotalPayment.Text = supplierOrder.total.ToString();
                 SetOrderSupplies();
             } else {
 
@@ -62,21 +65,31 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private void SetOrderSupplies()
         {
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(this.OrderId);
-            foreach (Supply supply in suppliesInOrder)
+            suppliesInDB = supplyOrderDAO.GetSuppliesByOrderId(this.OrderId);
+
+            foreach (Supply supply in suppliesInDB)
             {
+                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(OrderId, supply.name);
                 AddSupplyToResume(supply);
-                Console.WriteLine(supply.name);
             }
         }
 
         private void AddSupplyToResume(Supply supply)
         {
-            SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
-            suppliesDictionary.Add(supply.name, supplyCard);
-            supplyCard.SupplyOrderView = this;
-            supplyCard.SetSupplyData(supply);
-            orderListView.Items.Add(supplyCard);
+            if (!suppliesDictionary.ContainsKey(supply.name))
+            {
+                SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
+                suppliesDictionary.Add(supply.name, supplyCard);
+                supplyCard.SupplyOrderView = this;
+                supplyCard.SetSupplyData(supply);
+                orderListView.Items.Add(supplyCard);
+            }
+        }
+
+        public void RemoveSupplyFromOrder(string supplyName, SupplyOrderRemoveUC supplyCard)
+        {
+            suppliesDictionary.Remove(supplyName);
+            orderListView.Items.Remove(supplyCard);
         }
 
         private void SetSupplier(Supplier supplier)
@@ -144,15 +157,85 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             if (IsOrderValid())
             {
-                if (RegisterOrder())
+                if (isAnUpdate)
                 {
-                    DialogManager.ShowSuccessMessageBox("Pedido de insumos registrado exitosamente");
-                    NavigationService.GoBack();
+                    if (UpdateOrder())
+                    {
+                        DialogManager.ShowSuccessMessageBox("Pedido de insumos actualizado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("No se podido actualizar el pedido de insumos. Intente nuevamente");
+                    }
+
                 } else
                 {
-                    DialogManager.ShowErrorMessageBox("No se podido registrar el pedido de insumos. Intente nuevamente");
+                    if (RegisterOrder())
+                    {
+                        DialogManager.ShowSuccessMessageBox("Pedido de insumos registrado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("No se podido registrar el pedido de insumos. Intente nuevamente");
+                    }
                 }
             }
+        }
+
+        private bool UpdateOrder()
+        {
+            bool result = true;
+
+
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+
+            foreach (string item in suppliesDictionary.Keys)
+            {
+
+                decimal amountDecimal = (decimal)suppliesDictionary[item].supplyData.amount;
+
+                if (supplyOrderDAO.IsSupplyAlreadyInOrder(item, OrderId))
+                {
+                    supplyOrderDAO.UpdateSupplyAmountInOrder(amountDecimal, OrderId, item);
+
+                } else
+                {
+                    if (!supplyOrderDAO.AddSupplyToOrder(item, OrderId, amountDecimal))
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            result = UpdateRemovingSupplies() && RegisterPayment();
+
+            return result;
+        }
+
+        private bool UpdateRemovingSupplies()
+        {
+            bool result = true;
+
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+
+            foreach (Supply supplyDB in suppliesInDB)
+            {
+                string itemName = supplyDB.name;
+
+                if (!suppliesDictionary.ContainsKey(itemName))
+                {
+                    if(!supplyOrderDAO.DeleteSupplyFromOrder(itemName, OrderId))
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            return result;
         }
 
         private bool IsOrderValid()
@@ -165,12 +248,32 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             return result;
         }
 
+        private bool RegisterPayment()
+        {
+            bool result = true;
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+
+            if (decimal.TryParse(txtTotalPayment.Text, out decimal totalPayment))
+            {
+                if (!supplyOrderDAO.UpdateStatusOrderAndPayment(OrderId, Constants.ACTIVE_STATUS, totalPayment))
+                {
+                    result = false;
+                }
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         private bool AreSuppliesInOrder()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            bool result = supplyOrderDAO.AreAnySuppliesInOrder(OrderId);
-            if (!result)
+            bool result = true;
+            if (!suppliesDictionary.Any())
             {
+                result = false;
                 DialogManager.ShowWarningMessageBox("No ha ingresado insumos a su pedido. Intente nuevamente");
             }
             return result;
@@ -191,12 +294,21 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private bool RegisterOrder()
         {
-            bool result = false;
-            if (decimal.TryParse(txtTotalPayment.Text, out decimal totalPayment))
+            bool result = true;
+
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+
+            foreach (string item in suppliesDictionary.Keys)
             {
-                SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-                result = supplyOrderDAO.UpdateStatusOrderAndPayment(OrderId, Constants.ACTIVE_STATUS, totalPayment);
+                decimal amountDecimal = (decimal)suppliesDictionary[item].supplyData.amount;
+                if (!supplyOrderDAO.AddSupplyToOrder(item, OrderId, amountDecimal))
+                {
+                    result = false;
+                    break;
+                }
             }
+
+            result = RegisterPayment();
 
             return result;
         }
@@ -209,13 +321,20 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void CancelOrder()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            if (supplyOrderDAO.DeleteSupplierOrder(this.OrderId))
+            if (isAnUpdate)
             {
                 NavigationService.GoBack();
             } else
             {
-                DialogManager.ShowErrorMessageBox("No se pudo cancelar la acción, intente nuevamente");
+                SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+                if (supplyOrderDAO.DeleteSupplierOrder(this.OrderId))
+                {
+                    NavigationService.GoBack();
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("No se pudo cancelar la acción, intente nuevamente");
+                }
             }
         }
 
@@ -244,22 +363,26 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         public void AddSupplyToOrder(Supply supply)
         {
-            AddSupplyToResume(supply);
-        }
-
-        public void RemoveSupplyFromOrder(string supplyName, SupplyOrderRemoveUC supplyCard)
-        {
-            suppliesDictionary.Remove(supplyName);
-            orderListView.Items.Remove(supplyCard);
-        }
-
-        public void IncreaseAmount(Supply supply)
-        {
-            if (suppliesDictionary.ContainsKey(supply.name)){
-                SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
-                supplyCard = suppliesDictionary[supply.name];
-                supplyCard.SetSupplyData(supply);
+            if (suppliesDictionary.ContainsKey(supply.name))
+            {
+                supply.amount = suppliesDictionary[supply.name].supplyData.amount;
+                IncreaseAmount(supply);
+            } else
+            {
+                decimal defaultAmount = 1;
+                supply.amount = defaultAmount;
+                AddSupplyToResume(supply);
             }
+
+        }
+
+        private void IncreaseAmount(Supply supply)
+        {
+            SupplyOrderRemoveUC supplyCard = new SupplyOrderRemoveUC();
+            supplyCard = suppliesDictionary[supply.name];
+            supplyCard.supplyData.amount = supply.amount;
+            supply.amount += 1;
+            supplyCard.SetSupplyData(supply);
         }
 
         private void GenerateSupplierOrder()

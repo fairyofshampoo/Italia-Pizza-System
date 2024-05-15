@@ -221,6 +221,7 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (order != null)
                     {
                         order.status = status;
+                        order.modificationDate = DateTime.Now;
                         dbContext.SaveChanges();
 
                         isUpdated = true;
@@ -229,7 +230,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 catch (Exception ex)
                 {
                     isUpdated = false;
-                    Console.WriteLine("Error al actualizar el estado del pedido y el pago: " + ex.Message);
+                    Console.WriteLine("Error al actualizar el estado del pedioo y el pago: " + ex.Message);
                 }
             }
 
@@ -312,6 +313,64 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return orders;
         }
+
+        public List<SupplierOrder> GetOrdersBySupplierIdAndStatus(string supplierId, byte status)
+        {
+            List<SupplierOrder> orders = new List<SupplierOrder>();
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplierOrders = dbContext.SupplierOrders
+                                              .Where(so => so.supplierId == supplierId && so.status == status)
+                                              .ToList();
+
+                orders.AddRange(supplierOrders);
+            }
+
+            return orders;
+        }
+
+        public List<SupplierOrder> GetOrdersBySupplierIdAndCreationDateRange(string supplierId, DateTime startDate, DateTime endDate)
+        {
+            List<SupplierOrder> orders = new List<SupplierOrder>();
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                var supplierOrders = dbContext.SupplierOrders
+                                              .Where(so => so.supplierId == supplierId &&
+                                                           so.date >= startDate &&
+                                                           so.date <= endDate)
+                                              .ToList();
+
+                orders.AddRange(supplierOrders);
+            }
+
+            return orders;
+        }
+
+        public decimal GetSumOfTotalSupplierOrdersByDate(int day, int month, int year)
+        {
+            decimal sumOfTotalSupplierOrders = 0;
+
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    sumOfTotalSupplierOrders = dbContext.SupplierOrders
+                        .Where(order => order.date.Day == day && order.date.Month == month && order.date.Year == year)
+                        .ToList()
+                        .Sum(order => order.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener la suma del total de los pedidos de proveedor: " + ex.Message);
+                }
+            }
+
+            return sumOfTotalSupplierOrders;
+        }
+
+
     }
 
 }

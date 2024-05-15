@@ -3,10 +3,12 @@ using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -16,10 +18,12 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplierOrderUC : UserControl
     {
         private SupplierOrder SupplierOrderData;
+        private SupplierOrderHistory supplierOrderHistory;
 
-        public SupplierOrderUC()
+        public SupplierOrderUC(SupplierOrderHistory supplierOrderHistory)
         {
             InitializeComponent();
+            this.supplierOrderHistory = supplierOrderHistory;
         }
 
         public void SetDataCards(SupplierOrder supplierOrder)
@@ -48,10 +52,14 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             lblStatus.Content = GetStringStatus(status);
             if (status == Constants.INACTIVE_STATUS)
             {
+                brdStatus.BorderBrush = Brushes.Red;
+                btnReceive.Visibility = Visibility.Hidden;
+                btnCancel.Visibility = Visibility.Hidden;
                 lblOrderTitle.Foreground = Brushes.Red;
             }
             else if (status == Constants.COMPLETE_STATUS)
             {
+                brdStatus.BorderBrush = Brushes.Orange;
                 btnReceive.Visibility = Visibility.Hidden;
                 btnCancel.Visibility = Visibility.Hidden;
             }
@@ -62,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             switch (status)
             {
                 case Constants.ACTIVE_STATUS:
-                    return "Activo";
+                    return "Abierto";
                 case Constants.INACTIVE_STATUS:
                     return "Cancelado";
                 case Constants.COMPLETE_STATUS:
@@ -94,7 +102,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GoToEditOrderView()
         {
-            // Implementar la lógica para navegar a la vista de edición del pedido
+            if(SupplierOrderData.status == Constants.ACTIVE_STATUS)
+            {
+                SupplyOrderView supplyOrderView = new SupplyOrderView();
+                supplyOrderView.SetSupplyOrderData(SupplierOrderData, true);
+                this.supplierOrderHistory.NavigationService.Navigate(supplyOrderView);
+            } else
+            {
+                SupplierOrderDetailView supplierOrderDetail = new SupplierOrderDetailView(SupplierOrderData);
+                this.supplierOrderHistory.NavigationService.Navigate(supplierOrderDetail);
+            }
         }
 
         private void BtnReceive_Click(object sender, RoutedEventArgs e)
@@ -106,7 +123,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (ChangeOrderToReceived())
                 {
                     UpdateInventory();
-                    DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido");
                 }
                 else
                 {
@@ -117,7 +133,16 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void UpdateInventory()
         {
-
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(SupplierOrderData.orderCode);
+            if (supplyDAO.UpdateInventoryFromOrder(suppliesInOrder))
+            {
+                SetModificationDate(DateTime.Now);
+                DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido y se ha actualizado el inventario");
+                SupplierOrderData.status = Constants.COMPLETE_STATUS;
+                SetStatus(Constants.COMPLETE_STATUS);
+            }
         }
 
         private bool ChangeOrderToReceived()
@@ -134,7 +159,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 if (CancelOrder())
                 {
+                    SetModificationDate(DateTime.Now);
                     DialogManager.ShowSuccessMessageBox("Se ha cancelado exitosamente su pedido");
+                    SupplierOrderData.status = Constants.INACTIVE_STATUS;
+                    SetStatus(Constants.INACTIVE_STATUS);
                 }
                 else
                 {

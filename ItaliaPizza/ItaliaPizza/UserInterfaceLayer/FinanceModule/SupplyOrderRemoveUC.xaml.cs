@@ -24,7 +24,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplyOrderRemoveUC : UserControl
     {
         public SupplyOrderView SupplyOrderView { get; set; }
-        private Supply supplyData;
+        public Supply supplyData;
         public SupplyOrderRemoveUC()
         {
             InitializeComponent();
@@ -49,15 +49,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             txtAmount.Visibility = Visibility.Collapsed;
             supplyData = supply;
             txtName.Text = supply.name;
-            txtChangeAmount.Text = GetAmountData();
+            txtChangeAmount.Text = supply.amount.ToString();
             txtUnit.Text = supply.measurementUnit;
-        }
-
-        public string GetAmountData()
-        {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            decimal orderedQuantity = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(this.SupplyOrderView.OrderId, supplyData.name);
-            return orderedQuantity.ToString();
         }
 
         private void BtnRemoveSupply_Click(object sender, RoutedEventArgs e)
@@ -67,11 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void RemoveSupply()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            if (supplyOrderDAO.DeleteSupplyFromOrder(supplyData.name, this.SupplyOrderView.OrderId))
-            {
-                this.SupplyOrderView.RemoveSupplyFromOrder(supplyData.name, this);
-            }
+            this.SupplyOrderView.RemoveSupplyFromOrder(supplyData.name, this);
         }
 
         private void TxtChangeAmountChanged(object sender, TextChangedEventArgs e)
@@ -82,8 +71,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             if (Validations.IsSupplyAmountValid(amountText))
             {
-                decimal amount = decimal.Parse(amountText);
-                UpdateSupplyAmount(amount);
+                supplyData.amount = decimal.Parse(amountText);
+                txtAmount.Text = txtChangeAmount.Text;
             }
             else
             {
@@ -104,13 +93,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             txtName.Foreground = Brushes.Red;
             txtUnit.Foreground = Brushes.Red;
             txtChangeAmount.Foreground = Brushes.Red;
-        }
-
-        private void UpdateSupplyAmount(decimal amount)
-        {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            int orderCode = this.SupplyOrderView.OrderId;
-            supplyOrderDAO.UpdateSupplyAmountInOrder(amount, orderCode, supplyData.name);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ItaliaPizza.DataLayer.DAO
 {
     
-    internal class InternalOrderDAO : IInternalOrder
+    internal class OrderDAO : IOrder
     {
         public bool AddInternalOrder(InternalOrder order)
         {
@@ -353,6 +353,33 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return updateStatus;
         }
+
+        public decimal GetSumOfTotalOrdersByDate(int day, int month, int year)
+        {
+            decimal sumOfTotalOrders = 0;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var orders = databaseContext.InternalOrders
+                        .Where(order => order.date.Day == day && order.date.Month == month && order.date.Year == year)
+                        .ToList();
+
+                    if (orders.Any())
+                    {
+                        sumOfTotalOrders = orders.Sum(order => order.total);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
+            return sumOfTotalOrders;
+        }
+
     }
- 
+
 }

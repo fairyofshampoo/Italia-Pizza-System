@@ -11,7 +11,7 @@
         <Rectangle RadiusX="23.333"  RadiusY="23.333" 
                    Fill="#393D42"   Stroke="Transparent" 
                    Height="260"/>
-        <Border Margin="30" Background="#D9D9D9" CornerRadius="20" Height="200" MouseDown="Supplier_Click">
+        <Border Margin="30" Background="#D9D9D9" CornerRadius="20" Height="200" Cursor="Hand" ToolTip="Seleccione la tarjeta para ver el historial de pedidos" MouseDown="Supplier_Click">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
