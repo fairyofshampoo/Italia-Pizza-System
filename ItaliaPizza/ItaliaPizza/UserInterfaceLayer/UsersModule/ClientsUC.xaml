@@ -71,11 +71,11 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button  x:Name="btnNewOrder" Background="Transparent" BorderBrush="Transparent" ToolTip="Agregar pedido a domicilio" Grid.Row="0" Margin="21,7,45,2">
+                <Button  x:Name="btnNewOrder" Background="Transparent" Click="BtnNewOrder_Click" BorderBrush="Transparent" ToolTip="Agregar pedido a domicilio" Grid.Row="0" Margin="21,7,45,2">
                     <Image Source="../Resources/Icons/ShoppingCarIcon.png" HorizontalAlignment="Center" RenderTransformOrigin="0.727,0.547" Width="50" Height="46"/>
                 </Button>
 
-                <Button x:Name="btnAddress" Background="Transparent" ToolTip="Direcciones" Height="50" BorderBrush="Transparent" Grid.Row="1" Margin="29,7,41,7">
+                <Button x:Name="btnAddress" Cursor="Hand" Background="Transparent" Click="BtnAddress_Click" ToolTip="Direcciones" Height="50" BorderBrush="Transparent" Grid.Row="1" Margin="29,7,41,7">
                     <Image Source="../Resources/Icons/AddressIcon.png" HorizontalAlignment="Left" RenderTransformOrigin="0.727,0.547" Width="48" Height="46"/>
                 </Button>
 

@@ -13,7 +13,7 @@ namespace ItaliaPizza.DataLayer.DAO
     
     internal class OrderDAO : IOrder
     {
-        public bool AddInternalOrder(InternalOrder order)
+        public bool AddOrder(InternalOrder order)
         {
             bool operationStatus = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -44,7 +44,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return operationStatus;
         }
 
-        public bool CancelInternalOrder(string internalOrderCode)
+        public bool CancelOrder(string internalOrderCode)
         {
             bool operationStatus = false;
 
@@ -400,6 +400,35 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return totalOrders;
         }
+
+        public bool RemoveProductFromOrder(string productCode, string orderCode)
+        {
+            bool operationStatus = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var productToRemove = databaseContext.InternalOrderProducts
+                        .Where(product => product.internalOrderId == orderCode && product.productId == productCode)
+                        .FirstOrDefault();
+
+                    if (productToRemove != null)
+                    {
+                        databaseContext.InternalOrderProducts.Remove(productToRemove);
+                        databaseContext.SaveChanges();
+                        operationStatus = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al eliminar el producto de la orden: " + ex.Message);
+                }
+            }
+
+            return operationStatus;
+        }
+
     }
 
 }

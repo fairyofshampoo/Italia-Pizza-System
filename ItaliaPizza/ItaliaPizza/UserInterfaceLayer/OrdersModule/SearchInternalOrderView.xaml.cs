@@ -9,12 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -24,7 +18,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class SearchInternalOrderView : Page
     {
         private string waiterEmail = ApplicationLayer.UserSingleton.Instance.Email;
-        private int rowsAdded = 0;
         public bool isWaiter = false;
 
         public SearchInternalOrderView(bool isWaiter)
@@ -66,7 +59,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void ShowOrderForChef()
         {
-            List<InternalOrder> orders = GetOrdersForPreapartion();
+            List<InternalOrder> orders = GetOrdersForPreparation();
             VerifyOrders(orders);
         }
 
@@ -82,7 +75,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
 
-        private List<InternalOrder> GetOrdersForPreapartion()
+        private List<InternalOrder> GetOrdersForPreparation()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1);
@@ -91,9 +84,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void ShowInternalOrders(List<InternalOrder> orders)
         {
-            rowsAdded = 0;
-            OrdersGrid.Children.Clear();
-            OrdersGrid.RowDefinitions.Clear();
+            ordersListBox.Items.Clear();
 
             if (orders.Any())
             {
@@ -119,24 +110,16 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
             orderCard.searchInternalOrderView = this;
-            Grid.SetRow(orderCard, rowsAdded);
+            ordersListBox.Items.Add(orderCard);
             orderCard.ShowInternalOrderDataByWaiter(order);
-            OrdersGrid.Children.Add(orderCard);
-            rowsAdded++;
-            RowDefinition row = new RowDefinition();
-            OrdersGrid.RowDefinitions.Add(row);
         }
 
         private void AddOrdersChef(InternalOrder order)
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
             orderCard.searchInternalOrderView = this;
-            Grid.SetRow(orderCard, rowsAdded);
             orderCard.ShowInternalOrderByChef(order);
-            OrdersGrid.Children.Add(orderCard);
-            rowsAdded++;
-            RowDefinition row = new RowDefinition();
-            OrdersGrid.RowDefinitions.Add(row);
+            ordersListBox.Items.Add(orderCard);
         }
 
         private List<InternalOrder> GetInternalOrder()
@@ -194,7 +177,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnAddInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            //Mandar a llamar la pantalla para hacer otra orden
+            RegisterOrderView registerOrderView = new RegisterOrderView(false);
+            NavigationService.Navigate(registerOrderView);
         }
 
         private void BtnRefreshScreen_Click(object sender, RoutedEventArgs e)

@@ -31,5 +31,18 @@ namespace ItaliaPizza.ApplicationLayer
         public const string WAITER_ROLE = "Mesero";
 
         public const string MANAGER_ROLE = "Gerente";
+
+        public const int ORDER_STATUS_IN_CAPTURE = 0;
+
+        public const int ORDER_STATUS_PENDING_PREPARATION = 1;
+
+        public const int ORDER_STATUS_PREPARING = 2;
+
+        public const int ORDER_STATUS_PREPARED = 3;
+
+        public const int ORDER_STATUS_SENT = 4;
+
+        public const int ORDER_STATUS_DELIVERED = 5;
+
     }
 }

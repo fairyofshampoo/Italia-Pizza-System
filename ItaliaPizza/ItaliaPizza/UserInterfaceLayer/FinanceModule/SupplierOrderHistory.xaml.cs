@@ -26,7 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     {
         private int rowAdded = 0;
         private int columnsAdded = 0;
-        private Supplier supplierData;
+        private readonly Supplier supplierData;
         public SupplierOrderHistory(Supplier supplierData)
         {
             InitializeComponent();

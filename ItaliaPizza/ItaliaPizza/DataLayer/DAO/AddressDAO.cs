@@ -74,7 +74,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return operationStatus;
         }
 
-        public List<Address> GetAddressByClient(string emailClient)
+        public List<Address> GetAddressesByClient(string emailClient)
         {
             List<Address> addresses = new List<Address>();
             using(var databaseContext = new ItaliaPizzaDBEntities())

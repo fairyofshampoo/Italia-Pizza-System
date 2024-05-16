@@ -323,14 +323,20 @@
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml.cs">
       <DependentUpon>ProductByOrderUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductRemoveUC.xaml.cs">
+      <DependentUpon>ProductRemoveUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml.cs">
-      <DependentUpon>RegisterInternalOrderView.xaml</DependentUpon>
+    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterOrderView.xaml.cs">
+      <DependentUpon>RegisterOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\SearchHomeOrderView.xaml.cs">
+      <DependentUpon>SearchHomeOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml.cs">
       <DependentUpon>WaiterMenu.xaml</DependentUpon>
@@ -519,15 +525,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductRemoveUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml">
+    <Page Include="UserInterfaceLayer\OrdersModule\RegisterOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\SearchHomeOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -776,6 +790,10 @@
   <ItemGroup>
     <Resource Include="UserInterfaceLayer\Resources\Icons\bankNotesIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\coinsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\addressImage.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\sentIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">

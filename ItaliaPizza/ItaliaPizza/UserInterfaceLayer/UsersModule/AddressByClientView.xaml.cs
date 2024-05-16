@@ -23,8 +23,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     {
         public string clientEmail { get; set; }
 
-        public AddressByClientView()
+        public AddressByClientView(string clientEmail)
         {
+            this.clientEmail = clientEmail;
             InitializeComponent();
             List<Address> addresses = GetAddressByClient();
             ValidateAdresses(addresses);
@@ -70,7 +71,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<Address> GetAddressByClient()
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<Address> addresses = addressDAO.GetAddressByClient(clientEmail);
+            List<Address> addresses = addressDAO.GetAddressesByClient(clientEmail);
             return addresses;
         }
 
@@ -95,7 +96,13 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void BtnAddNewAddress_Click(object sender, RoutedEventArgs e)
         {
-            //Lleva a la pantalla de añadir orden
+            RegisterNewClientAddressView registerNewClientAddressView = new RegisterNewClientAddressView(clientEmail);
+            NavigationService.Navigate(registerNewClientAddressView);
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
