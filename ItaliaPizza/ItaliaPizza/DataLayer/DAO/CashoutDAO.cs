@@ -28,7 +28,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
-        public decimal GetTotalCashoutsByDateAndType(int day, int month, int year, byte cashoutType)
+        public decimal GetTotalCashoutsByDateAndType(DateTime date, byte cashoutType)
         {
             decimal totalCashouts = 0;
 
@@ -37,7 +37,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 try
                 {
                     totalCashouts = databaseContext.Cashouts
-                        .Where(c => c.date.Day == day && c.date.Month == month && c.date.Year == year && c.cashoutType == cashoutType)
+                        .Where(c => c.date >= date && c.cashoutType == cashoutType)
                         .ToList()
                         .Sum(c => c.total);
                 }
@@ -50,46 +50,48 @@ namespace ItaliaPizza.DataLayer.DAO
             return totalCashouts;
         }
 
-
-        public List <CashierLog> GetCashierLogs()
+        public decimal GetSumOfCashin()
         {
-            List<CashierLog> cashierLogs = new List<CashierLog>();
+            decimal totalCashin = 0;
 
-            try
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                using (var databaseContext = new ItaliaPizzaDBEntities())
+                try
                 {
-                    cashierLogs = databaseContext.CashierLogs.ToList();
+                    totalCashin = databaseContext.Cashouts
+                        .Where(c => c.cashoutType == 1)
+                        .ToList()
+                        .Sum(c => c.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Cashin total error" + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al recuperar los registros de cajero: {ex.Message}");
-            }
 
-            return cashierLogs;
+            return totalCashin;
         }
 
-        public List<CashierLog> GetCashierLogsByDateRange(DateTime startDate)
+        public decimal GetSumOfCashout()
         {
-            DateTime endDate = DateTime.Now;
-            List<CashierLog> cashierLogs = new List<CashierLog>();
+            decimal totalCashout = 0;
 
-            try
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                using (var databaseContext = new ItaliaPizzaDBEntities())
+                try
                 {
-                    cashierLogs = databaseContext.CashierLogs
-                        .Where(cl => cl.creationDate >= startDate && cl.creationDate <= endDate)
-                        .ToList();
+                    totalCashout = databaseContext.Cashouts
+                        .Where(c => c.cashoutType == 0)
+                        .ToList()
+                        .Sum(c => c.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Cashout total error" + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al recuperar los registros de cajero: {ex.Message}");
-            }
 
-            return cashierLogs;
+            return totalCashout;
         }
     }
 }

@@ -21,13 +21,13 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
     public partial class RegisterNewClientAddressView : Page
     {
-        private string emailClient = "eduarcaco@hotmail.com"; //Cambiar esto por el singleton
+        private string emailClient;
 
-        public RegisterNewClientAddressView()
+        public RegisterNewClientAddressView(string clientEmail)
         {
+            this.emailClient = clientEmail;
             InitializeComponent();
             FillPostalCodeComboBox();
-            lblClientEmail.Content = "Correo del cliente: correoPrueba@gmail.com"; //Esto debe cambiar
         }
 
         private void FillPostalCodeComboBox()
@@ -82,6 +82,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 if (addressDAO.AddNewAddress(newAddress))
                 {
                     ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado la dirección correctamente");
+                    NavigationService.GoBack();
                 } else
                 {
                     ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido registrar la dirección, inténtelo más tarde");
@@ -143,6 +144,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             lblAddressError.Visibility = Visibility.Collapsed;
             lblColonyError.Visibility= Visibility.Collapsed;
             lblPostalCodeError.Visibility= Visibility.Collapsed;
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

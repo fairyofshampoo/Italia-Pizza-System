@@ -184,6 +184,7 @@
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\DAO\AddressDAO.cs" />
+    <Compile Include="DataLayer\DAO\CashierLogDAO.cs" />
     <Compile Include="DataLayer\DAO\CashoutDAO.cs" />
     <Compile Include="DataLayer\DAO\ClientDAO.cs" />
     <Compile Include="DataLayer\DAO\EmployeeDAO.cs" />
@@ -256,6 +257,9 @@
     <Compile Include="DataLayer\SupplyOrder.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml.cs">
+      <DependentUpon>BalanceLogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\FinanceModule\CashierLogUC.xaml.cs">
       <DependentUpon>CashierLogUC.xaml</DependentUpon>
     </Compile>
@@ -319,14 +323,20 @@
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductByOrderUC.xaml.cs">
       <DependentUpon>ProductByOrderUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\ProductRemoveUC.xaml.cs">
+      <DependentUpon>ProductRemoveUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml.cs">
-      <DependentUpon>RegisterInternalOrderView.xaml</DependentUpon>
+    <Compile Include="UserInterfaceLayer\OrdersModule\RegisterOrderView.xaml.cs">
+      <DependentUpon>RegisterOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml.cs">
       <DependentUpon>RecipeRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\SearchHomeOrderView.xaml.cs">
+      <DependentUpon>SearchHomeOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\WaiterMenu.xaml.cs">
       <DependentUpon>WaiterMenu.xaml</DependentUpon>
@@ -427,6 +437,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\FinanceModule\CashierLogUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -511,15 +525,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\ProductRemoveUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterfaceLayer\OrdersModule\RegisterInternalOrderView.xaml">
+    <Page Include="UserInterfaceLayer\OrdersModule\RegisterOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\KitchenModule\RecipeRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\SearchHomeOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -764,6 +786,14 @@
     <Resource Include="UserInterfaceLayer\Resources\Icons\addRecipeIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\homeOrdersIcon.png" />
     <Resource Include="UserInterfaceLayer\Resources\Icons\ordersChefIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Icons\bankNotesIcon.png" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\coinsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserInterfaceLayer\Resources\Images\addressImage.jpg" />
+    <Resource Include="UserInterfaceLayer\Resources\Icons\sentIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\ItaliaPizzaDataModel.Context.tt">

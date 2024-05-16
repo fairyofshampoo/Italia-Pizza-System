@@ -14,13 +14,17 @@ namespace ItaliaPizza.DataLayer
     
     public partial class CashierLog
     {
-        public int logId { get; set; }
-        public System.DateTime creationDate { get; set; }
-        public string employeeId { get; set; }
-        public decimal totalCashin { get; set; }
-        public decimal totalCashout { get; set; }
-        public decimal total { get; set; }
-        public byte[] report { get; set; }
+        public int id { get; set; }
+        public Nullable<System.DateTime> openingDate { get; set; }
+        public Nullable<System.DateTime> closingDate { get; set; }
+        public decimal initialBalance { get; set; }
+        public decimal ordersCashin { get; set; }
+        public Nullable<decimal> miscellaneousCashin { get; set; }
+        public decimal supplierOrderCashout { get; set; }
+        public decimal miscellaneousCashout { get; set; }
+        public decimal finalBalance { get; set; }
+        public string createdBy { get; set; }
+        public Nullable<byte> status { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

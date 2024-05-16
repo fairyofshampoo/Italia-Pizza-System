@@ -47,7 +47,7 @@
                                             <Label Content="Selecciona una receta:" Foreground="White" FontSize="15" FontFamily="Microsoft YaHei UI" Margin="25,10,0,10" Height="30"/>
                                             <Grid Margin="20,0,0,0" Width="475">
                                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,18,0,15" Width="389" HorizontalAlignment="Left"/>
-                                                <Border x:Name="bdrProductName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="386" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border x:Name="bdrProductName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="356" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                     <ComboBox x:Name="cmbRecipeName" FontSize="15" FontWeight="Medium" FontFamily="Microsoft YaHei UI" Background="LightGray" Foreground="Black" BorderThickness="0" SelectionChanged="cmbRecipeName_SelectionChanged"/>
                                                 </Border>
                                             </Grid>

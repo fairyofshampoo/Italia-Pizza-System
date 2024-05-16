@@ -348,7 +348,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return orders;
         }
 
-        public decimal GetSumOfTotalSupplierOrdersByDate(int day, int month, int year)
+        public decimal GetSumOfTotalSupplierOrdersByDate(DateTime date)
         {
             decimal sumOfTotalSupplierOrders = 0;
 
@@ -357,7 +357,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 try
                 {
                     sumOfTotalSupplierOrders = dbContext.SupplierOrders
-                        .Where(order => order.date.Day == day && order.date.Month == month && order.date.Year == year)
+                        .Where(order => order.date >= date)
                         .ToList()
                         .Sum(order => order.total);
                 }
@@ -370,7 +370,26 @@ namespace ItaliaPizza.DataLayer.DAO
             return sumOfTotalSupplierOrders;
         }
 
+        public decimal GetSumOfTotalSupplierOrders()
+        {
+            decimal sumOfTotalSupplierOrders = 0;
 
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    sumOfTotalSupplierOrders = dbContext.SupplierOrders
+                        .ToList()
+                        .Sum(order => order.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener la suma del total de los pedidos de proveedor: " + ex.Message);
+                }
+            }
+
+            return sumOfTotalSupplierOrders;
+        }
     }
 
 }

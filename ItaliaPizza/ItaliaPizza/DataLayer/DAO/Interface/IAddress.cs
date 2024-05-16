@@ -24,7 +24,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
 
         bool EnableAddress(int id);
 
-        List<Address> GetAddressByClient(string emailClient);
+        List<Address> GetAddressesByClient(string emailClient);
 
         List<Address> GetAddressByStatus(int status, string emailClient);
     }
