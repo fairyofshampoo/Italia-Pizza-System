@@ -20,7 +20,7 @@
                         <Image Source="../Resources/Images/ProductRegisterBanner.jpg" Opacity=".4" Stretch="UniformToFill"/>
                         <StackPanel Grid.Row="0">
                             <Grid Margin="0,20,0,0">
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="70" Margin="28,11,0,0"
                 BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate>
@@ -32,7 +32,7 @@
 
                                 <Label Content="Registrar producto" Foreground="White" FontSize="60" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5,5,5,0"></Label>
                                 <Canvas HorizontalAlignment="Left">
-                                    <Line X1="400" Y1="80" X2="880" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
+                                    <Line X1="400" Y1="80" X2="880" Y2="80" Stroke="#ff7b00" StrokeThickness="3" HorizontalAlignment="Center" Canvas.Top="19" VerticalAlignment="Top" Canvas.Left="-8"/>
                                 </Canvas>
                             </Grid>
                         </StackPanel>
@@ -41,7 +41,7 @@
 
                             <Label Content="Complete los siguientes campos para registrar un nuevo producto:" FontWeight="DemiBold" Foreground="White" FontFamily="{StaticResource InterFont}" FontSize="20" Width="978" Margin="0,10,10,0"/>
 
-                            <Border Background="#393D42" Height="300" Width="1000" CornerRadius="10" Margin="0,20,0,0">
+                            <Border Background="#393D42" Height="386" Width="1000" CornerRadius="10" Margin="0,20,0,0">
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -58,14 +58,14 @@
                                         </Grid.RowDefinitions>
 
                                         <StackPanel Orientation="Vertical">
-                                            <Label Content="Nombre: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,5,0,0"/>
+                                            <Label Content="Nombre: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,15,0,0"/>
                                             <Grid Margin="20,0,0,0">
                                                 <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="1,3,21,0" Height="38" VerticalAlignment="Top"/>
                                                 <Border x:Name="bdrName" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="289" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0">
                                                     <TextBox x:Name="txtName" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                                 </Border>
                                             </Grid>
-                                            <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,-5,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                            <Label x:Name="lblNameError" Content ="Nombre inválido" Margin="20,-0,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Vertical" Grid.Row="1">
@@ -124,24 +124,24 @@
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Orientation="Vertical">
-                                                <Label Content="Externo: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="10,5,0,0"/>
+                                                <Label Content="Externo: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="10,15,0,0"/>
                                                 <Grid Margin="9,0,0,0">
                                                     <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="3,3,20,0" Height="38" VerticalAlignment="Top"/>
                                                     <Border x:Name="bdrIsExternal" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="132" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0">
                                                         <ComboBox x:Name="cmbIsExternal" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="125" SelectionChanged="cmbIsExternal_SelectionChanged" />
                                                     </Border>
-                                                    <Label x:Name="lblIsExternalError" Content ="Selección inválida" Margin="0,35,20,-23" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                                    <Label x:Name="lblIsExternalError" Content ="Selección inválida" Margin="0,40,20,-23" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                                 </Grid>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Vertical" Grid.Column="1">
-                                                <Label Content="Estatus: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="10,5,0,0"/>
+                                                <Label Content="Estatus: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="10,15,0,0"/>
                                                 <Grid Margin="9,0,0,0">
                                                     <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="3,3,20,0" Height="38" VerticalAlignment="Top"/>
                                                     <Border x:Name="bdrStatus" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="132" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0">
                                                         <ComboBox x:Name="cmbStatus" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0" HorizontalAlignment="Center" Width="125" />
                                                     </Border>
-                                                    <Label x:Name="lblStatusError" Content ="Estatus inválido" Margin="0,35,20,-23" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                                    <Label x:Name="lblStatusError" Content ="Estatus inválido" Margin="0,40,20,-23" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                                 </Grid>
                                             </StackPanel>
                                         </Grid>
@@ -150,23 +150,23 @@
                                             <StackPanel Orientation="Vertical">
                                                 <Label Content="Descripción: *" Foreground="White" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Margin="20,0,0,0"/>
                                                 <Grid Margin="20,0,0,0">
-                                                    <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,0,19,0" Height="131" VerticalAlignment="Center"/>
-                                                    <Border x:Name="bdrDescription" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="292" HorizontalAlignment="Left" Margin="0,0,0,2">
+                                                    <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="0,0,19,-38" Height="169" VerticalAlignment="Bottom"/>
+                                                    <Border x:Name="bdrDescription" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="292" HorizontalAlignment="Left" Margin="0,0,0,-35">
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                             <TextBox x:Name="txtDescription" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True"/>
                                                         </ScrollViewer>
                                                     </Border>
                                                 </Grid>
-                                                <Label x:Name="lblDescriptionError" Content ="Nombre inválido" Margin="20,-5,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
+                                                <Label x:Name="lblDescriptionError" Content ="Nombre inválido" Margin="20,40,0,0" FontSize="10" Foreground="Red" Visibility="Hidden"/>
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
 
                                     <Grid Grid.Column="2">
                                         <StackPanel Orientation="Vertical">
-                                            <Image x:Name="ProductImage" Source="../Resources/Icons/ProductImageIcon.png" Height="151" Width="237" Margin="20"/>
+                                            <Image x:Name="ProductImage" Source="../Resources/Icons/ProductImageIcon.png" Height="151" Width="237" Margin="20,75"/>
 
-                                            <Button x:Name="btnSelectImage" BorderThickness="0" Content="Seleccionar imagen" Foreground="#2c2c2c" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,-15,68,20" HorizontalAlignment="Right" Width="200" Height="52" Click="btnSelectImage_Click">
+                                            <Button x:Name="btnSelectImage" BorderThickness="0" Content="Seleccionar imagen" Foreground="#2c2c2c" FontSize="18" FontWeight="Bold" Cursor="Hand" Margin="0,-45,68,20" HorizontalAlignment="Right" Width="200" Height="52" Click="btnSelectImage_Click">
                                                 <Button.Style>
                                                     <Style TargetType="{x:Type Button}">
                                                         <Setter Property="Background" Value="#D9D9D9"/>
@@ -186,7 +186,7 @@
                                 </Grid>
                             </Border>
 
-                            <Button x:Name="btnContinue" BorderThickness="0" Content="Continuar" Foreground="White" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource InterFont}" Cursor="Hand" Margin="0,10,137,20" HorizontalAlignment="Right" Width="165" Height="52" Click="btnContinue_Click">
+                            <Button x:Name="btnContinue" BorderThickness="0" Content="Continuar" Foreground="White" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource InterFont}" Cursor="Hand" Margin="0,25,137,20" HorizontalAlignment="Right" Width="165" Height="52" Click="btnContinue_Click">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="Background" Value="#FF7B00"/>
