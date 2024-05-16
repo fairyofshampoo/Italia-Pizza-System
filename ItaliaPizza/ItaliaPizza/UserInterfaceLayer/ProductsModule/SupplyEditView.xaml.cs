@@ -164,7 +164,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             cmbMeasurementUnit.ItemsSource = new string[]
             {
-                "Kilogramo", "Gramo", "Pie", "Litro", "Mililitro", "Onza"
+                "Kilogramo", "Gramo", "Pie", "Litro", "Mililitro", "Onza", "Unidad"
             };
 
             SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();

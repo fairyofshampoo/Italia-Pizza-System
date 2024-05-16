@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -91,6 +92,46 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             Product product = GetProductData();
             ProductDAO productDAO = new ProductDAO();           
             return productDAO.AddProduct(product);
+        }
+
+        private bool RegisterExternalProduct()
+        {
+            Product product = GetProductData();
+            Supply supply = GetSupplyData(product);
+
+        }
+
+        private Supply GetSupplyData(Product productData)
+        {
+            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
+
+            string name = productData.name;
+            decimal amount = (decimal)productData.amount;
+            int category = supplierAreaDAO.GetSupplyAreaIdByName("Producto Externo");
+            string measurementUnit = "Unidad";
+            string productCode = productData.productCode;
+            bool status;
+
+            if (productData.status == Constants.ACTIVE_STATUS)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+
+            Supply supply = new Supply
+            {
+                name = name,
+                amount = amount,
+                category = category,
+                measurementUnit = measurementUnit,
+                status = status,
+                productCode = productCode
+            };
+
+            return supply;
         }
 
         private Product GetProductData()
