@@ -22,11 +22,9 @@
 
                 <Grid Height="720">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="1180"/>
+                        <ColumnDefinition Width="1280"/>
                     </Grid.ColumnDefinitions>
-                    <Frame x:Name="menuFrame"/>
-                    
+
                     <StackPanel Grid.Column="1">
                         <Grid Width="1180">
                             <Grid.RowDefinitions>
@@ -42,8 +40,19 @@
                                     <ColumnDefinition Width="550"/>
                                     <ColumnDefinition Width="400"/>
                                 </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
 
-                                <Label
+                                    <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
+BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                                </Image>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <Label
                                 Grid.Column="0"
                                 Content="Direcciones"
                                 VerticalAlignment="Center"
@@ -51,11 +60,12 @@
                                 Foreground="White"
                                 FontFamily="Times New Roman"
                                 FontSize="70"
-                                Margin="70,0,0,0" Height="80" Width="350"/>
+                                Margin="50,0,0,0" Height="80" Width="350"/>
 
-                                <Canvas HorizontalAlignment="Center" Width="0">
-                                    <Line X1="-250" Y1="-10" X2="90" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="48" Canvas.Top="149" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113"/>
-                                </Canvas>
+                                    <Canvas HorizontalAlignment="Center" Width="0">
+                                        <Line X1="-430" Y1="-10" X2="10" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="48" Canvas.Top="149" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113"/>
+                                    </Canvas>
+                                </StackPanel>
 
                                 <Button x:Name="btnAddAddress"
                                         BorderThickness="4"

@@ -26,6 +26,7 @@ namespace ItaliaPizza.DataLayer
         public int category { get; set; }
         public string measurementUnit { get; set; }
         public Nullable<bool> status { get; set; }
+        public string productCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecipeSupply> RecipeSupplies { get; set; }

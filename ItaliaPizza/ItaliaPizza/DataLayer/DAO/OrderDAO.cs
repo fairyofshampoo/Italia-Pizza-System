@@ -13,7 +13,7 @@ namespace ItaliaPizza.DataLayer.DAO
     
     internal class OrderDAO : IOrder
     {
-        public bool AddInternalOrder(InternalOrder order)
+        public bool AddOrder(InternalOrder order)
         {
             bool operationStatus = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -44,7 +44,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return operationStatus;
         }
 
-        public bool CancelInternalOrder(string internalOrderCode)
+        public bool CancelOrder(string internalOrderCode)
         {
             bool operationStatus = false;
 
@@ -354,7 +354,7 @@ namespace ItaliaPizza.DataLayer.DAO
             return updateStatus;
         }
 
-        public decimal GetSumOfTotalOrdersByDate(int day, int month, int year)
+        public decimal GetSumOfTotalOrdersByDate(DateTime date)
         {
             decimal sumOfTotalOrders = 0;
 
@@ -363,7 +363,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 try
                 {
                     var orders = databaseContext.InternalOrders
-                        .Where(order => order.date.Day == day && order.date.Month == month && order.date.Year == year)
+                        .Where(order => order.date >= date)
                         .ToList();
 
                     if (orders.Any())
@@ -378,6 +378,55 @@ namespace ItaliaPizza.DataLayer.DAO
             }
 
             return sumOfTotalOrders;
+        }
+
+        public decimal GetSumOfTotalOrders()
+        {
+            decimal totalOrders = 0;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    totalOrders = databaseContext.InternalOrders
+                        .ToList()
+                        .Sum(o => o.total);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Total orders error" + ex.Message);
+                }
+            }
+
+            return totalOrders;
+        }
+
+        public bool RemoveProductFromOrder(string productCode, string orderCode)
+        {
+            bool operationStatus = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var productToRemove = databaseContext.InternalOrderProducts
+                        .Where(product => product.internalOrderId == orderCode && product.productId == productCode)
+                        .FirstOrDefault();
+
+                    if (productToRemove != null)
+                    {
+                        databaseContext.InternalOrderProducts.Remove(productToRemove);
+                        databaseContext.SaveChanges();
+                        operationStatus = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al eliminar el producto de la orden: " + ex.Message);
+                }
+            }
+
+            return operationStatus;
         }
 
     }

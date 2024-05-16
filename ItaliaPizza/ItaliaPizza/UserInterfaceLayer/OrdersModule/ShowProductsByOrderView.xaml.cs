@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,16 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             this.internalOrderCode = orderCode;
             List<InternalOrderProduct> productsByOrder = GetProductsByOrder();
             ShowProducts(productsByOrder);
+            SetElements();
+        }
+
+        private void SetElements()
+        {
+            if (UserSingleton.Instance.Role == Constants.CHEF_ROLE)
+            {
+                btnChangeStatusToFinished.Visibility = Visibility.Visible;
+                btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+            }
         }
 
         private void ShowProducts(List<InternalOrderProduct> products)
@@ -48,6 +59,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                     for (int index = 0; index < 3; index++)
                     {
                         ColumnDefinition column = new ColumnDefinition();
+                        column.Width = new GridLength(335);
                         ProductsGrid.ColumnDefinitions.Add(column);
                     }
 
@@ -56,6 +68,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                         columnsAdded = 0;
                         rowAdded++;
                         RowDefinition row = new RowDefinition();
+                        row.Height = new GridLength(245);
                         ProductsGrid.RowDefinitions.Add(row);
                     }
 
@@ -99,11 +112,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             OrderDAO internalOrderDAO = new OrderDAO();
             if (internalOrderDAO.ChangeOrderStatus(status, internalOrderCode))
             {
-                //Mostrar mensaje que se ha cambiado el estado
+                DialogManager.ShowSuccessMessageBox("Se ha cambiado el estado de la orden correctamente");
             }
             else
             {
-                //Mostrar mensaje que ha ocurrido un error
+                DialogManager.ShowSuccessMessageBox("Ha ocurrido un error al actualizar el estado de la orden. Intente nuevamente.");
             }
         }
 

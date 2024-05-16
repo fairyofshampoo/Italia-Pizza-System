@@ -140,7 +140,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void CreateReport()
         {
-            string fileName = "InventoryReport-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
+            string fileName = "ReporteInventario-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
             string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
 
             if (isInventoryEmpty)
@@ -180,7 +180,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 Document doc = new Document(pdf);
 
                 doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"));
-                //doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
+                doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
 
                 iText.Layout.Element.Table table = CreateDataTable();
                 doc.Add(table);

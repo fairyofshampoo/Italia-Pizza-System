@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -32,18 +33,31 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void ShowInternalOrderDataByWaiter(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Content = order.total;
-            lblDate.Content = order.date;
-            btnEditOrder.Visibility = Visibility.Visible;
-            imgDollarIcon.Visibility = Visibility.Visible; 
+            lblTotal.Text = "$ " + order.total.ToString();
+            lblDate.Text = "Creado: " + order.date.ToString("dd/MM/yyyy HH:mm");
+
+            if(order.status == Constants.ORDER_STATUS_PENDING_PREPARATION)
+            {
+                btnEditOrder.Visibility = Visibility.Visible;
+                btnCancel.Visibility = Visibility.Visible;
+            } else
+            {
+                btnViewDetails.Visibility = Visibility.Visible;
+            }
+
+            if(order.status == Constants.ORDER_STATUS_PREPARED)
+            {
+                btnReceived.Visibility = Visibility.Visible;
+            }
+
             orderData = order;
         }
 
         public void ShowInternalOrderByChef (InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Content = order.total;
-            lblDate.Content = order.date;
+            lblTotal.Text = "$ " + order.total.ToString();
+            lblDate.Text = "Creado: " + order.date.ToString("dd/MM/yyyy HH:mm");
             btnViewDetails.Visibility = Visibility.Visible;
             orderData = order;
         }
@@ -58,6 +72,21 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId);
             searchInternalOrderView.NavigationService.Navigate(showProductsByOrderView);
             //Mostrar todos los productos de la orden para que se pueda preparar
+        }
+
+        private void BtnReceived_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnSent_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

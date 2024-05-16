@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,35 +23,36 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
     /// </summary>
     public partial class TellerMenu : Page
     {
-        private Page page;
+        private Page pageData;
         public TellerMenu(Page page)
         {
             InitializeComponent();
-            this.page = page;
+            this.pageData = page;
         }
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
             UserSingleton.Instance.Clear();
             LoginView loginView = new LoginView();
-            page.NavigationService.Navigate(loginView);
+            pageData.NavigationService.Navigate(loginView);
         }
 
         private void BtnOrders_Click(object sender, RoutedEventArgs e)
         {
-            //Aún no existe jiji
+            SearchHomeOrderView searchHomeOrderView = new SearchHomeOrderView();
+            pageData.NavigationService.Navigate(searchHomeOrderView);
         }
 
         private void BtnTransaction_Click(object sender, RoutedEventArgs e)
         {
             CashReconciliationHistory cashReconciliation = new CashReconciliationHistory();
-            page.NavigationService.Navigate(cashReconciliation);
+            pageData.NavigationService.Navigate(cashReconciliation);
         }
 
         private void BtnClients_Click(object sender, RoutedEventArgs e)
         {
             TellerScreenView tellerScreenView = new TellerScreenView();
-            page.NavigationService.Navigate(tellerScreenView);
+            pageData.NavigationService.Navigate(tellerScreenView);
         }
     }
 }
