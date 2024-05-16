@@ -2,6 +2,7 @@
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using iText.Layout.Borders;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,17 +37,60 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             
             SetResumeOrderTitle();
-
-            if (isEdition)
-            {
-                List<Product> products = GetProducts();
-                ShowProducts(products);
-                //SetEdition things
-            }
             if (!isHomeOrder)
             {
                 List<Product> products = GetProducts();
                 SetProductsInPage(products);
+            }
+        }
+
+        public void SetEditionData(InternalOrder order)
+        {
+            isEdition = true;
+            OrderDAO orderDAO = new OrderDAO();
+            orderCode = order.internalOrderId;
+            orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_IN_CAPTURE, orderCode);
+            totalAmount = order.total;
+            txtTotalPayment.Text = order.total.ToString();
+            SetOrderProductsInResume();
+            ShowProducts(GetProducts());
+
+            if (isHomeOrder)
+            {
+                AddressDAO addressDAO = new AddressDAO();
+                ClientDAO clientDAO = new ClientDAO();
+                addressComboBox.Visibility = Visibility.Visible;
+                addressComboBox.SelectedValue = addressDAO.GetAddressById(order.addressId ?? 0);
+                addressComboBox.IsEnabled = false;
+                lblName.Text = clientDAO.GetClientName(order.clientEmail);
+            } else
+            {
+                addressComboBox.Visibility = Visibility.Collapsed;
+                lblName.Text = UserSingleton.Instance.Name;
+            }
+        }
+
+        private void SetOrderProductsInResume()
+        {
+            OrderDAO orderDAO = new OrderDAO();
+            productsInDB = orderDAO.GetProductsByOrderId(this.orderCode);
+
+            foreach (Product product in productsInDB)
+            {
+                product.amount = orderDAO.GetOrderedQuantityByProductOrderId(orderCode, product.productCode);
+                AddProductToResume(product);
+            }
+        }
+
+        private void AddProductToResume(Product product)
+        {
+            if (!productsDictionary.ContainsKey(product.productCode))
+            {
+                ProductRemoveUC productCard = new ProductRemoveUC();
+                productsDictionary.Add(product.productCode, productCard);
+                productCard.RegisterOrderView = this;
+                productCard.SetProductData(product);
+                orderListView.Items.Add(productCard);
             }
         }
 
@@ -81,6 +125,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             if (addresses.Any())
             {
                 addressComboBox.ItemsSource = addresses;
+                addressComboBox.DisplayMemberPath = "street";
             } else
             {
                 DialogManager.ShowErrorMessageBox("No hay direcciones registradas");
@@ -260,11 +305,22 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void RemoveProduct(Product product, ProductRemoveUC productRemoveUC)
         {
             OrderDAO orderDAO = new OrderDAO();
-            if(orderDAO.RemoveProductFromOrder(product.productCode, orderCode))
+            if (isEdition)
             {
-                productsDictionary.Remove(product.productCode);
-                orderListView.Items.Remove(productRemoveUC);
-                SubtractFromTotal(product);
+                if (orderDAO.RemoveProductFromOrderInEdition(product.productCode, orderCode))
+                {
+                    productsDictionary.Remove(product.productCode);
+                    orderListView.Items.Remove(productRemoveUC);
+                    SubtractFromTotal(product);
+                }
+            } else
+            {
+                if (orderDAO.RemoveProductFromOrder(product.productCode, orderCode))
+                {
+                    productsDictionary.Remove(product.productCode);
+                    orderListView.Items.Remove(productRemoveUC);
+                    SubtractFromTotal(product);
+                }
             }
         }
 

@@ -6,7 +6,16 @@
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.OrdersModule"
       mc:Ignorable="d" 
       d:DesignHeight="720.0" d:DesignWidth="1280.0">
-
+    
+    <Page.Resources>
+        <Style x:Key="NoItemsLabelStyle" TargetType="Label">
+            <Setter Property="Content" Value="No se encontraron pedidos"/>
+            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </Page.Resources>
 
     <Viewbox Stretch="Fill">
         <StackPanel Background="#2c2c2c" Width="1280" Height="720">
@@ -28,19 +37,31 @@
 
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width = "Auto"/>
+                                <ColumnDefinition Width = "*"/>
+                                <ColumnDefinition Width = "500"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Pedidos a domicilio" Foreground="White" FontSize="70" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" Grid.Column="0" Margin="140,0,0,0"/>
+                            <Label Content="Pedidos a domicilio" Foreground="White" FontSize="70" FontWeight="SemiBold" FontFamily="{StaticResource InterFont}" HorizontalAlignment="Center" Grid.Column="0" Margin="10,20,0,0"/>
                             <Canvas HorizontalAlignment="Center"
                             Grid.Column="0"
                             Height="15" Margin="-120,100,0,-17">
-                                <Line X1="-220" Y1="-10" 
+                                <Line X1="-340" Y1="-10" 
                               X2="250" Y2="-10" Stroke="#ff7b00" 
                               StrokeThickness="3" HorizontalAlignment="Left" Canvas.Left="125" VerticalAlignment="Center"/>
                             </Canvas>
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Grid>
+                                    <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="304" Height="60" Background="#FF7B00" Grid.Column="1" Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    </Border>
+                                    <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="300" Height="60" Grid.Column="1" Margin="40,34,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                                        <TextBox x:Name="txtSearchBar" TextChanged="TxtSearchBarChanged" FontSize="30" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Background="LightGray" BorderThickness="0" />
+                                    </Border>
+                                </Grid>
+                                <TextBlock Text="Ingrese el nombre del cliente al que desea buscar su pedido" TextWrapping="Wrap" Width="300" Margin="40,0,0,0" Foreground="LightGray" FontSize="15" FontWeight="SemiBold"/>
+                            </StackPanel>
                         </Grid>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0">
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                             <Grid Height="Auto" Width="Auto" HorizontalAlignment="Center" Margin="0,45,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -53,8 +74,11 @@
                                     <Viewbox Height="20">
                                         <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                     </Viewbox>
-                                    <Viewbox Height="20">
+                                    <Viewbox Height="20" Margin="10,0,0,0">
                                         <RadioButton x:Name="radioButtonPendingPreparation" Content="En espera de preparación" Foreground="White" Checked="RadioButtonPendingPreparation_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
+                                    </Viewbox>
+                                    <Viewbox Height="20" Margin="10,0,0,0">
+                                        <RadioButton x:Name="radioButtonPreparing" Content="En preparación" Foreground="White" Checked="RadioButtonPreparing_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                     </Viewbox>
                                     <Viewbox Height="20" Margin="10,0,0,0">
                                         <RadioButton x:Name="radioButtonPrepared" Content="Preparados" Foreground="White" Checked="RadioButtonPrepared_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
@@ -67,17 +91,6 @@
                                     </Viewbox>
                                 </StackPanel>
                             </Grid>
-                            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <Grid>
-                                    <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Width="304" Height="60" Background="#FF7B00" Grid.Column="1" Margin="40,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    </Border>
-                                    <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Width="300" Height="60" Grid.Column="1" Margin="40,34,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-
-                                        <TextBox x:Name="txtSearchBar" TextChanged="TxtSearchBarChanged" FontSize="30" FontWeight="Regular" FontFamily="{StaticResource InterFont}" Background="LightGray" BorderThickness="0" />
-                                    </Border>
-                                </Grid>
-                                <TextBlock Text="Ingrese el nombre del cliente al que desea buscar su pedido" TextWrapping="Wrap" Width="300" Margin="40,0,0,0" Foreground="LightGray" FontSize="15" FontWeight="SemiBold"/>
-                            </StackPanel>
                         </StackPanel>
                         <ListBox Name="ordersListBox" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent"
                                  Width = "1100" Height = "Auto"/>

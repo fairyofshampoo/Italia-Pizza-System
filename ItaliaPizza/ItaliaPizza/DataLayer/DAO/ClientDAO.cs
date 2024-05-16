@@ -161,5 +161,21 @@ namespace ItaliaPizza.DataLayer.DAO
             return isEmailExisting;
         }
 
+        public string GetClientName(string clientEmail)
+        {
+            string clientName = string.Empty;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var client = databaseContext.Clients.FirstOrDefault(c => c.email == clientEmail);
+                if (client != null)
+                {
+                    clientName = client.name;
+                }
+            }
+
+            return clientName;
+        }
+
     }
 }
