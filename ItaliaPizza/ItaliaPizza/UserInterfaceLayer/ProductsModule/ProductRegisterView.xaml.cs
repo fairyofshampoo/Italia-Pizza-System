@@ -70,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (!IsProductCodeExisting())
                 {
-                    if (RegisterProduct())
+                    if (RegisterExternalProduct())
                     {
                         DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
                     }
@@ -87,18 +87,12 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        private bool RegisterProduct()
-        {
-            Product product = GetProductData();
-            ProductDAO productDAO = new ProductDAO();           
-            return productDAO.AddProduct(product);
-        }
-
         private bool RegisterExternalProduct()
         {
             Product product = GetProductData();
             Supply supply = GetSupplyData(product);
-
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.AddProductExternal(product, supply);
         }
 
         private Supply GetSupplyData(Product productData)
@@ -183,7 +177,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
               
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog()
             {
                 Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp)|*.png;*.jpeg;*.jpg;*.bmp",
                 Title = "Selecciona una imagen de producto"

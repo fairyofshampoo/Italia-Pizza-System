@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.ApplicationLayer;
+﻿
+using ItaliaPizza.ApplicationLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.DataLayer;
 using Microsoft.Win32;
@@ -28,6 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class ProductEditView : Page
     {
+        Product ProductToModify;
 
         public ProductEditView(Product product)
         {
@@ -75,18 +77,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
             string code = txtCode.Text;
-
-            Int32 amount = Int32.Parse(txtAmount.Text);
-
             
             ProductDAO productDAO = new ProductDAO();
             Product product = new Product
             {
-                amount = amount,
                 description = description,
                 name = name,
                 price = price,
-                picture = picture
+                picture = picture,
             };
 
             return productDAO.ModifyProduct(product, code);
@@ -99,10 +97,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (dialogWindow.ShowDialog() == true)
             {
-                string code = txtCode.Text;
                 ProductDAO productDAO = new ProductDAO();
 
-                if (productDAO.ChangeStatus(code, Constants.INACTIVE_STATUS))
+                if (productDAO.ChangeStatus(ProductToModify, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
                     NavigationService.GoBack();
@@ -121,10 +118,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (dialogWindow.ShowDialog() == true)
             {
-                string code = txtCode.Text;
                 ProductDAO productDAO = new ProductDAO();
 
-                if (productDAO.ChangeStatus(code, Constants.ACTIVE_STATUS))
+                if (productDAO.ChangeStatus(ProductToModify, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
                     NavigationService.GoBack();
@@ -140,6 +136,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (productInfo != null)
             {
+                ProductToModify = productInfo;
+
                 txtCode.Text = productInfo.productCode;
                 txtAmount.Text = productInfo.amount.ToString();
                 txtDescription.Text = productInfo.description;
@@ -175,6 +173,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 if (productInfo.isExternal == Constants.EXTERNAL_PRODUCT)
                 {
                     txtIsExternal.Text = "Sí";
+                    txtName.IsEnabled= false;
                 }
                 else
                 {
