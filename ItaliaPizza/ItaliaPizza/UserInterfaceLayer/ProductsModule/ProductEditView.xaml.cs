@@ -31,10 +31,10 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     {
         Product ProductToModify;
 
-        public ProductEditView(Product product)
+        public ProductEditView(string productCode)
         {
             InitializeComponent();
-            SetModifyProduct(product);
+            SetModifyProduct(productCode);
         }
 
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
@@ -132,8 +132,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        public void SetModifyProduct(Product productInfo)
+        public void SetModifyProduct(string productCode)
         {
+            ProductDAO productDAO = new ProductDAO();
+            Product productInfo = productDAO.GetProductByCode(productCode);
+
             if (productInfo != null)
             {
                 ProductToModify = productInfo;

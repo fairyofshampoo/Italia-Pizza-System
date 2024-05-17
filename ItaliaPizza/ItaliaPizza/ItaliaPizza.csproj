@@ -162,6 +162,7 @@
     <Compile Include="ApplicationLayer\DialogManager.cs" />
     <Compile Include="ApplicationLayer\Encription.cs" />
     <Compile Include="ApplicationLayer\DiacriticsUtilities.cs" />
+    <Compile Include="ApplicationLayer\ProductDataUC.cs" />
     <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
     <Compile Include="ApplicationLayer\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Validations.cs" />
