@@ -24,7 +24,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class ProductUC : UserControl
     {
-        private Product productData;
+        private string productCode;
 
         public ProductsView ProductsView { get; set; }
 
@@ -48,12 +48,12 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 lblStatus.Content = "Inactivo";
             }
 
-            productData = product;
+            productCode = product.productCode;
         }
 
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
         {
-            ProductEditView productEditView = new ProductEditView(productData);
+            ProductEditView productEditView = new ProductEditView(productCode);
             ProductsView.NavigationService.Navigate(productEditView);
         }
     }

@@ -112,7 +112,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private List<Product> GetLastProducts()
         {
-            List<Product> lastProducts = new List<Product>();
+            List<Product> lastProducts;
             ProductDAO productDAO = new ProductDAO();
             lastProducts = productDAO.GetLastProductsRegistered();
             return lastProducts;

@@ -30,8 +30,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         public EmployeesView()
         {
             InitializeComponent();
-            menuFrame.Content = new ManagerMenu(this);
             SetLastEmployees();
+            menuFrame.Content = new ManagerMenu(this);
         }
 
         private void btnAllFilter_Click(object sender, RoutedEventArgs e)
