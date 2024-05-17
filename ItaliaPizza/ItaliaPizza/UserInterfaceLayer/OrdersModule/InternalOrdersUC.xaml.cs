@@ -11,6 +11,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     {
         public Page PageView { get; set; }
         private InternalOrder orderData;
+        private bool isWaiter;
 
         public InternalOrdersUC()
         {
@@ -21,7 +22,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             DisplayOrderInformation(order);
             Console.WriteLine("ESTADO" + order.status);
-            UpdateStatusUI(order.status, true);
+            isWaiter = true;
+            UpdateStatusUI(order.status);
             txtName.Text = UserSingleton.Instance.Name;
             orderData = order;
         }
@@ -30,7 +32,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             DisplayOrderInformation(order);
             txtName.Text = GetClientName(order.clientEmail);
-            UpdateStatusUI(order.status, false);
+            isWaiter = false;
+            UpdateStatusUI(order.status);
             orderData = order;
         }
 
@@ -65,7 +68,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
 
-        private void UpdateStatusUI(int status, bool isWaiter)
+        private void UpdateStatusUI(int status)
         {
             ResetUI();
             switch (status)
@@ -127,17 +130,26 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnReceived_Click(object sender, RoutedEventArgs e)
         {
-            // Implement the logic to mark the order as received
+            OrderDAO orderDAO = new OrderDAO();
+            if(orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_DELIVERED, orderData.internalOrderId))
+            {
+                UpdateStatusUI(Constants.ORDER_STATUS_DELIVERED);
+            }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            // Implement the logic to cancel the order
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.CancelOrder(orderData.internalOrderId);
         }
 
         private void BtnSent_Click(object sender, RoutedEventArgs e)
         {
-            // Implement the logic to mark the order as sent
+            OrderDAO orderDAO = new OrderDAO();
+            if (orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_SENT, orderData.internalOrderId))
+            {
+                UpdateStatusUI(Constants.ORDER_STATUS_SENT);
+            }
         }
     }
 }

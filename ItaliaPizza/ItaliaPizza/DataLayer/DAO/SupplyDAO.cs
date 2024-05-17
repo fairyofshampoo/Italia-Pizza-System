@@ -313,7 +313,7 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public bool ModifySupplyAmount(string name, decimal newAmount)
         {
-            bool success = false;
+            bool changesSaved = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 try
@@ -322,20 +322,25 @@ namespace ItaliaPizza.DataLayer.DAO
                     if (supply != null)
                     {
                         supply.amount = newAmount;
-                        databaseContext.SaveChanges();
-                        success = true;
                     }
-                    else
+                    var product = databaseContext.Products.FirstOrDefault(p => p.productCode == supply.productCode);
+                    if (product != null)
                     {
-                        success = false;
+                        product.amount = (int)supply.amount;
+                    }
+
+                    int rowsAffected = databaseContext.SaveChanges();
+                    if (rowsAffected > 0)
+                    {
+                        changesSaved = true;
                     }
                 }
                 catch (SqlException)
                 {
-                    success = false;
+                    changesSaved = false;
                 }
             }
-            return success;
+            return changesSaved;
         }
 
         public bool UpdateInventoryFromOrder(List<Supply> orderSupplies)
@@ -351,6 +356,12 @@ namespace ItaliaPizza.DataLayer.DAO
                     {
                         supply.amount += orderSupply.amount;
                     }
+
+                    var product = dbContext.Products.FirstOrDefault(p => p.productCode == supply.productCode);
+                    if(product != null)
+                    {
+                        product.amount = (int)supply.amount;
+                    }
                 }
                 int rowsAffected = dbContext.SaveChanges();
                 if (rowsAffected > 0)
@@ -361,7 +372,6 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return changesSaved;
         }
-
 
     }
 }

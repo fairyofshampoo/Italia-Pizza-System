@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using ItaliaPizza.DataLayer.DAO.Interface;
 using ItaliaPizza.ApplicationLayer;
+using iText.Layout.Borders;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -103,10 +104,14 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
             List<Supply> supplies = supplyOrderDAO.GetSuppliesByOrderId(Order.orderCode);
 
+            foreach (Supply supply in supplies)
+            {
+                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(Order.orderCode, supply.name);
+            }
+
             if (supplies.Count > 0)
             {
                 ShowSupplies(supplies);
-
             }
         }
 

@@ -136,6 +136,12 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
             SupplyDAO supplyDAO = new SupplyDAO();
             List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(SupplierOrderData.orderCode);
+
+            foreach (Supply supply in suppliesInOrder)
+            {
+                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(SupplierOrderData.orderCode, supply.name);
+            }
+
             if (supplyDAO.UpdateInventoryFromOrder(suppliesInOrder))
             {
                 SetModificationDate(DateTime.Now);
