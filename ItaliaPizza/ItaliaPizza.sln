@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItaliaPizza", "ItaliaPizza\ItaliaPizza.csproj", "{CE47977A-8F46-40F0-B236-7BEFE67916E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItaliaPizzaTest", "ItaliaPizzaTest\ItaliaPizzaTest.csproj", "{2F4F1511-F0B2-467D-9966-CBD33D68056E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CE47977A-8F46-40F0-B236-7BEFE67916E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE47977A-8F46-40F0-B236-7BEFE67916E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE47977A-8F46-40F0-B236-7BEFE67916E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4F1511-F0B2-467D-9966-CBD33D68056E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4F1511-F0B2-467D-9966-CBD33D68056E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4F1511-F0B2-467D-9966-CBD33D68056E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4F1511-F0B2-467D-9966-CBD33D68056E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
