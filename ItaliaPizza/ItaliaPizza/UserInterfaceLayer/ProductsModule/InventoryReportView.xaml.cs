@@ -98,6 +98,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     {
                         SupplyDAO supplyDAO = new SupplyDAO();
                         supplyDAO.ModifySupplyAmount(kvp.Key.name, newAmount);
+                        //Actualizar product amount
                     }
                 }
             }

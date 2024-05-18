@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
@@ -23,7 +24,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public SearchInternalOrderView(bool isWaiter)
         {
             InitializeComponent();
-
+            this.isWaiter = isWaiter;
             if (isWaiter)
             {
                 menuFrame.Content = new WaiterMenu(this);
@@ -109,7 +110,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void AddOrdersWaiter(InternalOrder order)
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
-            orderCard.searchInternalOrderView = this;
+            orderCard.PageView = this;
             ordersListBox.Items.Add(orderCard);
             orderCard.ShowInternalOrderDataByWaiter(order);
         }
@@ -117,7 +118,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void AddOrdersChef(InternalOrder order)
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
-            orderCard.searchInternalOrderView = this;
+            orderCard.PageView = this;
             orderCard.ShowInternalOrderByChef(order);
             ordersListBox.Items.Add(orderCard);
         }
@@ -126,7 +127,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
             OrderDAO internalOrderDAO = new OrderDAO();
-            internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(1, waiterEmail);
+            internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(Constants.ORDER_STATUS_PENDING_PREPARATION, waiterEmail);
             return internalOrders;
         }
 

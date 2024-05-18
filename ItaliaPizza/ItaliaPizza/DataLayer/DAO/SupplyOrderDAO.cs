@@ -168,9 +168,14 @@ namespace ItaliaPizza.DataLayer.DAO
 
                 foreach (var orderSupply in orderSupplies)
                 {
-                    var supply = dbContext.Supplies.FirstOrDefault(s => s.name == orderSupply.supplyId);
+                    var supply = dbContext.Supplies
+                                          .FirstOrDefault(s => s.name == orderSupply.supplyId);
                     if (supply != null)
                     {
+                        dbContext.Entry(supply)
+                                 .Reference(s => s.SupplyArea)
+                                 .Load();
+
                         supplies.Add(supply);
                     }
                 }
@@ -178,6 +183,7 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return supplies;
         }
+
 
         public bool UpdateStatusOrderAndPayment(int supplierOrderId, byte status, decimal totalPayment)
         {

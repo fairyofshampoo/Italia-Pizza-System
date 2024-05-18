@@ -26,6 +26,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class SupplyEditView : Page
     {
+        Supply supplyToModify;
+
         public SupplyEditView()
         {
             InitializeComponent();
@@ -42,9 +44,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
                 if (dialogWindow.ShowDialog() == true)
                 {
-                    string name = txtName.Text;
-
-                    if (supplyDAO.ChangeSupplyStatus(name, Constants.INACTIVE_STATUS))
+                    if (supplyDAO.ChangeSupplyStatus(supplyToModify, Constants.INACTIVE_STATUS))
                     {
                         DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
                         NavigationService.GoBack();
@@ -68,10 +68,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
             if (dialogWindow.ShowDialog() == true)
             {
-                string name = txtName.Text;
                 SupplyDAO supplyDAO = new SupplyDAO();
 
-                if (supplyDAO.ChangeSupplyStatus(name, Constants.ACTIVE_STATUS))
+                if (supplyDAO.ChangeSupplyStatus(supplyToModify, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Insumo activado exitosamente");
                     NavigationService.GoBack();
@@ -126,6 +125,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (supplyInfo != null)
             {
+                supplyToModify = supplyInfo;
+
                 SetComboBoxItems();
                 txtName.Text = supplyInfo.name;
                 txtAmount.Text = supplyInfo.amount.ToString();
@@ -138,6 +139,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 if (!string.IsNullOrEmpty(supplyInfo.SupplyArea.area_name) && cmbCategory.Items.Contains(supplyInfo.SupplyArea.area_name))
                 {
                     cmbCategory.SelectedItem = supplyInfo.SupplyArea.area_name;
+
+                    if (cmbCategory.SelectedItem.ToString() == "Producto Externo")
+                    {
+                        cmbCategory.IsEnabled = false;
+                    }
                 }
 
                 if (supplyInfo.status == false)
@@ -164,7 +170,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             cmbMeasurementUnit.ItemsSource = new string[]
             {
-                "Kilogramo", "Gramo", "Pie", "Litro", "Mililitro", "Onza"
+                "Kilogramo", "Gramo", "Pie", "Litro", "Mililitro", "Onza", "Unidad"
             };
 
             SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();

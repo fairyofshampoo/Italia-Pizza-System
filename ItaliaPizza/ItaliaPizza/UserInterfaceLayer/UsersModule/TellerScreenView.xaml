@@ -44,7 +44,7 @@
 
                                 <Label
                                 Grid.Column="0"
-                                Content="Cajero"
+                                Content="Clientes"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Foreground="White"
