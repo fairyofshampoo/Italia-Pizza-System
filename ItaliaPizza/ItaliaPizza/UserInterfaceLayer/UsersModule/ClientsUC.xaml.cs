@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,9 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             InitializeComponent();
 
         }
-
-
         public void SetDataCards(Client client)
         {
+            ClientData = client;
             lblFullName.Content = client.name;
             lblPhoneNumber.Content = client.phone;
             AddressDAO addressDAO = new AddressDAO();
@@ -41,14 +41,28 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 btnNewOrder.Visibility = Visibility.Collapsed;
                 lblFullName.Foreground = Brushes.Red;
             }
+
             Address fullAddress = addressDAO.GetClientAddress(client.email);
-            ClientData = client;
         }
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)
         {
             EditClientView editClientView = new EditClientView(ClientData);
             TellerScreenView.NavigationService.Navigate(editClientView);
+        }
+
+        private void BtnNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterOrderView registerOrderView = new RegisterOrderView(true);
+            TellerScreenView.NavigationService.Navigate(registerOrderView);
+            registerOrderView.SetClientData(ClientData);
+        }
+
+        private void BtnAddress_Click(object sender, RoutedEventArgs e)
+        {
+            AddressByClientView addressByClientView = new AddressByClientView(ClientData.email);
+            TellerScreenView.NavigationService.Navigate(addressByClientView);
+
         }
     }
 }

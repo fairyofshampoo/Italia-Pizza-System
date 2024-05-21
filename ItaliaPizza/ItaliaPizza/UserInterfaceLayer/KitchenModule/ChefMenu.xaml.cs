@@ -1,5 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using ItaliaPizza.UserInterfaceLayer.OrdersModule;
+using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using ItaliaPizza.UserInterfaceLayer.UsersModule;
 using System;
 using System.Collections.Generic;
@@ -52,7 +54,9 @@ namespace ItaliaPizza.UserInterfaceLayer.KitchenModule
 
         private void BtnAddInternalProduct_Click(object sender, RoutedEventArgs e)
         {
-            //Mandar a register product pero settear el producto en interno de ley
+            ProductRegisterView productRegisterView = new ProductRegisterView();
+            productRegisterView.SetRegisterForInternalProduct();
+            page.NavigationService.Navigate(productRegisterView);
         }
     }
 }

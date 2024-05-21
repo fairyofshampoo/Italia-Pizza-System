@@ -5,96 +5,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.OrdersModule"
              mc:Ignorable="d" 
-             d:DesignHeight="190" d:DesignWidth="650" Background= "Transparent">
-    <Grid>
-        <Border
-        Width="630"
-        Height="170"
-        Background="#4C4C4C"
-        CornerRadius="20">
-            <Border CornerRadius="20"
-                Background="#D9D9D9"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Height="140"
-                Width="600">
-                <Grid>
+             d:DesignHeight="270" d:DesignWidth="600" Background="Transparent">
 
-                    <Label
-                    x:Name="lblOrderNumber"
-                    Grid.Row = "0"
-                    Grid.Column="0"
-                    FontSize = "35"
-                    Foreground = "Black"
-                    VerticalAlignment = "Top"
-                    Content="Número del pedido: xxxxxx-xxxx"
-                    Margin="40,0,0,0"/>
+    <Grid Width="600">
+        <Rectangle RadiusX="23.333"  RadiusY="23.333" 
+                   Fill="#393D42"   Stroke="Transparent" 
+                   Height="260"/>
+        <Border Margin="20" Background="#D9D9D9" CornerRadius="20" Height="200">
+            <Grid Width="590">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
 
-                    <Label
-                    x:Name="lblDate"
-                    Grid.Row = "0"
-                    Grid.Column="1"
-                    FontSize = "20"
-                    Foreground = "Black"
-                    VerticalAlignment = "Center"
-                    Content="XX/XX/XXXX xx:xx:xx.xxxx"
-                    Margin="50,20,0,0"/>
+                <StackPanel Grid.Column="0">
+                    <StackPanel>
+                        <Label x:Name="lblOrderNumber" FontSize = "25" 
+           Foreground = "Black" FontWeight="Bold"
+           VerticalAlignment = "Center" Content="Pedido 847"
+           Margin="20,10,0,0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="brdStatus" Width="Auto" Margin="20,0,0,0"
+            BorderBrush="#41B541" BorderThickness="4" VerticalAlignment="Top"
+            CornerRadius="23.333" HorizontalAlignment="Left">
+                                <Label x:Name="lblStatus" Content="Solicitado" FontSize="18" FontWeight="Medium" FontFamily="{StaticResource InterFont}"
+               HorizontalAlignment="Left" Padding="10"/>
+                            </Border>
+                            <Grid Margin="130,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="lblDate" Text="Creado: 14/04/2024   9:31 hrs" Grid.Row="0" FontSize="15" FontWeight="Medium" FontFamily="{StaticResource InterFont}" TextWrapping="Wrap" Foreground="#4C4C4C" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
 
-                    <Image 
-                       Name="imgDollarIcon"
-                       Source = "../Resources/Icons/DollarIcon.png"
-                       Grid.Row = "1"
-                       Grid.Column="1"
-                       Width = "36"
-                       HorizontalAlignment = "Left"
-                       VerticalAlignment="Bottom"
-                       Visibility="Collapsed"
-                       Margin="50,0,0,0"/>
+                    <Grid VerticalAlignment="Top" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label
-                    x:Name="lblTotal"
-                    Grid.Row = "1"
-                    Grid.Column="1"
-                    FontSize = "20"
-                    Foreground = "Black"
-                    VerticalAlignment = "Bottom"
-                    Content="00000"
-                    Visibility="Collapsed"
-                    Margin="80,0,0,0"/>
-
-                <Button Grid.Row="1" ToolTip="Editar pedido interno"
-                        Grid.Column="2"
-                        Name="btnEditOrder"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Margin="0,0,50,0"
-                        Width="70"
-                        Height="70"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Click="BtnEditInternalOrder_Click"
-                        Visibility="Collapsed">
-                        <Image Source = "../Resources/Icons/EditIcon.png"
-                       Width = "90"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <Image Source="../Resources/Icons/personsIcon.png" HorizontalAlignment="Left"  Margin="20,0,0,0" Width="30"/>
+                            <TextBlock x:Name="txtName" FontWeight="Medium" FontStyle="Italic" FontSize = "18" Foreground = "#4c4c4c" VerticalAlignment = "Center" Text="Eduardo Carrera Colorado : Lácteos La Vaquita" TextWrapping="Wrap" Width="300"
+                                       Margin="5,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock x:Name="lblTotal" Text="$390.00" Grid.Column="1" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource InterFont}" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+                <Grid Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnEditOrder" Background="Transparent" Height="Auto" BorderBrush="Transparent" VerticalAlignment="Top" Grid.Row="0" Click="BtnEditInternalOrder_Click" Cursor="Hand" ToolTip="Editar pedido"
+                            Margin="0,30,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <Image Source="../Resources/Icons/EditIcon.png" Width="40" Height="40"/>
                     </Button>
 
-                    <Button 
-                        Name="btnViewDetails"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Margin="0,0,50,0"
-                        Width="70"
-                        Height="70"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Click="BtnViewDetails_Click"
-                        Visibility="Collapsed">
-                        <Image Source = "../Resources/Icons/EyeIcon.png"
-                       Width = "90"/>
+                    <Button x:Name="btnViewDetails" Background="Transparent" Height="Auto" BorderBrush="Transparent" VerticalAlignment="Top" Grid.Row="0" Click="BtnViewDetails_Click" Cursor="Hand" ToolTip="Ver pedido"
+                            Margin="0,30,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <Image Source="../Resources/Icons/EyeIcon.png" Width="40" Height="40"/>
                     </Button>
 
+                    <Button x:Name="btnCancel" Background="Transparent" Height="Auto" BorderBrush="Transparent" Cursor="Hand" ToolTip="Cancelar pedido"
+        Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" Visibility="Collapsed"
+        Click="BtnCancel_Click" VerticalAlignment="Top">
+                        <Image Source="../Resources/Icons/deleteIcon.png" Width="40" Height="40"/>
+                    </Button>
+                    
+                    <Button x:Name="btnSent" Background="Transparent" Height="Auto" BorderBrush="Transparent" Cursor="Hand" ToolTip="Marcar pedido como enviado"
+        Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" Visibility="Collapsed"
+        Click="BtnSent_Click" VerticalAlignment="Top">
+                        <Image Source="../Resources/Icons/sentIcon.png" Width="40" Height="40"/>
+                    </Button>
+                    
+                    <Button x:Name="btnReceived" Background="Transparent" Height="Auto" BorderBrush="Transparent" Cursor="Hand" ToolTip="Marcar pedido como entregado"
+        Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" Visibility="Collapsed"
+        Click="BtnReceived_Click" VerticalAlignment="Top">
+                        <Image Source="../Resources/Icons/sentIcon.png" Width="40" Height="40"/>
+                    </Button>
                 </Grid>
-            </Border>
+
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

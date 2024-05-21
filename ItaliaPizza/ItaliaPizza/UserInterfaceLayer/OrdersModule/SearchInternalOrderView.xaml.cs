@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
@@ -9,12 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -24,13 +19,12 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class SearchInternalOrderView : Page
     {
         private string waiterEmail = ApplicationLayer.UserSingleton.Instance.Email;
-        private int rowsAdded = 0;
         public bool isWaiter = false;
 
         public SearchInternalOrderView(bool isWaiter)
         {
             InitializeComponent();
-
+            this.isWaiter = isWaiter;
             if (isWaiter)
             {
                 menuFrame.Content = new WaiterMenu(this);
@@ -66,7 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void ShowOrderForChef()
         {
-            List<InternalOrder> orders = GetOrdersForPreapartion();
+            List<InternalOrder> orders = GetOrdersForPreparation();
             VerifyOrders(orders);
         }
 
@@ -82,18 +76,16 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
 
-        private List<InternalOrder> GetOrdersForPreapartion()
+        private List<InternalOrder> GetOrdersForPreparation()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1);
             return internalOrders;
         }
 
         private void ShowInternalOrders(List<InternalOrder> orders)
         {
-            rowsAdded = 0;
-            OrdersGrid.Children.Clear();
-            OrdersGrid.RowDefinitions.Clear();
+            ordersListBox.Items.Clear();
 
             if (orders.Any())
             {
@@ -118,32 +110,24 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void AddOrdersWaiter(InternalOrder order)
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
-            orderCard.searchInternalOrderView = this;
-            Grid.SetRow(orderCard, rowsAdded);
+            orderCard.PageView = this;
+            ordersListBox.Items.Add(orderCard);
             orderCard.ShowInternalOrderDataByWaiter(order);
-            OrdersGrid.Children.Add(orderCard);
-            rowsAdded++;
-            RowDefinition row = new RowDefinition();
-            OrdersGrid.RowDefinitions.Add(row);
         }
 
         private void AddOrdersChef(InternalOrder order)
         {
             InternalOrdersUC orderCard = new InternalOrdersUC();
-            orderCard.searchInternalOrderView = this;
-            Grid.SetRow(orderCard, rowsAdded);
+            orderCard.PageView = this;
             orderCard.ShowInternalOrderByChef(order);
-            OrdersGrid.Children.Add(orderCard);
-            rowsAdded++;
-            RowDefinition row = new RowDefinition();
-            OrdersGrid.RowDefinitions.Add(row);
+            ordersListBox.Items.Add(orderCard);
         }
 
         private List<InternalOrder> GetInternalOrder()
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-            internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(1, waiterEmail);
+            OrderDAO internalOrderDAO = new OrderDAO();
+            internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(Constants.ORDER_STATUS_PENDING_PREPARATION, waiterEmail);
             return internalOrders;
         }
 
@@ -180,21 +164,22 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void SearchInternalOrderByStatusAndWaiter(int status)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(status, waiterEmail);
             ShowInternalOrders(internalOrders);
         }
 
         private void SearchInternalOrderByStatus (int status)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(status);
             ShowInternalOrders(internalOrders);
         }
 
         private void BtnAddInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            //Mandar a llamar la pantalla para hacer otra orden
+            RegisterOrderView registerOrderView = new RegisterOrderView(false);
+            NavigationService.Navigate(registerOrderView);
         }
 
         private void BtnRefreshScreen_Click(object sender, RoutedEventArgs e)

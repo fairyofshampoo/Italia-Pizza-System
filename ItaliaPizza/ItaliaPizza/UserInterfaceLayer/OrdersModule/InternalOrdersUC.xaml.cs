@@ -1,28 +1,17 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-    
     public partial class InternalOrdersUC : UserControl
     {
-        public SearchInternalOrderView searchInternalOrderView { get; set;}
+        public Page PageView { get; set; }
         private InternalOrder orderData;
+        private bool isWaiter;
 
         public InternalOrdersUC()
         {
@@ -31,33 +20,136 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         public void ShowInternalOrderDataByWaiter(InternalOrder order)
         {
-            lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Content = order.total;
-            lblDate.Content = order.date;
-            btnEditOrder.Visibility = Visibility.Visible;
-            imgDollarIcon.Visibility = Visibility.Visible; 
+            DisplayOrderInformation(order);
+            Console.WriteLine("ESTADO" + order.status);
+            isWaiter = true;
+            UpdateStatusUI(order.status);
+            txtName.Text = UserSingleton.Instance.Name;
             orderData = order;
         }
 
-        public void ShowInternalOrderByChef (InternalOrder order)
+        public void ShowHomeOrderData(InternalOrder order)
+        {
+            DisplayOrderInformation(order);
+            txtName.Text = GetClientName(order.clientEmail);
+            isWaiter = false;
+            UpdateStatusUI(order.status);
+            orderData = order;
+        }
+
+        private void DisplayOrderInformation(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Content = order.total;
-            lblDate.Content = order.date;
+            lblTotal.Text = "$ " + order.total.ToString("0.00");
+            lblDate.Text = "Creado: " + order.date.ToString("dd/MM/yyyy HH:mm");
+            lblStatus.Content = GetOrderStatusDescription(order.status);
+        }
+
+        private string GetClientName(string clientEmail)
+        {
+            ClientDAO clientDAO = new ClientDAO();
+            return clientDAO.GetClientName(clientEmail);
+        }
+
+        private string GetOrderStatusDescription(int status)
+        {
+            switch (status)
+            {
+                case Constants.ORDER_STATUS_PENDING_PREPARATION:
+                    return "En espera de preparación";
+                case Constants.ORDER_STATUS_PREPARED:
+                    return "Preparado";
+                case Constants.ORDER_STATUS_SENT:
+                    return "Enviado";
+                case Constants.ORDER_STATUS_DELIVERED:
+                    return "Recibido";
+                default:
+                    return "Estado desconocido";
+            }
+        }
+
+        private void UpdateStatusUI(int status)
+        {
+            ResetUI();
+            switch (status)
+            {
+                case Constants.ORDER_STATUS_PENDING_PREPARATION:
+                    btnEditOrder.Visibility = Visibility.Visible;
+                    btnCancel.Visibility = Visibility.Visible;
+                    break;
+                case Constants.ORDER_STATUS_PREPARED:
+                    if (isWaiter)
+                    {
+                        btnViewDetails.Visibility = Visibility.Visible;
+                        btnReceived.Visibility = Visibility.Visible;
+                    } else
+                    {
+                        btnViewDetails.Visibility = Visibility.Visible;
+                        btnSent.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case Constants.ORDER_STATUS_SENT:
+                    btnViewDetails.Visibility = Visibility.Visible;
+                    btnReceived.Visibility = Visibility.Visible;
+                    break;
+                case Constants.ORDER_STATUS_DELIVERED:
+                    btnViewDetails.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void ResetUI()
+        {
+            btnEditOrder.Visibility = Visibility.Collapsed;
+            btnViewDetails.Visibility = Visibility.Collapsed;
+            btnCancel.Visibility = Visibility.Collapsed;
+            btnReceived.Visibility = Visibility.Collapsed;
+            btnSent.Visibility = Visibility.Collapsed;
+        }
+
+        public void ShowInternalOrderByChef(InternalOrder order)
+        {
+            DisplayOrderInformation(order);
+            txtName.Visibility = Visibility.Hidden;
             btnViewDetails.Visibility = Visibility.Visible;
             orderData = order;
         }
 
         private void BtnEditInternalOrder_Click(object sender, RoutedEventArgs e)
         {
-            //Se debe hacer referencia a la pantalla de editar
+            RegisterOrderView registerOrderView = new RegisterOrderView(orderData.clientEmail != null);
+            registerOrderView.SetEditionData(orderData);
+            PageView.NavigationService.Navigate(registerOrderView);
         }
 
         private void BtnViewDetails_Click(object sender, RoutedEventArgs e)
         {
             ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId);
-            searchInternalOrderView.NavigationService.Navigate(showProductsByOrderView);
-            //Mostrar todos los productos de la orden para que se pueda preparar
+            PageView.NavigationService.Navigate(showProductsByOrderView);
+        }
+
+        private void BtnReceived_Click(object sender, RoutedEventArgs e)
+        {
+            OrderDAO orderDAO = new OrderDAO();
+            if(orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_DELIVERED, orderData.internalOrderId))
+            {
+                UpdateStatusUI(Constants.ORDER_STATUS_DELIVERED);
+            }
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.CancelOrder(orderData.internalOrderId);
+        }
+
+        private void BtnSent_Click(object sender, RoutedEventArgs e)
+        {
+            OrderDAO orderDAO = new OrderDAO();
+            if (orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_SENT, orderData.internalOrderId))
+            {
+                UpdateStatusUI(Constants.ORDER_STATUS_SENT);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 if (RegisterSupplier())
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor registrado exitosamente");
-                    NavigationService.GoBack();
+                    GoBack();
                 }
             }
         }
@@ -191,7 +191,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnGoBack_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            GoBack();
+        }
+
+        private void GoBack() 
+        {
+            SuppliersView suppliersView = new SuppliersView();
+            NavigationService.Navigate(suppliersView);
         }
     }
 }

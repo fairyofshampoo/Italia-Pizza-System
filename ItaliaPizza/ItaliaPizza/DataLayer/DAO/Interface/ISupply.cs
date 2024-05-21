@@ -10,14 +10,12 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
     {
         bool IsSupplyNameExisting(string name);
         bool AddSupply(Supply supply);
-        bool ChangeSupplyStatus(string name, int status);
+        bool ChangeSupplyStatus(Supply supply, int status);
         bool ModifySupply(Supply supply, string name);
         List<Supply> GetSuppliesByStatus(bool status);
         List<Supply> GetRecipeSupplies(int idRecipe);
         List<object> SearchSupplyOrExternalProductByName(string name);
         List<Supply> SearchActiveSupplyByName(string name);
-        List<object> GetAllSuppliesAndExternalProducts();
-        List<object> GetSupplyOrExternalProductByStatus(bool supplyStatus, byte productStatus);
         bool ExistsSupplyInRecipe(string supplyName);
         List<Supply> GetAllSupplies();
     }

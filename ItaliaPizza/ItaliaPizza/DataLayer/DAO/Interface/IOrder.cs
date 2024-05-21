@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.DataLayer.DAO.Interface
 {
-    internal interface IInternalOrder
+    internal interface IOrder
     {
         List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail);
         InternalOrder GetInternalOrdersByNumber(string numberOrder, string waiterEmail);
         List<RecipeSupply> GetSupplyForProduct(string productId);
         List<Supply> GetInventoryQuantitiesForIngredients(List<string> recipeSupplyList);
         bool AddInternalOrderProduct(InternalOrderProduct internalOrderProduct);
-        bool AddInternalOrder(InternalOrder order);
+        bool AddOrder(InternalOrder order);
         bool IsInternalOrderCodeAlreadyExisting(string internalOrderCode);
         int GetMaximumProductsPosible(int recipeId); //Deberá estar en una interface llamada solo order
         int GetRecipeIdByProduct(string productId); //Deberá ir en la interface de Recipe
@@ -21,7 +21,7 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool GetCounterOfProduct(string productId);
         bool IsRegisterInDatabase(string productId, string internalOrderCode);
         bool IncreaseAmount(string productId, string internalOrderCode);
-        bool CancelInternalOrder(string internalOrderCode);
+        bool CancelOrder(string internalOrderCode);
         int SaveInternalOrder(string internalOrderCode);
         int GetTotalExternalProduct(string productId);
         List<InternalOrderProduct> GetAllInternalProductsByOrden(string internalOrderCode);

@@ -8,77 +8,72 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="RegisterCashoutView">
 
-    <WrapPanel>
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
+                <Grid Height="720" Width="1280">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                    <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
 
-            <Image Source="../Resources/Images/PizzaBanner.jpg" Opacity=".7" Stretch="UniformToFill"/>
+                    <StackPanel Grid.Row="0">
+                        <Grid Margin="0,50,0,0">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Height="70" Margin="50,5,5,0"
+        BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                        </Image>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
-            <Grid
-                Grid.Row="0"
-                Height="200"
-                Width="800">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="27"/>
-                </Grid.RowDefinitions>
-
-                <Label
-                    Grid.Row="1"
-                    Content="Registrar egreso de caja"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Foreground="White"
-                    FontFamily="Times New Roman"
-                    FontSize="60"
-                    Margin="-110,0,0,0" Height="70" Width="644"/>
-
-                <Canvas HorizontalAlignment="Center" Grid.Row="2">
-                    <Line X1="-310" Y1="-10" X2="305" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="-188" Canvas.Top="-30"/>
-                </Canvas>
-            </Grid>
+                            <Label Content="Registrar movimiento de caja
+                                   " Foreground="White" FontSize="60" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="145,5,5,0"></Label>
+                            <Canvas HorizontalAlignment="Left">
+                                <Line X1="400" Y1="80" X2="880" Y2="80" Stroke="#ff7b00" StrokeThickness="3"/>
+                            </Canvas>
+                        </Grid>
+                    </StackPanel>
 
 
-            <StackPanel
+                    <StackPanel
                 Grid.Row="1"
-                Height="650"
-                Width="1370"
+                Height="520"
+                Width="1280"
                 Background="#2c2c2c">
 
-                <Label Content="Ingrese los datos para registrar un egreso de caja de gastos varios"
+                        <Label Content="Ingrese los datos para registrar un egreso de caja de gastos varios"
                        Foreground="White"
                        FontSize="25"
                        Margin="140,20,0,0"
                        FontFamily="inter"/>
 
-                <Border
+                        <Border
                     Background="#393D42"
-                    Height="320"
+                    Height="170"
                     Width="1000"
                     CornerRadius="10"
-                    Margin="0,20,0,0">
+                    Margin="0,100,0,0">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="110"/>
-                        </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="90"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="110"/>
+                                </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="60"/>
-                        </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Label
+                                <Label
                             Grid.Row = "0"
                             Grid.Column = "1"
                             FontSize = "35"
@@ -87,27 +82,27 @@
                             Content="Total *"
                             Margin="53,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                                <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                                 Width="180" Height="40"
                                 Grid.Row="1" Grid.Column="1" Margin="60,2,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                        </Border>
+                                </Border>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                                <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                                 Width="180" 
                                 Height="40"
                                 Grid.Row="1" 
                                 Grid.Column="1" Margin="57,0,0,0"
                                 HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                            <TextBox x:Name="txtTotal"
+                                    <TextBox x:Name="txtTotal"
                                          FontSize="20"
                                          FontWeight="Medium"
                                          FontFamily = "Segoe UI Variable Display"
                                          Background="LightGray"
                                          BorderThickness="0" />
-                        </Border>
+                                </Border>
 
-                        <Label
+                                <Label
                             x:Name="lblTotalError"
                             Grid.Row = "1"
                             Grid.Column = "1"
@@ -118,34 +113,46 @@
                             Content="El total debe ser un número entero o decimal"
                             Visibility="Collapsed"/>
 
-                        <Label
-                            Grid.Row = "2"
+
+                                <Label
+                            Grid.Row = "0"
                             Grid.Column = "1"
-                            FontSize = "35"
+                            FontSize = "30"
                             Foreground = "White"
                             VerticalAlignment = "Bottom"
-                            Content="Descripción *"
-                            Margin="53,0,0,0"/>
+                            Content="Tipo de movimiento"
+                            FontFamily="{StaticResource InterFont}"
+                            HorizontalAlignment="Center"
+                            Margin="250,0,0,0"/>
 
-                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="64,2,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                        </Border>
+                                <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1"
+                                 Margin="80,0,0,50">
+                                    <RadioButton 
+                                x:Name="radioButtonCashin" 
+                                Content="Entrada" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashin_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
 
-                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="680" Height="90"
-                                Grid.Row="3" Grid.Column="1" Margin="61,0,0,0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBox x:Name="txtDescription"
-                                         FontSize="20"
-                                         FontWeight="Medium"
-                                         FontFamily = "Segoe UI Variable Display"
-                                         Background="LightGray"
-                                         BorderThickness="0" />
-                        </Border>
+                                <Viewbox Height="25"
+                                 Grid.Row = "1"
+                                 Grid.Column = "1" 
+                                 Margin="400,0,0,50">
+                                    <RadioButton 
+                                x:Name="radioButtonCashout" 
+                                Content="Salida" 
+                                Foreground="White" 
+                                Checked="RadioButtonCashout_Checked" 
+                                FontWeight="Medium" 
+                                FontFamily="{StaticResource InterFont}" />
+                                </Viewbox>
 
-                        <Label
+
+                                <Label
                             x:Name="lblDescriptionError"
                             Grid.Row = "2"
                             Grid.Column = "1"
@@ -155,11 +162,11 @@
                             Margin="280,20,0,0"
                             Content="La descripción debe ser menor a 30 caracteres y no debe comenzar con espacios"
                             Visibility="Collapsed"/>
-                    </Grid>
+                            </Grid>
 
-                </Border>
+                        </Border>
 
-                <Button x:Name="btnSave"
+                        <Button x:Name="btnSave"
                         BorderThickness="0"
                         Content="Guardar"
                         Foreground="White"
@@ -168,26 +175,26 @@
                         Cursor="Hand"
                         Margin="0,30,137,0" 
                         HorizontalAlignment="Right" Click="BtnSaveCashout_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#FF7B00"/>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="50"
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#FF7B00"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="150" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                        <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
+                    </StackPanel>
+                </Grid>
             </StackPanel>
-
-
-        </Grid>
-    </WrapPanel>
+        </ScrollViewer>
+    </Viewbox>
 </Page>

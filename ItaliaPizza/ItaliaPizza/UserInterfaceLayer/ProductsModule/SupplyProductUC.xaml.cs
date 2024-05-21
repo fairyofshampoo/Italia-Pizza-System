@@ -26,8 +26,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     {
         public InventoryView InventoryView { get; set; }
         private Supply supplyData;
-        private Product productData;
-        private bool isSupply;
         public SupplyProductCardUC()
         {
             InitializeComponent();
@@ -41,36 +39,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             txtUnit.FontWeight = FontWeights.Bold;
             btnEdit.Visibility = Visibility.Hidden;
         }
-        public void SetObjectData(object item)
-        {
-            if (item is Supply supply)
-            {
-                SetSupplyData(supply);
-            }
-            else if (item is Product product && product.isExternal == 1)
-            {
-                SetProductData(product);
-            }
-        }
 
-        private void SetProductData(Product product)
+        public void SetSupplyData(Supply supply)
         {
-            isSupply = false;
-            productData = product;
-            txtName.Text = product.name;
-            txtAmount.Text = product.amount.ToString();
-            txtArea.Text = "Producto externo";
-            txtUnit.Text = "Unidad";
-
-            if (productData.status == Constants.INACTIVE_STATUS)
-            {
-                SetRedText();
-            }
-        }
-
-        private void SetSupplyData(Supply supply)
-        {
-            isSupply = true;
             supplyData = supply;
             txtName.Text = supply.name;
             txtAmount.Text = supply.amount.ToString();
@@ -94,16 +65,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (isSupply)
-            {
-                SupplyEditView supplyEditView = new SupplyEditView();
-                supplyEditView.SetModifySupply(supplyData);
-                this.InventoryView.NavigationService.Navigate(supplyEditView);
-            } else
-            {
-                ProductEditView productEditView = new ProductEditView(productData);
-                this.InventoryView.NavigationService.Navigate(productEditView);
-            }
+            SupplyEditView supplyEditView = new SupplyEditView();
+            supplyEditView.SetModifySupply(supplyData);
+            this.InventoryView.NavigationService.Navigate(supplyEditView);
         }
     }
 }

@@ -46,6 +46,23 @@ namespace ItaliaPizza.DataLayer
         public virtual DbSet<SupplyArea> SupplyAreas { get; set; }
         public virtual DbSet<SupplyOrder> SupplyOrders { get; set; }
     
+        public virtual int CloseCashierLog(Nullable<decimal> finalBalance, Nullable<System.DateTime> closingDate, string employeeEmail)
+        {
+            var finalBalanceParameter = finalBalance.HasValue ?
+                new ObjectParameter("finalBalance", finalBalance) :
+                new ObjectParameter("finalBalance", typeof(decimal));
+    
+            var closingDateParameter = closingDate.HasValue ?
+                new ObjectParameter("closingDate", closingDate) :
+                new ObjectParameter("closingDate", typeof(System.DateTime));
+    
+            var employeeEmailParameter = employeeEmail != null ?
+                new ObjectParameter("employeeEmail", employeeEmail) :
+                new ObjectParameter("employeeEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CloseCashierLog", finalBalanceParameter, closingDateParameter, employeeEmailParameter);
+        }
+    
         public virtual int ReduceIngredientsV10(string internalOrderCode)
         {
             var internalOrderCodeParameter = internalOrderCode != null ?

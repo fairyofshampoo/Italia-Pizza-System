@@ -25,7 +25,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     public partial class SupplierUC : UserControl
     {
         private Supplier SupplierData;
-
         public SuppliersView SuppliersView { get; set; }
         public SupplierUC()
         {
@@ -74,7 +73,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void Supplier_Click(object sender, MouseButtonEventArgs e)
         {
-            //historial de pedidos del proveedor
+            SupplierOrderHistory orderHistory = new SupplierOrderHistory(SupplierData);
+            this.SuppliersView.NavigationService.Navigate(orderHistory);
         }
     }
 }

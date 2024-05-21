@@ -7,22 +7,8 @@
       mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
 
     <Page.Resources>
-        <Style x:Key="NoSuppliesLabelStyle" TargetType="Label">
-            <Setter Property="Content" Value="No hay suministros registrados"/>
-            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Foreground" Value="#4C4C4C" />
-        </Style>
         <Style x:Key="NoItemsLabelStyle" TargetType="Label">
             <Setter Property="Content" Value="No hay elementos registrados"/>
-            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Foreground" Value="#4C4C4C" />
-        </Style>
-        <Style x:Key="NoProductsLabelStyle" TargetType="Label">
-            <Setter Property="Content" Value="No hay productos registrados"/>
             <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="FontWeight" Value="Bold" />
@@ -120,12 +106,6 @@
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Viewbox Height="30">
                                             <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
-                                        </Viewbox>
-                                        <Viewbox Height="30" Margin="10,0,0,0">
-                                            <RadioButton x:Name="radioButtonSupplies" Content="Insumos" Foreground="White" Checked="RadioButtonSupplies_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
-                                        </Viewbox>
-                                        <Viewbox Height="30" Margin="10,0,0,0">
-                                            <RadioButton x:Name="radioButtonProducts" Content="Productos externos" Foreground="White" Checked="RadioButtonProducts_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />
                                         </Viewbox>
                                         <Viewbox Height="30" Margin="10,0,0,0">
                                             <RadioButton x:Name="radioButtonActive" Content="Activos" Foreground="White" Checked="RadioButtonActive_Checked" FontWeight="Bold" FontFamily="{StaticResource InterFont}" />

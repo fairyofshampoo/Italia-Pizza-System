@@ -98,6 +98,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                     {
                         SupplyDAO supplyDAO = new SupplyDAO();
                         supplyDAO.ModifySupplyAmount(kvp.Key.name, newAmount);
+                        //Actualizar product amount
                     }
                 }
             }
@@ -140,7 +141,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void CreateReport()
         {
-            string fileName = "InventoryReport-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
+            string fileName = "ReporteInventario-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
             string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
 
             if (isInventoryEmpty)
@@ -180,7 +181,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 Document doc = new Document(pdf);
 
                 doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"));
-                //doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
+                doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
 
                 iText.Layout.Element.Table table = CreateDataTable();
                 doc.Add(table);
@@ -234,14 +235,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         }
 
 
-        private void ShowInventory(List<object> suppliesAndProducts)
+        private void ShowInventory(List<Supply> suppliesAndProducts)
         {
             suppliesListView.Items.Clear();
             ReportUC reportCard = new ReportUC();
             reportCard.SetTitleData();
             suppliesListView.Items.Add(reportCard);
 
-            foreach (object item in suppliesAndProducts)
+            foreach (Supply item in suppliesAndProducts)
             {
                 AddItemToList(item);
             }
@@ -258,7 +259,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void GetSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<object> availableItems = supplyDAO.GetSupplyOrExternalProductByStatus(true, Constants.ACTIVE_STATUS);
+            List<Supply> availableItems = supplyDAO.GetSuppliesByStatus(true);
 
             if (availableItems.Count > 0)
             {

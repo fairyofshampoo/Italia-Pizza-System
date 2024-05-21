@@ -33,7 +33,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         public string GetProductName(string productId)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             string name = internalOrderDAO.GetProductName(productId);
             return name;
         }

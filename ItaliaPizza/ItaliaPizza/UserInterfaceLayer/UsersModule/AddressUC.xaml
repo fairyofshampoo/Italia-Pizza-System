@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ItaliaPizza.UserInterfaceLayer.UsersModule.AddressUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.UsersModule"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="950" Background="Transparent">
+    <Grid>
+        <Rectangle RadiusX="23.333" 
+                  RadiusY="23.333" 
+                  Fill="#393D42"  
+                  Stroke="Transparent" 
+                  Height="190"
+                  Margin="0,-10,0,0"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="198"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="121"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle RadiusX="60" RadiusY="60" Margin="34,26,30,31" Fill="#D9D9D9"/>
+
+            <Image Source="../Resources/Icons/PlaceMarkerIcon.png" Margin="37,40,32,57" Width="60"/>
+
+            <Border
+               Grid.Column="1"
+               Margin="9,55,9,56"
+               Background="#D9D9D9"
+               CornerRadius="20">
+                <Grid>
+                    <Label
+                           x:Name="lblAddress"
+                           Grid.Row = "2"
+                           FontSize = "29"
+                           Foreground = "#4c4c4c"
+                           VerticalAlignment = "Center"
+                           Content="Dirección"
+                           Margin="20,0,0,0"/>
+                </Grid>
+            </Border>
+            <Grid
+               Grid.Column="2">
+                <Button 
+                    x:Name="btnEditData" 
+                    Background="Transparent" 
+                    ToolTip="Editar cliente" 
+                    Height="50" 
+                    BorderBrush="Transparent"
+                    Margin="30,-5,41,9" 
+                    Click="BtnEditClient_Click">
+                    <Image Source="../Resources/Icons/PencilIcon.png" 
+                           HorizontalAlignment="Left" 
+                           RenderTransformOrigin="0.727,0.547" 
+                           Width="47" Height="47"/>
+                </Button>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

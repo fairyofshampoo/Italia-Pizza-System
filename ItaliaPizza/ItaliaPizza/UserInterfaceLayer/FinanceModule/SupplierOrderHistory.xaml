@@ -24,104 +24,119 @@
 
         <Style x:Key="CustomDatePickerStyle" TargetType="DatePicker">
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsEnabled" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DatePicker">
-                        <Button x:Name="PART_Button" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="300">
-                                <Image Source="../Resources/Icons/calendarIcon.png" Width="40" Height="40" Margin="5,5,5,5" HorizontalAlignment="Right"/>
-                                <TextBlock x:Name="txtDate" Text="00/00/0000" VerticalAlignment="Center" Foreground="#4C4C4C" Margin="10,0,0,0"/>
-                                <ContentPresenter />
-                            </StackPanel>
-                        </Button>
+                        <Grid x:Name="PART_Root">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="PART_Button" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Width="300">
+                                <StackPanel Orientation="Horizontal" Width="280">
+                                    <Image Source="../Resources/Icons/calendarIcon.png" Width="40" Height="40" Margin="0,5,5,5" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd/MM/yyyy}" VerticalAlignment="Center" Foreground="#4C4C4C" Margin="10,0,0,0"/>
+                                    <ContentPresenter />
+                                </StackPanel>
+                            </Button>
+                            <Popup x:Name="PART_Popup" StaysOpen="False" AllowsTransparency="True" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleCalendar" TargetType="{x:Type Calendar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <Viewbox Height="400"
+                         Width="400">
+                            <CalendarItem x:Name="PART_CalendarItem"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"/>
+                        </Viewbox>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Page.Resources>
-
-
+    
     <Viewbox Stretch="Fill">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <StackPanel Background="#2c2c2c" Width="1280" Height="720">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label
-                    Grid.Column="0"
-                    Content="Pedidos a proveedor"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Foreground="White" FontWeight="DemiBold"
-                    FontFamily="{StaticResource InterFont}"
-                    FontSize="40"
-                    Margin="50,0,0,0" Height="Auto" Width="Auto"/>
-
-                    <Canvas HorizontalAlignment="Center">
-                        <Line X1="-190" Y1="110" X2="250" Y2="110" Stroke="#ff7b00" StrokeThickness="3"/>
-                    </Canvas>
-
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <Grid>
-                            <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-                                Width="334" Height="60" Background="LightGray"
-            Grid.Column="1" Margin="60,40,0,0"
-            HorizontalAlignment="Left" VerticalAlignment="Center">
-                            </Border>
-                            <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
-        Width="330" Height="60"
-        Grid.Column="1" Margin="60,34,0,0"
-        HorizontalAlignment="Left" VerticalAlignment="Center">
-
-                                <DatePicker x:Name="datePicker"
-                FontSize="20" FontWeight="SemiBold" Style="{StaticResource CustomDatePickerStyle}"
-                FontFamily="{StaticResource InterFont}"
-                Background="LightGray" BorderThickness="0" />
-                            </Border>
-
-                        </Grid>
-                        <Label Content="Selecciona la fecha para buscar el pedido" Margin="60,0,0,0" 
-       Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
-                    </StackPanel>
-
-                    <Border CornerRadius="5" BorderBrush="#8D3A02" BorderThickness="4" 
-    Width="304" Height="60" Background="#8D3A02"
-    Grid.Column="2" Margin="40,40,0,29"
-    HorizontalAlignment="Left" VerticalAlignment="Center">
-                    </Border>
-
-                    <Button Width="300" Height="60" HorizontalAlignment="Left" Cursor="Hand"
-                        VerticalAlignment="Center" Grid.Column="2" Margin="40,34,0,35" Click="BtnAddSupplierOrder_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4" Background="#FF7B00">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                        <TextBlock Text="Añadir pedido" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource InterFont}" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                <Grid Margin="0,20,0,0" >
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="60" Margin="50,5,5,0" BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                </Image>
+                            </ControlTemplate>
+                        </Button.Template>
                     </Button>
 
+                    <Label Content="Pedidos a proveedor" Foreground="White" VerticalAlignment="Center" FontSize="70" FontFamily="{StaticResource InterFont}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="65,5,5,0"></Label>
+                    <Canvas HorizontalAlignment="Left">
+                        <Line X1="300" Y1="100" X2="1040" Y2="100" Stroke="#ff7b00" StrokeThickness="3"/>
+                    </Canvas>
                 </Grid>
-                <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                    <Label Content ="Estado del pedido" Margin="60,0,20,0" Foreground="LightGray"  FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Medium"/>
-                </StackPanel>
 
-                <ScrollViewer x:Name="scrollViewer" Height="500"
-                Grid.Row="1">
-                    <Grid Name="SuppliersGrid" Width = "1100" Height = "Auto"/>
-                </ScrollViewer>
-                <Label Name="lblSupplierNotFound"
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
+                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+        Width="290" Height="60" Margin="10,34,0,0"
+        HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <DatePicker x:Name="datePickerStart" CalendarStyle="{StaticResource styleCalendar}"
+            FontSize="20" FontWeight="SemiBold" Style="{StaticResource CustomDatePickerStyle}"
+            FontFamily="{StaticResource InterFont}" MouseDown="ShowCalendar"
+            Background="LightGray" BorderThickness="0"
+            SelectedDateChanged="DatePickerStart_SelectedDateChanged" />
+
+                        </Border>
+                        <Label Content="Selecciona fecha inicio" Margin="60,0,0,0" 
+       Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+ Width="290" Height="60" Margin="60,34,0,0"
+ HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <DatePicker x:Name="datePickerEnd"
+            FontSize="20" FontWeight="SemiBold" Style="{StaticResource CustomDatePickerStyle}"
+            FontFamily="{StaticResource InterFont}"
+            Background="LightGray" BorderThickness="0" CalendarStyle="{StaticResource styleCalendar}"
+            SelectedDateChanged="DatePickerEnd_SelectedDateChanged" />
+                        </Border>
+                        <Label Content="Selecciona fecha fin" Margin="60,0,0,0" 
+Foreground="LightGray" FontSize="20" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel x:Name="filtersStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Label Content ="Estado del pedido:" Margin="0,0,20,0" Foreground="White"  FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold"/>
+                    <Viewbox Height="25">
+                        <RadioButton x:Name="radioButtonAll" Content="Todos" Foreground="White" Checked="RadioButtonAll_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonOpen" Content="Abiertos" Foreground="White" Checked="RadioButtonOpen_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonReceived" Content="Recibidos" Foreground="White" Checked="RadioButtonReceived_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                    <Viewbox Height="25" Margin="10,0,0,0">
+                        <RadioButton x:Name="radioButtonCanceled" Content="Cancelados" Foreground="White" Checked="RadioButtonCanceled_Checked" FontWeight="Medium" FontFamily="{StaticResource InterFont}" />
+                    </Viewbox>
+                </StackPanel>
+                <ScrollViewer x:Name="scrollViewer" Height="400" Grid.Row="1">
+                        <Grid Name="ordersGrid" Height="Auto" Width="1200"/>
+                    </ScrollViewer>
+                    <Label Name="lblSupplierNotFound"
                    Grid.Row="1"
                    Content="No se encontró ningún proveedor"
                    VerticalAlignment="Center"

@@ -16,7 +16,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public InventoryView()
         {
             InitializeComponent();
-            GetAllSuppliesAndExternalProducts();
+            radioButtonAll.IsChecked = true;
             menuFrame.Content = new ManagerMenu(this);
         }
 
@@ -44,7 +44,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (string.IsNullOrEmpty(searchText))
                 {
-                    GetAllSuppliesAndExternalProducts();
+                    GetAllSupplies();
                 }
             }
         }
@@ -52,98 +52,60 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void SearchItemByName(string searchText)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<object> suppliesAndProducts = supplyDAO.SearchSupplyOrExternalProductByName(searchText);
-            ShowInventory(suppliesAndProducts);
+            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
+            ShowInventory(supplies);
         }
 
-        private void ShowInventory(List<object> suppliesAndProducts)
+        private void ShowInventory(List<Supply> supplies)
         {
             suppliesListView.Items.Clear();
             SupplyProductCardUC supplyUC = new SupplyProductCardUC();
             supplyUC.InventoryView = this;
             supplyUC.SetTitleData();
             suppliesListView.Items.Add(supplyUC);
-            foreach (object item in suppliesAndProducts)
+            foreach (Supply item in supplies)
             {
                 AddSupplyToList(item);
             }
         }
 
-        private void AddSupplyToList(object item)
+        private void AddSupplyToList(Supply item)
         {
             SupplyProductCardUC supplyCard = new SupplyProductCardUC();
             supplyCard.InventoryView = this;
-            supplyCard.SetObjectData(item);
+            supplyCard.SetSupplyData(item);
             suppliesListView.Items.Add(supplyCard);
-        }
-
-        private void GetAllSuppliesAndExternalProducts()
-        {
-            radioButtonAll.IsChecked = true;
-            SupplyDAO supplyDAO = new SupplyDAO();
-            List<object> suppliesAndProducts = supplyDAO.GetAllSuppliesAndExternalProducts();
-
-            if (suppliesAndProducts.Count > 0)
-            {
-                ShowInventory(suppliesAndProducts);
-
-            }
-            else
-            {
-                ShowNoItemsMessage();
-            }
-        }
-
-        private void GetItemsByStatus(bool status)
-        {
-            byte productStatus = 0;
-            if (status)
-            {
-                productStatus = 1;
-            }
-            SupplyDAO supplyDAO = new SupplyDAO();
-            List<object> suppliesAndProducts = supplyDAO.GetSupplyOrExternalProductByStatus(status, productStatus);
-
-            if (suppliesAndProducts.Count > 0)
-            {
-                ShowInventory(suppliesAndProducts);
-
-            }
-            else
-            {
-                ShowNoItemsMessage();
-            }
         }
 
         private void GetAllSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
             List<Supply> supplies = supplyDAO.GetAllSupplies();
-            List<object> suppliesAsObjects = supplies.Cast<object>().ToList();
 
-            if (suppliesAsObjects.Count > 0)
+            if (supplies.Count > 0)
             {
-                ShowInventory(suppliesAsObjects);
+                ShowInventory(supplies);
+
             }
             else
             {
-                ShowNoSuppliesMessage();
+                ShowNoItemsMessage();
             }
         }
 
-        private void GetAllExternalProducts()
+        private void GetSupplyByStatus(bool status)
         {
-            ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.GetAllExternalProducts();
-            List<object> productsAsObjects = products.Cast<object>().ToList();
+            SupplyDAO supplyDAO = new SupplyDAO();
+            List<Supply> supplies = supplyDAO.GetSuppliesByStatus(status);
 
-            if (productsAsObjects.Count > 0)
+            if (supplies.Count > 0)
             {
-                ShowInventory(productsAsObjects);
+                ShowInventory(supplies);
+
             }
             else
             {
-                ShowNoProductsMessage();
+                ShowNoItemsMessage();
             }
         }
 
@@ -157,69 +119,25 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             suppliesListView.Items.Add(lblNoItems);
         }
 
-        private void ShowNoProductsMessage()
-        {
-            suppliesListView.Items.Clear();
-            Label lblNoProducts = new Label();
-            lblNoProducts.Style = (Style)FindResource("NoProductsLabelStyle");
-            lblNoProducts.HorizontalAlignment = HorizontalAlignment.Center;
-            lblNoProducts.VerticalAlignment = VerticalAlignment.Center;
-            suppliesListView.Items.Add(lblNoProducts);
-        }
-
-        private void ShowNoSuppliesMessage()
-        {
-            suppliesListView.Items.Clear();
-            Label lblNoSupplies = new Label();
-            lblNoSupplies.Style = (Style)FindResource("NoSuppliesLabelStyle");
-            lblNoSupplies.HorizontalAlignment = HorizontalAlignment.Center;
-            lblNoSupplies.VerticalAlignment = VerticalAlignment.Center;
-            suppliesListView.Items.Add(lblNoSupplies);
-        }
-
         private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
         {
-            GetAllSuppliesAndExternalProducts();
+            GetAllSupplies();
             radioButtonActive.IsChecked = false;
             radioButtonInactive.IsChecked = false;
-            radioButtonProducts.IsChecked = false;
-            radioButtonSupplies.IsChecked = false;
         }
 
         private void RadioButtonInactive_Checked(object sender, RoutedEventArgs e)
         {
-            GetItemsByStatus(false);
+            GetSupplyByStatus(false);
             radioButtonAll.IsChecked = false;
             radioButtonActive.IsChecked = false;
-            radioButtonProducts.IsChecked = false;
-            radioButtonSupplies.IsChecked = false;
         }
 
         private void RadioButtonActive_Checked(object sender, RoutedEventArgs e)
         {
-            GetItemsByStatus(true);
+            GetSupplyByStatus(true);
             radioButtonInactive.IsChecked = false;
             radioButtonAll.IsChecked = false;
-            radioButtonProducts.IsChecked = false;
-            radioButtonSupplies.IsChecked = false;
-        }
-
-        private void RadioButtonSupplies_Checked(object sender, RoutedEventArgs e)
-        {
-            radioButtonActive.IsChecked = false;
-            radioButtonInactive.IsChecked = false;
-            radioButtonProducts.IsChecked = false;
-            radioButtonAll.IsChecked = false;
-            GetAllSupplies();
-        }
-
-        private void RadioButtonProducts_Checked(object sender, RoutedEventArgs e)
-        {
-            radioButtonActive.IsChecked = false;
-            radioButtonInactive.IsChecked = false;
-            radioButtonSupplies.IsChecked = false;
-            radioButtonAll.IsChecked = false;
-            GetAllExternalProducts();
         }
     }
 }

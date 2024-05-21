@@ -1,10 +1,13 @@
-﻿using ItaliaPizza.DataLayer.DAO.Interface;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer.DAO.Interface;
+using iText.Commons.Actions.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
@@ -58,20 +61,85 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulRegistration;
         }
 
+        public bool AddProductExternal(Product product, Supply supply)
+        {
+            bool successfulRegistration = false;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                using (var transaction = databaseContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var newProduct = new Product
+                        {
+                            productCode = product.productCode,
+                            status = product.status,
+                            amount = product.amount,
+                            description = product.description,
+                            isExternal = product.isExternal,
+                            name = product.name,
+                            price = product.price,
+                            picture = product.picture,
+                        };
+
+                        databaseContext.Products.Add(newProduct);
+                        databaseContext.SaveChanges();
+
+                        var newSupply = new Supply
+                        {
+                            name = supply.name,
+                            amount = supply.amount,
+                            category = supply.category,
+                            measurementUnit = supply.measurementUnit,
+                            status = supply.status,
+                            productCode = product.productCode,
+                        };
+
+                        databaseContext.Supplies.Add(newSupply);
+                        databaseContext.SaveChanges();
+
+                        transaction.Commit();
+                        successfulRegistration = true;
+                    }
+                    catch (SqlException ex)
+                    {
+                        transaction.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+
+            return successfulRegistration;
+        }
+
         public List<Product> GetLastProductsRegistered()
         {
             List<Product> lastProducts = new List<Product>();
-            using (var databseContext = new ItaliaPizzaDBEntities())
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var lastProductsRegistered = databseContext.Products
-                                                           .OrderByDescending(product => product.name)
-                                                           .Take(10)
-                                                           .ToList();
+                var lastProductsRegistered = databaseContext.Products
+                                            .OrderBy(product => product.name)
+                                            .Take(10)
+                                            .Select(product => new ProductDataUC
+                                            {
+                                                Name = product.name,
+                                                Status = product.status,
+                                                ProductCode = product.productCode,
+                                                Price = product.price
+                                            })
+                                            .ToList();
+
                 if (lastProductsRegistered != null)
                 {
-                    foreach (var product in lastProductsRegistered)
+                    foreach (var dto in lastProductsRegistered)
                     {
-                        lastProducts.Add(product);
+                        lastProducts.Add(new Product
+                        {
+                            name = dto.Name,
+                            status = (byte)dto.Status,
+                            productCode = dto.ProductCode,
+                            price = dto.Price
+                        });
                     }
                 }
             }
@@ -80,41 +148,53 @@ namespace ItaliaPizza.DataLayer.DAO
 
         public List<Product> SearchProductByName(string name)
         {
-            List<Product> productsDB = new List<Product>();
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var products = databaseContext.Products
                                               .Where(p => p.name.StartsWith(name))
                                               .Take(5)
+                                              .Select(p => new ProductDataUC
+                                              {
+                                                  Name = p.name,
+                                                  Status = p.status,
+                                                  ProductCode = p.productCode,
+                                                  Price = p.price
+                                              })
                                               .ToList();
-                if (products != null)
+
+                return products.Select(dto => new Product
                 {
-                    foreach(var product in products)
-                    {
-                        productsDB.Add(product);
-                    }
-                }
+                    name = dto.Name,
+                    status = (byte)dto.Status,
+                    productCode = dto.ProductCode,
+                    price = dto.Price
+                }).ToList();
             }
-            return productsDB;
         }
 
         public List<Product> SearchProductByType(int type)
         {
-            List<Product> productsDB = new List<Product>();
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var products = databaseContext.Products
                                               .Where(p => p.isExternal == type)
+                                              .Select(p => new ProductDataUC
+                                              {
+                                                  Name = p.name,
+                                                  Status = p.status,
+                                                  ProductCode = p.productCode,
+                                                  Price = p.price
+                                              })
                                               .ToList();
-                if (products != null)
+
+                return products.Select(dto => new Product
                 {
-                    foreach (var product in products)
-                    {
-                        productsDB.Add(product);
-                    }
-                }
+                    name = dto.Name,
+                    status = (byte)dto.Status,
+                    productCode = dto.ProductCode,
+                    price = dto.Price
+                }).ToList();
             }
-            return productsDB;
         }
 
         public bool ModifyProduct(Product updateProduct, string code)
@@ -129,7 +209,6 @@ namespace ItaliaPizza.DataLayer.DAO
 
                     if (modifyProduct != null)
                     {
-                        modifyProduct.amount = updateProduct.amount;
                         modifyProduct.price = updateProduct.price;
                         modifyProduct.description = updateProduct.description;
                         modifyProduct.name = updateProduct.name;
@@ -146,29 +225,51 @@ namespace ItaliaPizza.DataLayer.DAO
             }
 
             return successfulUpdate;
-        }
+        }       
 
-        public bool ChangeStatus(string code, int newStatus)
+        public bool ChangeStatus(Product product, int newStatus)
         {
             bool successfulChange = false;
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                try
+                using (var transaction = databaseContext.Database.BeginTransaction())
                 {
-                    var modifyProduct = databaseContext.Products.First(a => a.productCode == code);
-                    if (modifyProduct != null)
+                    try
                     {
-                        modifyProduct.status = Convert.ToByte(newStatus);
+                        var modifyProduct = databaseContext.Products.First(a => a.productCode == product.productCode);
+                        if (modifyProduct != null)
+                        {
+                            modifyProduct.status = Convert.ToByte(newStatus);
+                        }
+                        databaseContext.SaveChanges();
+
+                        if (product.isExternal == Constants.EXTERNAL_PRODUCT)
+                        {
+                            var modifySupply = databaseContext.Supplies.First(s => s.productCode == product.productCode);
+                            if (modifySupply != null)
+                            {
+                                if (newStatus == Constants.INACTIVE_STATUS)
+                                {
+                                    modifySupply.status = false;
+                                }
+                                else
+                                {
+                                    modifySupply.status = true;
+                                }
+                            }
+                            databaseContext.SaveChanges();
+                        }
+                        transaction.Commit();
+                        successfulChange = true;
                     }
-
-                    databaseContext.SaveChanges();
-                    successfulChange = true;
-
+                    catch (ArgumentException argumentException)
+                    {
+                        transaction.Rollback();
+                        throw argumentException;
+                    }
                 }
-                catch (ArgumentException argumentException)
-                {
-                    throw argumentException;
-                }
+
+                    
             }
 
             return successfulChange;
@@ -264,6 +365,5 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return success;
         }
-
     }
 }

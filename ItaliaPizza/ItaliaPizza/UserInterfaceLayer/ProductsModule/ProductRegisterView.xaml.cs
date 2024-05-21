@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -31,6 +32,14 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             InitializeComponent();
             SetComboBoxItems();
+        }
+
+        public void SetRegisterForInternalProduct()
+        {
+            cmbIsExternal.SelectedItem = "No";
+            cmbIsExternal.IsEnabled = false;
+            cmbIsExternal.Foreground = Brushes.DarkGreen;
+            ChangeProductType();
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
@@ -61,7 +70,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 if (!IsProductCodeExisting())
                 {
-                    if (RegisterProduct())
+                    if (RegisterExternalProduct())
                     {
                         DialogManager.ShowSuccessMessageBox("Producto registrado exitosamente");
                     }
@@ -78,18 +87,52 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        private bool RegisterProduct()
+        private bool RegisterExternalProduct()
         {
             Product product = GetProductData();
-            ProductDAO productDAO = new ProductDAO();           
-            return productDAO.AddProduct(product);
+            Supply supply = GetSupplyData(product);
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.AddProductExternal(product, supply);
+        }
+
+        private Supply GetSupplyData(Product productData)
+        {
+            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
+
+            string name = productData.name;
+            decimal amount = (decimal)productData.amount;
+            int category = supplierAreaDAO.GetSupplyAreaIdByName("Producto Externo");
+            string measurementUnit = "Unidad";
+            string productCode = productData.productCode;
+            bool status;
+
+            if (productData.status == Constants.ACTIVE_STATUS)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+
+            Supply supply = new Supply
+            {
+                name = name,
+                amount = amount,
+                category = category,
+                measurementUnit = measurementUnit,
+                status = status,
+                productCode = productCode
+            };
+
+            return supply;
         }
 
         private Product GetProductData()
         {
             string name = txtName.Text;
             string code = txtCode.Text;
-            Decimal price = Decimal.Parse(txtPrice.Text);
+            decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
 
@@ -134,7 +177,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
               
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog()
             {
                 Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp)|*.png;*.jpeg;*.jpg;*.bmp",
                 Title = "Selecciona una imagen de producto"
@@ -152,30 +195,40 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             if (cmbIsExternal.SelectedItem != null)
             {
-                if (cmbIsExternal.SelectedItem.ToString() == "No")
-                {
-                    btnContinue.IsEnabled = true;
-                    btnContinue.Visibility = Visibility.Visible;
+                ChangeProductType();
+            }
+        }
 
-                    btnSave.Visibility = Visibility.Hidden;
-                    btnSave.IsEnabled = false;
+        private void ChangeProductType()
+        {
+            if (cmbIsExternal.SelectedItem.ToString() == "No")
+            {
+                btnContinue.IsEnabled = true;
+                btnContinue.Visibility = Visibility.Visible;
 
-                    txtCode.IsEnabled = false;
-                    txtCode.Text = GenerateProductCode();
-                    txtAmount.Text = "1";
-                }
+                btnSave.Visibility = Visibility.Hidden;
+                btnSave.IsEnabled = false;
 
-                if (cmbIsExternal.SelectedItem.ToString() == "Sí")
-                {
-                    btnContinue.IsEnabled = false;
-                    btnContinue.Visibility = Visibility.Hidden;
+                txtCode.IsEnabled = false;
+                txtCode.Text = GenerateProductCode();
 
-                    btnSave.Visibility = Visibility.Visible;
-                    btnSave.IsEnabled = true;
+                txtAmount.Text = "0";
+                txtAmount.IsEnabled = false;
+            }
 
-                    txtCode.Clear();
-                    txtCode.IsEnabled = true;
-                }
+            if (cmbIsExternal.SelectedItem.ToString() == "Sí")
+            {
+                btnContinue.IsEnabled = false;
+                btnContinue.Visibility = Visibility.Hidden;
+
+                btnSave.Visibility = Visibility.Visible;
+                btnSave.IsEnabled = true;
+
+                txtAmount.Text = "1";
+                txtAmount.IsEnabled = true;
+
+                txtCode.Clear();
+                txtCode.IsEnabled = true;
             }
         }
 

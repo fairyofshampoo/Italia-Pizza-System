@@ -5,20 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza.UserInterfaceLayer.UsersModule"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
-      Title="RegisterNewClientAddressView">
+      d:DesignHeight="720" d:DesignWidth="1280">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="450"/>
-        </Grid.ColumnDefinitions>
+    <Viewbox Stretch="Fill">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Background="#2c2c2c" Width="1280" Height="720">
+
+                <Grid Height="720">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="450"/>
+                    </Grid.ColumnDefinitions>
 
 
-        <Grid
+                    <Grid
             Grid.Column="0"
             Background="#2c2c2c">
-            <Label
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="70" Margin="50,20,5,0" BorderThickness="0" Click="BtnGoBack_Click" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="../Resources/Icons/goBackIcon.png" Stretch="UniformToFill">
+                                    </Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label
                     Content="Añadir dirección"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
@@ -28,21 +39,12 @@
                     Height="70" 
                     Width="450"/>
 
-            <Canvas HorizontalAlignment="Center" Grid.Row="2">
-                <Line X1="-310" Y1="-10" X2="105" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="83" Canvas.Top="90"/>
-            </Canvas>
+                        <Canvas HorizontalAlignment="Center" Grid.Row="2">
+                            <Line X1="-310" Y1="-10" X2="105" Y2="-10" Stroke="#ff7b00" StrokeThickness="3" Canvas.Left="83" Canvas.Top="90"/>
+                        </Canvas>
 
 
-            <Label
-                Name="lblClientEmail"
-                FontSize = "20"
-                Foreground = "White"
-                VerticalAlignment = "Top"
-                Content="Correo del cliente:"
-                Margin="230,80,0,0"/>
-
-
-            <Label
+                        <Label
                 FontSize = "35"
                 Foreground = "White"
                 VerticalAlignment = "Top"
@@ -50,27 +52,27 @@
                 Margin="100,150,0,0"/>
 
 
-            <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
+                        <Border CornerRadius="5" BorderBrush="#FF7B00" BorderThickness="4"
                     Width="680" Height="40"
                     Grid.Row="1" Grid.Column="1" Margin="100,200,0,0"
                     HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            </Border>
+                        </Border>
 
-            <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
+                        <Border CornerRadius="5" BorderBrush="LightGray" BorderThickness="4"
                     Width="680" 
                     Height="40"
                     Grid.Row="1" 
                     Grid.Column="1" Margin="97,197,0,0"
                     HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                <TextBox x:Name="txtAddress"
+                            <TextBox x:Name="txtAddress"
                          FontSize="20"
                          FontWeight="Medium"
                          FontFamily = "Segoe UI Variable Display"
                          Background="LightGray"
                          BorderThickness="0" />
-            </Border>
+                        </Border>
 
-            <Label
+                        <Label
                 x:Name="lblAddressError"
                 FontSize = "20"
                 Foreground = "Red"
@@ -79,7 +81,7 @@
                 Content="La dirección es incorrecta"
                 Visibility="Collapsed"/>
 
-            <Label
+                        <Label
                 FontSize = "35"
                 Foreground = "White"
                 VerticalAlignment = "Top"
@@ -87,13 +89,13 @@
                 Content="Código postal"
                 Margin="0,300,0,0"/>
 
-            <ComboBox x:Name="cbPostalCode" 
+                        <ComboBox x:Name="cbPostalCode" 
                       Width="200" Height="30"
                       Margin="0,25,0,0"
                       HorizontalAlignment="Center"
                       SelectionChanged="CbPostalCodeSelected"/>
 
-            <Label
+                        <Label
                 x:Name="lblPostalCodeError"
                 FontSize = "20"
                 Foreground = "Red"
@@ -102,7 +104,7 @@
                 Content="Debe seleccionar un código postal"
                 Visibility="Collapsed"/>
 
-            <Label
+                        <Label
                 FontSize = "35"
                 Foreground = "White"
                 VerticalAlignment = "Top"
@@ -110,12 +112,12 @@
                 Content="Colonia"
                 Margin="0,450,0,0"/>
 
-            <ComboBox x:Name="cbColony" 
+                        <ComboBox x:Name="cbColony" 
                       Width="200" Height="30"
                       Margin="0,310,0,0"
                       HorizontalAlignment="Center"/>
 
-            <Label
+                        <Label
                 x:Name="lblColonyError"
                 FontSize = "20"
                 Foreground = "Red"
@@ -124,7 +126,7 @@
                 Content="Debe seleccionar una colonia"
                 Visibility="Collapsed"/>
 
-            <Button x:Name="btnSave"
+                        <Button x:Name="btnSave"
                         BorderThickness="0"
                         Content="Registrar"
                         Foreground="White"
@@ -135,26 +137,31 @@
                         HorizontalAlignment="Center" 
                         Click="BtnSave_Click"
                         VerticalAlignment="Bottom">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#FF7B00"/>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Width="150" Height="50"
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#FF7B00"/>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="150" Height="50"
                                     CornerRadius="10"
                                     Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
+                                        <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
-        </Grid>
+                    </Grid>
 
-        <Border Grid.Column="1"
-                Background="#FA9500"/>
-    </Grid>
+                    <Border Grid.Column="1"
+                Background="#fb890f">
+                        <Image Source="../Resources/Images/addressImage.jpg" />
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Viewbox>
 </Page>

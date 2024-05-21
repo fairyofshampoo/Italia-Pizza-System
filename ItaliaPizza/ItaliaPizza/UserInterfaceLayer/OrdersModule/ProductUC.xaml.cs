@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     {
         private Product ProductData;
 
-        public RegisterInternalOrderView RegisterInternalOrderView { get; set; }
+        public RegisterOrderView RegisterInternalOrderView { get; set; }
 
         public string InternalOrderCode;
 
@@ -65,8 +66,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                Console.WriteLine("Ya no se pueden meter más productos");
-                //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
+                DialogManager.ShowWarningMessageBox("No hay suficientes ingredientes para agregar este producto.");
             }
         }
 
@@ -89,43 +89,42 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                Console.WriteLine("Ya no se pueden meter más productos");
-                //Esto debe ser cambiado por un mensaje diciendo que no hay ingredientes
+                DialogManager.ShowWarningMessageBox("No hay suficientes ingredientes para agregar este producto.");
             }
 
         }
 
         private int GetNumberOfExternalProducts()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int productsAvailable = internalOrderDAO.GetTotalExternalProduct(ProductData.productCode);
             return productsAvailable;
         }
 
         private int GetRecipeByProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
             return recipeId;
         }
 
         private int GetNumberOfProducts(int recipeId)
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
             return numberOfProducts;
         }
 
         private int GetNumberOfProductsOnHold()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             int productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
             return productsOnHold;
         }
 
         private bool GetCountOfProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             bool areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
             return areThereAnyRegister;
         }
@@ -144,34 +143,36 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void RegisterInternalOrderProduct()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
+            OrderDAO internalOrderDAO = new OrderDAO();
             InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
             if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
             {
-                //Meterlo a la tabla
+                ProductData.amount = 1;
+                RegisterInternalOrderView.AddProduct(ProductData, this);
             }
             else
             {
-                //Mostrar mensaje de erro
+                DialogManager.ShowErrorMessageBox("No se ha podido agregar el produto a la orden. Intente nuevamente");
             }
         }
 
         private void IncreaseAmount()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-            internalOrderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
+            RegisterInternalOrderView.IncreaseProductAmount(ProductData);
         }
 
         private bool IsRegisterInDB ()
         {
-            InternalOrderDAO internalOrderDAO = new InternalOrderDAO();
-            bool isRegister = internalOrderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            OrderDAO orderDAO = new OrderDAO();
+            bool isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
             return isRegister;
         }
 
         private InternalOrderProduct CreateInternalOrderProduct()
         {
-            InternalOrderProduct newInternalOrderProuct = new InternalOrderProduct
+            InternalOrderProduct newOrderProduct = new InternalOrderProduct
             {
                 amount = 1,
                 isConfirmed = 0, 
@@ -179,7 +180,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                 productId = ProductData.productCode,
             };
 
-            return newInternalOrderProuct;
+            return newOrderProduct;
         }
 
 
