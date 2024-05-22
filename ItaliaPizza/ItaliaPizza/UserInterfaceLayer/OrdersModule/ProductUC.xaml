@@ -38,8 +38,7 @@
                                 FontSize="20"
                                 FontWeight="Bold"
                                 Cursor="Hand"
-                                Grid.Row="2"
-                                Margin="0,0,30,20"
+                                Margin="0,0,20,12"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right" 
                                 Click="BtnAddProduct_Click">
@@ -55,6 +54,21 @@
                                     Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Top"
                                                   HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnSeeRecipe" BorderThickness="0" Content="Ver receta" Foreground="White" FontSize="10" FontWeight="Bold" Cursor="Hand" Margin="150,153,0,-5" HorizontalAlignment="Left" Width="80" Click="btnSeeRecipe_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF7B00"/>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="70" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>

@@ -29,6 +29,22 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             lblProductName.Content = product.name;
             ProductData = product;
+
+            SetRecipeButton(product.isExternal);
+        }
+
+        public void SetRecipeButton(int isExternal)
+        {
+            if (isExternal == Constants.EXTERNAL_PRODUCT)
+            {
+                btnSeeRecipe.IsEnabled = false;
+                btnSeeRecipe.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btnSeeRecipe.IsEnabled = true;
+                btnSeeRecipe.Visibility = Visibility.Visible;
+            }
         }
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -183,6 +199,10 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             return newOrderProduct;
         }
 
-
+        private void btnSeeRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            RecipeProcedureView recipeProcedureView = new RecipeProcedureView(ProductData.productCode, ProductData.name);
+            recipeProcedureView.Show();
+        }
     }
 }
