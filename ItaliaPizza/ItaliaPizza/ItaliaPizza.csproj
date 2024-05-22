@@ -330,6 +330,9 @@
     <Compile Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml.cs">
       <DependentUpon>ProductUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterfaceLayer\OrdersModule\RecipeProcedureView.xaml.cs">
+      <DependentUpon>RecipeProcedureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterfaceLayer\OrdersModule\RegisterOrderView.xaml.cs">
       <DependentUpon>RegisterOrderView.xaml</DependentUpon>
     </Compile>
@@ -531,6 +534,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterfaceLayer\OrdersModule\ProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterfaceLayer\OrdersModule\RecipeProcedureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

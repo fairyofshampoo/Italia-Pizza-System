@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System.Windows;
+using System.Security.Cryptography;
 
 namespace ItaliaPizza.DataLayer.DAO
 {
@@ -112,69 +113,85 @@ namespace ItaliaPizza.DataLayer.DAO
             return successfulChange;
         }
 
-    public int GetIdRecipe(string name)
-    {
-        int idRecipe = 0;
-        using (var databaseContext = new ItaliaPizzaDBEntities())
+        public int GetIdRecipe(string name)
         {
-            var foundRecipe = (from recipe in databaseContext.Recipes
-                               where recipe.name.Equals(name)
-                               select recipe).FirstOrDefault();
-
-            if (foundRecipe != null)
+            int idRecipe = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                idRecipe = foundRecipe.recipeCode;
-            }
-        }
-        return idRecipe;
-    }
+                var foundRecipe = (from recipe in databaseContext.Recipes
+                                   where recipe.name.Equals(name)
+                                   select recipe).FirstOrDefault();
 
-    public List<Recipe> GetRecipes()
-    {
-        List<Recipe> recipes = new List<Recipe>();
-        using (var databaseContext = new ItaliaPizzaDBEntities())
-        {
-            var recipesDB = databaseContext.Recipes
-                                            .ToList();
-
-            if (recipesDB != null)
-            {
-                foreach (var product in recipesDB)
+                if (foundRecipe != null)
                 {
-                    recipes.Add(product);
+                    idRecipe = foundRecipe.recipeCode;
                 }
             }
+            return idRecipe;
         }
-        return recipes;
-    }
 
-    public bool RegisterRecipe(Recipe recipe, string productId)
-    {
-        bool successfulRegistration = false;
-
-        using (var databaseContext = new ItaliaPizzaDBEntities())
+        public string GetRecipeProcedure(int recipeId)
         {
-            try
+            string procedure = "";
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                var newRecipe = new Recipe
+                var foundProcedure = (from recipe in databaseContext.Recipes
+                                      where recipe.recipeCode.Equals(recipeId)
+                                      select recipe.description).FirstOrDefault();
+                if (foundProcedure != null)
                 {
-                    description = recipe.description,
-                    status = recipe.status,
-                    name = recipe.name,
-                    ProductId = productId,
-                };
-                databaseContext.Recipes.Add(newRecipe);
-                databaseContext.SaveChanges();
-                successfulRegistration = true;
+                    procedure = foundProcedure;
+                }
             }
-            catch (SqlException sQLException)
-            {
-                throw sQLException;
-            }
+            return procedure;
         }
-        return successfulRegistration;
-    }
-      
+
+        public List<Recipe> GetRecipes()
+        {
+            List<Recipe> recipes = new List<Recipe>();
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var recipesDB = databaseContext.Recipes
+                                                .ToList();
+
+                if (recipesDB != null)
+                {
+                    foreach (var product in recipesDB)
+                    {
+                        recipes.Add(product);
+                    }
+                }
+            }
+            return recipes;
+        }
+
+        public bool RegisterRecipe(Recipe recipe, string productId)
+        {
+            bool successfulRegistration = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                try
+                {
+                    var newRecipe = new Recipe
+                    {
+                        description = recipe.description,
+                        status = recipe.status,
+                        name = recipe.name,
+                        ProductId = productId,
+                    };
+                    databaseContext.Recipes.Add(newRecipe);
+                    databaseContext.SaveChanges();
+                    successfulRegistration = true;
+                }
+                catch (SqlException sQLException)
+                {
+                    throw sQLException;
+                }
+            }
+            return successfulRegistration;
+        }
+
         public bool RegisterRecipeSupplies(int recipeId, List<RecipeSupply> recipeSupplies)
         {
             bool response = false;
@@ -209,57 +226,57 @@ namespace ItaliaPizza.DataLayer.DAO
 
 
         public bool RegisterRecipeWithSupplies(Recipe recipe, Product product) //MÉTODO CON ROLLBACK
-    {
-        bool successfulRegistration = false;
-
-        using (var databaseContext = new ItaliaPizzaDBEntities())
         {
-            using (var transaction = databaseContext.Database.BeginTransaction())
+            bool successfulRegistration = false;
+
+            using (var databaseContext = new ItaliaPizzaDBEntities())
             {
-                try
+                using (var transaction = databaseContext.Database.BeginTransaction())
                 {
-                    ProductDAO productDAO = new ProductDAO();
-                    productDAO.AddProduct(product);
-
-                    // Registrar la receta
-                    var newRecipe = new Recipe
+                    try
                     {
-                        description = recipe.description,
-                        status = recipe.status,
-                        name = recipe.name,
-                        ProductId = product.productCode,
-                    };
-                    databaseContext.Recipes.Add(newRecipe);
-                    databaseContext.SaveChanges();
+                        ProductDAO productDAO = new ProductDAO();
+                        productDAO.AddProduct(product);
 
-                    // Registrar los suministros de la receta
-                    foreach (var supply in recipe.RecipeSupplies)
-                    {
-                        var recipeSupply = new RecipeSupply
+                        // Registrar la receta
+                        var newRecipe = new Recipe
                         {
-                            recipeID = newRecipe.recipeCode,
-                            supplyId = supply.Supply.name,
-                            supplyAmount = supply.supplyAmount,
+                            description = recipe.description,
+                            status = recipe.status,
+                            name = recipe.name,
+                            ProductId = product.productCode,
                         };
-                        databaseContext.RecipeSupplies.Add(recipeSupply);
+                        databaseContext.Recipes.Add(newRecipe);
+                        databaseContext.SaveChanges();
+
+                        // Registrar los suministros de la receta
+                        foreach (var supply in recipe.RecipeSupplies)
+                        {
+                            var recipeSupply = new RecipeSupply
+                            {
+                                recipeID = newRecipe.recipeCode,
+                                supplyId = supply.Supply.name,
+                                supplyAmount = supply.supplyAmount,
+                            };
+                            databaseContext.RecipeSupplies.Add(recipeSupply);
+                        }
+                        databaseContext.SaveChanges();
+
+                        // Commit de la transacción si todo se realizó correctamente
+                        transaction.Commit();
+                        successfulRegistration = true;
+
                     }
-                    databaseContext.SaveChanges();
-
-                    // Commit de la transacción si todo se realizó correctamente
-                    transaction.Commit();
-                    successfulRegistration = true;
-
-                }
-                catch (SqlException ex)
-                {
-                    // Rollback de la transacción en caso de error
-                    transaction.Rollback();
-                    // Manejar la excepción o relanzarla según sea necesario
-                    throw ex;
+                    catch (SqlException ex)
+                    {
+                        // Rollback de la transacción en caso de error
+                        transaction.Rollback();
+                        // Manejar la excepción o relanzarla según sea necesario
+                        throw ex;
+                    }
                 }
             }
+            return successfulRegistration;
         }
-        return successfulRegistration;
     }
-}
 }
