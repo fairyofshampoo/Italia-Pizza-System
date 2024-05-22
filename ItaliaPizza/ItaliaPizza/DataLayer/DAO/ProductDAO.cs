@@ -307,15 +307,16 @@ namespace ItaliaPizza.DataLayer.DAO
             return productFound;
         }
 
-        public List<Product> GetAllProducts()
+        public List<Product> GetAllAvailableProducts()
         {
             List<Product> products = new List<Product>();
             using (var databaseContext = new ItaliaPizzaDBEntities())
             {
                 var productsDB = databaseContext.Products
+                                                .Where(p => p.status == Constants.ACTIVE_STATUS)
                                                 .ToList();
 
-                if(productsDB != null)
+                if (productsDB != null)
                 {
                     foreach (var product in productsDB)
                     {
@@ -325,6 +326,7 @@ namespace ItaliaPizza.DataLayer.DAO
             }
             return products;
         }
+
 
         public List<Product> GetAllExternalProducts()
         {
