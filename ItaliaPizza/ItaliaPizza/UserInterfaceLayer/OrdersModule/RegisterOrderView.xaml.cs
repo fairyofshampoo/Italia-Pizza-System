@@ -29,6 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> productsInDB = new List<Product>();
         private decimal totalAmount;
         private Client clientData = new Client();
+        private InternalOrdersUC internalOrdersUC;
 
         public RegisterOrderView(bool isHomeOrder)
         {
@@ -135,7 +136,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> GetProducts()
         {
             ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.GetAllProducts();
+            List<Product> products = productDAO.GetAllAvailableProducts();
             return products;
         }
 
