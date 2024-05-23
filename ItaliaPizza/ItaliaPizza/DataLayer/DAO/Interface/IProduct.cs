@@ -18,7 +18,6 @@ namespace ItaliaPizza.DataLayer.DAO.Interface
         bool ChangeStatus(Product product, int newStatus);
         Product GetProductByCode(string code);
         List<Product> GetAllAvailableProducts();
-        List<Product> GetAllExternalProducts();
         bool UpdateProductAmount(string productCode, int newAmount);
     }
 }

@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -86,6 +88,12 @@
     <Reference Include="itext.svg, Version=8.0.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext.8.0.4\lib\net461\itext.svg.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-Q8-AnyCPU, Version=13.8.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q8-AnyCPU.13.8.0\lib\netstandard20\Magick.NET-Q8-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET.Core, Version=13.8.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET.Core.13.8.0\lib\netstandard20\Magick.NET.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -157,15 +165,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ApplicationLayer\BitMapConvertion.cs" />
-    <Compile Include="ApplicationLayer\Constants.cs" />
-    <Compile Include="ApplicationLayer\DialogManager.cs" />
-    <Compile Include="ApplicationLayer\Encription.cs" />
-    <Compile Include="ApplicationLayer\DiacriticsUtilities.cs" />
-    <Compile Include="ApplicationLayer\ProductDataUC.cs" />
-    <Compile Include="ApplicationLayer\SupplyAreaViewModel.cs" />
-    <Compile Include="ApplicationLayer\UserSingleton.cs" />
-    <Compile Include="ApplicationLayer\Validations.cs" />
+    <Compile Include="ApplicationLayer\Management\ImageCacheManager.cs" />
+    <Compile Include="ApplicationLayer\Utilities\BitMapConvertion.cs" />
+    <Compile Include="ApplicationLayer\Utilities\Constants.cs" />
+    <Compile Include="ApplicationLayer\Models\DialogManager.cs" />
+    <Compile Include="ApplicationLayer\Security\Encription.cs" />
+    <Compile Include="ApplicationLayer\Utilities\DiacriticsUtilities.cs" />
+    <Compile Include="ApplicationLayer\Models\ProductDTO.cs" />
+    <Compile Include="ApplicationLayer\Models\SupplyAreaViewModel.cs" />
+    <Compile Include="ApplicationLayer\Management\UserSingleton.cs" />
+    <Compile Include="ApplicationLayer\Utilities\ImageOptimizationManager.cs" />
+    <Compile Include="ApplicationLayer\Utilities\Validations.cs" />
     <Compile Include="DataLayer\Account.cs">
       <DependentUpon>ItaliaPizzaDataModel.tt</DependentUpon>
     </Compile>
@@ -815,5 +825,13 @@
       <LastGenOutput>ItaliaPizzaDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Magick.NET-Q8-AnyCPU.13.8.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q8-AnyCPU.13.8.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Magick.NET-Q8-AnyCPU.13.8.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q8-AnyCPU.13.8.0\build\netstandard20\Magick.NET-Q8-AnyCPU.targets'))" />
+  </Target>
 </Project>

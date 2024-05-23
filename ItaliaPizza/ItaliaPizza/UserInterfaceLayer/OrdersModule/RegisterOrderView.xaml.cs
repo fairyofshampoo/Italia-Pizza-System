@@ -1,7 +1,9 @@
 ﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.ApplicationLayer.Management;
 using ItaliaPizza.DataLayer;
 using ItaliaPizza.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using iText.Layout.Borders;
 using System;
 using System.Collections.Generic;

@@ -73,7 +73,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool ModifyProduct()
         {
             string name = txtName.Text;
-            Decimal price = Decimal.Parse(txtPrice.Text);
+            decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
             string code = txtCode.Text;

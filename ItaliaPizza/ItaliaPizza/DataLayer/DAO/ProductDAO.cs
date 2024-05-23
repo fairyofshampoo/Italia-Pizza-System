@@ -120,7 +120,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 var lastProductsRegistered = databaseContext.Products
                                             .OrderBy(product => product.name)
                                             .Take(10)
-                                            .Select(product => new ProductDataUC
+                                            .Select(product => new ProductDTO
                                             {
                                                 Name = product.name,
                                                 Status = product.status,
@@ -153,7 +153,7 @@ namespace ItaliaPizza.DataLayer.DAO
                 var products = databaseContext.Products
                                               .Where(p => p.name.StartsWith(name))
                                               .Take(5)
-                                              .Select(p => new ProductDataUC
+                                              .Select(p => new ProductDTO
                                               {
                                                   Name = p.name,
                                                   Status = p.status,
@@ -178,7 +178,7 @@ namespace ItaliaPizza.DataLayer.DAO
             {
                 var products = databaseContext.Products
                                               .Where(p => p.isExternal == type)
-                                              .Select(p => new ProductDataUC
+                                              .Select(p => new ProductDTO
                                               {
                                                   Name = p.name,
                                                   Status = p.status,
@@ -314,31 +314,29 @@ namespace ItaliaPizza.DataLayer.DAO
             {
                 var productsDB = databaseContext.Products
                                                 .Where(p => p.status == Constants.ACTIVE_STATUS)
+                                                .Select(p => new ProductDTO
+                                                {
+                                                    ProductCode = p.productCode,
+                                                    Name = p.name,
+                                                    Price = p.price,
+                                                    Description = p.description,
+                                                    IsExternal = p.isExternal,
+                                                    Status = p.status,
+                                                })
                                                 .ToList();
 
                 if (productsDB != null)
                 {
-                    foreach (var product in productsDB)
+                    products = productsDB.Select(dto => new Product
                     {
-                        products.Add(product);
-                    }
+                        name = dto.Name,
+                        status = (byte)dto.Status,
+                        productCode = dto.ProductCode,
+                        price = dto.Price
+                    }).ToList();
                 }
             }
             return products;
-        }
-
-
-        public List<Product> GetAllExternalProducts()
-        {
-            byte isExternal = 1;
-            List<Product> externalProducts = new List<Product>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
-            {
-                externalProducts = databaseContext.Products
-                                                   .Where(p => p.isExternal == isExternal)
-                                                   .ToList();
-            }
-            return externalProducts;
         }
 
         public bool UpdateProductAmount(string productCode, int newAmount)
@@ -366,6 +364,20 @@ namespace ItaliaPizza.DataLayer.DAO
                 }
             }
             return success;
+        }
+
+        public byte[] GetImageByProduct(string productCode)
+        {
+            byte[] image = null;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var product = databaseContext.Products.FirstOrDefault(p => p.productCode == productCode);
+                if (product != null)
+                {
+                    image = product.picture;
+                }
+            }
+            return image;
         }
     }
 }

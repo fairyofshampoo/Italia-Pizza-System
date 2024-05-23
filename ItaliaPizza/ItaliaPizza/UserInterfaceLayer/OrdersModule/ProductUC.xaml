@@ -21,7 +21,7 @@
                     Height="214"
                     Width="291">
                 <Grid>
-
+                    <Image x:Name="imgProduct" Source="../Resources/Icons/ProductImageIcon.png" Width="120" Height="120" Stretch="UniformToFill" Margin="20,20,20,70"/>
                     <Label
                             x:Name="lblProductName"
                             Grid.Row = "1"
@@ -54,21 +54,6 @@
                                     Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Top"
                                                   HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                    <Button x:Name="btnSeeRecipe" BorderThickness="0" Content="Ver receta" Foreground="White" FontSize="10" FontWeight="Bold" Cursor="Hand" Margin="150,153,0,-5" HorizontalAlignment="Left" Width="80" Click="btnSeeRecipe_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="#FF7B00"/>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Width="70" Height="30" CornerRadius="10" Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>

@@ -554,5 +554,21 @@ namespace ItaliaPizza.DataLayer.DAO
 
             return result;
         }
+
+        public byte GetProductIsExternal(string productId)
+        {
+            byte status = 0;
+            using (var databaseContext = new ItaliaPizzaDBEntities())
+            {
+                var product = databaseContext.Products
+                                          .Where(p => p.productCode == productId)
+                                          .FirstOrDefault();
+                if (product != null)
+                {
+                    status = product.isExternal;
+                }
+            }
+            return status;
+        }
     }
 }
