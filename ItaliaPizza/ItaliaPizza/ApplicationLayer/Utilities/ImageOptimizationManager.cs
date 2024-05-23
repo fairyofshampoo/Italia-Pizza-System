@@ -14,11 +14,6 @@ namespace ItaliaPizza.ApplicationLayer.Utilities
                 return image.ToByteArray();
             }
         }
-
-        public byte[] LoadImage(string path)
-        {
-            return File.ReadAllBytes(path);
-        }
     }
 
 }

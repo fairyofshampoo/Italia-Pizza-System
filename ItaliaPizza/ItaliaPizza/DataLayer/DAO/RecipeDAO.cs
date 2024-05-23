@@ -225,7 +225,7 @@ namespace ItaliaPizza.DataLayer.DAO
         }
 
 
-        public bool RegisterRecipeWithSupplies(Recipe recipe, Product product) //MÉTODO CON ROLLBACK
+        public bool RegisterRecipeWithSupplies(Recipe recipe, Product product)
         {
             bool successfulRegistration = false;
 
@@ -237,8 +237,6 @@ namespace ItaliaPizza.DataLayer.DAO
                     {
                         ProductDAO productDAO = new ProductDAO();
                         productDAO.AddProduct(product);
-
-                        // Registrar la receta
                         var newRecipe = new Recipe
                         {
                             description = recipe.description,
