@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza.ApplicationLayer
 {
-    public class ProductDataUC
+    public class ProductDTO
     {
         public string Name { get; set; }
         public int Status { get; set; }
         public string ProductCode { get; set; }
         public decimal Price { get; set; }
+        public byte IsExternal { get; set; }
+        public string Description { get; set; }
     }
 }
