@@ -15,6 +15,19 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return supplierDAO.AddSupplier(supplier);
         }
 
+        public bool UpdateSupplier(Supplier supplier, string supplierEmail)
+        {
+            SupplierDAO supplierDAO = new SupplierDAO();
+
+            return (supplierDAO.ModifySupplier(supplier, supplierEmail) > 0);
+        }
+
+        public bool UpdateSupplierStatus(string email, int status)
+        {
+            SupplierDAO supplierDAO = new SupplierDAO();
+            return supplierDAO.ChangeSupplierStatus(email, status);
+        }
+
         public bool ValidateSupplyAreas(ICollection<SupplyArea> supplyAreas)
         {
             bool isValid = true;
