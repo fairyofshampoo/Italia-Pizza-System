@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
 using System.Collections.Generic;

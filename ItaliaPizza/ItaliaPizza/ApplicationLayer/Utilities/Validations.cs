@@ -1,4 +1,4 @@
-﻿using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace ItaliaPizza.ApplicationLayer
 {
-    internal class Validations
+    public class Validations
     {
         private static int NAME_ERROR = 1;
         private static int PHONE_ERROR = 2;

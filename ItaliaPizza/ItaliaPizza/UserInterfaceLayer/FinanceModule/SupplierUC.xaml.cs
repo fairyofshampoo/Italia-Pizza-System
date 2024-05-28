@@ -1,5 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +11,6 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ItaliaPizza.UserInterfaceLayer.UsersModule;
 using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule

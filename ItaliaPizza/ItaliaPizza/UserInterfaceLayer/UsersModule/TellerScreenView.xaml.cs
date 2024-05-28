@@ -1,8 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer.DAO.Interface;
-using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

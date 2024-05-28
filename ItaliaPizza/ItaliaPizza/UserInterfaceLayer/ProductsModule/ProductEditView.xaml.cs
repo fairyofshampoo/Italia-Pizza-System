@@ -1,7 +1,6 @@
-﻿
-using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

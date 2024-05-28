@@ -13,8 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
