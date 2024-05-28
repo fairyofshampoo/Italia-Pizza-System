@@ -49,7 +49,7 @@ namespace ItaliaPizzaTest.FinanceModule
             {
                 companyName = "Frutería El Paraíso",
                 manager = "Ana Ramirez",
-                email = "ana.ramirez@fruteriaparaiso.com",
+                email = "anita@fruteriaparaiso.com",
                 phone = "5512345678",
                 status = Constants.ACTIVE_STATUS,
                 SupplyAreas = new List<SupplyArea> { new SupplyArea { area_name = "Verduras" } }
@@ -76,7 +76,7 @@ namespace ItaliaPizzaTest.FinanceModule
             {
                 companyName = "Lacteos S.A.",
                 manager = "Juan Perez",
-                email = "juan.perez@lacteossa.com",
+                email = "juanperez@lacteossa.com",
                 phone = "5559876543",
                 status = Constants.ACTIVE_STATUS,
                 SupplyAreas = new List<SupplyArea> { new SupplyArea { area_name = "Lácteos" } }
@@ -101,7 +101,7 @@ namespace ItaliaPizzaTest.FinanceModule
             {
                 companyName = "Especias del Mundo",
                 manager = "Ana Ramirez",
-                email = "ana.ramirez@especiasdelmundo.com",
+                email = "ana@especiasdelmundo.com",
                 phone = "5558765432",
                 status = Constants.INACTIVE_STATUS,
                 SupplyAreas = new List<SupplyArea> { new SupplyArea { area_name = "Especias" } }
