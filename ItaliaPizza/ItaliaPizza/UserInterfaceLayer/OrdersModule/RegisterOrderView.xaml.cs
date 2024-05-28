@@ -1,7 +1,9 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.ApplicationLayer.Management;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using iText.Layout.Borders;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> productsInDB = new List<Product>();
         private decimal totalAmount;
         private Client clientData = new Client();
+        private InternalOrdersUC internalOrdersUC;
 
         public RegisterOrderView(bool isHomeOrder)
         {
@@ -135,7 +138,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> GetProducts()
         {
             ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.GetAllProducts();
+            List<Product> products = productDAO.GetAllAvailableProducts();
             return products;
         }
 

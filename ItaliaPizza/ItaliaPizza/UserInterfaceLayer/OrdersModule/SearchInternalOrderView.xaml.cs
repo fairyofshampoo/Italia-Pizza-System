@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
 using System.Collections.Generic;
@@ -79,7 +79,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<InternalOrder> GetOrdersForPreparation()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(1);
+            List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(Constants.ORDER_STATUS_PENDING_PREPARATION);
             return internalOrders;
         }
 
@@ -148,11 +148,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             if (isWaiter)
             {
-                SearchInternalOrderByStatusAndWaiter(2);
+                SearchInternalOrderByStatusAndWaiter(Constants.ORDER_STATUS_PREPARING);
             } 
             else
             {
-                SearchInternalOrderByStatus(2);
+                SearchInternalOrderByStatus(Constants.ORDER_STATUS_PREPARING);
             }
             
         }

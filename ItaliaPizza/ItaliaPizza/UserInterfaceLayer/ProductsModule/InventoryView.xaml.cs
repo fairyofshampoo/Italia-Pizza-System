@@ -1,5 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

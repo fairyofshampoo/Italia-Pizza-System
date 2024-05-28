@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.ApplicationLayer.Utilities;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using Microsoft.Win32;
 using System;
@@ -18,8 +19,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -135,6 +134,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
+            ImageOptimizationManager optimizationManager = new ImageOptimizationManager();
+            byte[] optimizedPicture = optimizationManager.OptimizeImage(picture, 50, 800);
 
             string isExternalItem = cmbIsExternal.SelectedItem.ToString();
             string statusItem = cmbStatus.SelectedItem.ToString();
@@ -169,7 +170,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = isExternal,
                 name = name,
                 price = price,
-                picture = picture
+                picture = optimizedPicture
             };
 
             return product;

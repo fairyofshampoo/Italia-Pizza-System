@@ -1,7 +1,6 @@
-﻿
-using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -21,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
+using ItaliaPizza.ApplicationLayer.Utilities;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -73,9 +73,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool ModifyProduct()
         {
             string name = txtName.Text;
-            Decimal price = Decimal.Parse(txtPrice.Text);
+            decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
+            ImageOptimizationManager optimizationManager = new ImageOptimizationManager();
+            byte[] optimizedPicture = optimizationManager.OptimizeImage(picture, 50, 800);
             string code = txtCode.Text;
             
             ProductDAO productDAO = new ProductDAO();
@@ -84,7 +86,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 description = description,
                 name = name,
                 price = price,
-                picture = picture,
+                picture = optimizedPicture,
             };
 
             return productDAO.ModifyProduct(product, code);

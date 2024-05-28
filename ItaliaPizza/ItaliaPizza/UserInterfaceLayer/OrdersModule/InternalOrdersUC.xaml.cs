@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +10,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class InternalOrdersUC : UserControl
     {
         public Page PageView { get; set; }
-        private InternalOrder orderData;
+        public InternalOrder orderData;
         private bool isWaiter;
 
         public InternalOrdersUC()
@@ -40,7 +40,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void DisplayOrderInformation(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Text = "$ " + order.total.ToString("0.00");
             lblDate.Text = "Creado: " + order.date.ToString("dd/MM/yyyy HH:mm");
             lblStatus.Content = GetOrderStatusDescription(order.status);
         }
@@ -53,6 +52,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private string GetOrderStatusDescription(int status)
         {
+            Console.WriteLine("ESTADO" + status);
             switch (status)
             {
                 case Constants.ORDER_STATUS_PENDING_PREPARATION:
@@ -63,6 +63,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                     return "Enviado";
                 case Constants.ORDER_STATUS_DELIVERED:
                     return "Recibido";
+                case Constants.ORDER_STATUS_PREPARING:
+                    return "Preparando";
                 default:
                     return "Estado desconocido";
             }
@@ -124,7 +126,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnViewDetails_Click(object sender, RoutedEventArgs e)
         {
-            ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId);
+            ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId, orderData.status);
             PageView.NavigationService.Navigate(showProductsByOrderView);
         }
 

@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +25,15 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int rowAdded = 0;
         private int columnsAdded = 0;
         private string internalOrderCode;
+        private int StatusOrder;
 
-        public ShowProductsByOrderView(string orderCode)
+        public ShowProductsByOrderView(string orderCode, int statusOrder)
         {
             InitializeComponent();
             this.internalOrderCode = orderCode;
             List<InternalOrderProduct> productsByOrder = GetProductsByOrder();
             ShowProducts(productsByOrder);
+            StatusOrder = statusOrder;
             SetElements();
         }
 
@@ -39,8 +41,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             if (UserSingleton.Instance.Role == Constants.CHEF_ROLE)
             {
-                btnChangeStatusToFinished.Visibility = Visibility.Visible;
-                btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                if(StatusOrder == Constants.ORDER_STATUS_PENDING_PREPARATION)
+                {
+                    btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                }
+                else if (StatusOrder == Constants.ORDER_STATUS_PREPARING)
+                {
+                    btnChangeStatusToFinished.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -112,6 +120,15 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             OrderDAO internalOrderDAO = new OrderDAO();
             if (internalOrderDAO.ChangeOrderStatus(status, internalOrderCode))
             {
+                if (StatusOrder == Constants.ORDER_STATUS_PENDING_PREPARATION)
+                {
+                    btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                }
+                else if (StatusOrder == Constants.ORDER_STATUS_PREPARING)
+                {
+                    btnChangeStatusToFinished.Visibility = Visibility.Visible;
+                }
+
                 DialogManager.ShowSuccessMessageBox("Se ha cambiado el estado de la orden correctamente");
             }
             else
