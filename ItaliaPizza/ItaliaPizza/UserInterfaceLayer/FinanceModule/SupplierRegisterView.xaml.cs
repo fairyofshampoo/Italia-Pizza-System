@@ -48,12 +48,18 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             };
 
-            if (ValidateSupplier(supplier) && !SupplierController.IsEmailDuplicated(txtEmail.Text))
+            if (ValidateSupplier(supplier))
             {
-                if (SupplierController.RegisterSupplier(supplier))
+                if (SupplierController.IsEmailDuplicated(txtEmail.Text))
                 {
-                    DialogManager.ShowSuccessMessageBox("Proveedor registrado exitosamente");
-                    GoBack();
+                    DialogManager.ShowWarningMessageBox("El email ingresado ya existe en el sistema, verifique que no esté duplicando al proveedor.");
+                } else
+                {
+                    if (SupplierController.RegisterSupplier(supplier))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Proveedor registrado exitosamente");
+                        GoBack();
+                    }
                 }
             }
         }

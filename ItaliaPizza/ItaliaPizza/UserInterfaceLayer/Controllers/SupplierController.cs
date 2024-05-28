@@ -72,12 +72,8 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         public bool IsEmailDuplicated(string email)
         {
             SupplierDAO supplierDAO = new SupplierDAO();
-            bool isDuplicated = supplierDAO.IsEmailSupplierExisting(email);
-            if (isDuplicated)
-            {
-                DialogManager.ShowWarningMessageBox("El email ingresado ya existe en el sistema, verifique que no esté duplicando al proveedor.");
-            }
-            return isDuplicated;
+            
+            return supplierDAO.IsEmailSupplierExisting(email);
         }
 
         public bool IsNewSupplierValid(Supplier supplier)
