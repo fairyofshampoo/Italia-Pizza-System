@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -19,6 +20,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     {
         private string supplierEmail;
         public ObservableCollection<SupplyAreaViewModel> SupplyAreas { get; set; }
+
+        public SupplierController SupplierController = new SupplierController();
         public EditSupplierView()
         {
             InitializeComponent();
@@ -82,28 +85,22 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (IsSupplierValid() && !IsEmailDuplicated())
-            {
-                if (ModifySupplier())
-                {
-                    DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
-                    GoBack();
-                }
-            }
-        }
-
-        private bool ModifySupplier()
-        {
-            SupplierDAO supplierDAO = new SupplierDAO();
             Supplier supplier = new Supplier
             {
-                email = txtEmail.Text,
                 phone = txtPhone.Text,
                 companyName = txtCompanyName.Text,
                 manager = txtManagerName.Text,
                 SupplyAreas = GetSupplyAreas()
             };
-            return (supplierDAO.ModifySupplier(supplier, supplierEmail) > 0);
+
+            if (ValidateSupplier(supplier))
+            {
+                if (SupplierController.UpdateSupplier(supplier, supplierEmail))
+                {
+                    DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
+                    GoBack();
+                }
+            }
         }
 
         private ICollection<SupplyArea> GetSupplyAreas()
@@ -113,96 +110,33 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             return selectedAreas.ToList();
         }
 
-        private bool IsSupplierValid()
+        private bool ValidateSupplier(Supplier supplier)
         {
-            bool managerDataValid = ValidateManagerName();
-            bool emailDataValid = ValidateEmail();
-            bool phoneDataValid = ValidatePhone();
-            bool companyDataValid = ValidateCompanyName();
-            bool supplyAreasValid = ValidateSupplyAreas();
-
-            return managerDataValid && emailDataValid && phoneDataValid && companyDataValid && supplyAreasValid;
-        }
-
-        private bool ValidateSupplyAreas()
-        {
-            lblSupplyAreasHint.Foreground = Brushes.LightGray;
-            bool isValid = true;
-            if (GetSupplyAreas().Count == 0)
+            var validations = new List<(bool IsValid, Label HintLabel)>
             {
-                lblSupplyAreasHint.Foreground = Brushes.Red;
-                isValid = false;
-            }
-            return isValid;
-        }
+                (SupplierController.ValidateManagerName(supplier.manager), lblManagerHint),
+                (SupplierController.ValidateEmail(supplier.email), lblEmailHint),
+                (SupplierController.ValidatePhone(supplier.phone), lblPhoneHint),
+                (SupplierController.ValidateCompanyName(supplier.companyName), lblCompanyHint),
+                (SupplierController.ValidateSupplyAreas(supplier.SupplyAreas), lblSupplyAreasHint)
+            };
 
-        private bool ValidateCompanyName()
-        {
-            bool isValid = true;
-            string companyName = txtCompanyName.Text;
-
-            if (!Validations.IsCompanyNameValid(companyName))
-            {
-                lblCompanyHint.Foreground = Brushes.Red;
-                isValid = false;
-            }
-            return isValid;
-        }
-
-        public bool ValidatePhone()
-        {
-            bool isValid = true;
-            string phone = txtPhone.Text;
-            if (!Validations.IsPhoneValid(phone))
-            {
-                lblPhoneHint.Foreground = Brushes.Red;
-                isValid = false;
-            }
-            return isValid;
-        }
-
-        public bool ValidateEmail()
-        {
-            bool isValid = true;
-            string email = txtEmail.Text;
-
-            if (!Validations.IsEmailValid(email))
-            {
-                lblEmailHint.Foreground = Brushes.Red;
-                isValid = false;
-            }
-            return isValid;
-        }
-
-        private bool ValidateManagerName()
-        {
-            string manager = txtManagerName.Text;
             bool isValid = true;
 
-            if (!Validations.IsNameValid(manager))
+            foreach (var (isValidField, hintLabel) in validations)
             {
-                lblManagerHint.Foreground = Brushes.Red;
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        private bool IsEmailDuplicated()
-        {
-            bool isDuplicated = false;
-            string email = txtEmail.Text;
-            if(email != supplierEmail)
-            {
-                SupplierDAO supplierDAO = new SupplierDAO();
-                isDuplicated = supplierDAO.IsEmailSupplierExisting(txtEmail.Text);
-                if (isDuplicated)
+                if (!isValidField)
                 {
-                    DialogManager.ShowWarningMessageBox("El email ingresado ya existe en el sistema, verifique que no esté duplicando al proveedor.");
+                    hintLabel.Foreground = Brushes.Red;
+                    isValid = false;
+                }
+                else
+                {
+                    hintLabel.Foreground = Brushes.LightGray;
                 }
             }
-            
-            return isDuplicated;
+
+            return isValid;
         }
 
         private void TxtPhone_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
@@ -248,9 +182,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             if (dialogWindow.ShowDialog() == true)
             {
-                SupplierDAO supplierDAO = new SupplierDAO();
-
-                if (supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.ACTIVE_STATUS))
+                if (SupplierController.UpdateSupplierStatus(supplierEmail, Constants.ACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
                     GoBack();
@@ -269,9 +201,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
             if(dialogWindow.ShowDialog() == true)
             {
-                SupplierDAO supplierDAO = new SupplierDAO();
 
-                if(supplierDAO.ChangeSupplierStatus(supplierEmail, Constants.INACTIVE_STATUS))
+                if(SupplierController.UpdateSupplierStatus(supplierEmail, Constants.INACTIVE_STATUS))
                 {
                     DialogManager.ShowSuccessMessageBox("Proveedor actualizado exitosamente");
                     GoBack();
