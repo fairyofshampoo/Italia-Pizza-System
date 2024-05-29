@@ -168,7 +168,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             if (searchText.Length > 3)
             {
 
-                ShowSuppliers(_supplierController.);
+                ShowSuppliers(_supplierController.SearchSupplierByName(searchText));
 
             } else
             {

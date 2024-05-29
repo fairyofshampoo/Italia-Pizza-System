@@ -33,7 +33,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             List<Supplier> suppliers = supplierDAO.SearchSupplierByArea(area.area_name);
             return suppliers;
         }
-        private List<Supplier> SearchSupplierByName(string searchText)
+        public List<Supplier> SearchSupplierByName(string searchText)
         {
             SupplierDAO supplierDAO = new SupplierDAO();
             List<Supplier> suppliers = supplierDAO.SearchSupplierByName(searchText);

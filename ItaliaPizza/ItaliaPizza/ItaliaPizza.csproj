@@ -177,6 +177,7 @@
     <Compile Include="ApplicationLayer\Utilities\ImageOptimizationManager.cs" />
     <Compile Include="ApplicationLayer\Utilities\Validations.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplierController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\SupplierOrderController.cs" />
     <Compile Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml.cs">
       <DependentUpon>BalanceLogView.xaml</DependentUpon>
     </Compile>
