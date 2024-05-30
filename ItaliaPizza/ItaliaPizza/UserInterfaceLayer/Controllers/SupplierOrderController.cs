@@ -12,10 +12,30 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
 {
     public class SupplierOrderController
     {
-        private SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-        public int CreateSupplierOrder(SupplierOrder supplierOrder)
+        private readonly SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+        public int CreateSupplierOrder(string supplierEmail)
         {
-            return supplyOrderDAO.AddSupplierOrder(supplierOrder);
+            return supplyOrderDAO.AddSupplierOrder(SetNewSupplierOrder(supplierEmail));
+        }
+
+        private SupplierOrder SetNewSupplierOrder(string supplierEmail)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            SupplierOrder newSupplierOrder = new SupplierOrder()
+            {
+                status = Constants.INACTIVE_STATUS,
+                date = currentDateTime,
+                total = 0,
+                modificationDate = currentDateTime,
+                supplierId = supplierEmail,
+            };
+
+            return newSupplierOrder;
+        }
+
+        public bool ValidateTotalPayment(string totalPayment)
+        {
+            return Validations.IsTotalPaymentValid(totalPayment);
         }
 
         public List<Supply> GetSuppliesInOrder(int orderId)

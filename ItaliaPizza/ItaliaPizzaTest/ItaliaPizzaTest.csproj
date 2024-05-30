@@ -57,7 +57,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FinanceModule\EditSupplierOrderTests.cs" />
     <Compile Include="FinanceModule\EditSupplierTests.cs" />
+    <Compile Include="FinanceModule\RegisterSupplierOrderTest.cs" />
+    <Compile Include="FinanceModule\SearchSupplierOrderTest.cs" />
     <Compile Include="FinanceModule\SearchSupplierTests.cs" />
     <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />

@@ -272,8 +272,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool IsTotalPaymentValid()
         {
             bool result = true;
-            string totalPayment = txtTotalPayment.Text;
-            if (!Validations.IsTotalPaymentValid(totalPayment))
+            if (!_supplierOrderController.ValidateTotalPayment(txtTotalPayment.Text))
             {
                 lblTotalPayment.Foreground = Brushes.Red;
                 result = false;
@@ -377,7 +376,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GenerateSupplierOrder()
         {
-            int result = _supplierOrderController.CreateSupplierOrder(SetNewSupplierOrder());
+            int result = _supplierOrderController.CreateSupplierOrder(supplierData.email);
             if(result != Constants.UNSUCCESSFUL_RESULT || result != Constants.EXCEPTION_RESULT)
             {
                 this.OrderId = result;
@@ -385,21 +384,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 DialogManager.ShowDataBaseErrorMessageBox();
             }
-        }
-
-        private SupplierOrder SetNewSupplierOrder()
-        {
-            DateTime currentDateTime = DateTime.Now;
-            SupplierOrder newSupplierOrder = new SupplierOrder()
-            {
-                status = Constants.INACTIVE_STATUS,
-                date = currentDateTime,
-                total = 0,
-                modificationDate = currentDateTime,
-                supplierId = supplierData.email,
-            };
-
-            return newSupplierOrder;
         }
 
         private void TxtTotalPaymentChanged(object sender, TextChangedEventArgs e)
