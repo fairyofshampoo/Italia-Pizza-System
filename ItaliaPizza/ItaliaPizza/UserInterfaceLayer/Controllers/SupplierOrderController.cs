@@ -87,5 +87,17 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         {
             return supplyOrderDAO.DeleteSupplierOrder(orderId);
         }
+
+        public List<SupplierOrder> GetOrdersBySupplier(string supplierEmail)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.GetOrdersBySupplierId(supplierEmail);
+        }
+
+        public List<SupplierOrder> GetActiveOrdersBySupplier(string supplierEmail)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.GetOrdersBySupplierIdAndStatus(supplierEmail, Constants.ACTIVE_STATUS);
+        }
     }
 }

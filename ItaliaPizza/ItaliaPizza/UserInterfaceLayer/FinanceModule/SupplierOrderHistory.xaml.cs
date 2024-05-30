@@ -9,13 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -27,6 +22,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private int rowAdded = 0;
         private int columnsAdded = 0;
         private readonly Supplier supplierData;
+        private readonly SupplierOrderController supplierOrderController = new SupplierOrderController();
         public SupplierOrderHistory(Supplier supplierData)
         {
             InitializeComponent();
@@ -36,7 +32,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void ShowAllOrders()
         {
-            List<SupplierOrder> orders = GetOrdersBySupplier();
+            List<SupplierOrder> orders = supplierOrderController.GetOrdersBySupplier(supplierData.email);
             rowAdded = 0;
             columnsAdded = 0;
             ordersGrid.Children.Clear();
@@ -79,12 +75,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             columnsAdded++;
         }
 
-        private List<SupplierOrder> GetOrdersBySupplier()
-        {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            return supplyOrderDAO.GetOrdersBySupplierId(supplierData.email);
-        }
-
         private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
         {
             radioButtonCanceled.IsChecked = false;
@@ -104,8 +94,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void ShowOpenOrders()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            List<SupplierOrder> orders = supplyOrderDAO.GetOrdersBySupplierIdAndStatus(supplierData.email, Constants.ACTIVE_STATUS);
+            List<SupplierOrder> orders = supplierOrderController.GetActiveOrdersBySupplier(supplierData.email);
             rowAdded = 0;
             columnsAdded = 0;
             ordersGrid.Children.Clear();
