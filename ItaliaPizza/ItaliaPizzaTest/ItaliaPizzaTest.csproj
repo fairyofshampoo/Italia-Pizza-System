@@ -65,6 +65,7 @@
     <Compile Include="FinanceModule\RegisterSupplierTests.cs" />
     <Compile Include="UsersModule\LoginTests.cs" />
     <Compile Include="UsersModule\RegisterEmployeeTest.cs" />
+    <Compile Include="UsersModule\EditEmployeeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

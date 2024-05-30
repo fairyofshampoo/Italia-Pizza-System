@@ -121,7 +121,18 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             bool usernameDataValid = ValidateUsername(account.user);
             bool passwordDataValid = ValidatePassword(account.password);
 
-            return fullNameDataValid && phoneDataValid && emailDataValid && employeeTypeDataValid && usernameDataValid && passwordDataValid;
+            return fullNameDataValid && phoneDataValid && emailDataValid &&
+                   employeeTypeDataValid && usernameDataValid && passwordDataValid;
+        }
+
+        public bool IsUpdateEmployeeValid(Employee employee, Account account)
+        {
+            bool fullNameDataValid = ValidateName(employee.name);
+            bool phoneDataValid = ValidatePhone(employee.phone);
+            bool employeeTypeValid = ValidateEmployeeType(employee.role);
+            bool passwordDataValid = ValidatePassword(account.password);
+
+            return fullNameDataValid && phoneDataValid && employeeTypeValid && passwordDataValid;
         }
     }
 }
