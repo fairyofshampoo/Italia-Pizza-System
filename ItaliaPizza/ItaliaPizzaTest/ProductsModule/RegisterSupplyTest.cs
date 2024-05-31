@@ -60,7 +60,7 @@ namespace ItaliaPizzaTest.ProductsModule
                 }
             }
 
-            Assert.IsTrue(result, "El registro del insumo no debería ser exitoso con datos inválidos.");
+            Assert.IsFalse(result, "El registro del insumo no debería ser exitoso con datos inválidos.");
         }
 
         [TestMethod]

@@ -24,10 +24,10 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return supplyDAO.ModifySupply(supply, name);
         }
 
-        public bool ChangeSupplyStatus(Supply supply, string status)
+        public bool ChangeSupplyStatus(Supply supply, int status)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            return supplyDAO.ModifySupply(supply, status);
+            return supplyDAO.ChangeSupplyStatus(supply, status);
         }
 
         public bool IsSupplyNameDuplicated(string name)
@@ -52,7 +52,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         {
             bool isValid = true;
 
-            if (amount < 0)
+            if (amount <= 0)
             {
                 isValid = false;
             }
@@ -64,7 +64,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         {
             bool isValid = true;
 
-            if (measurementUnit == null)
+            if (measurementUnit == "")
             {
                 isValid = false;
             }

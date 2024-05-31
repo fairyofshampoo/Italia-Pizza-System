@@ -46,5 +46,8 @@ namespace ItaliaPizza.ApplicationLayer
 
         public const int VEGETABLES_SUPPLY_AREA_ID = 1;
 
+        public const int DAIRY_PRODUCT_SUPPLY_AREA_ID = 4;
+
+        public const int EXTERNAL_PRODUCT_SUPPLY_AREA_ID = 5;
     }
 }
