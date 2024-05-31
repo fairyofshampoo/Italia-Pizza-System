@@ -106,5 +106,13 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return nameDataValid && codeDataValid && descriptionDataValid && 
                    amountDataValid && priceDataValid;
         }
+
+        public bool IsModificatedExternalProductValid(Product product)
+        {
+            bool descriptionDataValid = ValidateDescription(product.description);
+            bool priceDataValid = ValidatePriceProduct((int)product.price);
+
+            return descriptionDataValid && priceDataValid;
+        }
     }
 }
