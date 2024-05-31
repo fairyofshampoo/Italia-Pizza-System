@@ -61,6 +61,7 @@
     <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="ProductsModule\RegisterProductTest.cs" />
+    <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FinanceModule\RegisterSupplierTests.cs" />
     <Compile Include="UsersModule\LoginTests.cs" />

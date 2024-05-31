@@ -1,4 +1,5 @@
-﻿using ItaliaPizza.UserInterfaceLayer.Controllers;
+﻿using ItaliaPizza.ApplicationLayer;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 using ItaliaPizzaData.DataLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -26,7 +27,7 @@ namespace ItaliaPizzaTest.UsersModule
             var account = new Account()
             {
                 user = "martores",
-                password = "8martEs*"
+                password = Encription.ToSHA2Hash("8martEs*")
             };
 
             bool result = false;
@@ -58,7 +59,7 @@ namespace ItaliaPizzaTest.UsersModule
             var invalidAccount = new Account()
             {
                 user = "invalid user", //Invalid user format
-                password = "12345" //Invalid password format
+                password = Encription.ToSHA2Hash("12345") //Invalid password format
             };
             bool result = false;
 
@@ -89,7 +90,7 @@ namespace ItaliaPizzaTest.UsersModule
             var account = new Account()
             {
                 user = "camiloesan",
-                password = "*1Camilo"
+                password = Encription.ToSHA2Hash("*1Camilo")
             };
 
             bool result = false;

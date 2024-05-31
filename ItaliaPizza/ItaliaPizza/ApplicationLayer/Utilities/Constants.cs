@@ -44,5 +44,7 @@ namespace ItaliaPizza.ApplicationLayer
 
         public const int ORDER_STATUS_DELIVERED = 5;
 
+        public const int VEGETABLES_SUPPLY_AREA_ID = 1;
+
     }
 }

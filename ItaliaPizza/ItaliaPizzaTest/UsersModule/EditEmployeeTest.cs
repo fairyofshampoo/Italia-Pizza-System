@@ -25,7 +25,7 @@ namespace ItaliaPizzaTest.UsersModule
             var account = new Account()
             {
                 user = "camoquito",
-                password = "8Elcamo*"
+                password = Encription.ToSHA2Hash("8Elcamo*")
             };
 
             // Register employee first
@@ -33,7 +33,7 @@ namespace ItaliaPizzaTest.UsersModule
             Assert.IsTrue(initialResult, "El registro iniical del empleado debería ser exitoso");
 
             // Simulate edit
-            account.password = "5elCamo*"; // Changed password
+            account.password = Encription.ToSHA2Hash("5elCamo*"); // Changed password
             
             bool editResult = false;
             
@@ -62,7 +62,7 @@ namespace ItaliaPizzaTest.UsersModule
             var account = new Account()
             {
                 user = "fred",
-                password = "1Americ%"
+                password = Encription.ToSHA2Hash("1Americ%")
             };
 
             // Register employee first
@@ -70,7 +70,7 @@ namespace ItaliaPizzaTest.UsersModule
             Assert.IsTrue(initialResult, "El registro iniical del empleado debería ser exitoso");
 
             // Simulate edit with invalid password
-            account.password = "Incorrect password";
+            account.password = Encription.ToSHA2Hash("Incorrect password");
 
             bool editResult = false;
 
@@ -99,7 +99,7 @@ namespace ItaliaPizzaTest.UsersModule
             var account = new Account()
             {
                 user = "alonso",
-                password = "*Alons0v"
+                password = Encription.ToSHA2Hash("*Alons0v")
             };
 
             // Register employee first
@@ -116,16 +116,16 @@ namespace ItaliaPizzaTest.UsersModule
         {
             var employee = new Employee
             {
-                name = "Alonso Vázquez del Moral",
+                name = "Alonso Vázquez Toral",
                 phone = "2283721786",
-                email = "alonsoV@gmail.com",
+                email = "alonsoTor@gmail.com",
                 role = "Cocinero"
             };
 
             var account = new Account()
             {
-                user = "alonso",
-                password = "*Alons0v",
+                user = "alonsoTor",
+                password = Encription.ToSHA2Hash("*Alons0v"),
             };            
 
             // Register employee first
