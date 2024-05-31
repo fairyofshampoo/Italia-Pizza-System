@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.RightsManagement;
 
 namespace ItaliaPizza.UserInterfaceLayer.Controllers
 {
@@ -20,19 +21,13 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         {
             RecipeDAO recipeDAO = new RecipeDAO();
             return recipeDAO.EditRecipe(recipe);
-        }
-
-        public bool ModifyRecipeSupplies(int recipeID, List<RecipeSupply> recipeSupplyList)
-        {
-            RecipeDAO recipeDAO = new RecipeDAO();
-            return recipeDAO.RegisterRecipeSupplies(recipeID, recipeSupplyList);
-        }
+        }                     
 
         public bool IsRecipeDuplicated(string recipeName)
         {
             RecipeDAO recipeDAO = new RecipeDAO();
             return recipeDAO.AlreadyExistRecipe(recipeName);
-        }
+        }        
 
         public bool ValidateSuppliesActives(List<RecipeSupply> recipeSupplyList)
         {
@@ -46,6 +41,18 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
                 }
             }
             return isActive;
+        }
+
+        public bool ChangeStatus(Recipe recipe, int status)
+        {
+            RecipeDAO recipeDAO = new RecipeDAO();
+            return recipeDAO.ChangeStatus(recipe, status);
+        }
+
+        public int GetRecipeIDByName(string recipeName)
+        {
+            RecipeDAO recipeDAO = new RecipeDAO();
+            return recipeDAO.GetIdRecipe(recipeName);
         }
     }
 }
