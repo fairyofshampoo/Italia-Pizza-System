@@ -96,11 +96,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private Supply GetSupplyData(Product productData)
         {
-            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
-
             string name = productData.name;
             decimal amount = (decimal)productData.amount;
-            int category = supplierAreaDAO.GetSupplyAreaIdByName("Producto Externo");
+            int category = Constants.EXTERNAL_PRODUCT_SUPPLY_AREA_ID;
             string measurementUnit = "Unidad";
             string productCode = productData.productCode;
             bool status;
@@ -329,7 +327,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 validateFields = false;
             }
 
-            if (txtAmount.Text.Equals(string.Empty) || (!Int32.TryParse(txtAmount.Text, out amountValue)) || amountValue < 0)
+            if (txtAmount.Text.Equals(string.Empty) || (!Int32.TryParse(txtAmount.Text, out amountValue)) || amountValue <= 0)
             {
                 txtAmount.BorderBrush = Brushes.Red;
                 txtAmount.BorderThickness = new Thickness(2);
