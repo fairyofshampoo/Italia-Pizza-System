@@ -178,6 +178,7 @@
     <Compile Include="ApplicationLayer\Utilities\Validations.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\EmployeeController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\ProductController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\RecipeController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplierController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplyController.cs" />
     <Compile Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml.cs">

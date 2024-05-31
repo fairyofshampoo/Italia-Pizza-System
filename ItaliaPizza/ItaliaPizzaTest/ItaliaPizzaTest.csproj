@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FinanceModule\EditSupplierTests.cs" />
-    <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
+    <Compile Include="KitchenModule\RegisterRecipeTest.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
