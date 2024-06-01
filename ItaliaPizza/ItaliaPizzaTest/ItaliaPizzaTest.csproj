@@ -59,12 +59,13 @@
   <ItemGroup>
     <Compile Include="FinanceModule\EditSupplierTests.cs" />
     <Compile Include="KitchenModule\RegisterRecipeTest.cs" />
+    <Compile Include="KitchenModule\SearchRecipeTest.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
     <Compile Include="ProductsModule\RegisterProductTest.cs" />
     <Compile Include="ProductsModule\EditProductTest.cs" />
-    <Compile Include="ProductsModule\EditRecipeTest.cs" />
+    <Compile Include="KitchenModule\EditRecipeTest.cs" />
     <Compile Include="ProductsModule\SearchProductTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FinanceModule\RegisterSupplierTests.cs" />

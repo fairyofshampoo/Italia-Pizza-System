@@ -21,7 +21,13 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
         {
             RecipeDAO recipeDAO = new RecipeDAO();
             return recipeDAO.EditRecipe(recipe);
-        }                     
+        }
+        
+        public List<Recipe> GetRecipes()
+        {
+            RecipeDAO recipeDAO = new RecipeDAO();
+            return recipeDAO.GetRecipes();
+        }
 
         public bool IsRecipeDuplicated(string recipeName)
         {

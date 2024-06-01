@@ -140,11 +140,9 @@ namespace ItaliaPizzaTest.ProductsModule
 
             _productController.AddProductExternal(product, supply);
 
-            List<Product> products = _productController.SearchProductByType(3);
+            List<Product> products = _productController.SearchProductByType(Constants.INTERNAL_PRODUCT);
             Assert.AreEqual(0, products.Count, "La lista de productos debería estar vacía cuando no hay coincidencias en la búsqueda por tipo.");
         }
     }
-
-
 }
 
