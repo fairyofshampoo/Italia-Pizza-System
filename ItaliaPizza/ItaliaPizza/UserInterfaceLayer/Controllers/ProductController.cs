@@ -47,6 +47,18 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return isValid;
         }
 
+        public List<Product> SearchProductByName(string name) 
+        {
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.SearchProductByName(name);
+        }
+
+        public List<Product> SearchProductByType(int type)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.SearchProductByType(type);
+        }
+
         public bool ValidateProductCode(string productCode)
         {
             bool isValid = true;
