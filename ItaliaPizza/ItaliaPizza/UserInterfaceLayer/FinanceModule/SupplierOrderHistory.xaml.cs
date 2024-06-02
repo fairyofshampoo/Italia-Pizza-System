@@ -1,7 +1,5 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizzaData.DataLayer;
-using ItaliaPizzaData.DataLayer.DAO;
-using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,8 +134,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void ShowReceivedOrders()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            List<SupplierOrder> orders = supplyOrderDAO.GetOrdersBySupplierIdAndStatus(supplierData.email, Constants.COMPLETE_STATUS);
+            List<SupplierOrder> orders = supplierOrderController.GetCompleteOrdersBySupplier(supplierData.email);
             rowAdded = 0;
             columnsAdded = 0;
             ordersGrid.Children.Clear();
@@ -179,8 +176,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void ShowCanceledOrder()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            List<SupplierOrder> orders = supplyOrderDAO.GetOrdersBySupplierIdAndStatus(supplierData.email, Constants.INACTIVE_STATUS);
+            List<SupplierOrder> orders = supplierOrderController.GetCanceledOrdersBySupplier(supplierData.email);
             rowAdded = 0;
             columnsAdded = 0;
             ordersGrid.Children.Clear();
@@ -219,8 +215,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GetOrdersWithinDateRange(DateTime startDate, DateTime endDate)
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            List<SupplierOrder> supplyOrders = supplyOrderDAO.GetOrdersBySupplierIdAndCreationDateRange(supplierData.email, startDate, endDate);
+            List<SupplierOrder> supplyOrders = supplierOrderController.GetOrdersByDateRange(supplierData.email, startDate, endDate);
             ShowOrdersByDateRange(supplyOrders);
         }
 
