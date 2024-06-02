@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ItaliaPizza.UserInterfaceLayer.Controllers
 {
     public class SupplierOrderController
     {
         private readonly SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+        private readonly SupplyDAO supplyDAO = new SupplyDAO();
         public int CreateSupplierOrder(string supplierEmail)
         {
             return supplyOrderDAO.AddSupplierOrder(SetNewSupplierOrder(supplierEmail));
@@ -31,6 +33,33 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             };
 
             return newSupplierOrder;
+        }
+
+        public bool UpdateInventory(int orderCode)
+        {
+            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(orderCode);
+
+            foreach (Supply supply in suppliesInOrder)
+            {
+                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(orderCode, supply.name);
+            }
+
+            if (supplyDAO.UpdateInventoryFromOrder(suppliesInOrder))
+            {
+                return supplyOrderDAO.UpdateStatusOrder(orderCode, Constants.COMPLETE_STATUS);
+            }
+            return false;
+        }
+        public bool CancelOrder(int orderCode)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.UpdateStatusOrder(orderCode, Constants.INACTIVE_STATUS);
+        }
+
+        public bool ChangeOrderToReceived(int orderCode)
+        {
+            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+            return supplyOrderDAO.UpdateStatusOrder(orderCode, Constants.COMPLETE_STATUS);
         }
 
         public bool ValidateTotalPayment(string totalPayment)
