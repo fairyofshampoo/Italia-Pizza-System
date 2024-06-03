@@ -62,7 +62,6 @@
     <Compile Include="FinanceModule\RegisterSupplierOrderTest.cs" />
     <Compile Include="FinanceModule\SearchSupplierOrderTest.cs" />
     <Compile Include="FinanceModule\SearchSupplierTests.cs" />
-    <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
     <Compile Include="KitchenModule\RegisterRecipeTest.cs" />
     <Compile Include="KitchenModule\SearchRecipeTest.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
