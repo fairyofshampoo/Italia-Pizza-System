@@ -1,5 +1,6 @@
 ﻿using ItaliaPizzaData.Utilities;
 using ItaliaPizzaData.DataLayer.DAO.Interface;
+using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -66,7 +67,7 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         }
                         databaseContext.SaveChanges();
 
-                        if (supply.SupplyArea.area_name == "Producto externo")
+                        if (supply.category == Constants.EXTERNAL_PRODUCT_SUPPLY_AREA_ID)
                         {
                             var modifyProduct = databaseContext.Products.First(p => p.productCode == supply.productCode);
                             if (modifyProduct != null)

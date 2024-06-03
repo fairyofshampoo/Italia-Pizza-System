@@ -1,4 +1,5 @@
 ﻿using ItaliaPizzaData.DataLayer.DAO.Interface;
+using ItaliaPizzaData.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -37,7 +38,7 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         user = account.user,
                         password = account.password,
                         email = employee.email,
-                        status = 1
+                        status = Constants.ACTIVE_STATUS
                     };
                     databaseContext.Accounts.Add(newAccount);
                     databaseContext.SaveChanges();

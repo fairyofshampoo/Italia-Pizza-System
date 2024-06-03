@@ -111,7 +111,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 validateFields = false;
             }
 
-            if (txtAmount.Text.Equals(string.Empty) || !Decimal.TryParse(txtAmount.Text, out amount) || amount < 0)
+            if (txtAmount.Text.Equals(string.Empty) || !Decimal.TryParse(txtAmount.Text, out amount) || amount <= 0)
             {
                 txtAmount.BorderBrush = Brushes.Red;
                 txtAmount.BorderThickness = new Thickness(2);

@@ -144,7 +144,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 validateFields = false;
             }
 
-            if (string.IsNullOrEmpty(pswPassword.Password))
+            if (string.IsNullOrEmpty(pswPassword.Password) || !Validations.IsPasswordValid(pswPassword.Password))
             {
                 pswPassword.BorderBrush = Brushes.Red;
                 pswPassword.BorderThickness = new Thickness(2);
