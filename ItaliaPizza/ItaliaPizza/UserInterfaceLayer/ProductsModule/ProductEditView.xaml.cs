@@ -3,30 +3,21 @@ using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizzaData.DataLayer;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using ItaliaPizza.ApplicationLayer.Utilities;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para ProductEditView.xaml
-    /// </summary>
     public partial class ProductEditView : Page
     {
         Product ProductToModify;
@@ -89,7 +80,30 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 picture = optimizedPicture,
             };
 
-            return productDAO.ModifyProduct(product, code);
+            bool result = false;
+
+            try
+            {
+                result = productDAO.ModifyProduct(product, code);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            return result;
         }
 
         private void btnDesactive_Click(object sender, RoutedEventArgs e)
@@ -101,15 +115,39 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 ProductDAO productDAO = new ProductDAO();
 
-                if (productDAO.ChangeStatus(ProductToModify, Constants.INACTIVE_STATUS))
+                try
                 {
-                    DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
-                    NavigationService.GoBack();
+                    if (productDAO.ChangeStatus(ProductToModify, Constants.INACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el producto");
+                    }
                 }
-                else
+                catch (ArgumentException)
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el producto");
+                    ApplicationLayer.DialogManager.ShowArgumentExceptionMessageBox();
                 }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
+
             }
         }
 
@@ -122,14 +160,37 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 ProductDAO productDAO = new ProductDAO();
 
-                if (productDAO.ChangeStatus(ProductToModify, Constants.ACTIVE_STATUS))
+                try
                 {
-                    DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
-                    NavigationService.GoBack();
+                    if (productDAO.ChangeStatus(ProductToModify, Constants.ACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Producto actualizado exitosamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el producto");
+                    }
                 }
-                else
+                catch (ArgumentException)
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el producto");
+                    ApplicationLayer.DialogManager.ShowArgumentExceptionMessageBox();
+                }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
                 }
             }
         }
@@ -137,7 +198,29 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         public void SetModifyProduct(string productCode)
         {
             ProductDAO productDAO = new ProductDAO();
-            Product productInfo = productDAO.GetProductByCode(productCode);
+            Product productInfo = new Product();
+            
+            try
+            {
+                productInfo = productDAO.GetProductByCode(productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
 
             if (productInfo != null)
             {

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Security.Cryptography;
+using System.Data.Entity.Core;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -18,14 +19,30 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool AlreadyExistRecipe(string name)
         {
             bool alreadyExistRecipe = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var existingRecipe = databaseContext.Recipes.FirstOrDefault(r => r.name == name);
-                if (existingRecipe != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    alreadyExistRecipe = true;
+                    var existingRecipe = databaseContext.Recipes.FirstOrDefault(r => r.name == name);
+                    if (existingRecipe != null)
+                    {
+                        alreadyExistRecipe = true;
+                    }
                 }
             }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return alreadyExistRecipe;
         }
 

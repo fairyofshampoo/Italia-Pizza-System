@@ -19,9 +19,6 @@ using System.Text.RegularExpressions;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Interaction logic for ReportUC.xaml
-    /// </summary>
     public partial class ReportUC : UserControl
     {
         private Supply supplyData;

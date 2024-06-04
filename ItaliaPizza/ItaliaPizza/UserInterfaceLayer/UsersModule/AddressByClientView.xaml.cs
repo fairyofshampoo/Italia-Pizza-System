@@ -1,6 +1,10 @@
 ﻿using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,7 +65,29 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<Address> GetAddressByClient()
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<Address> addresses = addressDAO.GetAddressesByClient(clientEmail);
+            List<Address> addresses = new List<Address>();
+
+            try
+            {
+                addresses = addressDAO.GetAddressesByClient(clientEmail);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return addresses;
         }
 
@@ -80,7 +106,30 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void GetAddressByStatus(int status)
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<Address> addresses = addressDAO.GetAddressByStatus(status, clientEmail);
+            List<Address> addresses = new List<Address>();
+            
+            try
+            {
+                addresses = addressDAO.GetAddressByStatus(status, clientEmail);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             ValidateAdresses(addresses);
         }
 

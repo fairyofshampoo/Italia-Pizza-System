@@ -3,28 +3,20 @@ using ItaliaPizza.ApplicationLayer.Utilities;
 using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para ProductRegisterView.xaml
-    /// </summary>
     public partial class ProductRegisterView : Page
     {
         public ProductRegisterView()
@@ -91,7 +83,31 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             Product product = GetProductData();
             Supply supply = GetSupplyData(product);
             ProductDAO productDAO = new ProductDAO();
-            return productDAO.AddProductExternal(product, supply);
+            
+            bool result = false;
+
+            try
+            {
+                result = productDAO.AddProductExternal(product, supply);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            return result;
         }
 
         private Supply GetSupplyData(Product productData)
@@ -285,7 +301,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             ProductDAO productDAO = new ProductDAO();
             string code = txtCode.Text;
-            bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            bool isCodeAlreadyExisting = false;
+            try
+            {
+                isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return isCodeAlreadyExisting;
         }
 
@@ -293,7 +330,29 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             RecipeDAO recipeDAO = new RecipeDAO();
             string name = txtName.Text;
-            bool isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            bool isInternalProductRecipeExisting = false;
+            try
+            {
+                isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return isInternalProductRecipeExisting;
         }
 

@@ -20,9 +20,6 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para SupplyRegister.xaml
-    /// </summary>
     public partial class SupplyRegister : Page
     {
         public SupplyRegister()

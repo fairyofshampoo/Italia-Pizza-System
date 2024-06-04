@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizzaData.Utilities;
 using System.Data.Common;
+using System.Data.Entity.Core;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -18,12 +19,32 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool AddOrder(InternalOrder order)
         {
             bool operationStatus = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                databaseContext.InternalOrders.Add(order);
-                databaseContext.SaveChanges();
-                operationStatus = true;
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    databaseContext.InternalOrders.Add(order);
+                    databaseContext.SaveChanges();
+                    operationStatus = true;
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return operationStatus;
         }
 
@@ -109,16 +130,36 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool GetCounterOfProduct(string productId)
         {
             bool areThereAnyRegister = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                int counter = databaseContext.InternalOrderProducts
-                                         .Where(product => product.productId == productId && product.isConfirmed == 0)
-                                         .Count();
-                if (counter > 0)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    areThereAnyRegister = true;
+                    int counter = databaseContext.InternalOrderProducts
+                                             .Where(product => product.productId == productId && product.isConfirmed == 0)
+                                             .Count();
+                    if (counter > 0)
+                    {
+                        areThereAnyRegister = true;
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return areThereAnyRegister;
         }
 
@@ -177,13 +218,33 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail)
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                internalOrders = databaseContext.InternalOrders
-                                              .Where(order => order.status == status && order.waiterEmail == waiterEmail)
-                                              .OrderByDescending(order => order.date)
-                                              .ToList();
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    internalOrders = databaseContext.InternalOrders
+                                                  .Where(order => order.status == status && order.waiterEmail == waiterEmail)
+                                                  .OrderByDescending(order => order.date)
+                                                  .ToList();
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return internalOrders;
         }
 
@@ -209,10 +270,29 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public int GetMaximumProductsPosible(int recipeId)
         {
             int maximumProductsPosible;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                string query = string.Format("SELECT dbo.VALIDATEINGREDIENTSAMOUNT({0}) AS disp;", recipeId);
-                maximumProductsPosible = databaseContext.Database.SqlQuery<int>(query).FirstOrDefault();
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    string query = string.Format("SELECT dbo.VALIDATEINGREDIENTSAMOUNT({0}) AS disp;", recipeId);
+                    maximumProductsPosible = databaseContext.Database.SqlQuery<int>(query).FirstOrDefault();
+                }
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
 
             return maximumProductsPosible;
@@ -233,13 +313,33 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<InternalOrder> GetInternalOrdersByStatus(int status)
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                internalOrders = databaseContext.InternalOrders
-                                                .Where(order => order.status == status)
-                                                .OrderByDescending(order => order.date)
-                                                .ToList();
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    internalOrders = databaseContext.InternalOrders
+                                                    .Where(order => order.status == status)
+                                                    .OrderByDescending(order => order.date)
+                                                    .ToList();
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return internalOrders;
         }
 
@@ -345,13 +445,32 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public int SaveInternalOrder(string internalOrderCode)
         {
             int operationStatus = 0;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                string query = "EXEC ReduceIngredientsV10 @internalOrderCode";
-                databaseContext.Database.ExecuteSqlCommand(query, new SqlParameter("@internalOrderCode", internalOrderCode));
-                operationStatus = 1;
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    string query = "EXEC ReduceIngredientsV10 @internalOrderCode";
+                    databaseContext.Database.ExecuteSqlCommand(query, new SqlParameter("@internalOrderCode", internalOrderCode));
+                    operationStatus = 1;
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
 
             return operationStatus;
         }
@@ -359,13 +478,33 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public string GetProductName(string productId)
         {
             string nameProduct = string.Empty;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                nameProduct = databaseContext.Products
-                                             .Where(product => product.productCode == productId)
-                                             .Select(product => product.name)
-                                             .FirstOrDefault();
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    nameProduct = databaseContext.Products
+                                                 .Where(product => product.productCode == productId)
+                                                 .Select(product => product.name)
+                                                 .FirstOrDefault();
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return nameProduct;
         }
 
@@ -387,9 +526,21 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     }
                 }
             }
-            catch (Exception)
+            catch (SqlException sQLException)
             {
-                updateStatus = false;
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
 
             return updateStatus;

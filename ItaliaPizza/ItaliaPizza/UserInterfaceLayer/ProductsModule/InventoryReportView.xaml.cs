@@ -1,10 +1,6 @@
-﻿using ItaliaPizzaData.DataLayer.DAO;
-using ItaliaPizzaData.DataLayer;
+﻿using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -13,9 +9,7 @@ using System.IO;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Renderer;
 using ItaliaPizza.ApplicationLayer;
-using System.IO.Packaging;
 using System.Windows.Media;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
@@ -24,9 +18,6 @@ using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Interaction logic for InventoryReport.xaml
-    /// </summary>
     public partial class InventoryReport : Page
     {
         private InventoryController _inventoryController = new InventoryController();

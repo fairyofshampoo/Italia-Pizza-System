@@ -19,9 +19,7 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para ProductUC.xaml
-    /// </summary>
+
     public partial class ProductUC : UserControl
     {
         private string productCode;
