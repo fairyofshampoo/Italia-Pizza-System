@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizzaData.DataLayer;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -13,12 +16,32 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool AddNewAddress(Address newAddress)
         {
             bool successfullOperation = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                databaseContext.Addresses.Add(newAddress);
-                databaseContext.SaveChanges();
-                successfullOperation = true;                                                
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    databaseContext.Addresses.Add(newAddress);
+                    databaseContext.SaveChanges();
+                    successfullOperation = true;
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return successfullOperation;
         }
 
@@ -124,41 +147,81 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<string> GetColonias(string postalCode)
         {
             List<string> colonias = new List<string>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var coloniasDB = databaseContext.ColonyCatalogs
-                                                .Where(catalog => catalog.code ==  postalCode)
-                                                .Select(catalog => catalog.settlement)
-                                                .ToList();
-                if(coloniasDB != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach(var catalog in coloniasDB)
+                    var coloniasDB = databaseContext.ColonyCatalogs
+                                                    .Where(catalog => catalog.code == postalCode)
+                                                    .Select(catalog => catalog.settlement)
+                                                    .ToList();
+                    if (coloniasDB != null)
                     {
-                        colonias.Add(catalog);
+                        foreach (var catalog in coloniasDB)
+                        {
+                            colonias.Add(catalog);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return colonias;
         }
 
         public List<string> GetPostalCodes()
         {
             List<string> postalCodes = new List<string>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var postalCodesDb = databaseContext.ColonyCatalogs
-                                                   .Where(catalog => catalog.municipality == "Xalapa")
-                                                   .Select(catalog => catalog.code)
-                                                   .Distinct()
-                                                   .ToList();
-                if(postalCodesDb != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach(var catalog in postalCodesDb)
+                    var postalCodesDb = databaseContext.ColonyCatalogs
+                                                       .Where(catalog => catalog.municipality == "Xalapa")
+                                                       .Select(catalog => catalog.code)
+                                                       .Distinct()
+                                                       .ToList();
+                    if (postalCodesDb != null)
                     {
-                        postalCodes.Add(catalog);
+                        foreach (var catalog in postalCodesDb)
+                        {
+                            postalCodes.Add(catalog);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return postalCodes;
         }
     }

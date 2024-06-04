@@ -2,19 +2,13 @@
 using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -43,7 +37,29 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<string> GetPostalCodes()
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<string> postalCodes = addressDAO.GetPostalCodes();
+            List<string> postalCodes = new List<string>();
+
+            try
+            {
+                postalCodes = addressDAO.GetPostalCodes();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return postalCodes;
         }
 
@@ -61,7 +77,29 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<string> GetColoniasByPostalCode(string postalCode)
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<string> colonias = addressDAO.GetColonias(postalCode);
+            List<string> colonias = new List<string>();
+
+            try
+            {
+               colonias = addressDAO.GetColonias(postalCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return colonias;
         }
 
@@ -79,14 +117,35 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     clientId = this.emailClient
                 };
                 AddressDAO addressDAO = new AddressDAO();
-                if (addressDAO.AddNewAddress(newAddress))
+                try
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado la dirección correctamente");
-                    NavigationService.GoBack();
-                } else
-                {
-                    ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido registrar la dirección, inténtelo más tarde");
+                    if (addressDAO.AddNewAddress(newAddress))
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado la dirección correctamente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido registrar la dirección, inténtelo más tarde");
+                    }
                 }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
+
             }
         }
 
