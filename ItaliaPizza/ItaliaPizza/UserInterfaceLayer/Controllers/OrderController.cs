@@ -93,5 +93,11 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return internalOrderDAO.AddInternalOrderProduct(internalOrderProduct);
         }
 
+        public List<InternalOrder> GetInternalOrderByStatus(string waiterEmail, int status) 
+        { 
+            OrderDAO internalOrderDAO = new OrderDAO();
+            return internalOrderDAO.GetInternalOrdersByStatusAndWaiter(status, waiterEmail);
+        }
+
     }
 }

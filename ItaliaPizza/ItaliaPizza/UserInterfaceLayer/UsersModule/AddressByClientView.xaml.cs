@@ -1,20 +1,10 @@
 ﻿using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
-using ItaliaPizza.UserInterfaceLayer.ProductsModule;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -56,7 +46,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void AddCards(Address address) 
         {
             AddressUC addressCard = new AddressUC();
-            addressCard.addressByClient = this;
+            addressCard.AddressByClient = this;
             addressCard.EditDataCard(address);
             addressListView.Items.Add(addressCard);
         }

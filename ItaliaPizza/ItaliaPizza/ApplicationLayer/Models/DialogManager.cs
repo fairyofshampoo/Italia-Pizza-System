@@ -22,6 +22,26 @@ namespace ItaliaPizza.ApplicationLayer
             ShowErrorMessageBox("Error de conexión a la base de datos. Por favor, inténtalo nuevamente más tarde.");
         }
 
+        public static void ShowDBUpdateExceptionMessageBox()
+        {
+            ShowErrorMessageBox("Error al actualizar la información en la base de datos. Por favor, inténtalo nuevamente más tarde.");
+        }
+
+        public static void ShowEntityExceptionMessageBox()
+        {
+            ShowErrorMessageBox("Error al procesar los datos. Por favor, inténtalo nuevamente más tarde.");
+        }
+
+        public static void ShowInvalidOperationExceptionMessageBox()
+        {
+            ShowErrorMessageBox("Se ha producido un error debido a una operación inválida. Por favor, inténtalo nuevamente más tarde.");
+        }
+
+        public static void ShowArgumentExceptionMessageBox()
+        {
+            ShowErrorMessageBox("Se ha producido un error debido a un argumento inesperado. Por favor, inténtalo nuevamente más tarde.");
+        }
+
         public static void ShowWarningMessageBox(string warningMessage)
         {
             DialogWindow dialogWindow = new DialogWindow();

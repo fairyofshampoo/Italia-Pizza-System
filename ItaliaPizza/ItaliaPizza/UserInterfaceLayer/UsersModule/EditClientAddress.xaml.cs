@@ -1,29 +1,19 @@
 ﻿using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class EditClientAddress : Page
     {
         private Address fullAddress;
-        public EditClientAddress() //Añadir al constructor el id
+        public EditClientAddress(int idAddress) 
         {
             InitializeComponent();
-            ShowAddressInformation(6); //Cambiar el id por el que llega a  en el constructor
+            ShowAddressInformation(idAddress); 
             ShowButtoms();
         }
 
@@ -50,7 +40,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             }
             else
             {
-                //Mostrar mensaje de error
+                ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido recuperar la dirección");
             }
         }
 
@@ -134,11 +124,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 address.postalCode = cbPostalCode.SelectedItem.ToString();
                 if (addressDAO.EditAddress(address))
                 {
-                    //Mostrar mensaje de éxito
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la dirección del cliente");
                 }
                 else
                 {
-                    //Mostrar mensaje de error
+                    ApplicationLayer.DialogManager.ShowErrorMessageBox("Se ha ocurrido un error al editar la dirección");
                 }
             }
         }
@@ -148,10 +138,10 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             AddressDAO addressDAO = new AddressDAO();
             if (addressDAO.DisableAddress(fullAddress.addressId))
             {
-                //Mostrar mensaje de éxito
+                ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha desactivado la dirección");
             } else
             {
-                //Mostrar mensaje de error
+                ApplicationLayer.DialogManager.ShowErrorMessageBox("Ha ocurrido un problema al desactivar la dirección");
             }
             ShowDisableAddressButtoms();
         }
@@ -161,11 +151,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
               AddressDAO addressDAO = new AddressDAO();
                 if (addressDAO.EnableAddress(fullAddress.addressId))
                 {
-                    //Mostrar mensaje de éxito
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha activado la diección");
                 }
                 else
                 {
-                    //Mostrar mensaje de error
+                    ApplicationLayer.DialogManager.ShowErrorMessageBox("Ha ocurrido un error al desactivar la dirección");
                 }
             ShowEnableAddressButtoms();
         }
