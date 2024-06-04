@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using ItaliaPizzaData.Utilities;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -13,14 +15,30 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool IsCodeExisting(string code)
         {
             bool isCodeExisting = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var existingCode = databaseContext.Products.FirstOrDefault(c => c.productCode == code);
-                if (existingCode != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    isCodeExisting = true;
+                    var existingCode = databaseContext.Products.FirstOrDefault(c => c.productCode == code);
+                    if (existingCode != null)
+                    {
+                        isCodeExisting = true;
+                    }
                 }
             }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return isCodeExisting;
         }
 
@@ -101,6 +119,18 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         transaction.Rollback();
                         throw ex;
                     }
+                    catch (DbUpdateException dbUpdateException)
+                    {
+                        throw dbUpdateException;
+                    }
+                    catch (EntityException entityException)
+                    {
+                        throw entityException;
+                    }
+                    catch (InvalidOperationException invalidOperationException)
+                    {
+                        throw invalidOperationException;
+                    }
                 }
             }
 
@@ -110,34 +140,50 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<Product> GetLastProductsRegistered()
         {
             List<Product> lastProducts = new List<Product>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var lastProductsRegistered = databaseContext.Products
-                                            .OrderBy(product => product.name)
-                                            .Take(10)
-                                            .Select(product => new ProductDTO
-                                            {
-                                                Name = product.name,
-                                                Status = product.status,
-                                                ProductCode = product.productCode,
-                                                Price = product.price
-                                            })
-                                            .ToList();
-
-                if (lastProductsRegistered != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var dto in lastProductsRegistered)
+                    var lastProductsRegistered = databaseContext.Products
+                                                .OrderBy(product => product.name)
+                                                .Take(10)
+                                                .Select(product => new ProductDTO
+                                                {
+                                                    Name = product.name,
+                                                    Status = product.status,
+                                                    ProductCode = product.productCode,
+                                                    Price = product.price
+                                                })
+                                                .ToList();
+
+                    if (lastProductsRegistered != null)
                     {
-                        lastProducts.Add(new Product
+                        foreach (var dto in lastProductsRegistered)
                         {
-                            name = dto.Name,
-                            status = (byte)dto.Status,
-                            productCode = dto.ProductCode,
-                            price = dto.Price
-                        });
+                            lastProducts.Add(new Product
+                            {
+                                name = dto.Name,
+                                status = (byte)dto.Status,
+                                productCode = dto.ProductCode,
+                                price = dto.Price
+                            });
+                        }
                     }
                 }
             }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return lastProducts;
         }
 
@@ -195,10 +241,9 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool ModifyProduct(Product updateProduct, string code)
         {
             bool successfulUpdate = false;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                try
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
                     var modifyProduct = databaseContext.Products.First(c => c.productCode == code);
 
@@ -213,11 +258,24 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     databaseContext.SaveChanges();
                     successfulUpdate = true;
                 }
-                catch (SqlException sQLException)
-                {
-                    throw sQLException;
-                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
 
             return successfulUpdate;
         }       
@@ -262,6 +320,22 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         transaction.Rollback();
                         throw argumentException;
                     }
+                    catch (SqlException sQLException)
+                    {
+                        throw sQLException;
+                    }
+                    catch (DbUpdateException dbUpdateException)
+                    {
+                        throw dbUpdateException;
+                    }
+                    catch (EntityException entityException)
+                    {
+                        throw entityException;
+                    }
+                    catch (InvalidOperationException invalidOperationException)
+                    {
+                        throw invalidOperationException;
+                    }
                 }
 
                     
@@ -295,9 +369,21 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     databaseContext.SaveChanges();
                 }
             }
-            catch (ArgumentException argumentException)
+            catch (SqlException sQLException)
             {
-                throw argumentException;
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
             return productFound;
         }

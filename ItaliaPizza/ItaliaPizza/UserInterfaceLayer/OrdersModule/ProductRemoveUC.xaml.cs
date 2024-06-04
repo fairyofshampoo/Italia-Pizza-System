@@ -18,9 +18,6 @@ using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-    /// <summary>
-    /// Interaction logic for ProductRemoveUC.xaml
-    /// </summary>
     public partial class ProductRemoveUC : UserControl
     {
         public Product ProductData { get; set; }

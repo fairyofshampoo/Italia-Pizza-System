@@ -19,9 +19,6 @@ using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Interaction logic for SupplyProductCardUC.xaml
-    /// </summary>
     public partial class SupplyProductCardUC : UserControl
     {
         public InventoryView InventoryView { get; set; }

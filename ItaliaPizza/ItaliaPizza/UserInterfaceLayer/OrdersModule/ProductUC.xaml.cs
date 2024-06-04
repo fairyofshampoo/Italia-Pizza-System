@@ -2,6 +2,10 @@
 using ItaliaPizza.ApplicationLayer.Management;
 using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -147,28 +151,116 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int GetRecipeByProduct()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
+            int recipeId = new int();
+            try
+            { 
+                recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return recipeId;
         }
 
         private int GetNumberOfProducts(int recipeId)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
+            int numberOfProducts = new int();
+            try
+            {
+                numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return numberOfProducts;
         }
 
         private int GetNumberOfProductsOnHold()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
+            int productsOnHold = new int();
+            try
+            {
+                productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return productsOnHold;
         }
 
         private bool GetCountOfProduct()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            bool areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+
+            bool areThereAnyRegister = false;
+            
+            try
+            {
+                areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return areThereAnyRegister;
         }
 
@@ -188,28 +280,90 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
-            if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
+            
+            try
             {
-                ProductData.amount = 1;
-                RegisterInternalOrderView.AddProduct(ProductData, this);
+                if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
+                {
+                    ProductData.amount = 1;
+                    RegisterInternalOrderView.AddProduct(ProductData, this);
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("No se ha podido agregar el produto a la orden. Intente nuevamente");
+                }
             }
-            else
+            catch (SqlException)
             {
-                DialogManager.ShowErrorMessageBox("No se ha podido agregar el produto a la orden. Intente nuevamente");
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
             }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void IncreaseAmount() //Edición 
         {
-            OrderDAO orderDAO = new OrderDAO();
-            orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
-            RegisterInternalOrderView.IncreaseProductAmount(ProductData);
+            try
+            {
+                OrderDAO orderDAO = new OrderDAO();
+                orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
+                RegisterInternalOrderView.IncreaseProductAmount(ProductData);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private bool IsRegisterInDB () //Edición
         {
             OrderDAO orderDAO = new OrderDAO();
-            bool isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            bool isRegister = false;
+            try
+            {
+                isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return isRegister;
         }
 

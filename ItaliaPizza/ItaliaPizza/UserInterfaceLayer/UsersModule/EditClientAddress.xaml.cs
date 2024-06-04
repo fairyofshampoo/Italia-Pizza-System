@@ -1,6 +1,10 @@
 ﻿using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +13,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
     public partial class EditClientAddress : Page
     {
-        private Address fullAddress;
+        private Address fullAddress = new Address();
         public EditClientAddress(int idAddress) 
         {
             InitializeComponent();
@@ -47,7 +51,27 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void GetAddressById(int addressId)
         {
             AddressDAO addressDAO = new AddressDAO();
-            fullAddress = addressDAO.GetAddressById(addressId);
+            try
+            {
+                fullAddress = addressDAO.GetAddressById(addressId);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void ShowStreetAndNumber(string streetAndNumber)
@@ -69,7 +93,27 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<string> GetPostalCodes()
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<string> postalCodes = addressDAO.GetPostalCodes();
+            List<string> postalCodes = new List<string>();
+            try
+            {
+                postalCodes = addressDAO.GetPostalCodes();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
             return postalCodes;
         }
 
@@ -99,7 +143,29 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private List<string> GetColoniasByPostalCode(string postalCode)
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<string> colonias = addressDAO.GetColonias(postalCode);
+            List<string> colonias = new List<string>();
+            try
+            {
+                colonias = addressDAO.GetColonias(postalCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return colonias;
         }
 
@@ -122,33 +188,76 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 address.street = txtAddress.Text;
                 address.colony = cbColony.SelectedItem.ToString();
                 address.postalCode = cbPostalCode.SelectedItem.ToString();
-                if (addressDAO.EditAddress(address))
+                try
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la dirección del cliente");
+                    if (addressDAO.EditAddress(address))
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la dirección del cliente");
+                    }
+                    else
+                    {
+                        ApplicationLayer.DialogManager.ShowErrorMessageBox("Se ha ocurrido un error al editar la dirección");
+                    }
                 }
-                else
+                catch (SqlException)
                 {
-                    ApplicationLayer.DialogManager.ShowErrorMessageBox("Se ha ocurrido un error al editar la dirección");
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
                 }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
+
             }
         }
 
         private void BtnDisable_Click(object sender, RoutedEventArgs e)
         {
             AddressDAO addressDAO = new AddressDAO();
-            if (addressDAO.DisableAddress(fullAddress.addressId))
+            try
             {
-                ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha desactivado la dirección");
-            } else
-            {
-                ApplicationLayer.DialogManager.ShowErrorMessageBox("Ha ocurrido un problema al desactivar la dirección");
+                if (addressDAO.DisableAddress(fullAddress.addressId))
+                {
+                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha desactivado la dirección");
+                }
+                else
+                {
+                    ApplicationLayer.DialogManager.ShowErrorMessageBox("Ha ocurrido un problema al desactivar la dirección");
+                }
             }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             ShowDisableAddressButtoms();
         }
 
         private void BtnEnable_Click(object sender, RoutedEventArgs e)
         {
               AddressDAO addressDAO = new AddressDAO();
+            try
+            {
                 if (addressDAO.EnableAddress(fullAddress.addressId))
                 {
                     ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha activado la diección");
@@ -157,7 +266,25 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 {
                     ApplicationLayer.DialogManager.ShowErrorMessageBox("Ha ocurrido un error al desactivar la dirección");
                 }
-            ShowEnableAddressButtoms();
+                ShowEnableAddressButtoms();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void ShowDisableAddressButtoms()

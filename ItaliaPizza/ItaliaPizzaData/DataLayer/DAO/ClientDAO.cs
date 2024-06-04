@@ -330,14 +330,32 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public string GetClientName(string clientEmail)
         {
             string clientName = string.Empty;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var client = databaseContext.Clients.FirstOrDefault(c => c.email == clientEmail);
-                if (client != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    clientName = client.name;
+                    var client = databaseContext.Clients.FirstOrDefault(c => c.email == clientEmail);
+                    if (client != null)
+                    {
+                        clientName = client.name;
+                    }
                 }
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
 
             return clientName;

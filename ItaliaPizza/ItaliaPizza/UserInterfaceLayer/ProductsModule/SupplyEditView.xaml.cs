@@ -18,12 +18,12 @@ using System.Windows.Shapes;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Collections.ObjectModel;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para SupplyEditView.xaml
-    /// </summary>
     public partial class SupplyEditView : Page
     {
         Supply supplyToModify;
@@ -37,28 +37,48 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             SupplyDAO supplyDAO = new SupplyDAO();
 
-            if (!supplyDAO.ExistsSupplyInRecipe(txtName.Text))
+            try
             {
-                DialogWindow dialogWindow = new DialogWindow();
-                dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
-
-                if (dialogWindow.ShowDialog() == true)
+                if (!supplyDAO.ExistsSupplyInRecipe(txtName.Text))
                 {
-                    if (supplyDAO.ChangeSupplyStatus(supplyToModify, Constants.INACTIVE_STATUS))
+                    DialogWindow dialogWindow = new DialogWindow();
+                    dialogWindow.SetDialogWindowData("Confirmación", "¿Desea eliminar el insumo?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
+
+                    if (dialogWindow.ShowDialog() == true)
                     {
-                        DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
-                        NavigationService.GoBack();
-                    }
-                    else
-                    {
-                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                        if (supplyDAO.ChangeSupplyStatus(supplyToModify, Constants.INACTIVE_STATUS))
+                        {
+                            DialogManager.ShowSuccessMessageBox("Insumo desactivado exitosamente");
+                            NavigationService.GoBack();
+                        }
+                        else
+                        {
+                            DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el insumo");
+                        }
                     }
                 }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta activa");
+                }
             }
-            else
+            catch (SqlException)
             {
-                DialogManager.ShowErrorMessageBox("Este insumo se encuentra registrado en al menos una receta activa");
-            }           
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
@@ -118,7 +138,30 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 category = supplierAreaDAO.GetSupplyAreaIdByName(category),
             };
 
-            return supplyDAO.ModifySupply(supply, name);
+            bool result = false;
+            try
+            {
+                result = supplyDAO.ModifySupply(supply, name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
+            return result;
         }
 
         public void SetModifySupply(Supply supplyInfo)

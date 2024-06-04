@@ -8,6 +8,7 @@ using ItaliaPizzaData.DataLayer;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Net;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -48,100 +49,245 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool DisableAddress(int id)
         {
             bool operationStatus = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId ==  id);
-
-                if(addressDisabled != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    addressDisabled.status = 0;
-                    operationStatus = true;
-                    databaseContext.SaveChanges();
+                    var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
+
+                    if (addressDisabled != null)
+                    {
+                        addressDisabled.status = 0;
+                        operationStatus = true;
+                        databaseContext.SaveChanges();
+                    }
                 }
             }
-                return operationStatus;
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
+            return operationStatus;
         }
 
         public bool EditAddress(Address newAddress)
         {
             bool operationStatus = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var addressEdited = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == newAddress.addressId);
-                if (addressEdited != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    addressEdited.street = newAddress.street;
-                    addressEdited.postalCode = newAddress.postalCode;
-                    addressEdited.colony = newAddress.colony;
-                    operationStatus = true;
-                    databaseContext.SaveChanges();
+                    var addressEdited = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == newAddress.addressId);
+                    if (addressEdited != null)
+                    {
+                        addressEdited.street = newAddress.street;
+                        addressEdited.postalCode = newAddress.postalCode;
+                        addressEdited.colony = newAddress.colony;
+                        operationStatus = true;
+                        databaseContext.SaveChanges();
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return operationStatus;
         }
 
         public bool EnableAddress(int id)
         {
             bool operationStatus = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
-
-                if (addressDisabled != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    addressDisabled.status = 1;
-                    operationStatus = true;
-                    databaseContext.SaveChanges();
+                    var addressDisabled = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
+
+                    if (addressDisabled != null)
+                    {
+                        addressDisabled.status = 1;
+                        operationStatus = true;
+                        databaseContext.SaveChanges();
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return operationStatus;
         }
 
         public List<Address> GetAddressesByClient(string emailClient)
         {
             List<Address> addresses = new List<Address>();
-            using(var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                addresses = databaseContext.Addresses
-                                           .Where(address => address.clientId == emailClient)
-                                           .ToList();   
+                using(var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    addresses = databaseContext.Addresses
+                                               .Where(address => address.clientId == emailClient)
+                                               .ToList();   
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return addresses;
         }
 
         public Address GetAddressById(int id)
         {
             Address addressFounded = null;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var address = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
-                if (address != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    addressFounded = address;
+                    var address = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.addressId == id);
+                    if (address != null)
+                    {
+                        addressFounded = address;
+                    }
                 }
             }
-                return addressFounded;
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
+            return addressFounded;
         }
 
         public List<Address> GetAddressByStatus(int status, string emailClient)
         {
             List<Address> addresses = new List<Address>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                addresses = databaseContext.Addresses
-                                           .Where(address => address.status == status && address.clientId == emailClient)
-                                           .ToList();
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    addresses = databaseContext.Addresses
+                                               .Where(address => address.status == status && address.clientId == emailClient)
+                                               .ToList();
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return addresses;
         }
 
         public Address GetClientAddress(string email)
         {
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            Address addressClient = new Address();
+            try
             {
-                var address = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.clientId == email);
-                return address;
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    var address = databaseContext.Addresses.FirstOrDefault(addressDB => addressDB.clientId == email);
+                        if (address != null)
+                        {
+                            addressClient = address;
+                        }
+                }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
+            return addressClient;
         }
 
         public List<string> GetColonias(string postalCode)
