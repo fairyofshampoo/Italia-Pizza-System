@@ -52,23 +52,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 this.InventoryReport.suppliesDictionary.Add(supply, this);
                 SetSupplyData(supply);
             }
-            else if (item is Product product && product.isExternal == 1)
-            {
-                this.InventoryReport.productsDictionary.Add(product, this);
-                SetProductData(product);
-            }
-        }
-
-        private void SetProductData(Product product)
-        {
-            isSupply = false;
-            productData = product;
-            txtName.Text = product.name;
-            txtAmount.Text = product.amount.ToString();
-            txtSupplyArea.Text = "Producto externo";
-            txtUnit.Text = "Unidad";
-            txtCurrentAmount.Visibility = Visibility.Collapsed;
-            brdCurrentAmount.Visibility = Visibility.Visible;
         }
 
         public void SetSupplyData(Supply supply)
