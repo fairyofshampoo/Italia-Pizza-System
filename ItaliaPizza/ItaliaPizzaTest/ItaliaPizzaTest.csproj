@@ -65,6 +65,7 @@
     <Compile Include="FinanceModule\SearchSupplierTests.cs" />
     <Compile Include="KitchenModule\RegisterRecipeTest.cs" />
     <Compile Include="KitchenModule\SearchRecipeTest.cs" />
+    <Compile Include="OrdersModule\SearchHomeOrderTests.cs" />
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
     <Compile Include="ProductsModule\InventoryTests.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
