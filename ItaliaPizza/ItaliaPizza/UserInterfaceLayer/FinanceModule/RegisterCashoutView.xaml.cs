@@ -10,8 +10,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
     public partial class RegisterCashoutView : Page
     {
-
-
         public RegisterCashoutView()
         {
             InitializeComponent();
@@ -52,15 +50,11 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private Cashout CreateCashout()
         {
-
             int cashoutType = 0;
-
             if(radioButtonCashin.IsChecked == true)
             {
                 cashoutType = 1;
             }
-
-
             DateTime dateTime = DateTime.Now;
             string totalString = txtTotal.Text;
             decimal total = decimal.Parse(totalString);
@@ -70,7 +64,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 cashoutType = (byte?)cashoutType,
                 total = total, 
             };
-
             return newCashout;
         }
 

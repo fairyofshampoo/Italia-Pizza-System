@@ -2,12 +2,7 @@
 using ItaliaPizza.ApplicationLayer.Management;
 using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -204,14 +199,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
         }
 
-        private void IncreaseAmount()
+        private void IncreaseAmount() //Edición 
         {
             OrderDAO orderDAO = new OrderDAO();
             orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
             RegisterInternalOrderView.IncreaseProductAmount(ProductData);
         }
 
-        private bool IsRegisterInDB ()
+        private bool IsRegisterInDB () //Edición
         {
             OrderDAO orderDAO = new OrderDAO();
             bool isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);

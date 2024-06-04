@@ -176,6 +176,10 @@
     <Compile Include="ApplicationLayer\Management\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Utilities\ImageOptimizationManager.cs" />
     <Compile Include="ApplicationLayer\Utilities\Validations.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\AddressController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\ClientController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\FinancialMovementsController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\OrderController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplierController.cs" />
     <Compile Include="UserInterfaceLayer\FinanceModule\BalanceLogView.xaml.cs">
       <DependentUpon>BalanceLogView.xaml</DependentUpon>
