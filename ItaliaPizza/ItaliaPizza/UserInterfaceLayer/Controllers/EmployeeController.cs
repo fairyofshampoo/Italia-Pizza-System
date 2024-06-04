@@ -134,5 +134,27 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
 
             return fullNameDataValid && phoneDataValid && employeeTypeValid && passwordDataValid;
         }
+
+        public bool AuthenticateUser(string username, string password)
+        {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+
+            return employeeDAO.AuthenticateAccount(username, password);
+        }
+
+        public bool VerifyLoginFields(string username, string password)
+        {
+            bool passwordValidation = Validations.IsPasswordValid(password);
+            bool userValidation = Validations.IsUserValid(username);
+
+            return passwordValidation && userValidation;
+        }
+
+        public Account GetAccountData(string username)
+        {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            Account account = employeeDAO.GetAccountByUsername(username);
+            return account;
+        }
     }
 }
