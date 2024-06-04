@@ -294,8 +294,29 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnSaveOrder_Click(object sender, RoutedEventArgs e)
         {
-            SaveOrder();
-            NavigationService.GoBack();
+            if (isHomeOrder)
+            {
+                if(addressComboBox.SelectedItem == null)
+                {
+                    DialogManager.ShowErrorMessageBox("Seleccione una dirección para el pedido");
+                } else
+                {
+                    SaveAddressInOrder();
+                    SaveOrder();
+                    NavigationService.GoBack();
+                }
+            } else
+            {
+                SaveOrder();
+                NavigationService.GoBack();
+            }
+        }
+
+        private void SaveAddressInOrder()
+        {
+            Address address = (Address)addressComboBox.SelectedItem;
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.UpdateInternalOrderAddress(orderCode, address.addressId);
         }
 
         public void RemoveProduct(Product product, ProductRemoveUC productRemoveUC)

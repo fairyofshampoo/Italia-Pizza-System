@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizzaData.Utilities;
+using System.Data.Common;
 
 namespace ItaliaPizzaData.DataLayer.DAO
 {
@@ -137,6 +138,41 @@ namespace ItaliaPizzaData.DataLayer.DAO
             }
             return internalOrder;
         }
+
+        public bool UpdateInternalOrderAddress(string orderCode, int newAddressId)
+        {
+            bool result = true;
+            try
+            {
+                using (var databaseContext = new ItaliaPizzaDBEntities())
+                {
+                    // Get the order using the orderCode
+                    var orderToUpdate = databaseContext.InternalOrders
+                      .Where(order => order.internalOrderId == orderCode)
+                      .FirstOrDefault();
+
+                    // Check if the order was found
+                    if (orderToUpdate != null)
+                    {
+                        // Update the addressId of the retrieved order
+                        orderToUpdate.addressId = newAddressId;
+                        databaseContext.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine("An error occurred while updating order address: {0}", ex.Message);
+                result = false;
+            }
+
+            return result;
+        }
+
 
         public List<InternalOrder> GetInternalOrdersByStatusAndWaiter(int status, string waiterEmail)
         {

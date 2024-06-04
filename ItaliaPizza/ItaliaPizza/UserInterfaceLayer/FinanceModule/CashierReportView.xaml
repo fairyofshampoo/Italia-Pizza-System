@@ -157,7 +157,7 @@
                                     <Label Content="$10" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
-                                    <TextBox x:Name="tx5Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
+                                    <TextBox x:Name="txt5Coin" PreviewTextInput="Money_PreviewTextInput" Height="65" Width="150" FontSize="50"/>
                                     <Label Content="$5" FontFamily="{StaticResource InterFont}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="4" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">

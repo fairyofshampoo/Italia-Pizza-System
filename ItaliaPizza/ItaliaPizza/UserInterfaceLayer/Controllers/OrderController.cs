@@ -39,7 +39,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return orderDAO.ChangeOrderStatus(status, internalOrderId);
         }
 
-        public string createOrderCode() //1
+        public string CreateOrderCode()
         {
             DateTime date = DateTime.Today;
             Random random = new Random();
@@ -53,7 +53,7 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return code;
         }
 
-        public bool RegisterOrder(string orderCode, string waiterEmail) //2
+        public bool RegisterInternalOrder(string orderCode, string waiterEmail)
         {
             DateTime currentDate = DateTime.Now;
             var newInternalOrder = new InternalOrder
@@ -69,19 +69,25 @@ namespace ItaliaPizza.UserInterfaceLayer.Controllers
             return orderDAO.AddOrder(newInternalOrder);
         }
 
-        public int GetNumberOfPorducts(int recipeId)//3
+        public bool RegisterOrder(InternalOrder newOrder)
+        {
+            OrderDAO orderDAO = new OrderDAO();
+            return orderDAO.AddOrder(newOrder);
+        }
+
+        public int GetNumberOfProducts(int recipeId)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             return internalOrderDAO.GetMaximumProductsPosible(recipeId);
         }
 
-        public int GetCountOfProduct(string productCode) //3
+        public int GetCountOfProduct(string productCode)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             return internalOrderDAO.GetTotalExternalProduct(productCode);
         }
 
-        public bool AddProductToOrder(InternalOrderProduct internalOrderProduct) //4
+        public bool AddProductToOrder(InternalOrderProduct internalOrderProduct)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             return internalOrderDAO.AddInternalOrderProduct(internalOrderProduct);

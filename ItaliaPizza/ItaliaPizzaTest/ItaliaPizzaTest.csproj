@@ -57,6 +57,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FinanceModule\CashRegisterReconciliationTest.cs" />
     <Compile Include="FinanceModule\EditSupplierOrderTests.cs" />
     <Compile Include="FinanceModule\EditSupplierTests.cs" />
     <Compile Include="FinanceModule\RegisterSupplierOrderTest.cs" />
@@ -64,8 +65,8 @@
     <Compile Include="FinanceModule\SearchSupplierTests.cs" />
     <Compile Include="KitchenModule\RegisterRecipeTest.cs" />
     <Compile Include="KitchenModule\SearchRecipeTest.cs" />
-    <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
+    <Compile Include="ProductsModule\InventoryTests.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
     <Compile Include="FinanceModule\RegisterFinancialMovementsTests.cs" />
     <Compile Include="OrdersModule\EditOrderTests.cs" />
