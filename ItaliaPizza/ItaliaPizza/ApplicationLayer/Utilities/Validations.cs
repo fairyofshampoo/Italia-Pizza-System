@@ -201,7 +201,7 @@ namespace ItaliaPizza.ApplicationLayer
             {
                 isValid = false;
             }
-            var passwordRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$",
+            var passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
 
             return isValid && ValidateWithTimeout(password, passwordRegex);

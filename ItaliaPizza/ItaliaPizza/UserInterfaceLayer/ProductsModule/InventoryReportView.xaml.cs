@@ -19,6 +19,8 @@ using System.IO.Packaging;
 using System.Windows.Media;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
+using iText.Layout.Properties;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
@@ -27,6 +29,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     /// </summary>
     public partial class InventoryReport : Page
     {
+        private InventoryController _inventoryController = new InventoryController();
         bool isInventoryEmpty;
         public Dictionary<Supply, ReportUC> suppliesDictionary = new Dictionary<Supply, ReportUC>();
         public Dictionary<Product, ReportUC> productsDictionary = new Dictionary<Product, ReportUC>();
@@ -96,22 +99,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 {
                     if (decimal.TryParse(report.txtChangeCurrentAmount.Text, out decimal newAmount))
                     {
-                        SupplyDAO supplyDAO = new SupplyDAO();
-                        supplyDAO.ModifySupplyAmount(kvp.Key.name, newAmount);
-                        ProductDAO productDAO = new ProductDAO();
-                        productDAO.UpdateProductAmount(kvp.Key.productCode, Convert.ToInt32(report.txtChangeCurrentAmount.Text));
+                        _inventoryController.UpdateProductAmount(kvp.Key.name, kvp.Key.productCode, newAmount);
                     }
-                }
-            }
-
-
-            foreach (var keyValuePair in productsDictionary)
-            {
-                ReportUC reportUC = keyValuePair.Value;
-                if (reportUC.isDifferent)
-                {
-                    ProductDAO productDAO = new ProductDAO();
-                    productDAO.UpdateProductAmount(keyValuePair.Key.productCode, Convert.ToInt32(reportUC.txtChangeCurrentAmount.Text));
                 }
             }
         }
@@ -163,9 +152,9 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             {
                 PdfWriter writer = new PdfWriter(fs);
                 PdfDocument pdf = new PdfDocument(writer);
-                Document doc = new Document(pdf);
-
-                doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"));
+                Document doc = new Document(pdf); 
+                iText.Layout.Element.Table headerTable = CreateHeaderTable();
+                doc.Add(headerTable);
                 doc.Add(new iText.Layout.Element.Paragraph("No hay insumos registrados"));
 
                 doc.Close();
@@ -181,14 +170,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 PageSize pageSize = PageSize.LETTER;
                 Document doc = new Document(pdf);
 
-                doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"));
-                doc.Add(new iText.Layout.Element.Paragraph($"Creado por: {UserSingleton.Instance.Name}"));
-
+                iText.Layout.Element.Table headerTable = CreateHeaderTable();
+                doc.Add(headerTable);
                 iText.Layout.Element.Table table = CreateDataTable();
                 doc.Add(table);
 
                 doc.Close();
             }
+        }
+
+        private iText.Layout.Element.Table CreateHeaderTable()
+        {
+            Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1 })).UseAllAvailableWidth();
+            table.SetMaxWidth(600);
+            table.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+
+            table.AddCell(new Cell().Add(new Paragraph(new Text("Italia Pizza").SetBold())));
+            table.AddCell(new Cell().Add(new Paragraph("Sucursal Xalapa")));
+            table.AddCell(new Cell().Add(new Paragraph(new Text("REPORTE DE INVENTARIO").SetBold())));
+            table.AddCell(new Cell().Add(new Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
+            table.AddCell(new Cell().Add(new Paragraph($"Creado por: {UserSingleton.Instance.Name}")));
+
+            return table;
         }
 
         private iText.Layout.Element.Table CreateDataTable()
@@ -249,18 +252,17 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             }
         }
 
-        private void AddItemToList(object item)
+        private void AddItemToList(Supply item)
         {
             ReportUC reportCard = new ReportUC();
             reportCard.InventoryReport = this;
-            reportCard.SetObjectData(item);
+            reportCard.SetSupplyData(item);
             suppliesListView.Items.Add(reportCard);
         }
 
         private void GetSupplies()
         {
-            SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> availableItems = supplyDAO.GetSuppliesByStatus(true);
+            List<Supply> availableItems = _inventoryController.GetActiveSupplies();
 
             if (availableItems.Count > 0)
             {
@@ -278,8 +280,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             suppliesListView.Items.Clear();
             Label lblNoSupplies = new Label();
             lblNoSupplies.Style = (System.Windows.Style)FindResource("NoItemsLabelStyle");
-            lblNoSupplies.HorizontalAlignment = HorizontalAlignment.Center;
-            lblNoSupplies.VerticalAlignment = VerticalAlignment.Center;
             suppliesListView.Items.Add(lblNoSupplies);
         }
     }

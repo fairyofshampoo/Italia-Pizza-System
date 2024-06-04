@@ -176,7 +176,9 @@
     <Compile Include="ApplicationLayer\Management\UserSingleton.cs" />
     <Compile Include="ApplicationLayer\Utilities\ImageOptimizationManager.cs" />
     <Compile Include="ApplicationLayer\Utilities\Validations.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\CashierReportController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\EmployeeController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\InventoryController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\ProductController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\RecipeController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\AddressController.cs" />

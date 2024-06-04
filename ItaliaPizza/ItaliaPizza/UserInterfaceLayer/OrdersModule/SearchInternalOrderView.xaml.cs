@@ -67,7 +67,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
             else
             {
-                //Mostrar Mesnaje avisando que no hay ordenes registradas
+                lblWithoutOrders.Visibility = Visibility.Visible;
             }
         }
 

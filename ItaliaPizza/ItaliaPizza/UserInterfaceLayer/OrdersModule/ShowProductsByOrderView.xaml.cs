@@ -87,7 +87,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<InternalOrderProduct> GetProductsByOrder()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrderProduct> products = internalOrderDAO.GetAllInternalProductsByOrden(internalOrderCode);
+            List<InternalOrderProduct> products = internalOrderDAO.GetAllInternalProductsByOrder(internalOrderCode);
             return products;
         }
 
