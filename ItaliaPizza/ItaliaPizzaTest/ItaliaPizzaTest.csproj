@@ -68,7 +68,6 @@
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
     <Compile Include="FinanceModule\RegisterFinancialMovementsTests.cs" />
-    <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
     <Compile Include="OrdersModule\EditOrderTests.cs" />
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="OrdersModule\ViewOrdersToBePreparedTests.cs" />
