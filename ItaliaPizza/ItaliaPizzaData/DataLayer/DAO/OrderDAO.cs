@@ -94,7 +94,7 @@ namespace ItaliaPizzaData.DataLayer.DAO
             return operationStatus;
         }
 
-        public List<InternalOrderProduct> GetAllInternalProductsByOrden(string internalOrderCode)
+        public List<InternalOrderProduct> GetAllInternalProductsByOrder(string internalOrderCode)
         {
             List<InternalOrderProduct> products = new List<InternalOrderProduct>();
             using (var databaseContext = new ItaliaPizzaDBEntities())

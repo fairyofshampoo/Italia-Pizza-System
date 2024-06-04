@@ -87,6 +87,8 @@ namespace ItaliaPizzaTest.OrdersModule
         [TestMethod]
         public void AddProductToHomeOrder_Success()
         {
+            OrderDAO _orderDAO = new OrderDAO();
+            string orderCode = "040624-2RD9";
             //Arrange
             int recipeProduct = 19;
             int productsPosibles = _orderController.GetNumberOfProducts(recipeProduct);
@@ -99,12 +101,14 @@ namespace ItaliaPizzaTest.OrdersModule
                 {
                     amount = 1,
                     isConfirmed = 0,
-                    internalOrderId = "040624-01JK",
+                    internalOrderId = orderCode,
                     productId = "PM001"
                 };
 
                 result = _orderController.AddProductToOrder(newProductOrder);
             }
+
+            _orderDAO.SaveInternalOrder(orderCode);
 
             //Assert
             Assert.IsTrue(result, "El resultado de agregar un nuevo producto debería ser válido");
