@@ -82,6 +82,19 @@ namespace ItaliaPizzaData.DataLayer.DAO
                                                       .Where(fullAddress => fullAddress.street.StartsWith(address))
                                                       .Take(5)
                                                       .ToList();
+                if(clientsByAddress != null)
+                {
+                    foreach (var clientAddress in clientsByAddress)
+                    {
+                        var client = databaseContext.Clients
+                                                    .Where(clientId => clientId.email == clientAddress.clientId)
+                                                    .FirstOrDefault();
+                        if(client != null)
+                        {
+                            clients.Add(client);
+                        }
+                    }
+                }
             }
             return clients;
         }

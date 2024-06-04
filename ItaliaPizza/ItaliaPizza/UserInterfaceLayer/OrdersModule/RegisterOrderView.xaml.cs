@@ -1,18 +1,11 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.ApplicationLayer.Management;
 using ItaliaPizzaData.DataLayer;
 using ItaliaPizzaData.DataLayer.DAO;
-using ItaliaPizza.UserInterfaceLayer.FinanceModule;
-using ItaliaPizza.UserInterfaceLayer.ProductsModule;
-using iText.Layout.Borders;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 

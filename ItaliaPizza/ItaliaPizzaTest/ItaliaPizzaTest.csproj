@@ -67,15 +67,25 @@
     <Compile Include="OrdersModule\RegisterOrderTest.cs" />
     <Compile Include="ProductsModule\EditSupplyTest.cs" />
     <Compile Include="ProductsModule\RegisterSupplyTest.cs" />
+    <Compile Include="FinanceModule\RegisterFinancialMovementsTests.cs" />
+    <Compile Include="KitchenModule\RegisterRecipeTests.cs" />
+    <Compile Include="OrdersModule\EditOrderTests.cs" />
+    <Compile Include="OrdersModule\RegisterOrderTest.cs" />
+    <Compile Include="OrdersModule\ViewOrdersToBePreparedTests.cs" />
     <Compile Include="ProductsModule\RegisterProductTest.cs" />
     <Compile Include="ProductsModule\EditProductTest.cs" />
     <Compile Include="KitchenModule\EditRecipeTest.cs" />
     <Compile Include="ProductsModule\SearchProductTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FinanceModule\RegisterSupplierTests.cs" />
+    <Compile Include="UsersModule\EditClientAddressTests.cs" />
+    <Compile Include="UsersModule\EditClientTests.cs" />
     <Compile Include="UsersModule\LoginTests.cs" />
     <Compile Include="UsersModule\RegisterEmployeeTest.cs" />
     <Compile Include="UsersModule\EditEmployeeTest.cs" />
+    <Compile Include="UsersModule\RegisterClientAddressTests.cs" />
+    <Compile Include="UsersModule\RegisterClientTests.cs" />
+    <Compile Include="UsersModule\SearchExistingClientTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

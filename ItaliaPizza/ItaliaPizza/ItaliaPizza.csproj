@@ -179,6 +179,10 @@
     <Compile Include="UserInterfaceLayer\Controllers\EmployeeController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\ProductController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\RecipeController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\AddressController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\ClientController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\FinancialMovementsController.cs" />
+    <Compile Include="UserInterfaceLayer\Controllers\OrderController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplierController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplierOrderController.cs" />
     <Compile Include="UserInterfaceLayer\Controllers\SupplyController.cs" />

@@ -10,10 +10,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizzaTest
 {
-    /// <summary>
-    /// Summary description for RegisterSupplierTests
-    /// </summary>
-    /// 
+
     [TestClass]
     public class RegisterSupplierTests
     {
