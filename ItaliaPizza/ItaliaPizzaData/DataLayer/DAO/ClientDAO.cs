@@ -181,10 +181,11 @@ namespace ItaliaPizzaData.DataLayer.DAO
             {
                 using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    var clientByName = databaseContext.Clients
-                                                      .Where(client => DiacriticsUtilities.RemoveDiacritics(client.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(fullName).ToUpper()))
-                                                      .Take(5)
-                                                      .ToList();
+                    var clientsDB = databaseContext.Clients.ToList();
+                    var clientByName = clientsDB
+                        .Where(client => DiacriticsUtilities.RemoveDiacritics(client.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(fullName).ToUpper()))
+                        .Take(5).ToList();
+
                     if (clientByName != null)
                     {
                         foreach (var client in clientByName)
