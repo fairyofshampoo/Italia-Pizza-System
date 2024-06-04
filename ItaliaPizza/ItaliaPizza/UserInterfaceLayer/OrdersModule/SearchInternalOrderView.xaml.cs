@@ -5,13 +5,9 @@ using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
@@ -54,7 +50,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void ShowOrderForWaiter()
         {
             List<InternalOrder> orders = GetInternalOrder();
-
             VerifyOrders(orders);
         }
 

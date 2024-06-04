@@ -395,6 +395,15 @@ namespace ItaliaPizzaData.DataLayer.DAO
 
             return sumOfTotalSupplierOrders;
         }
+
+        public SupplierOrder GetOrderById(int orderId)
+        {
+            using (var dbContext = new ItaliaPizzaDBEntities())
+            {
+                return dbContext.SupplierOrders.FirstOrDefault(order => order.orderCode == orderId);
+            }
+        }
+
     }
 
 }

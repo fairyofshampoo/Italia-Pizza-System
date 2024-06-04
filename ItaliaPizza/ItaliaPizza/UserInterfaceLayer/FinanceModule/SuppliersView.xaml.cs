@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliaPizzaData.DataLayer.DAO.Interface;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -26,6 +28,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     {
         private int rowsAdded = 0;
         private List<Button> dynamicFilterButtons = new List<Button>();
+        private readonly SupplierController _supplierController = new SupplierController();
         public SuppliersView()
         {
             InitializeComponent();
@@ -137,15 +140,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 }
             }
 
-            SearchSupplierByArea(area);
+            ShowSuppliers(_supplierController.SearchSupplierByArea(area));
         }
 
-        private void SearchSupplierByArea(SupplyArea area)
-        {
-            SupplierDAO supplierDAO = new SupplierDAO();
-            List<Supplier> suppliers = supplierDAO.SearchSupplierByArea(area.area_name);
-            ShowSuppliers(suppliers);
-        }
+        
 
         private void BtnAll_Click(object sender, RoutedEventArgs e)
         {
@@ -170,7 +168,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             if (searchText.Length > 3)
             {
 
-                SearchSupplierByName(searchText);
+                ShowSuppliers(_supplierController.SearchSupplierByName(searchText));
+
             } else
             {
                 if (string.IsNullOrEmpty(searchText))
@@ -178,13 +177,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                     SetSuppliers();
                 }
             }
-        }
-
-        private void SearchSupplierByName(string searchText)
-        {
-            SupplierDAO supplierDAO = new SupplierDAO();
-            List<Supplier> suppliers = supplierDAO.SearchSupplierByName(searchText);
-            ShowSuppliers(suppliers);
         }
 
         private void BtnAddSupplier_Click(object sender, RoutedEventArgs e)
