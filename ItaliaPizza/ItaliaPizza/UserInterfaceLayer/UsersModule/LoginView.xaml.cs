@@ -1,31 +1,18 @@
 ﻿using ItaliaPizza.ApplicationLayer;
 using ItaliaPizzaData.DataLayer;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
-using ItaliaPizza.UserInterfaceLayer.KitchenModule;
 using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Interaction logic for LoginView.xaml
-    /// </summary>
     public partial class LoginView : Page
     {
         private readonly EmployeeController _employeeController = new EmployeeController();

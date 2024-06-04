@@ -209,6 +209,16 @@
 
                             </Grid>
                         </Grid>
+
+                        <Label Name="lblWithoutOrders" 
+                           Grid.Row="2"
+                           Content="No hay pedidos registrados" 
+                           Foreground="White" 
+                           FontSize="70" 
+                           FontFamily="Times New Roman" HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed"/>
+                        
                         <ListBox Name="ordersListBox" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="Transparent"
                                  Width = "1150" Height = "Auto"/>
                     </Grid>

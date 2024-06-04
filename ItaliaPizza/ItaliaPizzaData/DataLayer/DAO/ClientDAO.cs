@@ -1,8 +1,10 @@
 ﻿using ItaliaPizzaData.DataLayer.DAO.Interface;
-using Microsoft.Win32;
+using ItaliaPizzaData.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -13,10 +15,11 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool AddClient(Client client)
         {
             bool successfulRegistration = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                try
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
+                
                     var newClient = new Client
                     {
                         name = client.name,
@@ -26,12 +29,24 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     };
                     databaseContext.Clients.Add(newClient);
                     databaseContext.SaveChanges();
-                    successfulRegistration = true;
-                } catch (SqlException sQLException)
-                {
-                    throw sQLException;
+                    successfulRegistration = true;     
                 }
-                
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
             return successfulRegistration;
         }
@@ -39,35 +54,75 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool ChangeStatusClient(string email, int status)
         {
             bool successfulOperation = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var clientDisable = databaseContext.Clients
-                                                   .FirstOrDefault(clientDB => clientDB.email == email);
-                if(clientDisable != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    clientDisable.status = (byte)status;
-                    successfulOperation = true;
-                    databaseContext.SaveChanges();
+                    var clientDisable = databaseContext.Clients
+                                                       .FirstOrDefault(clientDB => clientDB.email == email);
+                    if (clientDisable != null)
+                    {
+                        clientDisable.status = (byte)status;
+                        successfulOperation = true;
+                        databaseContext.SaveChanges();
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return successfulOperation;
         }
 
         public bool EditDataClient(Client client)
         {
             bool successfulOperation = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var clientEdited = databaseContext.Clients
-                                                  .FirstOrDefault(clientDB => clientDB.email == client.email);
-                if(clientEdited != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    clientEdited.name = client.name;
-                    clientEdited.phone = client.phone;
-                    successfulOperation = true;
-                    databaseContext .SaveChanges();
+                    var clientEdited = databaseContext.Clients
+                                                      .FirstOrDefault(clientDB => clientDB.email == client.email);
+                    if (clientEdited != null)
+                    {
+                        clientEdited.name = client.name;
+                        clientEdited.phone = client.phone;
+                        successfulOperation = true;
+                        databaseContext.SaveChanges();
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return successfulOperation;
         }
 
@@ -76,99 +131,198 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<Client> GetClientsByAddress(string address)
         {
             List<Client> clients = new List<Client>();
-            using(var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var clientsByAddress = databaseContext.Addresses
-                                                      .Where(fullAddress => fullAddress.street.StartsWith(address))
-                                                      .Take(5)
-                                                      .ToList();
-                if(clientsByAddress != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var clientAddress in clientsByAddress)
+                    var clientsByAddress = databaseContext.Addresses
+                                                          .Where(fullAddress => fullAddress.street.StartsWith(address))
+                                                          .Take(5)
+                                                          .ToList();
+                    if (clientsByAddress != null)
                     {
-                        var client = databaseContext.Clients
-                                                    .Where(clientId => clientId.email == clientAddress.clientId)
-                                                    .FirstOrDefault();
-                        if(client != null)
+                        foreach (var clientAddress in clientsByAddress)
                         {
-                            clients.Add(client);
+                            var client = databaseContext.Clients
+                                                        .Where(clientId => clientId.email == clientAddress.clientId)
+                                                        .FirstOrDefault();
+                            if (client != null)
+                            {
+                                clients.Add(client);
+                            }
                         }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return clients;
         }
 
         public List<Client> GetClientsByName(string fullName)
         {
             List<Client> clients = new List<Client>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var clientByName = databaseContext.Clients
-                                                  .Where(client => client.name.StartsWith(fullName))
-                                                  .Take(5)
-                                                  .ToList();
-                if(clientByName != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach(var client in clientByName)
+                    var clientByName = databaseContext.Clients
+                                                      .Where(client => DiacriticsUtilities.RemoveDiacritics(client.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(fullName).ToUpper()))
+                                                      .Take(5)
+                                                      .ToList();
+                    if (clientByName != null)
                     {
-                        clients.Add(client);
+                        foreach (var client in clientByName)
+                        {
+                            clients.Add(client);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return clients;
         }
 
         public List<Client> GetClientsByPhone(string phone)
         {
             List<Client> clientsDB = new List<Client>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var clientsByPhone = databaseContext.Clients
-                                                    .Where(client => client.phone.StartsWith(phone))
-                                                    .Take(5)
-                                                    .ToList();
-                if(clientsByPhone != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var client in clientsByPhone)
+                    var clientsByPhone = databaseContext.Clients
+                                                        .Where(client => client.phone.StartsWith(phone))
+                                                        .Take(5)
+                                                        .ToList();
+                    if (clientsByPhone != null)
                     {
-                        clientsDB.Add(client);
+                        foreach (var client in clientsByPhone)
+                        {
+                            clientsDB.Add(client);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return clientsDB;
         }
 
         public List<Client> GetLastClientsRegistered()
         {
             List<Client> lastClients = new List<Client>(); 
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var lastClientsDB = databaseContext.Clients
-                                                   .OrderByDescending(client => client.name)
-                                                   .Take(10)
-                                                   .ToList();
-                if (lastClientsDB != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var client in lastClientsDB)
+                    var lastClientsDB = databaseContext.Clients
+                                                       .OrderByDescending(client => client.name)
+                                                       .Take(10)
+                                                       .ToList();
+                    if (lastClientsDB != null)
                     {
-                        lastClients.Add(client);
+                        foreach (var client in lastClientsDB)
+                        {
+                            lastClients.Add(client);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return lastClients;
         }
 
         public bool IsEmailExisting(string email)
         {
             bool isEmailExisting = true;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var existingEmail = databaseContext.Clients.FirstOrDefault(emailexist => emailexist.email == email);
-                if (existingEmail != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    isEmailExisting = false;
+                    var existingEmail = databaseContext.Clients.FirstOrDefault(emailexist => emailexist.email == email);
+                    if (existingEmail != null)
+                    {
+                        isEmailExisting = false;
+                    }
                 }
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
             return isEmailExisting;
         }

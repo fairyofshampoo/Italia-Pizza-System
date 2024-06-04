@@ -3,6 +3,8 @@ using ItaliaPizzaData.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
@@ -17,10 +19,9 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool AddEmployee(Employee employee, Account account)
         {
             bool successfulRegistration = false;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                try
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
                     var newEmployee = new Employee
                     {
@@ -44,25 +45,37 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     databaseContext.SaveChanges();
 
                     successfulRegistration = true;
-
-                } catch (SqlException sQLException)
-                {
-                    throw sQLException;
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return successfulRegistration;
         }
 
         public bool ModifyEmployee(Employee updateEmployee, Account updateAccount)
         {
             bool successfulUpdate = false;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                try
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
                     var modifyEmployee = databaseContext.Employees.First(e => e.email == updateEmployee.email);
-                    
+
                     if (modifyEmployee != null)
                     {
                         modifyEmployee.name = updateEmployee.name;
@@ -84,12 +97,25 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     }
 
                     successfulUpdate = true;
-
-                } catch (SqlException sQLException)
-                {
-                    throw sQLException;
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
 
             return successfulUpdate;
         }
@@ -97,9 +123,9 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool ChangeStatus(string user, int newStatus)
         {
             bool successfulChange = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                try
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
                     var modifyAccount = databaseContext.Accounts.First(a => a.user == user);
                     if (modifyAccount != null)
@@ -109,11 +135,23 @@ namespace ItaliaPizzaData.DataLayer.DAO
 
                     databaseContext.SaveChanges();
                     successfulChange = true;
-
-                } catch (ArgumentException argumentException)
-                {
-                    throw argumentException;
                 }
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
 
             return successfulChange;
@@ -122,7 +160,6 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public Employee GetEmployeeByEmail(string email)
         {
             Employee employeeFound = new Employee();
-
             try
             {
                 using (var databaseContext = new ItaliaPizzaDBEntities())
@@ -138,9 +175,22 @@ namespace ItaliaPizzaData.DataLayer.DAO
                     }
                     databaseContext.SaveChanges();
                 }
-            } catch (ArgumentException argumentException)
+            }
+            catch (SqlException sQLException)
             {
-                throw argumentException;
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
             return employeeFound;
         }
@@ -166,9 +216,26 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         accountFound.status = account.status;
                     }
                 }
-            } catch (ArgumentException argumentException)
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (ArgumentException argumentException)
             {
                 throw argumentException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
             return accountFound;
         }
@@ -176,28 +243,68 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public bool IsEmailExisting(string email)
         {
             bool isEmailExisting = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var existingEmail = databaseContext.Employees.FirstOrDefault(emailexist => emailexist.email == email);
-                if (existingEmail != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    isEmailExisting = true;
+                    var existingEmail = databaseContext.Employees.FirstOrDefault(emailexist => emailexist.email == email);
+                    if (existingEmail != null)
+                    {
+                        isEmailExisting = true;
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return isEmailExisting;
         }
 
         public bool IsUserExisting(string user)
         {
             bool isUsernameExisting = false;
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var existingUsername = databaseContext.Accounts.FirstOrDefault(userexist => userexist.user == user);
-                if (existingUsername != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    isUsernameExisting = true;
+                    var existingUsername = databaseContext.Accounts.FirstOrDefault(userexist => userexist.user == user);
+                    if (existingUsername != null)
+                    {
+                        isUsernameExisting = true;
+                    }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return isUsernameExisting;
         }
 
@@ -241,20 +348,40 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public List<Employee> GetLastEmployeesRegistered()
         {
             List<Employee> lastEmployees = new List<Employee>();
-            using (var databseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var lastEmployeesRegistered = databseContext.Employees
-                                                           .OrderByDescending(e => e.name)
-                                                           .Take(10)
-                                                           .ToList();
-                if (lastEmployeesRegistered != null)
+                using (var databseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var employee in lastEmployeesRegistered)
+                    var lastEmployeesRegistered = databseContext.Employees
+                                                               .OrderByDescending(e => e.name)
+                                                               .Take(10)
+                                                               .ToList();
+                    if (lastEmployeesRegistered != null)
                     {
-                        lastEmployees.Add(employee);
+                        foreach (var employee in lastEmployeesRegistered)
+                        {
+                            lastEmployees.Add(employee);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return lastEmployees;
         }
 
@@ -262,43 +389,83 @@ namespace ItaliaPizzaData.DataLayer.DAO
         {
             List<Employee> employeesDB = new List<Employee>();
 
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var employees = (from employee in databaseContext.Employees
-                                 join account in databaseContext.Accounts
-                                 on employee.email equals account.email
-                                 where account.status == status
-                                 select employee)
-                                .ToList();
-
-                if (employees != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var product in employees)
+                    var employees = (from employee in databaseContext.Employees
+                                     join account in databaseContext.Accounts
+                                     on employee.email equals account.email
+                                     where account.status == status
+                                     select employee)
+                                    .ToList();
+
+                    if (employees != null)
                     {
-                        employeesDB.Add(product);
+                        foreach (var product in employees)
+                        {
+                            employeesDB.Add(product);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return employeesDB;
         }
 
         public List<Employee> GetEmployeesByName(string name)
         {
             List<Employee> employeesDB = new List<Employee>();
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var employees = databaseContext.Employees
-                                              .Where(e => e.name.StartsWith(name))
-                                              .Take(5)
-                                              .ToList();
-                if (employees != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    foreach (var employee in employees)
+                    var employees = databaseContext.Employees
+                                                  .Where(e => e.name.StartsWith(name))
+                                                  .Take(5)
+                                                  .ToList();
+                    if (employees != null)
                     {
-                        employeesDB.Add(employee);
+                        foreach (var employee in employees)
+                        {
+                            employeesDB.Add(employee);
+                        }
                     }
                 }
             }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
+            }
+
             return employeesDB;
         }
         

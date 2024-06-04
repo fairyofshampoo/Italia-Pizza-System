@@ -16,12 +16,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Lógica de interacción para EditEmployeeView.xaml
-    /// </summary>
     public partial class EditEmployeeView : Page
     {
         public EditEmployeeView(Employee employeeData)
@@ -41,15 +41,34 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             {
                 string user = txtUsername.Text;
                 EmployeeDAO employeeDAO = new EmployeeDAO();
+                try
+                {
+                    if (employeeDAO.ChangeStatus(user, Constants.INACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                    }
+                }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
 
-                if (employeeDAO.ChangeStatus(user, Constants.INACTIVE_STATUS))
-                {
-                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
-                }
-                else
-                {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
-                }
             }
         }
 
@@ -62,14 +81,34 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 string user = txtUsername.Text;
                 EmployeeDAO employeeDAO = new EmployeeDAO();
 
-                if (employeeDAO.ChangeStatus(user, Constants.ACTIVE_STATUS))
+                try
                 {
-                    DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                    if (employeeDAO.ChangeStatus(user, Constants.ACTIVE_STATUS))
+                    {
+                        DialogManager.ShowSuccessMessageBox("Empleado actualizado exitosamente");
+                    }
+                    else
+                    {
+                        DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                    }
                 }
-                else
+                catch (SqlException)
                 {
-                    DialogManager.ShowErrorMessageBox("Ha ocurrido un error al actualizar el empleado");
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
                 }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
+
             }
         }
 
@@ -118,14 +157,60 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 account.password = pswPassword.Password;
             }
 
-            return employeeDAO.ModifyEmployee(employee, account);
+            bool result = false;
+            try
+            {
+                result = employeeDAO.ModifyEmployee(employee, account);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            return result;
         }
 
         public void SetModifyEmployee(string email)
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            Employee employeeInfo = employeeDAO.GetEmployeeByEmail(email);
-            Account accountinfo = employeeDAO.GetEmployeeAccountByEmail(email);
+            Employee employeeInfo = new Employee();
+            Account accountInfo = new Account();
+
+            try
+            {
+                employeeInfo = employeeDAO.GetEmployeeByEmail(email);
+                accountInfo = employeeDAO.GetEmployeeAccountByEmail(email);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             int statusAccount = 0;
 
             if (employeeInfo != null)
@@ -136,11 +221,11 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 cmbEmployeeType.SelectedIndex = cmbEmployeeType.Items.IndexOf(employeeInfo.role);
             }
 
-            if (accountinfo != null)
+            if (accountInfo != null)
             {
-                txtUsername.Text = accountinfo.user;
+                txtUsername.Text = accountInfo.user;
                 pswPassword.Password = "passex1*";
-                statusAccount = accountinfo.status;
+                statusAccount = accountInfo.status;
 
                 if (statusAccount == Constants.INACTIVE_STATUS)
                 {
