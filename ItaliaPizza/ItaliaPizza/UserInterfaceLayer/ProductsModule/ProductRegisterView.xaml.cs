@@ -211,7 +211,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 txtCode.IsEnabled = false;
                 txtCode.Text = GenerateProductCode();
 
-                txtAmount.Text = "0";
+                txtAmount.Text = "1";
                 txtAmount.IsEnabled = false;
             }
 

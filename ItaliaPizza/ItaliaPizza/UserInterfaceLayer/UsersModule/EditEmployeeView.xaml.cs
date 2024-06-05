@@ -154,7 +154,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
             if (pswPassword.Password != "passex1*")
             {
-                account.password = pswPassword.Password;
+                account.password = Encription.ToSHA2Hash(pswPassword.Password);
             }
 
             bool result = false;
@@ -250,7 +250,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             cmbEmployeeType.ItemsSource = new String[]
             {
-                "Cocinero", "Cajero", "Mesero"
+                "Cocinero", "Cajero", "Mesero", "Gerente"
             };
         }
 
