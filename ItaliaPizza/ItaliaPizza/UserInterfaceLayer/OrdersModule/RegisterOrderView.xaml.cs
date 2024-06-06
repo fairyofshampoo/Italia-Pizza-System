@@ -59,7 +59,10 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                 AddressDAO addressDAO = new AddressDAO();
                 ClientDAO clientDAO = new ClientDAO();
                 addressComboBox.Visibility = Visibility.Visible;
-                addressComboBox.SelectedValue = addressDAO.GetAddressById(order.addressId ?? 0);
+                Address address = addressDAO.GetAddressById(order.addressId ?? 0);
+                addressComboBox.ItemsSource = new List<Address> { address };
+                addressComboBox.DisplayMemberPath = "street";
+                addressComboBox.SelectedIndex = 0;
                 addressComboBox.IsEnabled = false;
                 lblName.Text = clientDAO.GetClientName(order.clientEmail);
             } else
