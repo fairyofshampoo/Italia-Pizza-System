@@ -55,7 +55,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             string email = txtEmail.Text;
             string employeeType = cmbEmployeeType.SelectedItem.ToString();
             string user = txtUsername.Text;
-            string password = pswPassword.Password;
+            string password = Encription.ToSHA2Hash(pswPassword.Password);
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
 
