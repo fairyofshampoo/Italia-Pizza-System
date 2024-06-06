@@ -22,8 +22,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
     public partial class ReportUC : UserControl
     {
         private Supply supplyData;
-        private Product productData;
-        private bool isSupply;
         public bool isValid;
         public bool isDifferent;
         public InventoryReport InventoryReport {  get; set; }
@@ -53,7 +51,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         public void SetSupplyData(Supply supply)
         {
-            isSupply = true;
             supplyData = supply;
             txtName.Text = supply.name;
             txtAmount.Text = supply.amount.ToString();
@@ -87,23 +84,11 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             decimal amount = GetAmount();
             decimal enteredAmount;
 
-            if (isSupply)
-            {
-                if (!decimal.TryParse(txtChangeCurrentAmount.Text, out enteredAmount) ||
+            if (!decimal.TryParse(txtChangeCurrentAmount.Text, out enteredAmount) ||
                     !IsDecimalValid(txtChangeCurrentAmount.Text))
-                {
-                    isValid = false;
-                    txtChangeCurrentAmount.Foreground = Brushes.Red;
-                }
-            }
-            else
             {
-                if (!decimal.TryParse(txtChangeCurrentAmount.Text, out enteredAmount) ||
-                    !IsIntegerValid(txtChangeCurrentAmount.Text))
-                {
-                    isValid = false;
-                    txtChangeCurrentAmount.Foreground = Brushes.Red;
-                }
+                isValid = false;
+                txtChangeCurrentAmount.Foreground = Brushes.Red;
             }
 
             SolidColorBrush backgroundBrush = GetBackgroundBrush(amount, enteredAmount);
@@ -124,16 +109,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private decimal GetAmount()
         {
-            decimal amount = 0;
-
-            if (isSupply)
-            {
-                amount = supplyData.amount ?? 0;
-            }
-            else
-            {
-                amount = productData.amount ?? 0;
-            }
+            decimal amount = supplyData.amount ?? 0;
 
             return amount;
         }

@@ -43,14 +43,18 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private void BtnDownload_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateNewAmounts() && ValidateNotes())
+            bool amountsValidation = ValidateNewAmounts();
+            bool notesValidation = ValidateNotes();
+
+            if (amountsValidation && notesValidation)
             {
                 UpdateAmounts();
                 CreateReport();
                 NavigationService.GoBack();
 
                 DialogManager.ShowSuccessMessageBox("Se han actualizado los valores en el inventario");
-            } else
+            }
+            else
             {
                 DialogManager.ShowWarningMessageBox("Corrige las cantidades en rojo a números válidos y no dejes campos vacíos (máx. 6 caracteres)");
             }
@@ -59,12 +63,25 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool ValidateNotes()
         {
             bool isValid = true;
+
+            if (suppliesDictionary.Count == 0)
+            {
+                isValid = false;
+            }
+
             foreach (ReportUC report in suppliesDictionary.Values)
             {
                 if (report.isDifferent && string.IsNullOrEmpty(report.txtNote.Text))
                 {
+                    report.txtNote.BorderBrush = new SolidColorBrush(Colors.Red);
+                    report.txtNote.BorderThickness = new Thickness(2);
+
                     isValid = false;
-                    break;
+                }
+                else if (report.isDifferent)
+                {
+                    report.txtNote.BorderBrush = new SolidColorBrush(Colors.LightGray);
+                    report.txtNote.BorderThickness = new Thickness(1);
                 }
             }
 
@@ -89,12 +106,24 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private bool ValidateNewAmounts()
         {
             bool isValid = true;
-            foreach (ReportUC report in suppliesDictionary.Values )
+
+            if(suppliesDictionary.Count == 0)
+            {
+                isValid = false;
+            }
+
+            foreach (ReportUC report in suppliesDictionary.Values)
             {
                 if (!report.isValid)
                 {
+                    report.txtChangeCurrentAmount.BorderBrush = new SolidColorBrush(Colors.Red);
+                    report.txtChangeCurrentAmount.BorderThickness = new Thickness(2);
                     isValid = false;
-                    break;
+                }
+                else
+                {
+                    report.txtChangeCurrentAmount.BorderBrush = new SolidColorBrush(Colors.LightGray);
+                    report.txtChangeCurrentAmount.BorderThickness = new Thickness(1);
                 }
             }
 
@@ -214,6 +243,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void ShowInventory(List<Supply> suppliesAndProducts)
         {
             suppliesListView.Items.Clear();
+            suppliesDictionary.Clear();
             ReportUC reportCard = new ReportUC();
             reportCard.SetTitleData();
             suppliesListView.Items.Add(reportCard);
@@ -229,6 +259,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             ReportUC reportCard = new ReportUC();
             reportCard.InventoryReport = this;
             reportCard.SetSupplyData(item);
+            suppliesDictionary.Add(item, reportCard);
             suppliesListView.Items.Add(reportCard);
         }
 
@@ -250,6 +281,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             isInventoryEmpty = true;
             suppliesListView.Items.Clear();
+            suppliesDictionary.Clear();
             Label lblNoSupplies = new Label();
             lblNoSupplies.Style = (System.Windows.Style)FindResource("NoItemsLabelStyle");
             suppliesListView.Items.Add(lblNoSupplies);
