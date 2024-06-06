@@ -134,9 +134,9 @@ namespace ItaliaPizza.ApplicationLayer
         public static bool IsEmailValid(string email)
         {
             bool emailValidation = true;
-            int maximumEmailLength = 50;
+            int maximumEmailLength = 30;
             int limitTime = 500;
-            var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+            var emailRegex = new Regex(@"^(?=.{1,30}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
                 RegexOptions.None, TimeSpan.FromMilliseconds(limitTime));
             if (string.IsNullOrEmpty(email) || email.Length > maximumEmailLength)
             {
