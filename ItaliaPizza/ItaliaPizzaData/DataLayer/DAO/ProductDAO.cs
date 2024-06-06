@@ -413,7 +413,8 @@ namespace ItaliaPizzaData.DataLayer.DAO
                         name = dto.Name,
                         status = (byte)dto.Status,
                         productCode = dto.ProductCode,
-                        price = dto.Price
+                        price = dto.Price,
+                        isExternal = dto.IsExternal,
                     }).ToList();
                 }
             }
