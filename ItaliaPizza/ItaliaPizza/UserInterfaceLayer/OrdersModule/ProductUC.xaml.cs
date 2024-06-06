@@ -31,7 +31,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             lblProductName.Content = product.name;
             ProductData = product;
-            Console.WriteLine(ProductData.isExternal + "is External");
             SetProductImage();
         }
 
@@ -84,12 +83,10 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             
             if (ProductData.isExternal == 0)
             {
-                Console.WriteLine("Internal");
                 RegisterInternalProduct();
             }
             else
             {
-                Console.WriteLine("External");
                 RegisterExternalProduct();
             }
 

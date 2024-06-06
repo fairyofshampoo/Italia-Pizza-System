@@ -24,7 +24,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void ShowInternalOrderDataByWaiter(InternalOrder order)
         {
             DisplayOrderInformation(order);
-            Console.WriteLine("ESTADO" + order.status);
             isWaiter = true;
             UpdateStatusUI(order.status);
             txtName.Text = UserSingleton.Instance.Name;
@@ -78,7 +77,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private string GetOrderStatusDescription(int status)
         {
-            Console.WriteLine("ESTADO" + status);
             switch (status)
             {
                 case Constants.ORDER_STATUS_PENDING_PREPARATION:

@@ -275,19 +275,23 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             if (products.Any())
             {
+                for (int index = 0; index < 2; index++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = new GridLength(350);
+                    ProductsGrid.ColumnDefinitions.Add(column);
+                }
+
                 foreach (Product product in products)
                 {
-                    for (int index = 0; index < 3; index++)
-                    {
-                        ColumnDefinition column = new ColumnDefinition();
-                        column.Width = new GridLength(335);
-                        ProductsGrid.ColumnDefinitions.Add(column);
-                    }
-
                     if (columnsAdded == 2)
                     {
                         columnsAdded = 0;
                         rowAdded++;
+                    }
+
+                    if (columnsAdded == 0)
+                    {
                         RowDefinition row = new RowDefinition();
                         row.Height = new GridLength(245);
                         ProductsGrid.RowDefinitions.Add(row);
@@ -296,7 +300,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                     AddProduct(product);
                 }
             }
-
         }
 
         private void AddProduct(Product product)
@@ -310,6 +313,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             ProductsGrid.Children.Add(productCard);
             columnsAdded++;
         }
+
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {

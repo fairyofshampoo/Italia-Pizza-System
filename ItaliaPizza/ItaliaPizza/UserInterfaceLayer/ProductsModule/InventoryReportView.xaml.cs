@@ -23,7 +23,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private InventoryController _inventoryController = new InventoryController();
         bool isInventoryEmpty;
         public Dictionary<Supply, ReportUC> suppliesDictionary = new Dictionary<Supply, ReportUC>();
-        public Dictionary<Product, ReportUC> productsDictionary = new Dictionary<Product, ReportUC>();
         public InventoryReport()
         {
             InitializeComponent();
@@ -69,15 +68,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 }
             }
 
-            foreach (ReportUC reportUC in productsDictionary.Values)
-            {
-                if (reportUC.isDifferent && string.IsNullOrEmpty(reportUC.txtNote.Text))
-                {
-                    isValid = false;
-                    break;
-                }
-            }
-
             return isValid;
         }
 
@@ -102,15 +92,6 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             foreach (ReportUC report in suppliesDictionary.Values )
             {
                 if (!report.isValid)
-                {
-                    isValid = false;
-                    break;
-                }
-            }
-
-            foreach(ReportUC reportUC in productsDictionary.Values )
-            {
-                if (!reportUC.isValid)
                 {
                     isValid = false;
                     break;
