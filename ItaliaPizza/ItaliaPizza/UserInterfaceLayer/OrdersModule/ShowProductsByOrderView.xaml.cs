@@ -102,6 +102,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             ChangeStatusOrder(3);
             btnChangeStatusToFinished.IsEnabled = false;
+            btnChangeStatusToFinished.Visibility = Visibility.Collapsed;
         }
 
         private void ChangeStatusOrder(int status)

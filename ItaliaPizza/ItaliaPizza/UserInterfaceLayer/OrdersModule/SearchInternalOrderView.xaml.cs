@@ -48,6 +48,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void ShowElementsForChef()
         {
             btnRefreshPage.Visibility = Visibility.Visible;
+            btnFinishedOrderForChef.Visibility = Visibility.Visible;
         }
 
         private void ShowOrderForWaiter()
@@ -98,7 +99,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             {
                 ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
             }
-
 
             return internalOrders;
         }
@@ -270,6 +270,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void BtnRefreshScreen_Click(object sender, RoutedEventArgs e)
         {
             ShowOrderForChef();
+        }
+
+        private void BtnFinishedOrderForChef_Click(object sender, RoutedEventArgs e)
+        {
+            SearchInternalOrderByStatus(3);
         }
     }
 }
