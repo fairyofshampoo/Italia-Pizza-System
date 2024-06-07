@@ -29,7 +29,13 @@
                     <Canvas HorizontalAlignment="Center">
                         <Line X1="-300" Y1="100" X2="300" Y2="100" Stroke="#ff7b00" StrokeThickness="3"/>
                     </Canvas>
-                    <Grid Name="ProductsGrid" Width = "1000" Height = "500" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,30,0,0"/>
+                    <ScrollViewer Margin="0,30,0,0" Width = "1000" Height = "500" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible"
+Grid.Row="1">
+                        <Grid Name="ProductsGrid"
+Width = "Auto"
+Height = "Auto"
+Margin="30,0,0,0"/>
+                    </ScrollViewer>
 
                     <Button x:Name="btnChangeStatusToInPreparation" 
                 BorderThickness="0" 

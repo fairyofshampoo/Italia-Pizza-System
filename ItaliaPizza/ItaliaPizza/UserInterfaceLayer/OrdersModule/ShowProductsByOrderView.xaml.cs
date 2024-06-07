@@ -51,19 +51,24 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             if (products.Any())
             {
+                for (int index = 0; index < 2; index++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = new GridLength(350);
+                    ProductsGrid.ColumnDefinitions.Add(column);
+                }
+
                 foreach (InternalOrderProduct product in products)
                 {
-                    for (int index = 0; index < 3; index++)
-                    {
-                        ColumnDefinition column = new ColumnDefinition();
-                        column.Width = new GridLength(335);
-                        ProductsGrid.ColumnDefinitions.Add(column);
-                    }
 
                     if (columnsAdded == 2)
                     {
                         columnsAdded = 0;
                         rowAdded++;
+                    }
+
+                    if (columnsAdded == 0)
+                    {
                         RowDefinition row = new RowDefinition();
                         row.Height = new GridLength(245);
                         ProductsGrid.RowDefinitions.Add(row);
