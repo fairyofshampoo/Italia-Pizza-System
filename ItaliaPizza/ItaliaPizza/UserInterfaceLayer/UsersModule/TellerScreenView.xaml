@@ -85,7 +85,7 @@
                                 </Border>
                             </Grid>
 
-                            <ScrollViewer
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" Height="500"
                                 Grid.Row="1">
                                 <Grid Name="ClientsGrid"
                                       Width = "1100"

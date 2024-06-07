@@ -5,6 +5,9 @@ using ItaliaPizzaData.DataLayer.DAO;
 using iText.Commons.Actions.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -100,7 +103,27 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public string GetProductName(string productId)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            string name = internalOrderDAO.GetProductName(productId);
+            string name = string.Empty;
+            try
+            { 
+                name = internalOrderDAO.GetProductName(productId);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
             return name;
         }
 

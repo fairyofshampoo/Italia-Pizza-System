@@ -107,7 +107,7 @@
                         <Grid
                     Height="Auto"
                     Grid.Row="1"
-                    Width="400"
+                    Width="Auto"
                     HorizontalAlignment="Left"
                     Margin="160,45,0,0">
                             <Grid.RowDefinitions>
@@ -124,21 +124,23 @@
                            HorizontalAlignment="Center"/>
 
                             <Grid
-                        Grid.Row="1">
+                                Grid.Row="1"
+                                Width="Auto">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="133.333"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <Button x:Name="btnImpromptuOrder"
-                        Content="Por preparar"
-                        Foreground="Black"
-                        FontSize="15"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Grid.Column="0"
-                        Click="BtnOpenOrder_Click">
+                                        Content="Por preparar"
+                                        Foreground="Black"
+                                        FontSize="15"
+                                        FontWeight="Bold"
+                                        Cursor="Hand"
+                                        Grid.Column="0"
+                                        Click="BtnOpenOrder_Click"
+                                        Margin="20,0,20,0">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#E9E1FF"/>
@@ -157,13 +159,41 @@
                                 </Button>
 
                                 <Button x:Name="btnPreparingOrder"
-                        Content="En preparación"
-                        Foreground="Black"
-                        FontSize="15"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Grid.Column="1"
-                        Click="BtnPreparingOrder_Click">
+                                        Content="En preparación"
+                                        Foreground="Black"
+                                        FontSize="15"
+                                        FontWeight="Bold"
+                                        Cursor="Hand"
+                                        Grid.Column="1"
+                                        Click="BtnPreparingOrder_Click"
+                                        Margin="0,0,20,0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#E9E1FF"/>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="120" Height="40"
+                                                    CornerRadius="20"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Button x:Name="btnFinishedOrder"
+                                        Content="Preparado"
+                                        Foreground="Black"
+                                        FontSize="15"
+                                        FontWeight="Bold"
+                                        Cursor="Hand"
+                                        Grid.Column="2"
+                                        Click="BtnFinishedOrder_Click"
+                                        Visibility="Collapsed"
+                                        Margin="0,0,20,0">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#E9E1FF"/>
@@ -181,15 +211,16 @@
                                     </Button.Template>
                                 </Button>
 
-                                <Button x:Name="btnFinishedOrder"
-                        Content="Preparado"
-                        Foreground="Black"
-                        FontSize="15"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Grid.Column="2"
-                        Click="BtnFinishedOrder_Click"
-                        Visibility="Collapsed">
+                                <Button x:Name="btnFinishedOrderForChef"
+                                        Content="Preparado"
+                                        Foreground="Black"
+                                        FontSize="15"
+                                        FontWeight="Bold"
+                                        Cursor="Hand"
+                                        Grid.Column="2"
+                                        Click="BtnFinishedOrderForChef_Click"
+                                        Visibility="Collapsed"
+                                        Margin="0,0,20,0">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#E9E1FF"/>

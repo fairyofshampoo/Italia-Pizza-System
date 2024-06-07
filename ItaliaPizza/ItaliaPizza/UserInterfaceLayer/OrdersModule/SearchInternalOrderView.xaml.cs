@@ -8,6 +8,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
@@ -45,6 +48,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void ShowElementsForChef()
         {
             btnRefreshPage.Visibility = Visibility.Visible;
+            btnFinishedOrderForChef.Visibility = Visibility.Visible;
         }
 
         private void ShowOrderForWaiter()
@@ -74,7 +78,28 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<InternalOrder> GetOrdersForPreparation()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(Constants.ORDER_STATUS_PENDING_PREPARATION);
+            List<InternalOrder> internalOrders = new List<InternalOrder>();
+            try
+            {
+                internalOrders = internalOrderDAO.GetInternalOrdersByStatus(Constants.ORDER_STATUS_PENDING_PREPARATION);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return internalOrders;
         }
 
@@ -122,7 +147,27 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             List<InternalOrder> internalOrders = new List<InternalOrder>();
             OrderDAO internalOrderDAO = new OrderDAO();
-            internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(Constants.ORDER_STATUS_PENDING_PREPARATION, waiterEmail);
+            try
+            {
+                internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(Constants.ORDER_STATUS_PENDING_PREPARATION, waiterEmail);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return internalOrders;
         }
 
@@ -160,14 +205,59 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void SearchInternalOrderByStatusAndWaiter(int status)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(status, waiterEmail);
+            List<InternalOrder> internalOrders = new List<InternalOrder>();
+
+            try
+            {
+                internalOrders = internalOrderDAO.GetInternalOrdersByStatusAndWaiter(status, waiterEmail);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             ShowInternalOrders(internalOrders);
         }
 
         private void SearchInternalOrderByStatus (int status)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrder> internalOrders = internalOrderDAO.GetInternalOrdersByStatus(status);
+            List<InternalOrder> internalOrders = new List<InternalOrder>();
+
+            try
+            {
+                internalOrders = internalOrderDAO.GetInternalOrdersByStatus(status);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             ShowInternalOrders(internalOrders);
         }
 
@@ -180,6 +270,11 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void BtnRefreshScreen_Click(object sender, RoutedEventArgs e)
         {
             ShowOrderForChef();
+        }
+
+        private void BtnFinishedOrderForChef_Click(object sender, RoutedEventArgs e)
+        {
+            SearchInternalOrderByStatus(3);
         }
     }
 }

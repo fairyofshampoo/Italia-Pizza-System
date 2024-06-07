@@ -181,10 +181,11 @@ namespace ItaliaPizzaData.DataLayer.DAO
             {
                 using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    var clientByName = databaseContext.Clients
-                                                      .Where(client => DiacriticsUtilities.RemoveDiacritics(client.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(fullName).ToUpper()))
-                                                      .Take(5)
-                                                      .ToList();
+                    var clientsDB = databaseContext.Clients.ToList();
+                    var clientByName = clientsDB
+                        .Where(client => DiacriticsUtilities.RemoveDiacritics(client.name).ToUpper().Contains(DiacriticsUtilities.RemoveDiacritics(fullName).ToUpper()))
+                        .Take(5).ToList();
+
                     if (clientByName != null)
                     {
                         foreach (var client in clientByName)
@@ -330,14 +331,32 @@ namespace ItaliaPizzaData.DataLayer.DAO
         public string GetClientName(string clientEmail)
         {
             string clientName = string.Empty;
-
-            using (var databaseContext = new ItaliaPizzaDBEntities())
+            try
             {
-                var client = databaseContext.Clients.FirstOrDefault(c => c.email == clientEmail);
-                if (client != null)
+                using (var databaseContext = new ItaliaPizzaDBEntities())
                 {
-                    clientName = client.name;
+                    var client = databaseContext.Clients.FirstOrDefault(c => c.email == clientEmail);
+                    if (client != null)
+                    {
+                        clientName = client.name;
+                    }
                 }
+            }
+            catch (SqlException sQLException)
+            {
+                throw sQLException;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw dbUpdateException;
+            }
+            catch (EntityException entityException)
+            {
+                throw entityException;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                throw invalidOperationException;
             }
 
             return clientName;

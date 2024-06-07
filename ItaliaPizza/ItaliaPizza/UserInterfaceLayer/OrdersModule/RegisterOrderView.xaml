@@ -38,10 +38,10 @@
                         </Canvas>
                     </Grid>
 
-                    <ScrollViewer
+                    <ScrollViewer VerticalScrollBarVisibility="Visible"
                   Grid.Row="1">
                         <Grid Name="ProductsGrid"
-                  Width = "750"
+                  Width = "Auto"
                   Height = "Auto"
                   Margin="30,0,0,0"/>
                     </ScrollViewer>

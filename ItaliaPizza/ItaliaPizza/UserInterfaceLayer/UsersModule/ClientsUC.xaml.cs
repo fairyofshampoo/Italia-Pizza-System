@@ -4,6 +4,10 @@ using ItaliaPizza.UserInterfaceLayer.OrdersModule;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -30,7 +34,33 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 lblFullName.Foreground = Brushes.Red;
             }
 
-            Address fullAddress = addressDAO.GetClientAddress(client.email);
+            string street = " ";
+            try
+            {
+                Address fullAddress = addressDAO.GetClientAddress(client.email);
+                if (fullAddress != null) 
+                {
+                    street = fullAddress.street;
+                }
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            lblAddress.Content = street;
         }
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)
