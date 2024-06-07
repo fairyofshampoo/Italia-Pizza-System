@@ -84,7 +84,7 @@
                                 <Label Content="Correo eletrónico" Foreground="White" FontSize="15" FontFamily="{StaticResource InterFont}" Margin="20,10,0,0"/>
                                 <Grid Margin="20,0,0,0">
                                     <Border CornerRadius="5" BorderBrush="#ff7b00" BorderThickness="4" Margin="2,2,0,0" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Border x:Name="bdrEmail" CornerRadius="5" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Border x:Name="bdrEmail" CornerRadius="5" IsEnabled="False" BorderBrush="LightGray" BorderThickness="4" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top">
                                         <TextBox x:Name="txtEmail" IsEnabled="False" FontSize="15" FontWeight="Medium" FontFamily="{StaticResource InterFont}" Background="LightGray" Foreground="Black" BorderThickness="0"/>
                                     </Border>
                                 </Grid>

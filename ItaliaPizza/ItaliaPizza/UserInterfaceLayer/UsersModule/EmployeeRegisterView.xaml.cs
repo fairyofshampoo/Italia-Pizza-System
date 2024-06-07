@@ -1,26 +1,18 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Lógica de interacción para EmployeeRegisterView.xaml
-    /// </summary>
     public partial class EmployeeRegisterView : Page
     {
         public EmployeeRegisterView()
@@ -63,7 +55,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             string email = txtEmail.Text;
             string employeeType = cmbEmployeeType.SelectedItem.ToString();
             string user = txtUsername.Text;
-            string password = pswPassword.Password;
+            string password = Encription.ToSHA2Hash(pswPassword.Password);
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
 
@@ -81,7 +73,28 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 password = password,
             };
 
-            return employeeDAO.AddEmployee(employee, account);
+            bool result = false;
+            try
+            {
+                result = employeeDAO.AddEmployee(employee, account);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+            return result;
         }
 
         private bool ValidateFields()
@@ -144,7 +157,7 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 validateFields = false;
             }
 
-            if (string.IsNullOrEmpty(pswPassword.Password))
+            if (string.IsNullOrEmpty(pswPassword.Password) || !Validations.IsPasswordValid(pswPassword.Password))
             {
                 pswPassword.BorderBrush = Brushes.Red;
                 pswPassword.BorderThickness = new Thickness(2);
@@ -176,7 +189,30 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
             string email = txtEmail.Text;
-            bool isEmailAlreadyExisting = employeeDAO.IsEmailExisting(email);
+            bool isEmailAlreadyExisting = true;
+
+            try
+            {
+                isEmailAlreadyExisting = employeeDAO.IsEmailExisting(email);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return isEmailAlreadyExisting;
         }
 
@@ -184,7 +220,29 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
             String user = txtUsername.Text;
-            bool isUserAlreadyExisting = employeeDAO.IsUserExisting(user);
+            bool isUserAlreadyExisting = false;
+            
+            try
+            {
+                isUserAlreadyExisting = employeeDAO.IsUserExisting(user);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return isUserAlreadyExisting;
         }
 

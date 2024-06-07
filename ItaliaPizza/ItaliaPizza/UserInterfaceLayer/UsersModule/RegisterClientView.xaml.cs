@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -37,11 +31,31 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     email = txtEmail.Text,
                 };
                 ClientDAO clientDAO = new ClientDAO();
-                if (clientDAO.AddClient(client))
+                try
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado el cliente");
-                    CleanTextFields();
+                    if (clientDAO.AddClient(client))
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha registrado el cliente");
+                        CleanTextFields();
+                    }
                 }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+                }
+
             } 
         }
 
@@ -67,13 +81,32 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             ClientDAO clientDAO = new ClientDAO();
             String email = txtEmail.Text;
-            bool isEmailAlreadyExisting = clientDAO.IsEmailExisting(email);
+            bool isEmailAlreadyExisting = false;
+            try
+            {
+                isEmailAlreadyExisting = clientDAO.IsEmailExisting(email);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
             return isEmailAlreadyExisting;
         }
 
         private void ShowErrors(List<int> errors)
         {
-            Console.WriteLine("Pasé por acá");
             for (int index = 0; index < errors.Count; index++) 
             {
                 int error = errors[index];

@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
@@ -15,6 +15,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using iText.Layout.Properties;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -23,9 +25,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class CashierReportView : Page
     {
+        private CashierReportController _cashierReportController = new CashierReportController();
         private OrderDAO orderDAO = new OrderDAO();
-        private CashoutDAO cashoutDAO = new CashoutDAO();
         private SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
+        private CashoutDAO cashoutDAO = new CashoutDAO();
         private DateTime reportTime;
         public CashierReportView()
         {
@@ -35,8 +38,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void CheckLogExistences()
         {
-            CashierLogDAO cashierLogDAO = new CashierLogDAO();
-            CashierLog activeCashierLog = cashierLogDAO.GetActiveCashierLog();
+            CashierLog activeCashierLog = _cashierReportController.GetActiveCashierLog();
 
             if (activeCashierLog != null)
             {
@@ -58,8 +60,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 status = 1
             };
 
-            CashierLogDAO cashierLogDAO = new CashierLogDAO();
-            cashierLogDAO.AddCashierLog(newCashierLog);
+            _cashierReportController.CreateCashierLog(newCashierLog);
             reportTime = newCashierLog.openingDate ?? DateTime.Now;
             SetFirstReportDataInPage();
         }
@@ -83,8 +84,8 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 PageSize pageSize = PageSize.LETTER;
                 Document doc = new Document(pdf);
 
-                doc.Add(new iText.Layout.Element.Paragraph($"Fecha de creación: {reportTime.ToString("yyyy-MM-dd HH:mm:ss")}"));
-                doc.Add(new iText.Layout.Element.Paragraph($"Corte efectuado por: {UserSingleton.Instance.Name}"));
+                iText.Layout.Element.Table headerTable = CreateHeaderTable();
+                doc.Add(headerTable);
 
                 doc.Add(CreateColoredParagraph($"Saldo inicial: {txtOpeningBalance.Text}", Colors.Orange));
 
@@ -101,9 +102,63 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
                 decimal finalBalanceReal = CalculateFinalBalance();
                 doc.Add(CreateColoredParagraph($"Saldo final real: {FormatCurrency(finalBalanceReal)}", Colors.LightGray));
+                iText.Layout.Element.Table realBalanceTable = CreateRealBalanceTable();
+                doc.Add(realBalanceTable);
 
                 doc.Close();
             }
+        }
+        private iText.Layout.Element.Table CreateRealBalanceTable()
+        {
+            var denominations = new List<(string Name, decimal Value, TextBox TextBox)>
+            { ("$1000", 1000m, txt1000Bill), ("$500", 500m, txt500Bill),
+                ("$200", 200m, txt200Bill), ("$100", 100m, txt100Bill),
+                ("$50", 50m, txt50Bill), ("$20(Billete)", 20m, txt20Bill),
+                ("$20(Moneda)", 20m, txt20Coin), ("$10", 10m, txt10Coin),
+                ("$5", 5m, txt5Coin), ("$2", 2m, txt2Coin),
+                ("$1", 1m, txt1Coin), ("$0.50", 0.5m, txt50Cent)
+            };
+
+            iText.Layout.Element.Table table = new iText.Layout.Element.Table(3);
+            table.SetMaxWidth(600);
+
+            table.AddCell(CreateCellWithBackground("Denominación", Colors.LightGray));
+            table.AddCell(CreateCellWithBackground("Cantidad", Colors.LightGray));
+            table.AddCell(CreateCellWithBackground("Total", Colors.LightGray));
+
+            foreach (var denomination in denominations)
+            {
+                table.AddCell(CreateCellWithBackground(denomination.Name, Colors.White));
+                string quantityText = denomination.TextBox.Text;
+                table.AddCell(CreateCellWithBackground(quantityText, Colors.White));
+
+                decimal quantity = string.IsNullOrEmpty(quantityText) ? 0 : decimal.Parse(quantityText);
+                decimal total = quantity * denomination.Value;
+
+                table.AddCell(CreateCellWithBackground(FormatCurrency(total), Colors.LightGreen));
+            }
+
+            return table;
+        }
+
+        private string FormatCurrency(decimal amount)
+        {
+            return "$" + amount.ToString("0.00");
+        }
+
+        private iText.Layout.Element.Table CreateHeaderTable()
+        {
+            Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1 })).UseAllAvailableWidth();
+            table.SetMaxWidth(600);
+            table.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+
+            table.AddCell(new Cell().Add(new Paragraph(new Text("Italia Pizza").SetBold())));
+            table.AddCell(new Cell().Add(new Paragraph("Sucursal Xalapa")));
+            table.AddCell(new Cell().Add(new Paragraph(new Text("CORTE DE CAJA").SetBold())));
+            table.AddCell(new Cell().Add(new Paragraph($"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
+            table.AddCell(new Cell().Add(new Paragraph($"Creado por: {UserSingleton.Instance.Name}")));
+
+            return table;
         }
 
         private iText.Layout.Element.Paragraph CreateColoredParagraph(string text, System.Windows.Media.Color color)
@@ -227,11 +282,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             return totalCashout;
         }
 
-        private string FormatCurrency(decimal amount)
-        {
-            return "$" + amount.ToString("0.00");
-        }
-
         private void BtnGoBack_Click(object sender, RoutedEventArgs e)
         {
             GoBack();
@@ -248,7 +298,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             List<TextBox> moneyTextBoxes = new List<TextBox>
             {
                 txt1000Bill, txt500Bill, txt200Bill, txt100Bill, txt50Bill, txt20Bill,
-                txt20Coin, txt10Coin, tx5Coin, txt2Coin, txt1Coin, txt50Cent
+                txt20Coin, txt10Coin, txt5Coin, txt2Coin, txt1Coin, txt50Cent
             };
 
             foreach (TextBox textBox in moneyTextBoxes)
@@ -277,7 +327,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             { 
                 { txt1000Bill, 1000 }, { txt500Bill, 500 }, { txt200Bill, 200 },
                 { txt100Bill, 100 }, { txt50Bill, 50 }, { txt20Bill, 20 },
-                { txt20Coin, 20 }, { txt10Coin, 10 }, { tx5Coin, 5 },
+                { txt20Coin, 20 }, { txt10Coin, 10 }, { txt5Coin, 5 },
                 { txt2Coin, 2 }, { txt1Coin, 1 }, { txt50Cent, 0.5m }
             };
 
@@ -302,8 +352,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void CloseCashierLog(decimal finalBalanceReal)
         {
-            CashierLogDAO cashierLogDAO = new CashierLogDAO();
-            cashierLogDAO.CloseActiveCashierLog(finalBalanceReal, DateTime.Now, UserSingleton.Instance.Email);
+            _cashierReportController.CloseCashierLog(finalBalanceReal, DateTime.Now, UserSingleton.Instance.Email);
         }
 
         private void Money_PreviewTextInput(object sender, TextCompositionEventArgs e)

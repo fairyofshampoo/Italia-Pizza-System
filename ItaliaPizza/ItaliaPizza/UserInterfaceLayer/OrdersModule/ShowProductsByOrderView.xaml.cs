@@ -1,21 +1,10 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
-using System;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
@@ -25,13 +14,15 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int rowAdded = 0;
         private int columnsAdded = 0;
         private string internalOrderCode;
+        private int StatusOrder;
 
-        public ShowProductsByOrderView(string orderCode)
+        public ShowProductsByOrderView(string orderCode, int statusOrder)
         {
             InitializeComponent();
             this.internalOrderCode = orderCode;
             List<InternalOrderProduct> productsByOrder = GetProductsByOrder();
             ShowProducts(productsByOrder);
+            StatusOrder = statusOrder;
             SetElements();
         }
 
@@ -39,8 +30,14 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             if (UserSingleton.Instance.Role == Constants.CHEF_ROLE)
             {
-                btnChangeStatusToFinished.Visibility = Visibility.Visible;
-                btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                if(StatusOrder == Constants.ORDER_STATUS_PENDING_PREPARATION)
+                {
+                    btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                }
+                else if (StatusOrder == Constants.ORDER_STATUS_PREPARING)
+                {
+                    btnChangeStatusToFinished.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -54,19 +51,24 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             if (products.Any())
             {
+                for (int index = 0; index < 2; index++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = new GridLength(350);
+                    ProductsGrid.ColumnDefinitions.Add(column);
+                }
+
                 foreach (InternalOrderProduct product in products)
                 {
-                    for (int index = 0; index < 3; index++)
-                    {
-                        ColumnDefinition column = new ColumnDefinition();
-                        column.Width = new GridLength(335);
-                        ProductsGrid.ColumnDefinitions.Add(column);
-                    }
 
                     if (columnsAdded == 2)
                     {
                         columnsAdded = 0;
                         rowAdded++;
+                    }
+
+                    if (columnsAdded == 0)
+                    {
                         RowDefinition row = new RowDefinition();
                         row.Height = new GridLength(245);
                         ProductsGrid.RowDefinitions.Add(row);
@@ -90,7 +92,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<InternalOrderProduct> GetProductsByOrder()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            List<InternalOrderProduct> products = internalOrderDAO.GetAllInternalProductsByOrden(internalOrderCode);
+            List<InternalOrderProduct> products = internalOrderDAO.GetAllInternalProductsByOrder(internalOrderCode);
             return products;
         }
 
@@ -105,6 +107,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             ChangeStatusOrder(3);
             btnChangeStatusToFinished.IsEnabled = false;
+            btnChangeStatusToFinished.Visibility = Visibility.Collapsed;
         }
 
         private void ChangeStatusOrder(int status)
@@ -112,6 +115,15 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             OrderDAO internalOrderDAO = new OrderDAO();
             if (internalOrderDAO.ChangeOrderStatus(status, internalOrderCode))
             {
+                if (StatusOrder == Constants.ORDER_STATUS_PENDING_PREPARATION)
+                {
+                    btnChangeStatusToInPreparation.Visibility = Visibility.Visible;
+                }
+                else if (StatusOrder == Constants.ORDER_STATUS_PREPARING)
+                {
+                    btnChangeStatusToFinished.Visibility = Visibility.Visible;
+                }
+
                 DialogManager.ShowSuccessMessageBox("Se ha cambiado el estado de la orden correctamente");
             }
             else

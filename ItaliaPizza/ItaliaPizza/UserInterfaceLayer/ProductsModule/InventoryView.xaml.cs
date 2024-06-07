@@ -1,16 +1,16 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Interaction logic for InventoryView.xaml
-    /// </summary>
     public partial class InventoryView : Page
     {
         public InventoryView()
@@ -52,7 +52,29 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void SearchItemByName(string searchText)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.SearchSupplyByName(searchText);
+            List<Supply> supplies = new List<Supply>();
+
+            try
+            {
+             supplies = supplyDAO.SearchSupplyByName(searchText);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             ShowInventory(supplies);
         }
 
@@ -80,7 +102,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void GetAllSupplies()
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.GetAllSupplies();
+            List<Supply> supplies = new List<Supply>();
+            try
+            {
+                supplies = supplyDAO.GetAllSupplies();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
 
             if (supplies.Count > 0)
             {
@@ -96,7 +139,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void GetSupplyByStatus(bool status)
         {
             SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> supplies = supplyDAO.GetSuppliesByStatus(status);
+            List<Supply> supplies = new List<Supply>();
+
+            try
+            {
+                supplies = supplyDAO.GetSuppliesByStatus(status);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
 
             if (supplies.Count > 0)
             {

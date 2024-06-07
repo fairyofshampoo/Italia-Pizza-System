@@ -1,14 +1,12 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using ItaliaPizza.UserInterfaceLayer.Resources.DesignMaterials;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Navigation;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
 
 namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 {
@@ -19,6 +17,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     {
         private SupplierOrder SupplierOrderData;
         private SupplierOrderHistory supplierOrderHistory;
+        private readonly SupplierOrderController orderController = new SupplierOrderController();
 
         public SupplierOrderUC(SupplierOrderHistory supplierOrderHistory)
         {
@@ -120,7 +119,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             dialogWindow.SetDialogWindowData("Confirmación", "¿Ha recibido este pedido? Una vez confirmado, no es posible deshacer la acción", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
             if (dialogWindow.ShowDialog() == true)
             {
-                if (ChangeOrderToReceived())
+                if (orderController.ChangeOrderToReceived(SupplierOrderData.orderCode))
                 {
                     UpdateInventory();
                 }
@@ -133,28 +132,17 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void UpdateInventory()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            SupplyDAO supplyDAO = new SupplyDAO();
-            List<Supply> suppliesInOrder = supplyOrderDAO.GetSuppliesByOrderId(SupplierOrderData.orderCode);
 
-            foreach (Supply supply in suppliesInOrder)
+            if (orderController.UpdateInventory(SupplierOrderData.orderCode))
             {
-                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(SupplierOrderData.orderCode, supply.name);
-            }
-
-            if (supplyDAO.UpdateInventoryFromOrder(suppliesInOrder))
-            {
-                SetModificationDate(DateTime.Now);
                 DialogManager.ShowSuccessMessageBox("Se ha confirmado exitosamente su pedido y se ha actualizado el inventario");
                 SupplierOrderData.status = Constants.COMPLETE_STATUS;
                 SetStatus(Constants.COMPLETE_STATUS);
             }
-        }
-
-        private bool ChangeOrderToReceived()
-        {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            return supplyOrderDAO.UpdateStatusOrder(SupplierOrderData.orderCode, Constants.COMPLETE_STATUS);
+            else
+            {
+                DialogManager.ShowErrorMessageBox("Ocurrió un error al actualizar el inventario");
+            }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -163,7 +151,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             dialogWindow.SetDialogWindowData("Confirmación", "¿Está seguro de cancelar este pedido?", DialogWindow.DialogType.YesNo, DialogWindow.IconType.Question);
             if(dialogWindow.ShowDialog() == true)
             {
-                if (CancelOrder())
+                if (orderController.CancelOrder(SupplierOrderData.orderCode))
                 {
                     SetModificationDate(DateTime.Now);
                     DialogManager.ShowSuccessMessageBox("Se ha cancelado exitosamente su pedido");
@@ -175,12 +163,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                     DialogManager.ShowErrorMessageBox("No se ha podido cancelar su pedido. Intente nuevamente");
                 }
             }
-        }
-
-        private bool CancelOrder()
-        {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            return supplyOrderDAO.UpdateStatusOrder(SupplierOrderData.orderCode, Constants.INACTIVE_STATUS);
         }
     }
 }

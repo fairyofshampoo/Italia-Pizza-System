@@ -1,16 +1,14 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.UserInterfaceLayer.FinanceModule;
-using iText.Layout.Borders;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Globalization;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,6 +27,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> productsInDB = new List<Product>();
         private decimal totalAmount;
         private Client clientData = new Client();
+        private InternalOrdersUC internalOrdersUC;
 
         public RegisterOrderView(bool isHomeOrder)
         {
@@ -60,7 +59,10 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                 AddressDAO addressDAO = new AddressDAO();
                 ClientDAO clientDAO = new ClientDAO();
                 addressComboBox.Visibility = Visibility.Visible;
-                addressComboBox.SelectedValue = addressDAO.GetAddressById(order.addressId ?? 0);
+                Address address = addressDAO.GetAddressById(order.addressId ?? 0);
+                addressComboBox.ItemsSource = new List<Address> { address };
+                addressComboBox.DisplayMemberPath = "street";
+                addressComboBox.SelectedIndex = 0;
                 addressComboBox.IsEnabled = false;
                 lblName.Text = clientDAO.GetClientName(order.clientEmail);
             } else
@@ -120,7 +122,28 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void SetAddressInComboBox()
         {
             AddressDAO addressDAO = new AddressDAO();
-            List<Address> addresses = addressDAO.GetAddressesByClient(clientData.email);
+            List<Address> addresses = new List<Address>();
+            try
+            {
+                addresses = addressDAO.GetAddressesByClient(clientData.email);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
 
             if (addresses.Any())
             {
@@ -135,7 +158,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private List<Product> GetProducts()
         {
             ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.GetAllProducts();
+            List<Product> products = productDAO.GetAllAvailableProducts();
             return products;
         }
 
@@ -155,14 +178,34 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             }
 
             OrderDAO orderDAO = new OrderDAO();
-            if (orderDAO.AddOrder(order))
+            try
             {
-                ShowProducts(products);
+                if (orderDAO.AddOrder(order))
+                {
+                    ShowProducts(products);
+                }
+                else
+                {
+                    DialogManager.ShowDataBaseErrorMessageBox();
+                }
             }
-            else
+            catch (SqlException)
             {
-                DialogManager.ShowDataBaseErrorMessageBox();
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
             }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void SetInternalOrderElements()
@@ -235,19 +278,23 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             if (products.Any())
             {
+                for (int index = 0; index < 2; index++)
+                {
+                    ColumnDefinition column = new ColumnDefinition();
+                    column.Width = new GridLength(350);
+                    ProductsGrid.ColumnDefinitions.Add(column);
+                }
+
                 foreach (Product product in products)
                 {
-                    for (int index = 0; index < 3; index++)
-                    {
-                        ColumnDefinition column = new ColumnDefinition();
-                        column.Width = new GridLength(335);
-                        ProductsGrid.ColumnDefinitions.Add(column);
-                    }
-
                     if (columnsAdded == 2)
                     {
                         columnsAdded = 0;
                         rowAdded++;
+                    }
+
+                    if (columnsAdded == 0)
+                    {
                         RowDefinition row = new RowDefinition();
                         row.Height = new GridLength(245);
                         ProductsGrid.RowDefinitions.Add(row);
@@ -256,7 +303,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                     AddProduct(product);
                 }
             }
-
         }
 
         private void AddProduct(Product product)
@@ -271,6 +317,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
             columnsAdded++;
         }
 
+
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CancelOrder();
@@ -278,14 +325,54 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void CancelOrder()
         {
-            OrderDAO orderDAO = new OrderDAO();
-            orderDAO.CancelOrder(orderCode);
-            NavigationService.GoBack();
+            try
+            {
+                OrderDAO orderDAO = new OrderDAO();
+                orderDAO.CancelOrder(orderCode);
+                NavigationService.GoBack();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
         }
         private void SaveOrder()
         {
             OrderDAO orderDAO = new OrderDAO();
-            int status = orderDAO.SaveInternalOrder(orderCode);
+            int status = 0;
+            try
+            {
+                status = orderDAO.SaveInternalOrder(orderCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             if (status == 1)
             {
                 DialogManager.ShowSuccessMessageBox("Se ha registrado exitosamente su pedido");
@@ -298,8 +385,29 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnSaveOrder_Click(object sender, RoutedEventArgs e)
         {
-            SaveOrder();
-            NavigationService.GoBack();
+            if (isHomeOrder)
+            {
+                if(addressComboBox.SelectedItem == null)
+                {
+                    DialogManager.ShowErrorMessageBox("Seleccione una dirección para el pedido");
+                } else
+                {
+                    SaveAddressInOrder();
+                    SaveOrder();
+                    NavigationService.GoBack();
+                }
+            } else
+            {
+                SaveOrder();
+                NavigationService.GoBack();
+            }
+        }
+
+        private void SaveAddressInOrder()
+        {
+            Address address = (Address)addressComboBox.SelectedItem;
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.UpdateInternalOrderAddress(orderCode, address.addressId);
         }
 
         public void RemoveProduct(Product product, ProductRemoveUC productRemoveUC)

@@ -1,6 +1,7 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.UserInterfaceLayer.Controllers;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
     /// </summary>
     public partial class SupplyOrderView : Page
     {
+        SupplierOrderController _supplierOrderController = new SupplierOrderController();
         private Supplier supplierData;
         private Dictionary<string, SupplyOrderRemoveUC> suppliesDictionary = new Dictionary<string, SupplyOrderRemoveUC>();
         private List<Supply> suppliesInDB = new List<Supply>();
@@ -64,12 +66,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void SetOrderSupplies()
         {
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-            suppliesInDB = supplyOrderDAO.GetSuppliesByOrderId(this.OrderId);
-
+            suppliesInDB = _supplierOrderController.GetSuppliesInOrder(OrderId);
             foreach (Supply supply in suppliesInDB)
             {
-                supply.amount = supplyOrderDAO.GetOrderedQuantityBySupplierOrderId(OrderId, supply.name);
+                supply.amount = _supplierOrderController.GetAmountOfSupplyInOrder(supply.name, OrderId);
                 AddSupplyToResume(supply);
             }
         }
@@ -188,29 +188,22 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             bool result = true;
 
-
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-
             foreach (string item in suppliesDictionary.Keys)
             {
 
                 decimal amountDecimal = (decimal)suppliesDictionary[item].supplyData.amount;
 
-                if (supplyOrderDAO.IsSupplyAlreadyInOrder(item, OrderId))
+                if (_supplierOrderController.UpdateSuppliesInOrder(item, OrderId, amountDecimal))
                 {
-                    supplyOrderDAO.UpdateSupplyAmountInOrder(amountDecimal, OrderId, item);
-
-                } else
-                {
-                    if (!supplyOrderDAO.AddSupplyToOrder(item, OrderId, amountDecimal))
-                    {
-                        result = false;
-                        break;
-                    }
+                    result = false;
+                    break;
                 }
             }
 
-            result = UpdateRemovingSupplies() && RegisterPayment();
+            if (result)
+            {
+                result = UpdateRemovingSupplies() && RegisterPayment();
+            }
 
             return result;
         }
@@ -219,15 +212,13 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             bool result = true;
 
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-
             foreach (Supply supplyDB in suppliesInDB)
             {
                 string itemName = supplyDB.name;
 
                 if (!suppliesDictionary.ContainsKey(itemName))
                 {
-                    if(!supplyOrderDAO.DeleteSupplyFromOrder(itemName, OrderId))
+                    if(!_supplierOrderController.UpdateRemovingSuppliesInOrder(itemName, OrderId))
                     {
                         result = false;
                         break;
@@ -251,11 +242,10 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool RegisterPayment()
         {
             bool result = true;
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
 
             if (decimal.TryParse(txtTotalPayment.Text, out decimal totalPayment))
             {
-                if (!supplyOrderDAO.UpdateStatusOrderAndPayment(OrderId, Constants.ACTIVE_STATUS, totalPayment))
+                if (!_supplierOrderController.RegisterPayment(totalPayment, OrderId))
                 {
                     result = false;
                 }
@@ -282,8 +272,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         private bool IsTotalPaymentValid()
         {
             bool result = true;
-            string totalPayment = txtTotalPayment.Text;
-            if (!Validations.IsTotalPaymentValid(totalPayment))
+            if (!_supplierOrderController.ValidateTotalPayment(txtTotalPayment.Text))
             {
                 lblTotalPayment.Foreground = Brushes.Red;
                 result = false;
@@ -296,19 +285,20 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
         {
             bool result = true;
 
-            SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-
             foreach (string item in suppliesDictionary.Keys)
             {
                 decimal amountDecimal = (decimal)suppliesDictionary[item].supplyData.amount;
-                if (!supplyOrderDAO.AddSupplyToOrder(item, OrderId, amountDecimal))
+                if (!_supplierOrderController.AddSupplyToOrder(item, OrderId, amountDecimal))
                 {
                     result = false;
                     break;
                 }
             }
 
-            result = RegisterPayment();
+            if (result)
+            {
+                result = RegisterPayment();
+            }
 
             return result;
         }
@@ -326,8 +316,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
                 NavigationService.GoBack();
             } else
             {
-                SupplyOrderDAO supplyOrderDAO = new SupplyOrderDAO();
-                if (supplyOrderDAO.DeleteSupplierOrder(this.OrderId))
+                if (_supplierOrderController.DeleteSupplierOrder(OrderId))
                 {
                     NavigationService.GoBack();
                 }
@@ -387,8 +376,7 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
 
         private void GenerateSupplierOrder()
         {
-            SupplyOrderDAO supplierDAO = new SupplyOrderDAO();
-            int result = supplierDAO.AddSupplierOrder(SetNewSupplierOrder());
+            int result = _supplierOrderController.CreateSupplierOrder(supplierData.email);
             if(result != Constants.UNSUCCESSFUL_RESULT || result != Constants.EXCEPTION_RESULT)
             {
                 this.OrderId = result;
@@ -396,21 +384,6 @@ namespace ItaliaPizza.UserInterfaceLayer.FinanceModule
             {
                 DialogManager.ShowDataBaseErrorMessageBox();
             }
-        }
-
-        private SupplierOrder SetNewSupplierOrder()
-        {
-            DateTime currentDateTime = DateTime.Now;
-            SupplierOrder newSupplierOrder = new SupplierOrder()
-            {
-                status = Constants.INACTIVE_STATUS,
-                date = currentDateTime,
-                total = 0,
-                modificationDate = currentDateTime,
-                supplierId = supplierData.email,
-            };
-
-            return newSupplierOrder;
         }
 
         private void TxtTotalPaymentChanged(object sender, TextChangedEventArgs e)

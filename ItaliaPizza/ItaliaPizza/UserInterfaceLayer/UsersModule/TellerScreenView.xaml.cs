@@ -1,23 +1,15 @@
-﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer.DAO.Interface;
-using ItaliaPizza.UserInterfaceLayer.FinanceModule;
+﻿using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -89,7 +81,27 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             List<Client> lastClients = new List<Client>();
             ClientDAO clientDAO = new ClientDAO();
-            lastClients = clientDAO.GetLastClientsRegistered();
+            try
+            {
+                lastClients = clientDAO.GetLastClientsRegistered();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return lastClients;
         }
 
@@ -141,15 +153,57 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void SearchByPhoneNumber(string phoneNumber)
         {
+            List<Client> clients = new List<Client>();
             ClientDAO clientDAO = new ClientDAO();
-            List<Client> clients = clientDAO.GetClientsByPhone(phoneNumber);
+            try
+            {
+                clients = clientDAO.GetClientsByPhone(phoneNumber);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             ShowClients(clients);
         }
 
         private void SearchByAddress(string address)
         {
+            List<Client> clients = new List<Client>();
             ClientDAO clientDAO = new ClientDAO();
-            List<Client> clients = clientDAO.GetClientsByAddress(address);
+            try
+            {
+               clients = clientDAO.GetClientsByAddress(address);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             if (!clients.Any())
             {
                 searchFlag = 1;
@@ -159,9 +213,31 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 
         private void SearchByName(string name)
         {
+            List<Client> clients = new List<Client>();
             ClientDAO clientDAO = new ClientDAO();
-            List<Client> clients = clientDAO.GetClientsByName(name);
-            if(!clients.Any())
+            
+            try
+            {
+                clients = clientDAO.GetClientsByName(name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            if (!clients.Any())
             {
                 searchFlag = 0;
             }

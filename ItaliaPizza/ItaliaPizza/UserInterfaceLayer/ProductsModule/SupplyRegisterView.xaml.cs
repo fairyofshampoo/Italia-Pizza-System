@@ -1,6 +1,6 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,9 +20,6 @@ using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para SupplyRegister.xaml
-    /// </summary>
     public partial class SupplyRegister : Page
     {
         public SupplyRegister()
@@ -111,7 +108,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 validateFields = false;
             }
 
-            if (txtAmount.Text.Equals(string.Empty) || !Decimal.TryParse(txtAmount.Text, out amount) || amount < 0)
+            if (txtAmount.Text.Equals(string.Empty) || !Decimal.TryParse(txtAmount.Text, out amount) || amount <= 0)
             {
                 txtAmount.BorderBrush = Brushes.Red;
                 txtAmount.BorderThickness = new Thickness(2);

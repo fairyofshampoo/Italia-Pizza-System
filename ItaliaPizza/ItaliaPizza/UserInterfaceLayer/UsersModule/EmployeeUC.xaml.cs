@@ -1,26 +1,17 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Lógica de interacción para EmployeeUC.xaml
-    /// </summary>
+
     public partial class EmployeeUC : UserControl
     {
         private Employee employeeData;
@@ -37,9 +28,33 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
             lblFullName.Content = employee.name;
             lblEmployeeType.Content = employee.role;
             lblEmail.Content = employee.email;
-
+            Account account = new Account();
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            Account account = employeeDAO.GetEmployeeAccountByEmail(employee.email);
+
+            try
+            {
+                account = employeeDAO.GetEmployeeAccountByEmail(employee.email);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (ArgumentException)
+            {
+                ApplicationLayer.DialogManager.ShowArgumentExceptionMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
 
             if (account.status == Constants.INACTIVE_STATUS)
             {

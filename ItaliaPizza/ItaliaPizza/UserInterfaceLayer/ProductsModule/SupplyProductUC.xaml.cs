@@ -1,5 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
 using System;
 using System.Collections.Generic;
@@ -19,9 +19,6 @@ using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Interaction logic for SupplyProductCardUC.xaml
-    /// </summary>
     public partial class SupplyProductCardUC : UserControl
     {
         public InventoryView InventoryView { get; set; }

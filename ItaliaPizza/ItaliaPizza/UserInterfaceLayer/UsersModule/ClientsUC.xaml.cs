@@ -1,21 +1,13 @@
-﻿using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+﻿using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.OrdersModule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
@@ -28,8 +20,8 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         public ClientsUC()
         {
             InitializeComponent();
-
         }
+
         public void SetDataCards(Client client)
         {
             ClientData = client;
@@ -42,7 +34,33 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                 lblFullName.Foreground = Brushes.Red;
             }
 
-            Address fullAddress = addressDAO.GetClientAddress(client.email);
+            string street = " ";
+            try
+            {
+                Address fullAddress = addressDAO.GetClientAddress(client.email);
+                if (fullAddress != null) 
+                {
+                    street = fullAddress.street;
+                }
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            lblAddress.Content = street;
         }
 
         private void BtnEditClient_Click(object sender, RoutedEventArgs e)

@@ -1,13 +1,15 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.ApplicationLayer.Management;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
@@ -29,6 +31,51 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             lblProductName.Content = product.name;
             ProductData = product;
+            SetProductImage();
+        }
+
+        private void SetProductImage()
+        {
+            ProductData.picture = LoadProductImage(ProductData.productCode);
+            if(ProductData.picture != null)
+            {
+                imgProduct.Source = ConvertToBitMapImage(ProductData.picture);
+            } 
+        }
+
+        public static BitmapImage ConvertToBitMapImage(byte[] bytesChain)
+        {
+            var image = new BitmapImage();
+            using (var stream = new MemoryStream(bytesChain))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
+            }
+            return image;
+        }
+        private byte[] LoadProductImage(string productCode)
+        {
+            ImageCacheManager imageCacheManager = new ImageCacheManager();
+            if (imageCacheManager.IsImageCached(productCode))
+            {
+                return imageCacheManager.LoadImageFromCache(productCode);
+            }
+            else
+            {
+                byte[] imageData = LoadImageFromDatabase(productCode);
+                imageCacheManager.SaveImageToCache(productCode, imageData);
+                return imageData;
+            }
+        }
+
+        private byte[] LoadImageFromDatabase(string productCode)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            byte[] image = productDAO.GetImageByProduct(productCode);
+            return image;
         }
 
         private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -104,28 +151,116 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private int GetRecipeByProduct()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
+            int recipeId = new int();
+            try
+            { 
+                recipeId = internalOrderDAO.GetRecipeIdByProduct(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return recipeId;
         }
 
         private int GetNumberOfProducts(int recipeId)
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);  
+            int numberOfProducts = new int();
+            try
+            {
+                numberOfProducts = internalOrderDAO.GetMaximumProductsPosible(recipeId);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return numberOfProducts;
         }
 
         private int GetNumberOfProductsOnHold()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            int productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
+            int productsOnHold = new int();
+            try
+            {
+                productsOnHold = internalOrderDAO.GetNumberOfProductsOnHold(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return productsOnHold;
         }
 
         private bool GetCountOfProduct()
         {
             OrderDAO internalOrderDAO = new OrderDAO();
-            bool areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+
+            bool areThereAnyRegister = false;
+            
+            try
+            {
+                areThereAnyRegister = internalOrderDAO.GetCounterOfProduct(ProductData.productCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return areThereAnyRegister;
         }
 
@@ -145,28 +280,90 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         {
             OrderDAO internalOrderDAO = new OrderDAO();
             InternalOrderProduct internalOrderProduct = CreateInternalOrderProduct();
-            if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
+            
+            try
             {
-                ProductData.amount = 1;
-                RegisterInternalOrderView.AddProduct(ProductData, this);
+                if (internalOrderDAO.AddInternalOrderProduct(internalOrderProduct))
+                {
+                    ProductData.amount = 1;
+                    RegisterInternalOrderView.AddProduct(ProductData, this);
+                }
+                else
+                {
+                    DialogManager.ShowErrorMessageBox("No se ha podido agregar el produto a la orden. Intente nuevamente");
+                }
             }
-            else
+            catch (SqlException)
             {
-                DialogManager.ShowErrorMessageBox("No se ha podido agregar el produto a la orden. Intente nuevamente");
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
             }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
-        private void IncreaseAmount()
+        private void IncreaseAmount() //Edición 
         {
-            OrderDAO orderDAO = new OrderDAO();
-            orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
-            RegisterInternalOrderView.IncreaseProductAmount(ProductData);
+            try
+            {
+                OrderDAO orderDAO = new OrderDAO();
+                orderDAO.IncreaseAmount(ProductData.productCode, InternalOrderCode);
+                RegisterInternalOrderView.IncreaseProductAmount(ProductData);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
-        private bool IsRegisterInDB ()
+        private bool IsRegisterInDB () //Edición
         {
             OrderDAO orderDAO = new OrderDAO();
-            bool isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            bool isRegister = false;
+            try
+            {
+                isRegister = orderDAO.IsRegisterInDatabase(ProductData.productCode, InternalOrderCode);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return isRegister;
         }
 
@@ -182,7 +379,5 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
             return newOrderProduct;
         }
-
-
     }
 }

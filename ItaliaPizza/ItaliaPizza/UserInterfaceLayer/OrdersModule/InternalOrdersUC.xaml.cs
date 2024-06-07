@@ -1,7 +1,10 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,7 +13,7 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
     public partial class InternalOrdersUC : UserControl
     {
         public Page PageView { get; set; }
-        private InternalOrder orderData;
+        public InternalOrder orderData;
         private bool isWaiter;
 
         public InternalOrdersUC()
@@ -21,7 +24,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         public void ShowInternalOrderDataByWaiter(InternalOrder order)
         {
             DisplayOrderInformation(order);
-            Console.WriteLine("ESTADO" + order.status);
             isWaiter = true;
             UpdateStatusUI(order.status);
             txtName.Text = UserSingleton.Instance.Name;
@@ -40,7 +42,6 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private void DisplayOrderInformation(InternalOrder order)
         {
             lblOrderNumber.Content = "Número del pedido: " + order.internalOrderId;
-            lblTotal.Text = "$ " + order.total.ToString("0.00");
             lblDate.Text = "Creado: " + order.date.ToString("dd/MM/yyyy HH:mm");
             lblStatus.Content = GetOrderStatusDescription(order.status);
         }
@@ -48,7 +49,30 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
         private string GetClientName(string clientEmail)
         {
             ClientDAO clientDAO = new ClientDAO();
-            return clientDAO.GetClientName(clientEmail);
+            string result = null;
+            try
+            {
+                result = clientDAO.GetClientName(clientEmail);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
+            return result ;
         }
 
         private string GetOrderStatusDescription(int status)
@@ -63,6 +87,8 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
                     return "Enviado";
                 case Constants.ORDER_STATUS_DELIVERED:
                     return "Recibido";
+                case Constants.ORDER_STATUS_PREPARING:
+                    return "Preparando";
                 default:
                     return "Estado desconocido";
             }
@@ -124,31 +150,90 @@ namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 
         private void BtnViewDetails_Click(object sender, RoutedEventArgs e)
         {
-            ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId);
+            ShowProductsByOrderView showProductsByOrderView = new ShowProductsByOrderView(orderData.internalOrderId, orderData.status);
             PageView.NavigationService.Navigate(showProductsByOrderView);
         }
 
         private void BtnReceived_Click(object sender, RoutedEventArgs e)
         {
             OrderDAO orderDAO = new OrderDAO();
-            if(orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_DELIVERED, orderData.internalOrderId))
+            try
             {
-                UpdateStatusUI(Constants.ORDER_STATUS_DELIVERED);
+                if (orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_DELIVERED, orderData.internalOrderId))
+                {
+                    UpdateStatusUI(Constants.ORDER_STATUS_DELIVERED);
+                }
             }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             OrderDAO orderDAO = new OrderDAO();
-            orderDAO.CancelOrder(orderData.internalOrderId);
+            try
+            {
+                orderDAO.CancelOrder(orderData.internalOrderId);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
         }
 
         private void BtnSent_Click(object sender, RoutedEventArgs e)
         {
             OrderDAO orderDAO = new OrderDAO();
-            if (orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_SENT, orderData.internalOrderId))
+            try
             {
-                UpdateStatusUI(Constants.ORDER_STATUS_SENT);
+                if (orderDAO.ChangeOrderStatus(Constants.ORDER_STATUS_SENT, orderData.internalOrderId))
+                {
+                    UpdateStatusUI(Constants.ORDER_STATUS_SENT);
+                }
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
             }
         }
     }

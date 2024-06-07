@@ -1,28 +1,20 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
-using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.UsersModule
 {
-    /// <summary>
-    /// Lógica de interacción para EmployeesView.xaml
-    /// </summary>
     public partial class EmployeesView : Page
     {
         private int rowsAdded = 0;
@@ -115,7 +107,28 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         {
             List<Employee> lastEmployees = new List<Employee>();
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            lastEmployees = employeeDAO.GetLastEmployeesRegistered();
+
+            try
+            { 
+                lastEmployees = employeeDAO.GetLastEmployeesRegistered();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return lastEmployees;
         }
 
@@ -135,14 +148,56 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void SearchEmployeeByName(string name)
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            List<Employee> employees = employeeDAO.GetEmployeesByName(name);
+            List<Employee> employees = new List<Employee>();
+            try
+            {
+                employees = employeeDAO.GetEmployeesByName(name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
             ShowEmployees(employees);
         }
 
         private void SearchEmployeeByStatus(int status)
         {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            List<Employee> employees = employeeDAO.GetEmployeesByStatus(status);
+            List<Employee> employees = new List<Employee>();
+
+            try
+            {
+                employees = employeeDAO.GetEmployeesByStatus(status);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             ShowEmployees(employees);
         }
     }

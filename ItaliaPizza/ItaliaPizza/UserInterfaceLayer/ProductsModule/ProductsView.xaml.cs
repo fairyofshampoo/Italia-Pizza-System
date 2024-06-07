@@ -1,28 +1,20 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.FinanceModule;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para ProductsView.xaml
-    /// </summary>
     public partial class ProductsView : Page
     {
         private int rowsAdded = 0;
@@ -112,9 +104,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 
         private List<Product> GetLastProducts()
         {
-            List<Product> lastProducts;
+            List<Product> lastProducts = new List<Product>();
             ProductDAO productDAO = new ProductDAO();
-            lastProducts = productDAO.GetLastProductsRegistered();
+            try
+            {
+                lastProducts = productDAO.GetLastProductsRegistered();
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
             return lastProducts;
         }    
         
@@ -134,7 +145,29 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         private void SearchProductByName(string name)
         {
             ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.SearchProductByName(name);
+            List<Product> products = new List<Product>();
+            try
+            {
+                products = productDAO.SearchProductByName(name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             ShowProducts(products);
         }
 

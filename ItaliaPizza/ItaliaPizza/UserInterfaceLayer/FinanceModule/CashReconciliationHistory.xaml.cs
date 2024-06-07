@@ -1,10 +1,9 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using ItaliaPizza.DataLayer.DAO.Interface;
 using ItaliaPizza.UserInterfaceLayer.ProductsModule;
 using ItaliaPizza.UserInterfaceLayer.UsersModule;
 

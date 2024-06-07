@@ -1,5 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ItaliaPizza.UserInterfaceLayer.ProductsModule;
-using ItaliaPizza.DataLayer.DAO.Interface;
 using ItaliaPizza.ApplicationLayer;
 using iText.Layout.Borders;
 

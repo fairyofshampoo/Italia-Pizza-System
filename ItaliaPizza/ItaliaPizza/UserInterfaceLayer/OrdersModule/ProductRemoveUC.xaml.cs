@@ -1,5 +1,5 @@
-﻿using ItaliaPizza.DataLayer.DAO;
-using ItaliaPizza.DataLayer;
+﻿using ItaliaPizzaData.DataLayer.DAO;
+using ItaliaPizzaData.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,6 @@ using ItaliaPizza.ApplicationLayer;
 
 namespace ItaliaPizza.UserInterfaceLayer.OrdersModule
 {
-    /// <summary>
-    /// Interaction logic for ProductRemoveUC.xaml
-    /// </summary>
     public partial class ProductRemoveUC : UserControl
     {
         public Product ProductData { get; set; }

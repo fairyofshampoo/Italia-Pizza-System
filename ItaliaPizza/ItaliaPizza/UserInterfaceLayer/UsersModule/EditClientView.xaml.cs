@@ -1,7 +1,10 @@
-﻿using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+﻿using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,21 +69,41 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
         private void ChangeStatus(int status)
         {
             ClientDAO clientDAO = new ClientDAO();
-            if (clientDAO.ChangeStatusClient(emailClient, status))
+            try
             {
-                if(status == 0)
+                if (clientDAO.ChangeStatusClient(emailClient, status))
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha deshabilitado al usuario");
-                    ShowDisableClient();
-                } else
+                    if (status == 0)
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha deshabilitado al usuario");
+                        ShowDisableClient();
+                    }
+                    else
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha habilitado al usuario");
+                        ShowEnableClient();
+                    }
+                }
+                else
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha habilitado al usuario");
-                    ShowEnableClient();
+                    ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido realizar el cambios, inténtelo más tarde");
                 }
             }
-            else
+            catch (SqlException)
             {
-                ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido realizar el cambios, inténtelo más tarde");
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
             }
         }
 
@@ -96,10 +119,33 @@ namespace ItaliaPizza.UserInterfaceLayer.UsersModule
                     email = txtEmail.Text,
                 };
                 ClientDAO clientDAO = new ClientDAO();
-                if (clientDAO.EditDataClient(client))
+                try
                 {
-                    ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la información del cliente");
-                    NavigationService.GoBack();
+                    if (clientDAO.EditDataClient(client))
+                    {
+                        ApplicationLayer.DialogManager.ShowSuccessMessageBox("Se ha editado la información del cliente");
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        ApplicationLayer.DialogManager.ShowErrorMessageBox("No se ha podido editar la información del cliente");
+                    }
+                }
+                catch (SqlException)
+                {
+                    ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+                }
+                catch (DbUpdateException)
+                {
+                    ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+                }
+                catch (EntityException)
+                {
+                    ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+                }
+                catch (InvalidOperationException)
+                {
+                    ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
                 }
             }
         }

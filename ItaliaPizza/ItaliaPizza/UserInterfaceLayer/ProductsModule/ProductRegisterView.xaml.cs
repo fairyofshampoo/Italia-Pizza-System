@@ -1,31 +1,22 @@
 ﻿using ItaliaPizza.ApplicationLayer;
-using ItaliaPizza.DataLayer;
-using ItaliaPizza.DataLayer.DAO;
+using ItaliaPizza.ApplicationLayer.Utilities;
+using ItaliaPizzaData.DataLayer;
+using ItaliaPizzaData.DataLayer.DAO;
 using ItaliaPizza.UserInterfaceLayer.KitchenModule;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
 {
-    /// <summary>
-    /// Lógica de interacción para ProductRegisterView.xaml
-    /// </summary>
     public partial class ProductRegisterView : Page
     {
         public ProductRegisterView()
@@ -92,16 +83,38 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             Product product = GetProductData();
             Supply supply = GetSupplyData(product);
             ProductDAO productDAO = new ProductDAO();
-            return productDAO.AddProductExternal(product, supply);
+            
+            bool result = false;
+
+            try
+            {
+                result = productDAO.AddProductExternal(product, supply);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+            return result;
         }
 
         private Supply GetSupplyData(Product productData)
         {
-            SupplierAreaDAO supplierAreaDAO = new SupplierAreaDAO();
-
             string name = productData.name;
             decimal amount = (decimal)productData.amount;
-            int category = supplierAreaDAO.GetSupplyAreaIdByName("Producto Externo");
+            int category = Constants.EXTERNAL_PRODUCT_SUPPLY_AREA_ID;
             string measurementUnit = "Unidad";
             string productCode = productData.productCode;
             bool status;
@@ -135,6 +148,8 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
             decimal price = Decimal.Parse(txtPrice.Text);
             string description = txtDescription.Text;
             byte[] picture = GenerateImageBytes();
+            ImageOptimizationManager optimizationManager = new ImageOptimizationManager();
+            byte[] optimizedPicture = optimizationManager.OptimizeImage(picture, 50, 800);
 
             string isExternalItem = cmbIsExternal.SelectedItem.ToString();
             string statusItem = cmbStatus.SelectedItem.ToString();
@@ -169,7 +184,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 isExternal = isExternal,
                 name = name,
                 price = price,
-                picture = picture
+                picture = optimizedPicture
             };
 
             return product;
@@ -212,7 +227,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 txtCode.IsEnabled = false;
                 txtCode.Text = GenerateProductCode();
 
-                txtAmount.Text = "0";
+                txtAmount.Text = "1";
                 txtAmount.IsEnabled = false;
             }
 
@@ -286,7 +301,28 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             ProductDAO productDAO = new ProductDAO();
             string code = txtCode.Text;
-            bool isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            bool isCodeAlreadyExisting = false;
+            try
+            {
+                isCodeAlreadyExisting = productDAO.IsCodeExisting(code);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
             return isCodeAlreadyExisting;
         }
 
@@ -294,7 +330,29 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
         {
             RecipeDAO recipeDAO = new RecipeDAO();
             string name = txtName.Text;
-            bool isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            bool isInternalProductRecipeExisting = false;
+            try
+            {
+                isInternalProductRecipeExisting = recipeDAO.AlreadyExistRecipe(name);
+            }
+            catch (SqlException)
+            {
+                ApplicationLayer.DialogManager.ShowDataBaseErrorMessageBox();
+            }
+            catch (DbUpdateException)
+            {
+                ApplicationLayer.DialogManager.ShowDBUpdateExceptionMessageBox();
+            }
+            catch (EntityException)
+            {
+                ApplicationLayer.DialogManager.ShowEntityExceptionMessageBox();
+            }
+            catch (InvalidOperationException)
+            {
+                ApplicationLayer.DialogManager.ShowInvalidOperationExceptionMessageBox();
+            }
+
+
             return isInternalProductRecipeExisting;
         }
 
@@ -328,7 +386,7 @@ namespace ItaliaPizza.UserInterfaceLayer.ProductsModule
                 validateFields = false;
             }
 
-            if (txtAmount.Text.Equals(string.Empty) || (!Int32.TryParse(txtAmount.Text, out amountValue)) || amountValue < 0)
+            if (txtAmount.Text.Equals(string.Empty) || (!Int32.TryParse(txtAmount.Text, out amountValue)) || amountValue <= 0)
             {
                 txtAmount.BorderBrush = Brushes.Red;
                 txtAmount.BorderThickness = new Thickness(2);
