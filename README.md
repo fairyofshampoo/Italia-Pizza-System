@@ -45,6 +45,10 @@ Los credenciales para acceder son:
     -username: lalin
     -password: @Michelle1
 
+    **MESERO**
+    -username: monisss
+    -password: Monita1
+
     **COCINERO**
     -username: mirinda
     -password: @Michelle1
