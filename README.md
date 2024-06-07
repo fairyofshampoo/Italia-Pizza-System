@@ -37,9 +37,13 @@ git clone https://github.com/fairyofshampoo/ItaliaPizzaManagementSystem.git
 
 Los credenciales para acceder son:
 
+    **MESERO**
+    -username: monisss
+    -password: @Michelle1
+
     **GERENTE**
     -username: lalin
-    -password: Eduardo1
+    -password: @Michelle1
 
     **MESERO**
     -username: monisss
@@ -47,11 +51,11 @@ Los credenciales para acceder son:
 
     **COCINERO**
     -username: mirinda
-    -password: Mirinda1
+    -password: @Michelle1
 
     **CAJERO**
     -username: michi
-    -password: Michelle1
+    -password: @Michelle1
 
 - Este proyecto se desarrolla como parte de un curso de desarrollo de software.
-- Última actualización: [21/05/2024]
+- Última actualización: [06/06/2024]
