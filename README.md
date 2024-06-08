@@ -47,7 +47,7 @@ Los credenciales para acceder son:
 
     **MESERO**
     -username: monisss
-    -password: Monita1
+    -password: @Michelle1
 
     **COCINERO**
     -username: mirinda
